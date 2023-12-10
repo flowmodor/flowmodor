@@ -81,18 +81,20 @@ export default function Timer() {
       />
       <div className="flex gap-5">
         <Button
+          type="button"
           variant="flat"
           isIconOnly
           className="bg-[#3F3E55]"
-          onClick={() => setShowTime(!showTime)}
+          onPress={() => setShowTime(!showTime)}
         >
           {showTime ? <Hide /> : <Show />}
         </Button>
         <Button
+          type="button"
           variant="flat"
           isIconOnly
           className="bg-[#3F3E55]"
-          onClick={toggleTimer}
+          onPress={toggleTimer}
         >
           {isRunning ? <Stop /> : <Play />}
         </Button>
