@@ -6,7 +6,6 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Flowmodor',
-  description: 'A simple Flowmodoro timer',
 };
 
 export default function RootLayout({
@@ -17,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} h-screen bg-[#111111] text-white dark`}
+        className={`${inter.className} h-screen bg-[#23223C] text-white dark`}
       >
         {children}
       </body>

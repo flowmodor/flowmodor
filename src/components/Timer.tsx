@@ -74,19 +74,26 @@ export default function Timer() {
           </div>
         }
         classNames={{
-          svg: 'w-80 h-80 text-[#41D1FF]',
+          svg: 'w-80 h-80 text-primary',
+          track: 'stroke-[#3F3E55]',
           value: 'text-5xl font-semibold',
         }}
       />
       <div className="flex gap-5">
         <Button
-          variant="solid"
+          variant="flat"
           isIconOnly
+          className="bg-[#3F3E55]"
           onClick={() => setShowTime(!showTime)}
         >
           {showTime ? <Hide /> : <Show />}
         </Button>
-        <Button variant="solid" isIconOnly onClick={toggleTimer}>
+        <Button
+          variant="flat"
+          isIconOnly
+          className="bg-[#3F3E55]"
+          onClick={toggleTimer}
+        >
           {isRunning ? <Stop /> : <Play />}
         </Button>
       </div>
