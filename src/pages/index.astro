@@ -1,0 +1,24 @@
+---
+import '@fontsource-variable/inter';
+import Navbar from '../components/Navbar'
+import Hero from '../components/Hero'
+import Waitlist from '../components/Waitlist'
+import Footer from '../components/Footer'
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="icon" href="/favicon.ico" />
+	</head>
+	<body class="bg-[#23223C] text-white font-sans">
+    <Navbar />
+		<main class="flex flex-col items-center">
+      <Hero />
+      <Waitlist />
+      <Footer />
+		</main>
+	</body>
+</html>
