@@ -2,6 +2,7 @@
 import '@fontsource-variable/inter';
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
+import Features from '../components/Features'
 import Waitlist from '../components/Waitlist'
 import Footer from '../components/Footer'
 ---
@@ -19,6 +20,7 @@ import Footer from '../components/Footer'
     <Navbar />
 		<main class="flex flex-col items-center">
       <Hero />
+      <Features client:load />
       <Waitlist />
       <Footer />
 		</main>
