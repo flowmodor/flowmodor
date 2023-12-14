@@ -20,7 +20,7 @@ export default function Hero() {
       </a>
       <img
         src="/phone.png"
-        className="absolute bottom-0 translate-y-32 w-48 sm:w-64 left-[20%] lg:left-1/4 z-10"
+        className="absolute bottom-0 translate-y-44 w-48 sm:w-64 left-[20%] lg:left-1/4 z-10"
       />
       <img
         src="/laptop.png"
