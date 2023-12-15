@@ -1,3 +1,5 @@
+import { Down } from "./Icons";
+
 export default function Hero() {
   return (
     <div
@@ -33,6 +35,12 @@ export default function Hero() {
         src="/mock.png"
         className="hidden xl:block w-[40rem] flex-shrink-0"
       />
+      <a
+        href="#features"
+        className="absolute cursor-pointer bottom-5 rounded-full animate-bounce"
+      >
+        <Down />
+      </a>
     </div>
   );
 }

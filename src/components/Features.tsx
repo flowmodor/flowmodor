@@ -1,6 +1,6 @@
 export default function Features() {
   return (
-    <div className="flex flex-col items-center w-full px-3">
+    <div id="features" className="flex flex-col items-center w-full px-3">
       <div className="mt-48 flex flex-col lg:flex-row items-center gap-10">
         <img src="/timer.png" className="w-full max-w-xl" />
         <div className="max-w-[24rem] flex flex-col gap-5">
