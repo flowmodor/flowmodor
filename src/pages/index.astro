@@ -1,6 +1,6 @@
 ---
 import '@fontsource-variable/inter';
-import Navbar from '../components/Navbar.astro'
+import Navbar from '../components/Navbar'
 import Hero from '../components/Hero.astro'
 import Features from '../components/Features.astro'
 import Waitlist from '../components/Waitlist'
@@ -17,7 +17,7 @@ import Footer from '../components/Footer.astro'
 		<link rel="icon" href="/favicon.ico" />
 	</head>
 	<body class="bg-[#23223C] text-white font-sans">
-    <Navbar />
+    <Navbar client:load />
 		<main class="flex flex-col items-center">
       <Hero />
       <Features />
