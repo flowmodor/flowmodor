@@ -13,7 +13,8 @@ const { title, description } = Astro.props;
     <title>{title}</title>
     <meta name="description" content={description} />
 		<link rel="icon" href="/favicon.ico" />
-	</head>
+    <script defer data-domain="flowmodor.com" src="https://plausible.io/js/script.js"></script>
+  </head>
 	<body class="bg-[#23223C] text-white font-sans flex flex-col justify-between min-h-screen">
     <Navbar client:load />
 		<main class="flex flex-col items-center mb-auto">
