@@ -1,4 +1,4 @@
-export default function Waitlist() {
+export default function Wailist() {
   return (
     <>
       <div

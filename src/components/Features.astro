@@ -1,0 +1,36 @@
+---
+import AppearScroll from "./AppearScroll";
+---
+
+<div id="features" class="flex flex-col items-center w-full px-3">
+  <div class="h-screen flex flex-col lg:flex-row items-center justify-center gap-10">
+    <AppearScroll client:load>
+      <img src="/timer.png" class="w-full max-w-xl" alt="Flowmodoro timer feature" />
+    </AppearScroll>
+    <div class="max-w-[24rem] flex flex-col gap-5">
+      <h1 class="text-3xl font-bold">Flowmodoro Timer</h1>
+      Automates time tracking by counting up during focus sessions and
+      switching to a countdown for breaks, based on your work duration.
+    </div>
+  </div>
+  <div class="h-screen flex flex-col lg:flex-row items-center justify-center gap-10">
+    <AppearScroll client:load>
+      <img src="/taskList.png" class="w-full max-w-[15rem]" />
+    </AppearScroll>
+    <div class="max-w-[24rem] flex flex-col gap-5 lg:order-first">
+      <h1 class="text-3xl font-bold">Task List</h1>
+      Easily select and track tasks for each session, aiding in organization
+      and progress monitoring.
+    </div>
+  </div>
+  <div class="h-screen flex flex-col lg:flex-row items-center justify-center gap-10">
+    <AppearScroll client:load>
+      <img src="/report.png" class="w-full max-w-xl" />
+    </AppearScroll>
+    <div class="max-w-[24rem]  flex flex-col gap-5">
+      <h1 class="text-3xl font-bold">Focus Report</h1>
+      Tracks and summarizes work and break patterns for enhanced
+      productivity insights.
+    </div>
+  </div>
+</div>
