@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const blogs = await Astro.glob('./*.md');
+---
+<BaseLayout
+  title="Blog | Flowmodor"
+  description="Flowmodor's blog"
+>
+  <div class="mt-32">
+    {blogs.map(blog => (
+      <div class="flex flex-col items-start gap-3 max-w-xl">
+        <div class="text-sm brightness-75">
+          {blog.frontmatter.date}
+        </div>
+        <a href={blog.url} class="text-2xl font-extrabold hover:underline">
+          {blog.frontmatter.title}
+        </a>
+        <div class="brightness-75">
+          {blog.frontmatter.description}
+        </div>
+      </div>
+    ))}
+  </div>
+</BaseLayout>

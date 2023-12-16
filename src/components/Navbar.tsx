@@ -4,6 +4,11 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    if (window.location.pathname !== "/") {
+      setIsScrolled(true);
+      return;
+    }
+
     const handleScroll = () => {
       const windowHeight = window.innerHeight - 1;
       if (window.scrollY > windowHeight) {
@@ -19,7 +24,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-10 justify-center backdrop-blur border-[#FFFFFF20] border-b flex -mb-16 h-16 items-center transition-all duration-500 ${
+      className={`sticky top-0 z-10 justify-center backdrop-blur border-[#FFFFFF20] border-b flex -mb-16 h-16 items-center transition-all ${
         isScrolled ? "text-white" : "text-[#23223C]"
       }`}
     >
@@ -31,12 +36,10 @@ export default function Navbar() {
         <div>Flowmodor</div>
       </a>
       <div className="hidden sm:flex gap-10 font-semibold text-lg">
-        <a href="/" className="cursor-pointer">
+        <a href="/blog" className="cursor-pointer">
           Blog
         </a>
-        <a href="/" className="cursor-pointer">
-          Pricing
-        </a>
+        <a className="opacity-50">Pricing</a>
       </div>
       <a
         href="#getWaitlistContainer"

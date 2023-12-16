@@ -1,0 +1,15 @@
+---
+import BaseLayout from './BaseLayout.astro'
+
+const { frontmatter } = Astro.props;
+---
+<BaseLayout
+  title="Blog | Flowmodor"
+  description="Flowmodor's blog"
+>
+  <article class="prose prose-invert py-36 px-3">
+    <h1 class="text-3xl font-extrabold">{frontmatter.title}</h1>
+    <div>{frontmatter.date}</div>
+    <slot />
+  </article>
+</BaseLayout>

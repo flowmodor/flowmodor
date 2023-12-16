@@ -1,28 +1,15 @@
 ---
-import '@fontsource-variable/inter';
-import Navbar from '../components/Navbar'
+import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
 import Features from '../components/Features.astro'
 import Waitlist from '../components/Waitlist'
-import Footer from '../components/Footer.astro'
 ---
 
-<html lang="en" class="scroll-smooth">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-    <title>Flowmodor | A flowmodoro timer for the Flowtime Technique.</title>
-    <meta name="description" content="Flowmodor is an open-source flowmodoro timer web app based on the Flowtime Technique, an alternative to the Pomodoro Technique." />
-		<link rel="icon" href="/favicon.ico" />
-	</head>
-	<body class="bg-[#23223C] text-white font-sans">
-    <Navbar client:load />
-		<main class="flex flex-col items-center">
-      <Hero />
-      <Features />
-      <Waitlist />
-      <Footer />
-		</main>
-	</body>
-</html>
+<BaseLayout
+  title="Flowmodor | A flowmodoro timer for the Flowtime Technique."
+  description="Flowmodor is an open-source flowmodoro timer web app based on the Flowtime Technique, an alternative to the Pomodoro Technique."
+>
+  <Hero />
+  <Features />
+  <Waitlist />
+</BaseLayout>

@@ -1,0 +1,24 @@
+---
+import '@fontsource-variable/inter';
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer.astro'
+
+const { title, description } = Astro.props;
+---
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+		<link rel="icon" href="/favicon.ico" />
+	</head>
+	<body class="bg-[#23223C] text-white font-sans flex flex-col justify-between min-h-screen">
+    <Navbar client:load />
+		<main class="flex flex-col items-center mb-auto">
+      <slot />
+    </main>
+    <Footer />
+	</body>
+</html>
