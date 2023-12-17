@@ -36,9 +36,7 @@ export default function Navbar() {
         <div>Flowmodor</div>
       </a>
       <div className="hidden sm:flex gap-10 font-semibold text-lg">
-        <a href="/blog" className="cursor-pointer">
-          Blog
-        </a>
+        <a className="opacity-50">Blog</a>
         <a className="opacity-50">Pricing</a>
       </div>
       <a
