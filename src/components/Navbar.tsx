@@ -36,7 +36,7 @@ export default function Navbar() {
         <div>Flowmodor</div>
       </a>
       <div className="hidden sm:flex gap-10 font-semibold text-lg">
-        <a className="opacity-50">Blog</a>
+        <a href="/blog">Blog</a>
         <a className="opacity-50">Pricing</a>
       </div>
       <a
