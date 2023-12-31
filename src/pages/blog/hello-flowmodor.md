@@ -2,6 +2,7 @@
 title: Hello, Flowmodor!
 date: 2023/12/17
 description: Why I'm building Flowmodor and what's the plan
+brief: Why I'm building Flowmodor and what's the plan
 layout: ../../layouts/BlogLayout.astro
 ---
 
