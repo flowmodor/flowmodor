@@ -3,8 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 
 const blogs = await Astro.glob('./*.md');
 blogs.sort((a, b) => {
-  const aDate = new Date(a.frontmatter.date);
-  const bDate = new Date(b.frontmatter.date);
+  const aDate = new Date(a.frontmatter.date).getTime();
+  const bDate = new Date(b.frontmatter.date).getTime();
   return bDate - aDate;
 });
 ---
