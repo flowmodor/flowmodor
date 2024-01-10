@@ -32,12 +32,17 @@ export default function Navbar() {
         href="/"
         className="left-5 absolute flex cursor-pointer items-center gap-2 text-2xl font-bold"
       >
-        <img src="/logo.png" width={32} className="rounded-md" />
+        <img
+          src="/logo.png"
+          alt="Logo of Flowmodor"
+          width={32}
+          className="rounded-md"
+        />
         <div>Flowmodor</div>
       </a>
       <div className="hidden sm:flex gap-10 font-semibold text-lg">
         <a href="/blog">Blog</a>
-        <a className="opacity-50">Pricing</a>
+        <span className="opacity-50">Pricing</span>
       </div>
       <a
         href="#getWaitlistContainer"
