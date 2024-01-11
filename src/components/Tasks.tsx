@@ -8,9 +8,7 @@ import TaskBox from './TaskBox';
 import { Plus } from './Icons';
 
 export default function Tasks() {
-  const { tasks, addTask, completeTask } = useTasksStore(
-    (state) => state,
-  );
+  const { tasks, addTask, completeTask } = useTasksStore((state) => state);
 
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -29,15 +27,21 @@ export default function Tasks() {
     <div className="flex flex-col gap-5">
       <Card className="h-[30rem] w-[30rem] bg-[#23223C]">
         <CardBody>
-          <div className="flex w-full flex-col gap-3 overflow-y-scroll scrollbar-hide">
-            {tasks.map((task) => (
-              <div key={task.key}>
-                <TaskBox
-                  task={task}
-                  onCompleted={() => completeTask(task.key)}
-                />
+          <div className="itesm flex h-full w-full flex-col gap-3 overflow-y-scroll scrollbar-hide">
+            {tasks.length > 0 ? (
+              tasks.map((task) => (
+                <div key={task.key}>
+                  <TaskBox
+                    task={task}
+                    onCompleted={() => completeTask(task.key)}
+                  />
+                </div>
+              ))
+            ) : (
+              <div className="flex h-full items-center justify-center">
+                All tasks completed!
               </div>
-            ))}
+            )}
           </div>
         </CardBody>
       </Card>
