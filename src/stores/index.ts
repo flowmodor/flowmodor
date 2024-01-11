@@ -1,43 +1,40 @@
 import { create } from 'zustand';
 
 interface TimerState {
-  time: number;
-  totalTime: number;
+  startTime: number | null;
+  endTime: number | null;
   mode: 'focus' | 'break';
   showTime: boolean;
   isRunning: boolean;
-  countUp: () => void;
-  countDown: () => void;
-  startFocus: () => void;
-  startBreak: () => void;
-  reset: () => void;
+  startTimer: () => void;
+  stopTimer: () => void;
   toggleShowTime: () => void;
-  toggleTimer: () => void;
 }
 
 const useTimerStore = create<TimerState>((set) => ({
-  time: 0,
-  totalTime: 0,
+  startTime: null,
+  endTime: null,
   mode: 'focus',
   showTime: true,
   isRunning: false,
-  countUp: () => set((state) => ({ time: state.time + 1 })),
-  countDown: () => set((state) => ({ time: state.time - 1 })),
-  startFocus: () =>
-    set(() => ({
-      mode: 'focus',
-      isRunning: false,
-      time: 0,
-    })),
-  startBreak: () =>
+  startTimer: () =>
     set((state) => ({
-      mode: 'break',
-      time: Math.floor(state.time / 5),
-      totalTime: Math.floor(state.time / 5),
+      startTime: Date.now(),
+      endTime:
+        state.mode === 'break'
+          ? Date.now() + (state.endTime! - state.startTime!) / 5
+          : state.endTime,
+      isRunning: true,
     })),
-  reset: () => set({ time: 0 }),
+  stopTimer: () =>
+    set((state) => ({
+      endTime: Date.now(),
+      displayTime:
+        state.mode === 'focus' ? (state.endTime! - state.startTime!) / 5 : 0,
+      mode: state.mode === 'focus' ? 'break' : 'focus',
+      isRunning: false,
+    })),
   toggleShowTime: () => set((state) => ({ showTime: !state.showTime })),
-  toggleTimer: () => set((state) => ({ isRunning: !state.isRunning })),
 }));
 
 // eslint-disable-next-line import/prefer-default-export

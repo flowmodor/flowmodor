@@ -2,7 +2,6 @@
 
 import Tasks from '@/components/Tasks';
 import Timer from '@/components/Timer';
-import { Card, CardBody } from '@nextui-org/card';
 import { Tabs, Tab } from '@nextui-org/tabs';
 
 export default function App() {

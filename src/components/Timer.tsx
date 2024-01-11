@@ -3,41 +3,49 @@
 import { Card, CardBody } from '@nextui-org/card';
 import { Hide, Play, Show, Stop } from '@/components/Icons';
 import { Button, CircularProgress } from '@nextui-org/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { formatTime } from '@/utils';
 import { useTimerStore } from '@/stores';
 
 export default function Timer() {
-  const time = useTimerStore((state) => state.time);
-  const totalTime = useTimerStore((state) => state.totalTime);
-  const mode = useTimerStore((state) => state.mode);
-  const showTime = useTimerStore((state) => state.showTime);
-  const isRunning = useTimerStore((state) => state.isRunning);
-  const countUp = useTimerStore((state) => state.countUp);
-  const countDown = useTimerStore((state) => state.countDown);
-  const startFocus = useTimerStore((state) => state.startFocus);
-  const startBreak = useTimerStore((state) => state.startBreak);
-  const toggleShowTime = useTimerStore((state) => state.toggleShowTime);
-  const toggleTimer = useTimerStore((state) => state.toggleTimer);
+  const {
+    startTime,
+    endTime,
+    mode,
+    showTime,
+    isRunning,
+    startTimer,
+    stopTimer,
+    toggleShowTime,
+  } = useTimerStore((state) => state);
+
+  const [tick, setTick] = useState(0);
+  const [displayTime, setDisplayTime] = useState(0);
+  const [totalTime, setTotalTime] = useState(0);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
 
-    if (isRunning && mode === 'focus') {
-      interval = setInterval(countUp, 1000);
-    } else if (isRunning && mode === 'break') {
-      interval = setInterval(countDown, 1000);
+    if (isRunning) {
+      interval = setInterval(() => {
+        setTick(tick + 1);
+      }, 1000);
     }
 
-    if (!isRunning && time !== 0 && mode === 'focus') {
-      startBreak();
+    let time;
+    if (isRunning) {
+      time = mode === 'focus' ? Date.now() - startTime! : endTime! - Date.now();
+    } else {
+      time = mode === 'focus' ? 0 : (endTime! - startTime!) / 5;
+      setTotalTime(Math.floor(time / 1000));
     }
 
-    if (time === 0 && mode === 'break') {
-      startFocus();
-
+    if (isRunning && time <= 0) {
+      stopTimer();
       const audio = new Audio('/alarm.mp3');
       audio.play();
+    } else {
+      setDisplayTime(Math.floor(time / 1000));
     }
 
     return () => {
@@ -45,7 +53,7 @@ export default function Timer() {
         clearInterval(interval);
       }
     };
-  }, [isRunning, time, mode]);
+  }, [tick, isRunning]);
 
   return (
     <div className="flex flex-col gap-5">
@@ -53,12 +61,12 @@ export default function Timer() {
         <CardBody>
           <div className="flex h-full flex-col items-center justify-center">
             <CircularProgress
-              value={mode === 'focus' ? 0 : (100 * time) / totalTime}
+              value={mode === 'focus' ? 0 : (100 * displayTime) / totalTime}
               size="lg"
               showValueLabel
               valueLabel={
                 <div className="flex flex-col items-center gap-2">
-                  {showTime ? formatTime(time) : '**:**'}
+                  {showTime ? formatTime(displayTime) : '**:**'}
                   <span className="text-2xl">
                     {mode === 'focus' ? 'Focus' : 'Break'}
                   </span>
@@ -90,7 +98,7 @@ export default function Timer() {
               variant="flat"
               isIconOnly
               className="bg-secondary"
-              onPress={toggleTimer}
+              onPress={isRunning ? stopTimer : startTimer}
             >
               {isRunning ? <Stop /> : <Play />}
             </Button>
