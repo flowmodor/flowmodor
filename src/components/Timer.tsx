@@ -1,9 +1,12 @@
 import { Card, CardBody } from '@nextui-org/card';
 import { Hide, Play, Show, Stop } from '@/components/Icons';
-import { Button, CircularProgress } from '@nextui-org/react';
+import { Select, SelectItem } from '@nextui-org/select';
+import { Button } from '@nextui-org/button';
+import { CircularProgress } from '@nextui-org/progress';
 import { useEffect, useState } from 'react';
 import { formatTime } from '@/utils';
 import useTimerStore from '@/stores/useTimerStore';
+import useTasksStore from '@/stores/useTasksStore';
 
 export default function Timer() {
   const {
@@ -16,6 +19,8 @@ export default function Timer() {
     stopTimer,
     toggleShowTime,
   } = useTimerStore((state) => state);
+
+  const { tasks, focusingTask, focusTask } = useTasksStore((state) => state);
 
   const [tick, setTick] = useState(0);
   const [displayTime, setDisplayTime] = useState(0);
@@ -52,10 +57,34 @@ export default function Timer() {
       <Card className="h-[30rem] w-[30rem] bg-[#23223C]">
         <CardBody>
           <div className="flex h-full flex-col items-center justify-center">
+            <Select
+              isDisabled={isRunning || tasks.length === 0}
+              selectionMode="single"
+              selectedKeys={focusingTask ? [focusingTask.toString()] : []}
+              label="Select a task"
+              size="sm"
+              radius="sm"
+              classNames={{
+                base: 'w-64',
+                trigger: 'bg-secondary data-[hover=true]:bg-secondary',
+                popoverContent: 'bg-[#131221] data-[hover=true]:bg-white',
+                listboxWrapper: 'data-[focus=true]:bg-white',
+              }}
+              onChange={(e) => {
+                focusTask(parseInt(e.target.value, 10));
+              }}
+            >
+              {tasks.map((task) => (
+                <SelectItem key={task.key} value={task.name}>
+                  {task.name}
+                </SelectItem>
+              ))}
+            </Select>
             <CircularProgress
               value={mode === 'focus' ? 0 : (100 * displayTime) / totalTime}
               size="lg"
               showValueLabel
+              aria-label="Timer progress"
               valueLabel={
                 <div className="flex flex-col items-center gap-2">
                   {showTime ? formatTime(displayTime) : '**:**'}
@@ -75,7 +104,7 @@ export default function Timer() {
       </Card>
       <Card className="bg-[#23223C]">
         <CardBody>
-          <div className="flex justify-center gap-5">
+          <div className="flex items-center justify-center gap-5">
             <Button
               type="button"
               variant="flat"

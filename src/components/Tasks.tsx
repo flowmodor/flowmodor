@@ -8,7 +8,9 @@ import TaskBox from './TaskBox';
 import { Plus } from './Icons';
 
 export default function Tasks() {
-  const { tasks, addTask, completeTask } = useTasksStore((state) => state);
+  const { tasks, addTask, completeTask } = useTasksStore(
+    (state) => state,
+  );
 
   const [inputValue, setInputValue] = useState<string>('');
 
