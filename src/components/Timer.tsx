@@ -38,13 +38,7 @@ export default function Timer() {
       setTotalTime(Math.floor(time / 1000));
     }
 
-    if (isRunning && time <= 0) {
-      stopTimer();
-      const audio = new Audio('/alarm.mp3');
-      audio.play();
-    } else {
-      setDisplayTime(Math.floor(time / 1000));
-    }
+    setDisplayTime(Math.floor(time / 1000));
 
     return () => {
       if (interval) {
