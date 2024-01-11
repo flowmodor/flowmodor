@@ -7,7 +7,7 @@ import { Tabs, Tab } from '@nextui-org/tabs';
 import useTimerStore from '@/stores/useTimerStore';
 
 export default function App() {
-  const { endTime, mode, isRunning, stopTimer } = useTimerStore(
+  const { endTime, mode, isRunning, tickTimer, stopTimer } = useTimerStore(
     (state) => state,
   );
 
@@ -27,6 +27,8 @@ export default function App() {
         audio.play();
       }
     }
+
+    tickTimer();
 
     return () => {
       if (interval) {

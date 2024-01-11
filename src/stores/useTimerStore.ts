@@ -4,11 +4,13 @@ interface TimerState {
   startTime: number | null;
   endTime: number | null;
   totalTime: number | null;
+  displayTime: number;
   mode: 'focus' | 'break';
   showTime: boolean;
   isRunning: boolean;
   startTimer: () => void;
   stopTimer: () => void;
+  tickTimer: () => void;
   toggleShowTime: () => void;
 }
 
@@ -16,6 +18,7 @@ const useTimerStore = create<TimerState>((set) => ({
   startTime: null,
   endTime: null,
   totalTime: null,
+  displayTime: 0,
   mode: 'focus',
   showTime: true,
   isRunning: false,
@@ -36,8 +39,23 @@ const useTimerStore = create<TimerState>((set) => ({
       mode: state.mode === 'focus' ? 'break' : 'focus',
       isRunning: false,
     })),
+  tickTimer: () =>
+    set((state) => {
+      let time;
+      if (state.isRunning) {
+        time =
+          state.mode === 'focus'
+            ? Date.now() - state.startTime!
+            : state.endTime! - Date.now();
+      } else {
+        time =
+          state.mode === 'focus' ? 0 : (state.endTime! - state.startTime!) / 5;
+      }
+      return {
+        displayTime: Math.floor(time / 1000),
+      };
+    }),
   toggleShowTime: () => set((state) => ({ showTime: !state.showTime })),
 }));
 
-// eslint-disable-next-line import/prefer-default-export
 export default useTimerStore;

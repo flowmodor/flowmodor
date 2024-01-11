@@ -3,16 +3,14 @@ import { Hide, Play, Show, Stop } from '@/components/Icons';
 import { Select, SelectItem } from '@nextui-org/select';
 import { Button } from '@nextui-org/button';
 import { CircularProgress } from '@nextui-org/progress';
-import { useEffect, useState } from 'react';
 import { formatTime } from '@/utils';
 import useTimerStore from '@/stores/useTimerStore';
 import useTasksStore from '@/stores/useTasksStore';
 
 export default function Timer() {
   const {
-    startTime,
-    endTime,
     totalTime,
+    displayTime,
     mode,
     showTime,
     isRunning,
@@ -22,33 +20,6 @@ export default function Timer() {
   } = useTimerStore((state) => state);
 
   const { tasks, focusingTask, focusTask } = useTasksStore((state) => state);
-
-  const [tick, setTick] = useState(0);
-  const [displayTime, setDisplayTime] = useState(0);
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout | null = null;
-
-    if (isRunning) {
-      interval = setInterval(() => {
-        setTick(tick + 1);
-      }, 1000);
-    }
-
-    let time;
-    if (isRunning) {
-      time = mode === 'focus' ? Date.now() - startTime! : endTime! - Date.now();
-    } else {
-      time = mode === 'focus' ? 0 : (endTime! - startTime!) / 5;
-    }
-    setDisplayTime(Math.floor(time / 1000));
-
-    return () => {
-      if (interval) {
-        clearInterval(interval);
-      }
-    };
-  }, [tick, isRunning]);
 
   return (
     <div className="flex flex-col gap-5">
