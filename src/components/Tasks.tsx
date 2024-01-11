@@ -1,36 +1,26 @@
-'use client';
-
 /* eslint-disable jsx-a11y/control-has-associated-label */
 
 import { Card, CardBody } from '@nextui-org/card';
 import { useState } from 'react';
-import { Task } from '@/types';
 import { Button } from '@nextui-org/button';
+import useTasksStore from '@/stores/useTasksStore';
 import TaskBox from './TaskBox';
 import { Plus } from './Icons';
 
-const initTasks: Task[] = [];
-
 export default function Tasks() {
-  const [tasks, setTasks] = useState(initTasks);
-  const [inputValue, setInputValue] = useState<string>('');
+  const { tasks, addTask, completeTask } = useTasksStore((state) => state);
 
-  const onCompleted = (task: Task) => {
-    setTasks(tasks.filter((t) => t.key !== task.key));
-  };
+  const [inputValue, setInputValue] = useState<string>('');
 
   const onAddTask = (name: string | undefined) => {
     if (!name) {
       return;
     }
 
-    setTasks([
-      ...tasks,
-      {
-        key: tasks.length + 1,
-        name,
-      },
-    ]);
+    addTask({
+      key: tasks.length + 1,
+      name,
+    });
   };
 
   return (
@@ -40,7 +30,10 @@ export default function Tasks() {
           <div className="flex w-full flex-col gap-3 overflow-y-scroll scrollbar-hide">
             {tasks.map((task) => (
               <div key={task.key}>
-                <TaskBox task={task} onCompleted={onCompleted} />
+                <TaskBox
+                  task={task}
+                  onCompleted={() => completeTask(task.key)}
+                />
               </div>
             ))}
           </div>

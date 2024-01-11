@@ -1,11 +1,9 @@
-'use client';
-
 import { Card, CardBody } from '@nextui-org/card';
 import { Hide, Play, Show, Stop } from '@/components/Icons';
 import { Button, CircularProgress } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import { formatTime } from '@/utils';
-import { useTimerStore } from '@/stores';
+import useTimerStore from '@/stores/useTimerStore';
 
 export default function Timer() {
   const {

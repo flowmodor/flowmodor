@@ -38,4 +38,4 @@ const useTimerStore = create<TimerState>((set) => ({
 }));
 
 // eslint-disable-next-line import/prefer-default-export
-export { useTimerStore };
+export default useTimerStore;
