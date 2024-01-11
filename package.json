@@ -9,11 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextui-org/button": "^2.0.26",
+    "@nextui-org/card": "^2.0.24",
     "@nextui-org/react": "^2.2.9",
+    "@nextui-org/tabs": "^2.0.26",
     "framer-motion": "^10.16.15",
     "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tailwind-scrollbar-hide": "^1.1.7",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@types/node": "^20",

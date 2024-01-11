@@ -11,12 +11,17 @@ const config: Config = {
   ],
   darkMode: 'class',
   plugins: [
+    require('tailwind-scrollbar-hide'),
     nextui({
       themes: {
         dark: {
           colors: {
             primary: {
               DEFAULT: '#D6B6FF',
+              foreground: '#000000',
+            },
+            secondary: {
+              DEFAULT: '#3F3E55',
               foreground: '#000000',
             },
             focus: '#D6B6FF',

@@ -1,9 +1,26 @@
-import Timer from '@/components/Timer';
+'use client';
 
-export default function Home() {
+import Tasks from '@/components/Tasks';
+import Timer from '@/components/Timer';
+import { Card, CardBody } from '@nextui-org/card';
+import { Tabs, Tab } from '@nextui-org/tabs';
+
+export default function App() {
   return (
-    <div className="flex h-full flex-col justify-center">
-      <Timer />
-    </div>
+    <Tabs
+      fullWidth
+      variant="underlined"
+      classNames={{
+        tabList: 'bg-[#23223C]',
+        cursor: 'bg-primary',
+      }}
+    >
+      <Tab key="timer" title="Timer">
+        <Timer />
+      </Tab>
+      <Tab key="tasks" title="Tasks">
+        <Tasks />
+      </Tab>
+    </Tabs>
   );
 }
