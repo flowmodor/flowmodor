@@ -3,6 +3,7 @@ import { create } from 'zustand';
 interface TimerState {
   startTime: number | null;
   endTime: number | null;
+  totalTime: number | null;
   mode: 'focus' | 'break';
   showTime: boolean;
   isRunning: boolean;
@@ -14,6 +15,7 @@ interface TimerState {
 const useTimerStore = create<TimerState>((set) => ({
   startTime: null,
   endTime: null,
+  totalTime: null,
   mode: 'focus',
   showTime: true,
   isRunning: false,
@@ -22,15 +24,15 @@ const useTimerStore = create<TimerState>((set) => ({
       startTime: Date.now(),
       endTime:
         state.mode === 'break'
-          ? Date.now() + (state.endTime! - state.startTime!) / 5
+          ? Math.floor(Date.now() + (state.endTime! - state.startTime!) / 5)
           : state.endTime,
       isRunning: true,
     })),
   stopTimer: () =>
     set((state) => ({
       endTime: Date.now(),
-      displayTime:
-        state.mode === 'focus' ? (state.endTime! - state.startTime!) / 5 : 0,
+      totalTime:
+        state.mode === 'focus' ? (Date.now() - state.startTime!) / 5 : 0,
       mode: state.mode === 'focus' ? 'break' : 'focus',
       isRunning: false,
     })),

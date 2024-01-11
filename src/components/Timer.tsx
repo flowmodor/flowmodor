@@ -12,6 +12,7 @@ export default function Timer() {
   const {
     startTime,
     endTime,
+    totalTime,
     mode,
     showTime,
     isRunning,
@@ -24,7 +25,6 @@ export default function Timer() {
 
   const [tick, setTick] = useState(0);
   const [displayTime, setDisplayTime] = useState(0);
-  const [totalTime, setTotalTime] = useState(0);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
@@ -40,9 +40,7 @@ export default function Timer() {
       time = mode === 'focus' ? Date.now() - startTime! : endTime! - Date.now();
     } else {
       time = mode === 'focus' ? 0 : (endTime! - startTime!) / 5;
-      setTotalTime(Math.floor(time / 1000));
     }
-
     setDisplayTime(Math.floor(time / 1000));
 
     return () => {
@@ -81,7 +79,11 @@ export default function Timer() {
               ))}
             </Select>
             <CircularProgress
-              value={mode === 'focus' ? 0 : (100 * displayTime) / totalTime}
+              value={
+                mode === 'focus'
+                  ? 0
+                  : 100 * (displayTime / Math.floor(totalTime! / 1000))
+              }
               size="lg"
               showValueLabel
               aria-label="Timer progress"

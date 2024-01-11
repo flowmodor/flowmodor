@@ -21,7 +21,7 @@ export default function App() {
         setTick(tick + 1);
       }, 1000);
 
-      if (mode === 'break' && endTime! <= Date.now()) {
+      if (mode === 'break' && endTime! < Date.now()) {
         stopTimer();
         const audio = new Audio('/alarm.mp3');
         audio.play();
