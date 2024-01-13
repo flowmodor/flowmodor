@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Tasks from '@/components/Tasks';
+import TasksTab from '@/components/TasksTab';
 import Timer from '@/components/Timer/index';
 import { Tabs, Tab } from '@nextui-org/tabs';
 import useTimerStore from '@/stores/useTimerStore';
@@ -50,7 +50,7 @@ export default function App() {
         <Timer />
       </Tab>
       <Tab key="tasks" title="Tasks">
-        <Tasks />
+        <TasksTab />
       </Tab>
     </Tabs>
   );
