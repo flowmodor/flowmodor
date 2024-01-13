@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Tasks from '@/components/Tasks';
-import Timer from '@/components/Timer';
+import Timer from '@/components/Timer/index';
 import { Tabs, Tab } from '@nextui-org/tabs';
 import useTimerStore from '@/stores/useTimerStore';
 
