@@ -17,15 +17,13 @@ export default function TaskBox({ task, onCompleted }: Props) {
     <div className="flex h-16 shrink-0 items-center border-b border-b-secondary px-4">
       <Checkbox
         isDisabled={isRunning && mode === 'focus' && task.key === focusingTask}
-        disableAnimation
         radius="full"
         size="lg"
-        icon={<></>}
         lineThrough
         classNames={{
           wrapper: 'border border-primary',
         }}
-        onChange={() => onCompleted(task)}
+        onChange={() => setTimeout(() => onCompleted(task), 600)}
       >
         {task.name}
       </Checkbox>

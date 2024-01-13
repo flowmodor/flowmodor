@@ -40,16 +40,24 @@ export default function App() {
   return (
     <Tabs
       fullWidth
-      variant="underlined"
+      disableAnimation
       classNames={{
         tabList: 'bg-[#23223C]',
         cursor: 'bg-primary',
       }}
     >
-      <Tab key="timer" title="Timer">
+      <Tab
+        key="timer"
+        title="Timer"
+        className="data-[selected=true]:bg-secondary"
+      >
         <TimerTab />
       </Tab>
-      <Tab key="tasks" title="Tasks">
+      <Tab
+        key="tasks"
+        title="Tasks"
+        className="data-[selected=true]:bg-secondary"
+      >
         <TasksTab />
       </Tab>
     </Tabs>

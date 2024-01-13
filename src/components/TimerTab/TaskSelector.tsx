@@ -17,15 +17,20 @@ export default function TaskSelector() {
       classNames={{
         base: 'w-64',
         trigger: 'bg-secondary data-[hover=true]:bg-secondary',
-        popoverContent: 'bg-[#131221] data-[hover=true]:bg-white',
-        listboxWrapper: 'data-[focus=true]:bg-white',
+        popoverContent: 'bg-[#131221]',
       }}
       onChange={(e) => {
         focusTask(parseInt(e.target.value, 10));
       }}
     >
       {tasks.map((task) => (
-        <SelectItem key={task.key} value={task.name}>
+        <SelectItem
+          key={task.key}
+          value={task.name}
+          classNames={{
+            base: 'data-[focus=true]:!bg-secondary data-[hover=true]:!bg-secondary',
+          }}
+        >
           {task.name}
         </SelectItem>
       ))}
