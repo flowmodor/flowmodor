@@ -1,11 +1,10 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
-
 import { Card, CardBody } from '@nextui-org/card';
 import { useState } from 'react';
 import { Button } from '@nextui-org/button';
 import useTasksStore from '@/stores/useTasksStore';
 import TaskBox from './TaskBox';
 import { Plus } from './Icons';
+import TabWrapper from './TabWrapper';
 
 export default function Tasks() {
   const { tasks, addTask, completeTask } = useTasksStore((state) => state);
@@ -24,7 +23,7 @@ export default function Tasks() {
   };
 
   return (
-    <div className="flex flex-col gap-5">
+    <TabWrapper>
       <Card className="h-[30rem] w-[30rem] bg-[#23223C]">
         <CardBody>
           <div className="itesm flex h-full w-full flex-col gap-3 overflow-y-scroll scrollbar-hide">
@@ -86,6 +85,6 @@ export default function Tasks() {
           </div>
         </CardBody>
       </Card>
-    </div>
+    </TabWrapper>
   );
 }
