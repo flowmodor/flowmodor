@@ -28,7 +28,7 @@ export default function Progress() {
       classNames={{
         svg: 'w-80 h-80 text-primary',
         track: 'stroke-secondary',
-        value: 'text-5xl font-semibold',
+        value: `${displayTime >= 3600 ? 'text-4xl' : 'text-5xl'} font-semibold`,
       }}
     />
   );
