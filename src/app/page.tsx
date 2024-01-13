@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import TasksTab from '@/components/TasksTab';
-import Timer from '@/components/Timer/index';
+import TimerTab from '@/components/TimerTab/index';
 import { Tabs, Tab } from '@nextui-org/tabs';
 import useTimerStore from '@/stores/useTimerStore';
 
@@ -47,7 +47,7 @@ export default function App() {
       }}
     >
       <Tab key="timer" title="Timer">
-        <Timer />
+        <TimerTab />
       </Tab>
       <Tab key="tasks" title="Tasks">
         <TasksTab />
