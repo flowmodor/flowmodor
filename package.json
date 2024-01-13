@@ -11,6 +11,7 @@
   "dependencies": {
     "@nextui-org/button": "^2.0.26",
     "@nextui-org/card": "^2.0.24",
+    "@nextui-org/checkbox": "^2.0.25",
     "@nextui-org/progress": "^2.0.24",
     "@nextui-org/react": "^2.2.9",
     "@nextui-org/select": "^2.1.20",

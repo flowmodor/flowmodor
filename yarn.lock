@@ -394,7 +394,7 @@
     "@react-aria/utils" "^3.21.1"
     "@react-types/shared" "^3.21.0"
 
-"@nextui-org/checkbox@2.0.25":
+"@nextui-org/checkbox@2.0.25", "@nextui-org/checkbox@^2.0.25":
   version "2.0.25"
   resolved "https://registry.yarnpkg.com/@nextui-org/checkbox/-/checkbox-2.0.25.tgz#d4a412d30ea87faef69152f5187cc76e9a32852f"
   integrity sha512-X6WkwPbZlDvioEcXF6HhKH21wD6OK+3+FSroKkzMPQLJrj2KYUIYGbiuw9rT9aCtdjbT+6HUCv+FA8/cBQr7cA==

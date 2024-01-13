@@ -2,7 +2,7 @@
 import useTasksStore from '@/stores/useTasksStore';
 import useTimerStore from '@/stores/useTimerStore';
 import { Task } from '@/types';
-import { Checkbox } from '@nextui-org/react';
+import { Checkbox } from '@nextui-org/checkbox';
 
 interface Props {
   task: Task;
