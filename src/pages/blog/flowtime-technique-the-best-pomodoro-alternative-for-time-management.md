@@ -1,7 +1,7 @@
 ---
 title: Flowtime Technique - the best Pomodoro alternative for time management
 date: 2023/12/31
-description: The Flowtime Technique a.k.a. Flowmodoro is the best Pomodoro alternative for time management. In this blog I'll explain the difference between them and how to implement Flowmodoro.
+description: The Flowtime Technique a.k.a. Flowmodoro is the best Pomodoro Technique alternative for time management. Learn the difference between them and how to implement Flowmodoro.
 brief: Understand why Flowmodoro is better than Pomodoro and how to implement it
 layout: ../../layouts/BlogLayout.astro
 ---
@@ -28,7 +28,7 @@ The Flowtime Technique a.k.a. Flowmodoro was created by [Zoë Read-Bivens](https
 
 Unlike the Pomodoro Technique, Flowmodoro counts up instead of counting down. It allows you to focus until you naturally feel the need for a break. Then, when you decide to rest, you simply stop the timer, divide the focus time by 5, and set a countdown timer for your break.
 
-This method respects your flow state and adapts to the variable nature of coding tasks.
+This method respects your flow state and adapts to different task lengths.
 
 ## How to implement Flowmodoro
 
