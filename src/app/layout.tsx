@@ -17,11 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} h-screen flex items-center justify-center bg-[#131221] text-white dark`}
+        className={`${inter.className} flex h-screen items-center justify-center bg-[#131221] text-white dark`}
       >
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

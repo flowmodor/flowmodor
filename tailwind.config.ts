@@ -22,7 +22,7 @@ const config: Config = {
             },
             secondary: {
               DEFAULT: '#3F3E55',
-              foreground: '#000000',
+              foreground: '#ffffff',
             },
             focus: '#D6B6FF',
           },
