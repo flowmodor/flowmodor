@@ -7,6 +7,13 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Flowmodor',
+  openGraph: {
+    type: 'website',
+    url: 'https://app.flowmodor.com',
+    title: 'Flowmodor',
+    description: 'Flowmodor Web App',
+    images: [{ url: 'https://flowmodor.com/og.png' }],
+  },
 };
 
 export default function RootLayout({
