@@ -114,7 +114,7 @@ export default function SignUp() {
       </Button>
       <div className="mx-auto text-sm">
         Have an account?{' '}
-        <Link href="/login" className="underline">
+        <Link href="/signin" className="underline">
           Sign In Now
         </Link>
       </div>

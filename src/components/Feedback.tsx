@@ -39,7 +39,7 @@ export default function Feedback() {
           color="secondary"
           size="sm"
           radius="sm"
-          className="absolute bottom-3 right-3"
+          className="absolute bottom-5 right-5"
         >
           Feedback
         </Button>

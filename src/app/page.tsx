@@ -6,6 +6,7 @@ import TasksTab from '@/components/TasksTab';
 import TimerTab from '@/components/TimerTab/index';
 import useTimerStore from '@/stores/useTimerStore';
 import Feedback from '@/components/Feedback';
+import SignOut from '@/components/SignOut';
 
 export default function App() {
   const { endTime, mode, isRunning, tickTimer, stopTimer } = useTimerStore(
@@ -40,6 +41,7 @@ export default function App() {
 
   return (
     <>
+      <SignOut />
       <Feedback />
       <Tabs
         fullWidth

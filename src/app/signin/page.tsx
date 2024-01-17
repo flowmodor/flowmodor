@@ -5,10 +5,15 @@ import { Google } from '@/components/Icons';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import Link from 'next/link';
+import useSignIn from '@/hooks/useSignIn';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
-export default function Login() {
+export default function SignIn() {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
+  const { isLoading, signIn } = useSignIn();
+  const router = useRouter();
 
   return (
     <div className="flex w-96 flex-col gap-5">
@@ -45,8 +50,23 @@ export default function Login() {
         value={passwordValue}
         onValueChange={setPasswordValue}
       />
-      <Button color="primary" radius="sm" className="mt-10">
-        Log In
+      <Button
+        color="primary"
+        radius="sm"
+        className="mt-10"
+        isLoading={isLoading}
+        onPress={async () => {
+          const { error } = await signIn(emailValue, passwordValue);
+
+          if (error) {
+            toast(error.message, { position: 'top-right' });
+            console.error(error);
+          }
+
+          router.push('/');
+        }}
+      >
+        Sign In
       </Button>
       <div className="mx-auto text-sm">
         Don&apos;t have an account?{' '}
