@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import supabase from '@/utils/supabase';
 import { Button } from '@nextui-org/button';
 import { Textarea } from '@nextui-org/input';
 import { Popover, PopoverTrigger, PopoverContent } from '@nextui-org/popover';
+import supabase from '@/utils/supabase';
 
 export default function Feedback() {
   const [isOpen, setIsOpen] = useState(false);

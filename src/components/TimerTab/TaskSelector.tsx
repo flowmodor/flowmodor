@@ -17,7 +17,7 @@ export default function TaskSelector() {
       classNames={{
         base: 'w-64',
         trigger: 'bg-secondary data-[hover=true]:bg-secondary',
-        popoverContent: 'bg-[#131221]',
+        popoverContent: 'bg-background',
       }}
       onChange={(e) => {
         focusTask(parseInt(e.target.value, 10));
