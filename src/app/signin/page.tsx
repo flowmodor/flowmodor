@@ -61,9 +61,9 @@ export default function SignIn() {
           if (error) {
             toast(error.message, { position: 'top-right' });
             console.error(error);
+          } else {
+            router.push('/');
           }
-
-          router.push('/');
         }}
       >
         Sign In
