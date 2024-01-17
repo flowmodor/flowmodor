@@ -18,6 +18,7 @@ export default function SignIn() {
   return (
     <div className="flex w-96 flex-col gap-5">
       <h1 className="mx-auto text-3xl font-semibold">Welcome back</h1>
+      {/*
       <Button color="secondary" radius="sm">
         <Google />
         Continue with Google
@@ -30,6 +31,7 @@ export default function SignIn() {
           <span className="bg-background px-2 text-sm">or</span>
         </div>
       </div>
+        */}
       <Input
         label="Email"
         labelPlacement="outside"
