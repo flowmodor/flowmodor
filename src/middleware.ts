@@ -1,12 +1,29 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
+// eslint-disable-next-line import/prefer-default-export
 export async function middleware(request: NextRequest) {
+  const url = request.nextUrl.clone();
+  const path = url.pathname;
+
+  if (
+    path.startsWith('/_next/') ||
+    path.startsWith('/images/')
+  ) {
+    return NextResponse.next();
+  }
+
   let response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   });
+
+  if (path.startsWith('/auth')) {
+    console.log('----------auth----------')
+    console.log('response', response)
+    return response;
+  }
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -76,7 +93,3 @@ export async function middleware(request: NextRequest) {
 
   return response;
 }
-
-export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|auth).*)'],
-};
