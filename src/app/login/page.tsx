@@ -1,9 +1,15 @@
+'use client';
+
+import { useState } from 'react';
 import { Google } from '@/components/Icons';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import Link from 'next/link';
 
 export default function Login() {
+  const [emailValue, setEmailValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+
   return (
     <div className="flex w-96 flex-col gap-5">
       <h1 className="mx-auto text-3xl font-semibold">Welcome back</h1>
@@ -19,9 +25,27 @@ export default function Login() {
           <span className="bg-background px-2 text-sm">or</span>
         </div>
       </div>
-      <Input label="Email" variant="bordered" type="email" radius="sm" />
-      <Input label="Password" variant="bordered" type="password" radius="sm" />
-      <Button color="primary" radius="sm">
+      <Input
+        label="Email"
+        labelPlacement="outside"
+        placeholder="you@example.com"
+        variant="bordered"
+        type="email"
+        radius="sm"
+        value={emailValue}
+        onValueChange={setEmailValue}
+      />
+      <Input
+        label="Password"
+        labelPlacement="outside"
+        placeholder="••••••••"
+        variant="bordered"
+        type="password"
+        radius="sm"
+        value={passwordValue}
+        onValueChange={setPasswordValue}
+      />
+      <Button color="primary" radius="sm" className="mt-10">
         Log In
       </Button>
       <div className="mx-auto text-sm">

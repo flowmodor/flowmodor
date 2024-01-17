@@ -38,6 +38,7 @@ export default function SignUp() {
       <Input
         label="Email"
         labelPlacement="outside"
+        placeholder="you@example.com"
         variant="bordered"
         type="email"
         radius="sm"
@@ -55,6 +56,7 @@ export default function SignUp() {
       <Input
         label="Password"
         labelPlacement="outside"
+        placeholder="••••••••"
         variant="bordered"
         radius="sm"
         value={passwordValue}
