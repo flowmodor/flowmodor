@@ -13,5 +13,3 @@ For a detailed explanation, read more about it on [this blog](https://flowmodor.
 - 🕒 **Flowmodoro Timer:** Counts up during work and down for breaks, based on your focus duration.
 - 📋 **Task List:** Organizes and manages tasks, integrating seamlessly with focus sessions.
 - 📊 **Focus Report:** Tracks and summarizes work and break patterns for enhanced productivity insights.
-
-[![Deployed on Zeabur](https://zeabur.com/deployed-on-zeabur-dark.svg)](https://zeabur.com?referralCode=m4xshen&utm_source=m4xshen)
