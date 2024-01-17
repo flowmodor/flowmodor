@@ -14,5 +14,9 @@ const formatTime = (t: number) => {
     .padStart(2, '0')}`;
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export { formatTime };
+const validatePassword = (password: string) => /^$|^.{8,}$/.test(password);
+
+const validateEmail = (email: string) =>
+  /^$|^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
+
+export { formatTime, validatePassword, validateEmail };

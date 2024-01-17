@@ -7,6 +7,7 @@ import { Input } from '@nextui-org/input';
 import Link from 'next/link';
 import useSignUp from '@/hooks/useSignUp';
 import { toast } from 'react-toastify';
+import { validateEmail, validatePassword } from '@/utils';
 
 export default function SignUp() {
   const [emailValue, setEmailValue] = useState('');
@@ -14,11 +15,6 @@ export default function SignUp() {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
   const { isLoading, signUp } = useSignUp();
-
-  const validateEmail = (email: string) =>
-    /^$|^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
-
-  const validatePassword = (password: string) => /^$|^.{8,}$/.test(password);
 
   return (
     <div className="flex w-96 flex-col gap-5">
