@@ -22,7 +22,10 @@ export default function TaskBox({ task }: Props) {
           wrapper: 'border border-primary',
         }}
         onChange={async () => {
-          await supabase.from('tasks').delete().eq('id', task.id);
+          await supabase
+            .from('tasks')
+            .update({ completed: true })
+            .eq('id', task.id);
         }}
       >
         {task.name}

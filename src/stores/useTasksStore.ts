@@ -20,7 +20,8 @@ const useTasksStore = create<TasksState>((set) => ({
     const { data } = await supabase
       .from('tasks')
       .select('*')
-      .eq('user_id', user?.id);
+      .eq('user_id', user?.id)
+      .is('completed', false);
     set({ tasks: data! });
   },
   subscribeToTasks: () => {
@@ -43,6 +44,18 @@ const useTasksStore = create<TasksState>((set) => ({
           focusingTask:
             payload.old.id === state.focusingTask ? null : state.focusingTask,
         }));
+      },
+    );
+
+    tasksChannel.on(
+      'postgres_changes',
+      { event: 'UPDATE', schema: 'public' },
+      (payload: any) => {
+        if (payload.new.completed) {
+          set((state) => ({
+            tasks: state.tasks.filter((task) => task.id !== payload.new.id),
+          }));
+        }
       },
     );
 
