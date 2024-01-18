@@ -8,12 +8,14 @@ import useTimerStore from '@/stores/useTimerStore';
 import Feedback from '@/components/Feedback';
 import SignOut from '@/components/SignOut';
 import useTasksStore from '@/stores/useTasksStore';
+import useLog from '@/hooks/useLog';
 
 export default function App() {
   const { endTime, mode, isRunning, tickTimer, stopTimer } = useTimerStore(
     (state) => state,
   );
   const { fetchTasks, subscribeToTasks } = useTasksStore((state) => state);
+  const { log } = useLog();
 
   const [tick, setTick] = useState(0);
 
@@ -32,6 +34,7 @@ export default function App() {
 
       if (mode === 'break' && endTime! < Date.now()) {
         stopTimer();
+        log();
         const audio = new Audio('/alarm.mp3');
         audio.play();
       }
