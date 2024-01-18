@@ -45,8 +45,8 @@ export default function Navbar() {
         <span className="opacity-50">Pricing</span>
       </div>
       <a
-        href="#getWaitlistContainer"
-        className={`right-5 absolute font-medium cursor-pointer rounded-md p-2 transition-all ${
+        href="https://app.flowmodor.com/signin"
+        className={`right-5 absolute text-sm font-medium cursor-pointer rounded-md p-2 transition-all ${
           isScrolled ? "text-[#23223C] bg-[#DBBFFF]" : "text-white bg-[#23223C]"
         }`}
       >
