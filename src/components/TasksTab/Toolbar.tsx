@@ -1,21 +1,28 @@
 import { useState } from 'react';
 import { Button } from '@nextui-org/button';
 import { Plus } from '@/components/Icons';
-import useTasksStore from '@/stores/useTasksStore';
+import supabase from '@/utils/supabase';
+import { toast } from 'react-toastify';
 
 export default function Toolbar() {
-  const { tasks, addTask } = useTasksStore((state) => state);
   const [inputValue, setInputValue] = useState<string>('');
 
-  const onAddTask = (name: string | undefined) => {
+  const onAddTask = async (name: string | undefined) => {
     if (!name) {
       return;
     }
 
-    addTask({
-      key: tasks.length + 1,
-      name,
-    });
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    const { error } = await supabase
+      .from('tasks')
+      .insert([{ user_id: user?.id, name }]);
+
+    if (error) {
+      toast(error.message);
+    }
   };
 
   return (

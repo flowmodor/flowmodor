@@ -7,13 +7,20 @@ import TimerTab from '@/components/TimerTab/index';
 import useTimerStore from '@/stores/useTimerStore';
 import Feedback from '@/components/Feedback';
 import SignOut from '@/components/SignOut';
+import useTasksStore from '@/stores/useTasksStore';
 
 export default function App() {
   const { endTime, mode, isRunning, tickTimer, stopTimer } = useTimerStore(
     (state) => state,
   );
+  const { fetchTasks, subscribeToTasks } = useTasksStore((state) => state);
 
   const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    fetchTasks();
+    subscribeToTasks();
+  }, []);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;

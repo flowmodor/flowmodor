@@ -25,7 +25,7 @@ export default function TaskSelector() {
     >
       {tasks.map((task) => (
         <SelectItem
-          key={task.key}
+          key={task.id}
           value={task.name}
           classNames={{
             base: 'data-[focus=true]:!bg-secondary data-[hover=true]:!bg-secondary',
