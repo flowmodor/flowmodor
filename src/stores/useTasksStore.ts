@@ -24,13 +24,20 @@ const useTasksStore = create<TasksState>((set) => ({
       .is('completed', false);
     set({ tasks: data! });
   },
-  subscribeToTasks: () => {
+  subscribeToTasks: async () => {
     const tasksChannel = supabase.channel('tasks');
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
     tasksChannel.on(
       'postgres_changes',
       { event: 'INSERT', schema: 'public' },
       (payload: any) => {
+        if (payload.new.user_id !== user?.id) {
+          return;
+        }
+
         set((state) => ({ tasks: [...state.tasks, payload.new] }));
       },
     );
@@ -39,6 +46,10 @@ const useTasksStore = create<TasksState>((set) => ({
       'postgres_changes',
       { event: 'DELETE', schema: 'public' },
       (payload: any) => {
+        if (payload.new.user_id !== user?.id) {
+          return;
+        }
+
         set((state) => ({
           tasks: state.tasks.filter((task) => task.id !== payload.old.id),
           focusingTask:
@@ -51,6 +62,10 @@ const useTasksStore = create<TasksState>((set) => ({
       'postgres_changes',
       { event: 'UPDATE', schema: 'public' },
       (payload: any) => {
+        if (payload.new.user_id !== user?.id) {
+          return;
+        }
+
         if (payload.new.completed) {
           set((state) => ({
             tasks: state.tasks.filter((task) => task.id !== payload.new.id),
