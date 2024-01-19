@@ -15,7 +15,7 @@ export default function TaskSelector() {
       size="sm"
       radius="sm"
       classNames={{
-        base: 'w-64',
+        base: 'sm:w-64',
         trigger: 'bg-secondary data-[hover=true]:bg-secondary',
         popoverContent: 'bg-background',
       }}

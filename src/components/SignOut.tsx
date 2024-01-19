@@ -11,7 +11,9 @@ export default function SignOut() {
     <Button
       color="secondary"
       isIconOnly
-      className="absolute right-5 top-5 fill-white"
+      size="sm"
+      radius="sm"
+      className="fill-white"
       onPress={async () => {
         await signOut();
         router.push('/signin');

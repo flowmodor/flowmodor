@@ -51,8 +51,10 @@ export default function App() {
 
   return (
     <>
-      <SignOut />
-      <Feedback />
+      <div className="sm:0 right-5 top-5 mb-5 flex justify-end gap-3 sm:absolute">
+        <Feedback />
+        <SignOut />
+      </div>
       <Tabs
         fullWidth
         disableAnimation

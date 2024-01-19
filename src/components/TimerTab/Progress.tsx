@@ -26,9 +26,11 @@ export default function Progress() {
         </div>
       }
       classNames={{
-        svg: 'w-80 h-80 text-primary',
+        svg: 'w-full sm:w-80 h-80 text-primary',
         track: 'stroke-secondary',
-        value: `${displayTime >= 3600 ? 'text-4xl' : 'text-5xl'} font-semibold`,
+        value: `${
+          displayTime >= 3600 ? 'text-3xl sm:text-4xl' : 'text-4xl sm:text-5xl'
+        } font-semibold`,
       }}
     />
   );

@@ -16,8 +16,8 @@ export default function SignIn() {
   const router = useRouter();
 
   return (
-    <div className="flex w-96 flex-col gap-5">
-      <h1 className="mx-auto text-3xl font-semibold">Welcome back</h1>
+    <div className="flex flex-col gap-5 sm:w-96">
+      <h1 className="mx-auto mb-5 text-3xl font-semibold">Welcome back</h1>
       {/*
       <Button color="secondary" radius="sm">
         <Google />

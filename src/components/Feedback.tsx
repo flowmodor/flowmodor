@@ -35,12 +35,7 @@ export default function Feedback() {
       }}
     >
       <PopoverTrigger>
-        <Button
-          color="secondary"
-          size="sm"
-          radius="sm"
-          className="absolute bottom-5 right-5"
-        >
+        <Button color="secondary" size="sm" radius="sm">
           Feedback
         </Button>
       </PopoverTrigger>

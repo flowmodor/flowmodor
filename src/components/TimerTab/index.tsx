@@ -7,7 +7,7 @@ import TabWrapper from '../TabWrapper';
 export default function TimerTab() {
   return (
     <TabWrapper>
-      <Card className="h-[30rem] w-[30rem] bg-[#23223C]">
+      <Card className="min-h-[50vh] w-[90vw] bg-[#23223C] sm:h-[30rem] sm:w-[30rem]">
         <CardBody className="flex h-full flex-col items-center justify-center">
           <TaskSelector />
           <Progress />
