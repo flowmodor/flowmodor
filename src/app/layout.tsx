@@ -1,6 +1,6 @@
 import './globals.css';
 import 'react-toastify/dist/ReactToastify.min.css';
-import type { Metadata, Viewport } from 'next';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
 import { Providers } from './providers';
@@ -16,13 +16,6 @@ export const metadata: Metadata = {
     description: 'Flowmodor Web App',
     images: [{ url: 'https://flowmodor.com/og.png' }],
   },
-};
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  viewportFit: 'cover',
 };
 
 export default function RootLayout({

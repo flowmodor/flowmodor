@@ -51,6 +51,7 @@ export default function SignIn() {
         variant="bordered"
         type="email"
         radius="sm"
+        className="text-[16px]"
         value={emailValue}
         onValueChange={setEmailValue}
       />
@@ -61,6 +62,7 @@ export default function SignIn() {
         variant="bordered"
         type="password"
         radius="sm"
+        className="text-[16px]"
         value={passwordValue}
         onValueChange={setPasswordValue}
         onKeyDown={(e) => {

@@ -28,7 +28,7 @@ export default function Toolbar() {
   return (
     <>
       <input
-        className="w-full bg-transparent pr-5 outline-none"
+        className="w-full bg-transparent pr-5 text-[16px] outline-none"
         placeholder="Enter task name"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
