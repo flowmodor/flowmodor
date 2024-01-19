@@ -50,7 +50,7 @@ export default function Navbar() {
           isScrolled ? "text-[#23223C] bg-[#DBBFFF]" : "text-white bg-[#23223C]"
         }`}
       >
-        Get Started
+        Get started
       </a>
     </nav>
   );
