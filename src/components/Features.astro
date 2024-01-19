@@ -2,33 +2,50 @@
 import AppearScroll from "./AppearScroll";
 ---
 
-<div id="features" class="flex flex-col items-center w-full px-3">
-  <div class="h-screen flex flex-col lg:flex-row items-center justify-center gap-10">
+
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"
+></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css"
+/>
+<style>
+img-comparison-slider {
+  --divider-color: #131221;
+  --handle-position-start: 52%;
+}
+</style>
+<div id="features" class="flex flex-col text-center lg:text-start items-center w-full px-3">
+  <div class="h-screen flex flex-col lg:flex-row items-center justify-center gap-10 mt-20">
     <AppearScroll client:load>
-      <img src="/timer.png" class="w-full max-w-xl" alt="Timer feature of Flowmodor app" />
+      <img-comparison-slider class="cursor-grab">
+        <img slot="first" src="/focus.png" class="ml-2 w-full max-w-[25rem]" alt="Timer feature of Flowmodor app" />
+        <img slot="second" src="/break.png" class="ml-2 w-full max-w-[25rem]" alt="Timer feature of Flowmodor app" />
+        <div slot="handle" class="w-8 h-8 bg-white animate-pulse rounded-full" />
+      </img-comparison-slider>
     </AppearScroll>
-    <div class="max-w-[24rem] flex flex-col gap-5">
+    <div class="order-first lg:order-last max-w-[24rem] flex flex-col gap-5">
       <h1 class="text-3xl font-bold">Flowmodoro Timer</h1>
-      Automates time tracking by counting up during focus sessions and
-      switching to a countdown for breaks, based on your work duration.
+      Counting up during focus and counting down during breaks, based on your work duration.
     </div>
   </div>
   <div class="h-screen flex flex-col lg:flex-row items-center justify-center gap-10">
-    <AppearScroll client:load>
-      <img src="/taskList.png" alt="Taks list feature of Flowmodor app" class="w-full max-w-[15rem]" />
-    </AppearScroll>
-    <div class="max-w-[24rem] flex flex-col gap-5 lg:order-first">
+    <div class="max-w-[24rem] flex flex-col gap-5">
       <h1 class="text-3xl font-bold">Task List</h1>
-      Easily select and track tasks for each session, aiding in organization
-      and progress monitoring.
+      A simple task list which can be selected when starting a focus session to stay monotasked.
     </div>
+    <AppearScroll client:load>
+      <img src="/taskTab.png" alt="Taks list feature of Flowmodor app" class="ml-2 w-full max-w-[25rem]" />
+    </AppearScroll>
   </div>
   <div class="h-screen flex flex-col lg:flex-row items-center justify-center gap-10">
     <AppearScroll client:load>
-      <img src="/focusReport.png" alt="Focus report feature of Flowmodor app" class="w-full max-w-xl" />
+      <img src="/report.png" alt="Historical statistics feature of Flowmodor app" class="ml-2 w-full max-w-xl" />
     </AppearScroll>
-    <div class="max-w-[24rem]  flex flex-col gap-5">
-      <h1 class="text-3xl font-bold">Focus Report</h1>
+    <div class="order-first lg:order-last max-w-[24rem]  flex flex-col gap-5">
+      <h1 class="text-3xl font-bold">Historical statistics</h1>
       Tracks and summarizes work and break patterns for enhanced
       productivity insights.
     </div>

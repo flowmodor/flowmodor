@@ -2,7 +2,7 @@ export default function Wailist() {
   return (
     <div
       id="waitlist"
-      className="mx-4 mt-10 mb-32 flex flex-col lg:w-1/2 items-center text-center"
+      className="h-screen -mb-32 justify-center mx-4 flex flex-col lg:w-1/2 items-center text-center"
     >
       <div className="text-4xl font-semibold">Get into flow state with us.</div>
       <div className="mt-5 mb-10 w-2/3 text-zinc-300">
