@@ -15,6 +15,18 @@ export default function SignIn() {
   const { isLoading, signIn } = useSignIn();
   const router = useRouter();
 
+  const handleSignIn = async () => {
+    const { error } = await signIn(emailValue, passwordValue);
+
+    if (error) {
+      toast(error.message, { position: 'top-right' });
+      console.error(error);
+    } else {
+      console.log('Signed in successfully');
+      router.push('/');
+    }
+  };
+
   return (
     <div className="flex flex-col gap-5 sm:w-96">
       <h1 className="mx-auto mb-5 text-3xl font-semibold">Welcome back</h1>
@@ -51,22 +63,18 @@ export default function SignIn() {
         radius="sm"
         value={passwordValue}
         onValueChange={setPasswordValue}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleSignIn();
+          }
+        }}
       />
       <Button
         color="primary"
         radius="sm"
         className="mt-10"
         isLoading={isLoading}
-        onPress={async () => {
-          const { error } = await signIn(emailValue, passwordValue);
-
-          if (error) {
-            toast(error.message, { position: 'top-right' });
-            console.error(error);
-          } else {
-            router.push('/');
-          }
-        }}
+        onPress={handleSignIn}
       >
         Sign In
       </Button>

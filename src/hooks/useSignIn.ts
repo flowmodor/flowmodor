@@ -11,7 +11,9 @@ export default function useSignIn() {
       password,
     });
 
-    setIsLoading(false);
+    if (error) {
+      setIsLoading(false);
+    }
 
     return { data, error };
   }
