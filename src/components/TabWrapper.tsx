@@ -3,5 +3,5 @@ export default function TabWrapper({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="flex flex-col gap-5">{children}</div>;
+  return <div className="w-min flex flex-col gap-5">{children}</div>;
 }

@@ -1,6 +1,6 @@
 import './globals.css';
 import 'react-toastify/dist/ReactToastify.min.css';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
 import { Providers } from './providers';
@@ -18,6 +18,13 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover',
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -25,12 +32,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
-        />
-      </head>
       <body
         className={`${inter.className} flex h-screen items-center justify-center bg-background text-white dark`}
       >
