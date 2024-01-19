@@ -2,11 +2,11 @@ export default function Wailist() {
   return (
     <div
       id="waitlist"
-      className="mt-10 mb-32 flex flex-col lg:w-1/2 items-center"
+      className="mx-4 mt-10 mb-32 flex flex-col lg:w-1/2 items-center text-center"
     >
       <div className="text-4xl font-semibold">Get into flow state with us.</div>
-      <div className="mt-5 mb-10 w-2/3 text-zinc-300 text-center">
-        Join <b>600+</b> others on the waitlist for early access to Flowmodor's private beta.
+      <div className="mt-5 mb-10 w-2/3 text-zinc-300">
+        Join <b>500+</b> others on the waitlist for early access to Flowmodor's private beta.
       </div>
       <div
         id="getWaitlistContainer"
