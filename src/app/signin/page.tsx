@@ -16,13 +16,16 @@ export default function SignIn() {
   const router = useRouter();
 
   const handleSignIn = async () => {
+    if (isLoading) {
+      return;
+    }
+
     const { error } = await signIn(emailValue, passwordValue);
 
     if (error) {
       toast(error.message, { position: 'top-right' });
       console.error(error);
     } else {
-      console.log('Signed in successfully');
       router.push('/');
     }
   };
