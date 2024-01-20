@@ -12,6 +12,7 @@
     "@nextui-org/button": "^2.0.26",
     "@nextui-org/card": "^2.0.24",
     "@nextui-org/checkbox": "^2.0.25",
+    "@nextui-org/dropdown": "^2.1.16",
     "@nextui-org/input": "^2.1.16",
     "@nextui-org/popover": "^2.1.14",
     "@nextui-org/progress": "^2.0.24",

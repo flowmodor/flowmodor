@@ -5,19 +5,17 @@ import { Tabs, Tab } from '@nextui-org/tabs';
 import TasksTab from '@/components/TasksTab';
 import TimerTab from '@/components/TimerTab/index';
 import useTimerStore from '@/stores/useTimerStore';
-import Feedback from '@/components/Feedback';
-import SignOut from '@/components/SignOut';
 import useTasksStore from '@/stores/useTasksStore';
 import useLog from '@/hooks/useLog';
+import Menu from '@/components/Menu';
 
 export default function App() {
   const { endTime, mode, isRunning, tickTimer, stopTimer } = useTimerStore(
     (state) => state,
   );
   const { fetchTasks, subscribeToTasks } = useTasksStore((state) => state);
-  const { log } = useLog();
-
   const [tick, setTick] = useState(0);
+  const { log } = useLog();
 
   useEffect(() => {
     fetchTasks();
@@ -51,10 +49,7 @@ export default function App() {
 
   return (
     <>
-      <div className="sm:0 right-5 top-5 mb-5 flex justify-end gap-3 sm:absolute">
-        <Feedback />
-        <SignOut />
-      </div>
+      <Menu />
       <Tabs
         fullWidth
         disableAnimation
