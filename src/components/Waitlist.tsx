@@ -6,7 +6,7 @@ export default function Wailist() {
     >
       <div className="text-4xl font-semibold">Get into flow state with us.</div>
       <div className="mt-5 mb-10 w-2/3 text-zinc-300">
-        Join <b>580+</b> others on the waitlist for early access to Flowmodor's private beta.
+        Join <b>600+</b> others on the waitlist for early access to Flowmodor's private beta.
       </div>
       <div
         id="getWaitlistContainer"
