@@ -32,6 +32,13 @@ export default function Menu() {
         </DropdownTrigger>
         <DropdownMenu aria-label="Static Actions">
           <DropdownItem
+            key="home"
+            href="/"
+            className="data-[focus=true]:bg-secondary"
+          >
+            Home
+          </DropdownItem>
+          <DropdownItem
             key="settings"
             href="/settings"
             className="data-[focus=true]:bg-secondary"
