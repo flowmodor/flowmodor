@@ -7,7 +7,10 @@ export default function useChangePassword() {
   async function changePassword(password: string) {
     setIsLoading(true);
     const { error } = await supabase.auth.updateUser({ password });
-    setIsLoading(false);
+
+    if (error) {
+      setIsLoading(false);
+    }
 
     return { error };
   }

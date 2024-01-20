@@ -17,6 +17,23 @@ export default function Account() {
   const { isLoading, changePassword } = useChangePassword();
   const router = useRouter();
 
+  const handleChangePassword = async () => {
+    if (isLoading || password !== confirm || password === '') {
+      return;
+    }
+
+    const { error } = await changePassword(password);
+    setPassword('');
+    setConfirm('');
+
+    if (error) {
+      toast(error.message);
+    } else {
+      toast('Password changed successfully.');
+      router.push('/');
+    }
+  };
+
   return (
     <div className="flex flex-col gap-10">
       <div className="text-center">
@@ -58,6 +75,11 @@ export default function Account() {
         radius="sm"
         value={confirm}
         onValueChange={setConfirm}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleChangePassword();
+          }
+        }}
         classNames={{
           inputWrapper: 'border-secondary data-[hover=true]:border-secondary',
         }}
@@ -79,18 +101,7 @@ export default function Account() {
         color="primary"
         isDisabled={password !== confirm || password === ''}
         isLoading={isLoading}
-        onPress={async () => {
-          const { error } = await changePassword(password);
-          setPassword('');
-          setConfirm('');
-
-          if (error) {
-            toast(error.message);
-          } else {
-            toast('Password changed successfully.');
-            router.push('/');
-          }
-        }}
+        onPress={handleChangePassword}
       >
         Set Password
       </Button>
