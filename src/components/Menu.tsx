@@ -34,27 +34,27 @@ export default function Menu() {
           <DropdownItem
             key="home"
             href="/"
-            className="data-[focus=true]:bg-secondary"
+            className="data-[focus=true]:bg-secondary data-[hover=true]:bg-secondary"
           >
             Home
           </DropdownItem>
-          <DropdownItem
+          {/* <DropdownItem
             key="settings"
             href="/settings"
             className="data-[focus=true]:bg-secondary"
           >
             Settings
-          </DropdownItem>
+          </DropdownItem> */}
           <DropdownItem
             key="feedback"
             href="/feedback"
-            className="data-[focus=true]:bg-secondary"
+            className="data-[focus=true]:bg-secondary data-[hover=true]:bg-secondary"
           >
             Feedback
           </DropdownItem>
           <DropdownItem
             key="signout"
-            className="data-[focus=true]:bg-secondary"
+            className="data-[focus=true]:bg-secondary data-[hover=true]:bg-secondary"
             onPress={async () => {
               await signOut();
               router.push('/signin');

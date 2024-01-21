@@ -48,7 +48,7 @@ export default function App() {
   }, [tick, isRunning]);
 
   return (
-    <>
+    <div className='h-full flex flex-col justify-center'>
       <Menu />
       <Tabs
         fullWidth
@@ -73,6 +73,6 @@ export default function App() {
           <TasksTab />
         </Tab>
       </Tabs>
-    </>
+    </div>
   );
 }

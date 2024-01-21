@@ -25,15 +25,15 @@ export default function Feedback() {
   };
 
   return (
-    <div>
+    <div className="mt-10 w-screen px-10 sm:w-[70vw] md:w-[50vw] lg:w-[30vw]">
       <Menu />
-      <h1 className="mb-10 text-3xl font-semibold">Feedback</h1>
+      <h1 className="text-3xl font-semibold">Feedback</h1>
       <Textarea
         value={value}
         onValueChange={setValue}
         placeholder="Bug report, feature request, or any feedback."
         classNames={{
-          base: 'w-96 mt-2',
+          base: 'w-full mt-10',
           inputWrapper:
             'bg-secondary data-[hover=true]:bg-secondary data-[focus=true]:!bg-secondary',
         }}
