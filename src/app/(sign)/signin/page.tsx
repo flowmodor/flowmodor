@@ -37,9 +37,10 @@ export default function SignIn() {
         color="secondary"
         radius="sm"
         onPress={() => handleSignIn(() => signInWithOAuth('google'))}
+        isDisabled
       >
         <Google />
-        Continue with Google
+        Continue with Google (Coming Soon)
       </Button>
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
