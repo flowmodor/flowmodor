@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-// import { Google } from '@/components/Icons';
+import { Google } from '@/components/Icons';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import Link from 'next/link';
@@ -12,15 +12,15 @@ import { useRouter } from 'next/navigation';
 export default function SignIn() {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
-  const { isLoading, signIn } = useSignIn();
+  const { isLoading, signInWithPassword, signInWithOAuth } = useSignIn();
   const router = useRouter();
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (signIn: () => Promise<any>) => {
     if (isLoading) {
       return;
     }
 
-    const { error } = await signIn(emailValue, passwordValue);
+    const { error } = await signIn();
 
     if (error) {
       toast(error.message, { position: 'top-right' });
@@ -33,8 +33,11 @@ export default function SignIn() {
   return (
     <div className="flex flex-col gap-5 sm:w-96">
       <h1 className="mx-auto mb-5 text-3xl font-semibold">Welcome back</h1>
-      {/*
-      <Button color="secondary" radius="sm">
+      <Button
+        color="secondary"
+        radius="sm"
+        onPress={() => handleSignIn(() => signInWithOAuth('google'))}
+      >
         <Google />
         Continue with Google
       </Button>
@@ -46,7 +49,6 @@ export default function SignIn() {
           <span className="bg-background px-2 text-sm">or</span>
         </div>
       </div>
-        */}
       <Input
         label="Email"
         labelPlacement="outside"
@@ -74,7 +76,7 @@ export default function SignIn() {
         onValueChange={setPasswordValue}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
-            handleSignIn();
+            handleSignIn(() => signInWithPassword(emailValue, passwordValue));
           }
         }}
       />
@@ -83,7 +85,9 @@ export default function SignIn() {
         radius="sm"
         className="mt-10"
         isLoading={isLoading}
-        onPress={handleSignIn}
+        onPress={() =>
+          handleSignIn(() => signInWithPassword(emailValue, passwordValue))
+        }
       >
         Sign In
       </Button>
