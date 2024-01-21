@@ -15,8 +15,15 @@ NEXT_PUBLIC_SUPABASE_URL="API URL"
 NEXT_PUBLIC_SUPABASE_ANON_KEY="anon key"
 ```
 
-6. Run the web app: `yarn run dev`
-7. Create a user at [Authentication tab](http://127.0.0.1:54323/project/default/auth/users) and then you can login with it.
+6. Create `.env` file with the following content (skip this if your are not working with Google OAuth).
+
+```text
+SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET="your google client secret"
+SUPABASE_AUTH_EXTERNAL_GOOGLE_ID="your google client id"
+```
+
+7. Run the web app: `yarn run dev`
+8. Create a user at [Authentication tab](http://127.0.0.1:54323/project/default/auth/users) and then you can login with it.
 
 ## Finding a task
 
