@@ -9,8 +9,7 @@ const supabase = createClient(
 );
 
 export default function Invite() {
-  const emails = [
-  ];
+  const emails: string[] = [];
 
   const invite = async () => {
     emails.forEach(async (email) => {
