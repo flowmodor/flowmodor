@@ -35,7 +35,7 @@ export default function Account() {
   };
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex h-full flex-col justify-center gap-10">
       <div className="text-center">
         <h1 className="text-2xl font-semibold">Change Password</h1>
         <div className="text-sm">Enter a new password for your account.</div>
