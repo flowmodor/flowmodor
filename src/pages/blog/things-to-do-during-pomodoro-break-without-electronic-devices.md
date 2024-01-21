@@ -20,7 +20,7 @@ Stretching during breaks is not just a way to relieve physical tension but also 
 
 A short walk is an excellent way to disconnect from your work mentally. It's not just about the physical movement but also about changing your environment. Walking away from your workspace allows you to return with a fresh perspective. Whether it's a stroll around your office, a quick venture into your backyard, or just pacing in your room, the act of walking helps in resetting your mind, making you more creative and productive when you return.
 
-## 3. Looking off in the distance
+## 3. Look off into the distance
 
 Taking time to look far away is a simple yet effective break activity. If you've been staring at your computer or books, this helps rest your eyes. Find a place where you can see far, like a window. Look at the sky, trees, or buildings in the distance. This isn't just good for your eyes; it's also a quiet moment for your mind. While you're looking away, take some deep breaths. This easy activity helps you relax.
 
@@ -28,7 +28,7 @@ Taking time to look far away is a simple yet effective break activity. If you've
 
 A cluttered desk can lead to a cluttered mind. Use your break to organize your workspace. Put away unnecessary items, arrange your documents, and clear any trash. A clean and organized environment can significantly boost your productivity and reduce stress levels.
 
-## 5. Filling water bottle & visit the restroom
+## 5. Fill your water bottle & visit the restroom
 
 Hydration is key to maintaining high energy levels and focus. Use your break to refill your water bottle. It's a simple act, but it ensures that you stay hydrated, especially important if you're so engrossed in your work that you forget to drink water. Additionally, a regular visit to the restroom is also important.
 
