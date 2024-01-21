@@ -55,11 +55,11 @@ export async function middleware(request: NextRequest) {
   );
 
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
   if (
-    user === null &&
+    session === null &&
     request.nextUrl.pathname !== '/signin' &&
     request.nextUrl.pathname !== '/signup'
   ) {
@@ -67,7 +67,7 @@ export async function middleware(request: NextRequest) {
   }
 
   if (
-    user !== null &&
+    session !== null &&
     (request.nextUrl.pathname === '/signin' ||
       request.nextUrl.pathname === '/signup')
   ) {
