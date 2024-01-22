@@ -42,7 +42,7 @@ export default function Navbar() {
       </a>
       <div className="hidden sm:flex gap-10 font-semibold text-lg">
         <a href="/blog">Blog</a>
-        <span className="opacity-50">Pricing</span>
+        <a href="/pricing">Pricing</a>
       </div>
       <a
         href="https://app.flowmodor.com/signin"
