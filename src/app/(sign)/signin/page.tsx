@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { Google } from '@/components/Icons';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
-import Link from 'next/link';
 import useSignIn from '@/hooks/useSignIn';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import Or from '@/components/Or';
+import { Link } from '@nextui-org/react';
 
 export default function SignIn() {
   const [emailValue, setEmailValue] = useState('');
@@ -53,7 +53,8 @@ export default function SignIn() {
         radius="sm"
         classNames={{
           input: 'text-[16px]',
-          inputWrapper: 'border-secondary data-[hover=true]:border-secondary',
+          inputWrapper:
+            'border-secondary data-[hover=true]:border-secondary data-[focus=true]:!border-primary',
         }}
         value={emailValue}
         onValueChange={setEmailValue}
@@ -67,7 +68,8 @@ export default function SignIn() {
         radius="sm"
         classNames={{
           input: 'text-[16px]',
-          inputWrapper: 'border-secondary data-[hover=true]:border-secondary',
+          inputWrapper:
+            'border-secondary data-[hover=true]:border-secondary data-[focus=true]:!border-primary',
         }}
         value={passwordValue}
         onValueChange={setPasswordValue}
@@ -77,7 +79,11 @@ export default function SignIn() {
           }
         }}
       />
-      <Link href="/forgot-password" className="mt-5 text-sm underline">
+      <Link
+        href="/forgot-password"
+        className="mx-auto mt-5 text-sm text-white"
+        underline="always"
+      >
         Forgot password?
       </Link>
       <Button
@@ -92,8 +98,8 @@ export default function SignIn() {
       </Button>
       <div className="mx-auto text-sm">
         Don&apos;t have an account?{' '}
-        <Link href="/signup" className="underline">
-          Sign Up Now
+        <Link href="/signup" className="text-sm text-white" underline="always">
+          Sign up now
         </Link>
       </div>
     </div>

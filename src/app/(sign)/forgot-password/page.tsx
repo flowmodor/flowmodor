@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
-import Link from 'next/link';
 import useSendPasswordReset from '@/hooks/useSendPasswordReset';
 import { toast } from 'react-toastify';
+import { Link } from '@nextui-org/react';
 
 export default function ForgotPassword() {
   const [emailValue, setEmailValue] = useState('');
@@ -42,6 +42,8 @@ export default function ForgotPassword() {
             classNames={{
               base: 'my-5',
               input: 'text-[16px]',
+              inputWrapper:
+                'border-secondary data-[hover=true]:border-secondary data-[focus=true]:!border-primary',
             }}
             value={emailValue}
             onValueChange={setEmailValue}
@@ -61,7 +63,11 @@ export default function ForgotPassword() {
           </Button>
         </>
       )}
-      <Link href="/signin" className="text-sm underline">
+      <Link
+        href="/signin"
+        className="mx-auto text-sm text-white"
+        underline="always"
+      >
         Go to signin
       </Link>
     </div>

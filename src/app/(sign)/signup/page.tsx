@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { Google, Hide, Show } from '@/components/Icons';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
-import Link from 'next/link';
 import useSignUp from '@/hooks/useSignUp';
 import { toast } from 'react-toastify';
 import { validateEmail, validatePassword } from '@/utils';
 import Or from '@/components/Or';
+import { Link } from '@nextui-org/react';
 
 export default function SignUp() {
   const [emailValue, setEmailValue] = useState('');
@@ -23,7 +23,7 @@ export default function SignUp() {
 
       <span>
         Join{' '}
-        <Link href="https://flowmodor.com/#waitlist" className="text-primary">
+        <Link href="https://flowmodor.com/#waitlist" underline="always">
           waitlist
         </Link>{' '}
         to get early access.
@@ -50,7 +50,8 @@ export default function SignUp() {
         isInvalid={!validateEmail(emailValue)}
         classNames={{
           input: 'text-[16px]',
-          inputWrapper: 'border-secondary data-[hover=true]:border-secondary',
+          inputWrapper:
+            'border-secondary data-[hover=true]:border-secondary data-[focus=true]:!border-primary',
         }}
       />
       <Input
@@ -70,12 +71,14 @@ export default function SignUp() {
         isInvalid={!validatePassword(passwordValue)}
         classNames={{
           input: 'text-[16px]',
-          inputWrapper: 'border-secondary data-[hover=true]:border-secondary',
+          inputWrapper:
+            'border-secondary data-[hover=true]:border-secondary data-[focus=true]:!border-primary',
         }}
         endContent={
           <button
             className="focus:outline-none"
             type="button"
+            disabled
             onClick={toggleVisibility}
           >
             {isVisible ? <Hide /> : <Show />}
@@ -117,8 +120,8 @@ export default function SignUp() {
       </Button>
       <div className="mx-auto text-sm">
         Have an account?{' '}
-        <Link href="/signin" className="underline">
-          Sign In Now
+        <Link href="/signin" className="text-sm text-white" underline="always">
+          Sign in now
         </Link>
       </div>
     </div>
