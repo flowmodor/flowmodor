@@ -1,3 +1,4 @@
+import supabase from '@/utils/supabase';
 import { create } from 'zustand';
 
 interface TimerState {
@@ -14,6 +15,14 @@ interface TimerState {
   toggleShowTime: () => void;
 }
 
+async function getBreakRatio() {
+  const { data } = await supabase
+    .from('settings')
+    .select('break_ratio')
+    .single();
+  return data?.break_ratio || 5;
+}
+
 const useTimerStore = create<TimerState>((set) => ({
   startTime: null,
   endTime: null,
@@ -22,24 +31,33 @@ const useTimerStore = create<TimerState>((set) => ({
   mode: 'focus',
   showTime: true,
   isRunning: false,
-  startTimer: () =>
+  startTimer: async () => {
+    const breakRatio = await getBreakRatio();
     set((state) => ({
       startTime: Date.now(),
       endTime:
         state.mode === 'break'
-          ? Math.floor(Date.now() + (state.endTime! - state.startTime!) / 5)
+          ? Math.floor(
+              Date.now() + (state.endTime! - state.startTime!) / breakRatio,
+            )
           : state.endTime,
       isRunning: true,
-    })),
-  stopTimer: () =>
+    }));
+  },
+  stopTimer: async () => {
+    const breakRatio = await getBreakRatio();
     set((state) => ({
       endTime: Date.now(),
       totalTime:
-        state.mode === 'focus' ? (Date.now() - state.startTime!) / 5 : 0,
+        state.mode === 'focus'
+          ? (Date.now() - state.startTime!) / breakRatio
+          : 0,
       mode: state.mode === 'focus' ? 'break' : 'focus',
       isRunning: false,
-    })),
-  tickTimer: () =>
+    }));
+  },
+  tickTimer: async () => {
+    const breakRatio = await getBreakRatio();
     set((state) => {
       let time;
       if (state.isRunning) {
@@ -49,12 +67,15 @@ const useTimerStore = create<TimerState>((set) => ({
             : state.endTime! - Date.now();
       } else {
         time =
-          state.mode === 'focus' ? 0 : (state.endTime! - state.startTime!) / 5;
+          state.mode === 'focus'
+            ? 0
+            : (state.endTime! - state.startTime!) / breakRatio;
       }
       return {
         displayTime: Math.floor(time / 1000),
       };
-    }),
+    });
+  },
   toggleShowTime: () => set((state) => ({ showTime: !state.showTime })),
 }));
 
