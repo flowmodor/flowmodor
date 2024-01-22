@@ -15,11 +15,17 @@ export default function Feedback() {
       return;
     }
 
-    await supabase
-      .from('feedback')
-      .insert([
-        { content: value.trim(), created_at: new Date().toISOString() },
-      ]);
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    await supabase.from('feedback').insert([
+      {
+        content: value.trim(),
+        created_at: new Date().toISOString(),
+        user_id: user?.id,
+      },
+    ]);
 
     setValue('');
   };
