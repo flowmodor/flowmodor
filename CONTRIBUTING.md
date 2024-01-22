@@ -7,8 +7,9 @@ We welcome everyone to contribute to Flowmodor. This document is to help you und
 1. Clone the repository: `git clone https://github.com/flowmodor/flowmodor`
 2. Navigate to the project directory: `cd flowmodor`
 3. Install dependencies: `yarn`
-4. Run Supabase: `npx supabase start`
-5. Create `.env.local` file with following content (replace `API URL` and `anon key` with the output string from step 4.):
+4. Install and run a containerization tool, such as Docker Desktop, OrbStack, podman desktop, or another alternative.
+5. Run Supabase: `npx supabase start`
+6. Create `.env.local` file with following content (replace `API URL` and `anon key` with the output string from step 5.):
 
 ```text
 NEXT_PUBLIC_SUPABASE_URL="API URL"
