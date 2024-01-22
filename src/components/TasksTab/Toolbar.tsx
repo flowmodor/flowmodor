@@ -12,13 +12,7 @@ export default function Toolbar() {
       return;
     }
 
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    const { error } = await supabase
-      .from('tasks')
-      .insert([{ user_id: user?.id, name }]);
+    const { error } = await supabase.from('tasks').insert([{ name }]);
 
     if (error) {
       toast(error.message);

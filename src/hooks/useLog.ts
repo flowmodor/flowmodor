@@ -11,13 +11,9 @@ async function log(
 ) {
   const start_time = new Date(startTime).toISOString();
   const end_time = new Date(endTime).toISOString();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
   await supabase.from('logs').insert([
     {
-      user_id: user?.id,
       mode,
       start_time,
       end_time,
