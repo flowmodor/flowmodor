@@ -19,7 +19,7 @@ export default function SignLayout({
           width={56}
           height={56}
         />
-        <h1 className="text-2xl font-bold">Flowmodor</h1>
+        <h1 className="hidden sm:block text-2xl font-bold">Flowmodor</h1>
       </Link>
       {children}
     </div>

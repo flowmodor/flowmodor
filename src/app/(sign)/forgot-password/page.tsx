@@ -28,7 +28,7 @@ export default function ForgotPassword() {
         </div>
       ) : (
         <>
-          <div className="text-sm">
+          <div className="mx-auto w-[70vw] text-sm sm:w-auto">
             To reset your password, please enter the email address of your
             Flowmodor account.
           </div>

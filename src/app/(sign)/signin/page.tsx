@@ -8,6 +8,7 @@ import Link from 'next/link';
 import useSignIn from '@/hooks/useSignIn';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import Or from '@/components/Or';
 
 export default function SignIn() {
   const [emailValue, setEmailValue] = useState('');
@@ -31,8 +32,8 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex flex-col gap-5 sm:w-96">
-      <h1 className="mx-auto mb-5 text-3xl font-semibold">Welcome back</h1>
+    <div className="flex flex-col gap-5 text-center sm:w-96">
+      <h1 className="mb-5 text-3xl font-semibold">Welcome back</h1>
       <Button
         color="secondary"
         radius="sm"
@@ -40,16 +41,9 @@ export default function SignIn() {
         isDisabled
       >
         <Google />
-        Continue with Google (Coming Soon)
+        Continue with Google
       </Button>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <div className="border-strong w-full border-t border-secondary" />
-        </div>
-        <div className="relative flex justify-center text-sm">
-          <span className="bg-background px-2 text-sm">or</span>
-        </div>
-      </div>
+      <Or />
       <Input
         label="Email"
         labelPlacement="outside"
@@ -59,6 +53,7 @@ export default function SignIn() {
         radius="sm"
         classNames={{
           input: 'text-[16px]',
+          inputWrapper: 'border-secondary data-[hover=true]:border-secondary',
         }}
         value={emailValue}
         onValueChange={setEmailValue}
@@ -72,6 +67,7 @@ export default function SignIn() {
         radius="sm"
         classNames={{
           input: 'text-[16px]',
+          inputWrapper: 'border-secondary data-[hover=true]:border-secondary',
         }}
         value={passwordValue}
         onValueChange={setPasswordValue}
@@ -81,7 +77,7 @@ export default function SignIn() {
           }
         }}
       />
-      <Link href="/forgot-password" className="mt-5 text-center text-sm underline">
+      <Link href="/forgot-password" className="mt-5 text-sm underline">
         Forgot password?
       </Link>
       <Button

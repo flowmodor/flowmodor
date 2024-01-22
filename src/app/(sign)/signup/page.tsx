@@ -8,6 +8,7 @@ import Link from 'next/link';
 import useSignUp from '@/hooks/useSignUp';
 import { toast } from 'react-toastify';
 import { validateEmail, validatePassword } from '@/utils';
+import Or from '@/components/Or';
 
 export default function SignUp() {
   const [emailValue, setEmailValue] = useState('');
@@ -17,28 +18,21 @@ export default function SignUp() {
   const { isLoading, signUp } = useSignUp();
 
   return (
-    <div className="flex w-96 flex-col gap-5">
-      <h1 className="mx-auto text-3xl font-semibold">Get started</h1>
+    <div className="flex flex-col gap-5 text-center sm:w-96">
+      <h1 className="text-3xl font-semibold">Get started</h1>
 
-      <div className="w-96 gap-5 rounded-lg text-center">
-        Flowmodor is currently in private beta. Join{' '}
+      <span>
+        Join{' '}
         <Link href="https://flowmodor.com/#waitlist" className="text-primary">
           waitlist
         </Link>{' '}
         to get early access.
-      </div>
+      </span>
       <Button color="secondary" radius="sm" isDisabled>
         <Google />
         Continue with Google
       </Button>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <div className="border-strong w-full border-t border-secondary" />
-        </div>
-        <div className="relative flex justify-center text-sm">
-          <span className="bg-background px-2 text-sm">or</span>
-        </div>
-      </div>
+      <Or />
       <Input
         isDisabled
         label="Email"
@@ -55,6 +49,7 @@ export default function SignUp() {
         }
         isInvalid={!validateEmail(emailValue)}
         classNames={{
+          input: 'text-[16px]',
           inputWrapper: 'border-secondary data-[hover=true]:border-secondary',
         }}
       />
@@ -74,6 +69,7 @@ export default function SignUp() {
         }
         isInvalid={!validatePassword(passwordValue)}
         classNames={{
+          input: 'text-[16px]',
           inputWrapper: 'border-secondary data-[hover=true]:border-secondary',
         }}
         endContent={
