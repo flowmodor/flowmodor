@@ -40,7 +40,7 @@ export default function Navbar() {
         />
         <div>Flowmodor</div>
       </a>
-      <div className="hidden sm:flex gap-10 font-semibold text-lg">
+      <div className="hidden sm:flex gap-10 font-medium text-lg">
         <a href="/blog">Blog</a>
         <a href="/pricing">Pricing</a>
       </div>
