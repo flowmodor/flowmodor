@@ -81,10 +81,12 @@ export default function SignIn() {
           }
         }}
       />
+      <Link href="/forgot-password" className="mt-5 text-center text-sm underline">
+        Forgot password?
+      </Link>
       <Button
         color="primary"
         radius="sm"
-        className="mt-10"
         isLoading={isLoading}
         onPress={() =>
           handleSignIn(() => signInWithPassword(emailValue, passwordValue))

@@ -61,7 +61,8 @@ export async function middleware(request: NextRequest) {
   if (
     session === null &&
     request.nextUrl.pathname !== '/signin' &&
-    request.nextUrl.pathname !== '/signup'
+    request.nextUrl.pathname !== '/signup' &&
+    request.nextUrl.pathname !== '/forgot-password'
   ) {
     return NextResponse.redirect(new URL('/signin', request.url));
   }
@@ -69,7 +70,8 @@ export async function middleware(request: NextRequest) {
   if (
     session !== null &&
     (request.nextUrl.pathname === '/signin' ||
-      request.nextUrl.pathname === '/signup')
+      request.nextUrl.pathname === '/signup' ||
+      request.nextUrl.pathname === '/forgot-password')
   ) {
     return NextResponse.redirect(new URL('/', request.url));
   }
