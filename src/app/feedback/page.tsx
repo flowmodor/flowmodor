@@ -5,6 +5,7 @@ import { Button } from '@nextui-org/button';
 import { Textarea } from '@nextui-org/input';
 import supabase from '@/utils/supabase';
 import Menu from '@/components/Menu';
+import { toast } from 'react-toastify';
 
 export default function Feedback() {
   const [value, setValue] = useState('');
@@ -19,7 +20,7 @@ export default function Feedback() {
       data: { user },
     } = await supabase.auth.getUser();
 
-    await supabase.from('feedback').insert([
+    const { error } = await supabase.from('feedback').insert([
       {
         content: value.trim(),
         created_at: new Date().toISOString(),
@@ -27,7 +28,12 @@ export default function Feedback() {
       },
     ]);
 
-    setValue('');
+    if (!error) {
+      toast('Feedback sent successfully!');
+      setValue('');
+    } else {
+      toast(error.message);
+    }
   };
 
   return (
