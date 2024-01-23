@@ -12,7 +12,8 @@ export default function DateButton({
     <Button
       isIconOnly
       size="sm"
-      className="bg-secondary fill-white hover:fill-primary"
+      radius="full"
+      className="bg-secondary fill-white"
       onPress={onPress}
     >
       {children}

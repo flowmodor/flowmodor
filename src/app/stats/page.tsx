@@ -65,8 +65,8 @@ export default function Stats() {
               <Right />
             </DateButton>
           </CardHeader>
-          <CardBody className="flex items-center justify-center lg:h-[60vh] lg:w-[50vw]">
-            {logs ? (
+          <CardBody className="flex items-center justify-center lg:min-h-[60vh] lg:min-w-[50vw]">
+            {processedLogs ? (
               <LineChart data={processedLogs} />
             ) : (
               <Spinner color="primary" />

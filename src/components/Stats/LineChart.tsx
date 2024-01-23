@@ -1,3 +1,4 @@
+import { Chip } from '@nextui-org/react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -27,7 +28,10 @@ const options = {
   scales: {
     x: {
       grid: {
-        color: '#00000000',
+        color: '#3F3E55',
+      },
+      ticks: {
+        color: '#FFFFFFA0',
       },
     },
     y: {
@@ -35,13 +39,22 @@ const options = {
       grid: {
         color: '#3F3E55',
       },
+      ticks: {
+        color: '#FFFFFFA0',
+      },
     },
   },
   plugins: {
     tooltip: {
       boxPadding: 2,
       usePointStyle: true,
+      backgroundColor: '#131221',
       callbacks: {
+        title: (xDatapoint: any) =>
+          `${xDatapoint[0].label}:00 - ${
+            parseInt(xDatapoint[0].label, 10) + 1
+          }:00`,
+        label: (yDatapoint: any) => `${yDatapoint.raw} mins`,
         labelColor(ctx: any) {
           return {
             borderColor: ctx.dataset.borderColor,
@@ -71,36 +84,61 @@ export default function LineChart({
     : null;
 
   return (
-    <Line
-      options={options}
-      data={{
-        labels: hours,
-        datasets: [
-          {
-            label: 'Focus Time',
-            data: focusTimes,
-            borderColor: '#D6B6FF',
-            hoverBackgroundColor: '#D6B6FF',
-            backgroundColor: '#D6B6FF10',
-            fill: true,
-            tension: 0.5,
-            pointHoverRadius: 7,
-            pointHitRadius: 30,
-            pointRadius: 1,
-          },
-          {
-            label: 'Break Time',
-            data: breakTimes,
-            borderColor: '#3F3E55',
-            backgroundColor: '#3F3E5510',
-            fill: true,
-            tension: 0.5,
-            pointHoverRadius: 7,
-            pointHitRadius: 30,
-            pointRadius: 1,
-          },
-        ],
-      }}
-    />
+    <>
+      <Line
+        options={options}
+        data={{
+          labels: hours,
+          datasets: [
+            {
+              label: 'Focus Time',
+              data: focusTimes,
+              borderColor: '#D6B6FF',
+              hoverBackgroundColor: '#D6B6FF',
+              hoverBorderColor: '#D6B6FF',
+              backgroundColor: '#D6B6FF10',
+              fill: true,
+              tension: 0.5,
+              pointHoverRadius: 7,
+              pointHitRadius: 30,
+              pointRadius: 1,
+            },
+            {
+              label: 'Break Time',
+              data: breakTimes,
+              borderColor: '#3F3E55',
+              hoverBackgroundColor: '#3F3E55',
+              hoverBorderColor: '#3F3E55',
+              backgroundColor: '#3F3E5510',
+              fill: true,
+              tension: 0.5,
+              pointHoverRadius: 7,
+              pointHitRadius: 30,
+              pointRadius: 1,
+            },
+          ],
+        }}
+      />
+      <div className="mt-2 flex gap-5">
+        <Chip
+          color="primary"
+          variant="dot"
+          classNames={{
+            base: 'border border-secondary',
+          }}
+        >
+          focus
+        </Chip>
+        <Chip
+          color="secondary"
+          variant="dot"
+          classNames={{
+            base: 'border border-secondary',
+          }}
+        >
+          break
+        </Chip>
+      </div>
+    </>
   );
 }
