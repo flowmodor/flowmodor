@@ -16,7 +16,7 @@ NEXT_PUBLIC_SUPABASE_URL="API URL"
 NEXT_PUBLIC_SUPABASE_ANON_KEY="anon key"
 ```
 
-7. Create `.env` file with the following content (skip this if your are not working with Google OAuth).
+7. If you need Google OAuth feature, create `.env` file with the following content and set `[auth.external.google]` inside `supabase/config.toml` to `enabled = true`.
 
 ```text
 SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET="your google client secret"
