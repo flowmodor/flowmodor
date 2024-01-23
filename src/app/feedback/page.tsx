@@ -64,14 +64,12 @@ export default function Feedback() {
               'bg-secondary data-[hover=true]:bg-secondary data-[focus=true]:!bg-secondary',
           }}
         />
-        <div className="flex w-full justify-between py-2">
-          <Button color="secondary" size="sm" radius="sm">
-            Cancel
-          </Button>
+        <div className="mt-2 flex">
           <Button
             color="primary"
             size="sm"
             radius="sm"
+            className="ml-auto"
             isDisabled={!isValid}
             onPress={handleSend}
           >
