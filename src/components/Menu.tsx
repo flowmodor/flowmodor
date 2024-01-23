@@ -38,13 +38,15 @@ export default function Menu() {
           >
             Home
           </DropdownItem>
-          <DropdownItem
-            key="stats"
-            href="stats"
-            className="data-[focus=true]:bg-secondary data-[hover=true]:bg-secondary"
-          >
-            Stats
-          </DropdownItem>
+          {
+          // <DropdownItem
+          //   key="stats"
+          //   href="stats"
+          //   className="data-[focus=true]:bg-secondary data-[hover=true]:bg-secondary"
+          // >
+          //   Stats
+          // </DropdownItem>
+          }
           <DropdownItem
             key="settings"
             href="/settings"
