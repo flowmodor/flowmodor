@@ -24,37 +24,41 @@ export default function Settings() {
   }, []);
 
   return (
-    <div className="mt-32 flex flex-col gap-10">
+    <>
       <Menu />
-      <h1 className="text-3xl font-semibold">Settings</h1>
-      <Input
-        label="Break ratio"
-        labelPlacement="outside"
-        placeholder="5"
-        variant="bordered"
-        description="Your break time will be your focus time divided by this number."
-        radius="sm"
-        type="number"
-        value={breakRatio.toString()}
-        onValueChange={(value) =>
-          setBreakRatio(value === '' ? 0 : parseInt(value, 10))
-        }
-        classNames={{
-          input: 'text-[16px]',
-          inputWrapper:
-            'border-secondary data-[hover=true]:border-secondary data-[focus=true]:!border-primary',
-        }}
-      />
-      <Button
-        color="primary"
-        radius="sm"
-        className="self-end"
-        isDisabled={breakRatio <= 0}
-        isLoading={isLoading}
-        onPress={() => updateSettings(breakRatio)}
-      >
-        Save
-      </Button>
-    </div>
+      <div className="mt-20 w-screen px-10 sm:w-[70vw] md:w-[50vw] lg:w-[40vw]">
+        <h1 className="text-3xl font-semibold">Settings</h1>
+        <Input
+          label="Break ratio"
+          labelPlacement="outside"
+          placeholder="5"
+          variant="bordered"
+          description="Your break time will be your focus time divided by this number."
+          radius="sm"
+          type="number"
+          value={breakRatio.toString()}
+          onValueChange={(value) =>
+            setBreakRatio(value === '' ? 0 : parseInt(value, 10))
+          }
+          classNames={{
+            input: 'text-[16px]',
+            inputWrapper:
+              'mt-10 border-secondary data-[hover=true]:border-secondary data-[focus=true]:!border-primary',
+          }}
+        />
+        <div className="flex">
+          <Button
+            color="primary"
+            radius="sm"
+            className="ml-auto mt-2"
+            isDisabled={breakRatio <= 0}
+            isLoading={isLoading}
+            onPress={() => updateSettings(breakRatio)}
+          >
+            Save
+          </Button>
+        </div>
+      </div>
+    </>
   );
 }
