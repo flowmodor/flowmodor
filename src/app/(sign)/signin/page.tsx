@@ -24,7 +24,7 @@ export default function SignIn() {
     const { error } = await signIn();
 
     if (error) {
-      toast(error.message, { position: 'top-right' });
+      toast(error.message);
       console.error(error);
     } else {
       router.push('/');

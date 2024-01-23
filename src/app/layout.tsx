@@ -29,7 +29,7 @@ export default function RootLayout({
         className={`${inter.className} flex h-screen justify-center bg-background text-white dark`}
       >
         <Providers>{children}</Providers>
-        <ToastContainer theme="dark" />
+        <ToastContainer theme="dark" position="bottom-left" draggable />
       </body>
     </html>
   );

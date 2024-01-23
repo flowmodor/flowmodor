@@ -110,7 +110,7 @@ export default function SignUp() {
           const message = error
             ? 'Something went wrong. Please try again.'
             : 'Sign up successfully! Check your email to verify your account.';
-          toast(message, { position: 'top-right' });
+          toast(message);
 
           setEmailValue('');
           setPasswordValue('');

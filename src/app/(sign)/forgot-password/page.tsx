@@ -14,7 +14,7 @@ export default function ForgotPassword() {
   const handleSendPasswordReset = async () => {
     const { error } = await sendPasswordReset(emailValue);
     if (error) {
-      toast(error.message, { position: 'top-right' });
+      toast(error.message);
       setEmailValue('');
     }
   };
