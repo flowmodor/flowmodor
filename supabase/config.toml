@@ -133,7 +133,7 @@ redirect_uri = ""
 url = ""
 
 [auth.external.google]
-enabled = true
+enabled = false
 client_id = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_ID)"
 secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)"
 redirect_uri = "http://localhost:54321/auth/v1/callback"
