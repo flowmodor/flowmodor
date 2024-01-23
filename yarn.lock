@@ -823,7 +823,7 @@
     "@nextui-org/shared-utils" "2.0.4"
     "@nextui-org/system-rsc" "2.0.11"
 
-"@nextui-org/spinner@2.0.24":
+"@nextui-org/spinner@2.0.24", "@nextui-org/spinner@^2.0.24":
   version "2.0.24"
   resolved "https://registry.yarnpkg.com/@nextui-org/spinner/-/spinner-2.0.24.tgz#99bfea6572ae9a64a20ab57249f483a912e07672"
   integrity sha512-s/q2FmxGPNEqA0ifWfc7xgs5a5D9c3xKkxL3n7jDoRnWo0NPlRsa6QRJGiSL5dHNoUqspRf/lNw2V94Bxk86Pg==

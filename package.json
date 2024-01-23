@@ -19,6 +19,7 @@
     "@nextui-org/progress": "^2.0.24",
     "@nextui-org/react": "^2.2.9",
     "@nextui-org/select": "^2.1.20",
+    "@nextui-org/spinner": "^2.0.24",
     "@nextui-org/tabs": "^2.0.26",
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.39.3",
