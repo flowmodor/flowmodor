@@ -7,11 +7,10 @@ import { useEffect, useState } from 'react';
 
 export default function StatisticsPage() {
   const [data, setData] = useState<Map<number, any>>();
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     (async () => {
-      const date = new Date('2024-01-21');
-
       const startDate = new Date(date);
       startDate.setHours(0, 0, 0, 0);
       const endDate = new Date(date);
@@ -27,12 +26,12 @@ export default function StatisticsPage() {
         setData(processLogs(logs));
       }
     })();
-  }, []);
+  }, [date]);
 
   return (
-    <div className="flex h-full flex-col items-center  justify-center gap-5">
+    <div className="flex h-full flex-col justify-center gap-5">
       <h1 className="text-3xl font-semibold">Statistics</h1>
-      <LineChart data={data} />
+      <LineChart date={date} setDate={setDate} data={data} />
     </div>
   );
 }
