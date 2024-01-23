@@ -1,5 +1,6 @@
 'use client';
 
+import { Spinner } from '@nextui-org/react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -59,13 +60,25 @@ const options = {
   },
 };
 
-export default function LineChart({ data }: { data: any }) {
+export default function LineChart({
+  data,
+}: {
+  data: Map<number, any> | undefined;
+}) {
+  if (!data) {
+    return (
+      <div className="flex h-[50vh] w-[50vw] items-center justify-center">
+        <Spinner color="primary" />
+      </div>
+    );
+  }
+
   const hours = Array.from(Array(24).keys());
   const focusTimes = hours.map((hour) => data.get(hour)?.focus ?? 0);
   const breakTimes = hours.map((hour) => data.get(hour)?.break ?? 0);
 
   return (
-    <div className="w-[50vw]">
+    <div className="h-[50vh] w-[50vw]">
       <Line
         options={options}
         data={{
