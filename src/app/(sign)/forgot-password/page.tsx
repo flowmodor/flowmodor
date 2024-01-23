@@ -5,7 +5,7 @@ import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import useSendPasswordReset from '@/hooks/useSendPasswordReset';
 import { toast } from 'react-toastify';
-import { Link } from '@nextui-org/react';
+import { Link } from '@nextui-org/link';
 
 export default function ForgotPassword() {
   const [emailValue, setEmailValue] = useState('');

@@ -8,7 +8,7 @@ import useSignIn from '@/hooks/useSignIn';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import Or from '@/components/Or';
-import { Link } from '@nextui-org/react';
+import { Link } from '@nextui-org/link';
 
 export default function SignIn() {
   const [emailValue, setEmailValue] = useState('');

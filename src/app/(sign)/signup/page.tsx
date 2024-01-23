@@ -8,7 +8,7 @@ import useSignUp from '@/hooks/useSignUp';
 import { toast } from 'react-toastify';
 import { validateEmail, validatePassword } from '@/utils';
 import Or from '@/components/Or';
-import { Link } from '@nextui-org/react';
+import { Link } from '@nextui-org/link';
 
 export default function SignUp() {
   const [emailValue, setEmailValue] = useState('');
