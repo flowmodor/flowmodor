@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro'
 
 const { title, description } = Astro.props;
 const image = '/og.png';
+const thumbnail = '/thumbnail.png';
 ---
 <html lang="en" class="scroll-smooth">
 	<head>
@@ -14,6 +15,7 @@ const image = '/og.png';
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+    <meta name="thumbnail" content={new URL(thumbnail, Astro.url)} />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
