@@ -1,3 +1,6 @@
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
+import getAccessToken from '@/utils/paypal';
 import { Button } from '@nextui-org/button';
 import Link from 'next/link';
 
@@ -31,7 +34,21 @@ function Features({ names }: { names: string[] }) {
   );
 }
 
-export default function Plans() {
+export default async function Plans() {
+  const cookieStore = cookies();
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+      },
+    },
+  );
+
   const starter = ['Flowmodoro Timer', 'Task List'];
   const pro = [
     'Everything in Starter',
@@ -39,6 +56,35 @@ export default function Plans() {
     'Historical Statistics',
     'Priority Support',
   ];
+
+  const accessToken = await getAccessToken();
+  console.log(accessToken);
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  console.log('user', user);
+
+  const { data: plan } = await supabase
+    .from('plans')
+    .select('subscription_id')
+    .eq('user_id', user?.id)
+    .single();
+
+  const id = plan?.subscription_id;
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_PAYPAL_API_URL}/billing/subscriptions/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+  const data = await response.json();
+  console.log(data);
 
   return (
     <div className="mt-32 flex w-screen flex-col items-center justify-center gap-10 sm:flex-row sm:items-stretch">
@@ -51,13 +97,12 @@ export default function Plans() {
           </div>
         </div>
         <Button
-          isDisabled
-          variant="bordered"
+          isDisabled={data.status !== 'ACTIVE'}
           color="primary"
           radius="sm"
-          className="bg-[#23223C] font-semibold text-white"
+          className="font-semibold text-[#23223C]"
         >
-          Current plan
+          {data.status === 'ACTIVE' ? 'Downgrade to Starter' : 'Current plan'}
         </Button>
         <Features names={starter} />
       </div>
@@ -70,13 +115,14 @@ export default function Plans() {
           </div>
         </div>
         <Button
+          isDisabled={data.status === 'ACTIVE'}
           as={Link}
           href="/plans/upgrade"
           color="primary"
           radius="sm"
           className="font-semibold text-[#23223C]"
         >
-          Upgrade to Pro
+          {data.status === 'ACTIVE' ? 'Current plan' : 'Upgrade to Pro'}
         </Button>
         <Features names={pro} />
       </div>
