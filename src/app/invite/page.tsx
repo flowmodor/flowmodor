@@ -9,8 +9,8 @@ import { Button } from '@nextui-org/button';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  // process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY,
+  // process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY,
 );
 
 export default function Invite() {
@@ -33,7 +33,7 @@ export default function Invite() {
     }
   };
 
-  const userId = '';
+  const userId = 'b6f1869d-9cad-4ca3-b3ca-61ff51e6f6d6';
   const reinvite = async () => {
     try {
       // Retrieve user by user_id
