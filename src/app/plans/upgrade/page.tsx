@@ -1,13 +1,20 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   PayPalScriptProvider,
   PayPalButtons,
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js';
+import supabase from '@/utils/supabase';
 
-function ButtonWrapper({ type }: { type: any }) {
+function ButtonWrapper({
+  type,
+  userId,
+}: {
+  type: any;
+  userId: string | undefined;
+}) {
   const [{ options }, dispatch] = usePayPalScriptReducer();
 
   useEffect(() => {
@@ -20,12 +27,17 @@ function ButtonWrapper({ type }: { type: any }) {
     });
   }, [type]);
 
+  if (!userId) {
+    return null;
+  }
+
   return (
     <PayPalButtons
       createSubscription={(data, actions) =>
         actions.subscription
           .create({
             plan_id: process.env.NEXT_PUBLIC_PAYPAL_PLAN_ID,
+            custom_id: userId,
           })
           .then((orderId) => {
             console.log(orderId);
@@ -41,6 +53,18 @@ function ButtonWrapper({ type }: { type: any }) {
 }
 
 export default function Upgrade() {
+  const [userId, setUserId] = useState<string | undefined>();
+
+  useEffect(() => {
+    (async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      setUserId(user?.id);
+    })();
+  }, []);
+
   return (
     <div className="flex h-full flex-col items-center justify-center gap-5">
       <div className="text-2xl font-semibold">Upgrade to Pro</div>
@@ -53,7 +77,7 @@ export default function Upgrade() {
         }}
       >
         <div className="rounded-md bg-white p-5">
-          <ButtonWrapper type="subscription" />
+          <ButtonWrapper type="subscription" userId={userId} />
         </div>
       </PayPalScriptProvider>
     </div>
