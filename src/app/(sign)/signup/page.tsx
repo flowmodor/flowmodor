@@ -1,13 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { Google, Hide, Show } from '@/components/Icons';
+import { Hide, Show } from '@/components/Icons';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import useSignUp from '@/hooks/useSignUp';
 import { toast } from 'react-toastify';
 import { validateEmail, validatePassword } from '@/utils';
-import Or from '@/components/Or';
 import { Link } from '@nextui-org/link';
 
 export default function SignUp() {
@@ -20,21 +19,7 @@ export default function SignUp() {
   return (
     <div className="flex flex-col gap-5 text-center sm:w-96">
       <h1 className="text-3xl font-semibold">Get started</h1>
-
-      <span>
-        Join{' '}
-        <Link href="https://flowmodor.com/#waitlist" underline="always">
-          waitlist
-        </Link>{' '}
-        to get early access.
-      </span>
-      <Button color="secondary" radius="sm" isDisabled>
-        <Google />
-        Continue with Google
-      </Button>
-      <Or />
       <Input
-        isDisabled
         label="Email"
         labelPlacement="outside"
         placeholder="you@example.com"
@@ -55,7 +40,6 @@ export default function SignUp() {
         }}
       />
       <Input
-        isDisabled
         label="Password"
         labelPlacement="outside"
         placeholder="••••••••"
@@ -90,15 +74,14 @@ export default function SignUp() {
         color="primary"
         radius="sm"
         isLoading={isLoading}
-        isDisabled
-        // isDisabled={
-        //   !(
-        //     validateEmail(emailValue) &&
-        //     validatePassword(passwordValue) &&
-        //     emailValue !== '' &&
-        //     passwordValue !== ''
-        //   )
-        // }
+        isDisabled={
+          !(
+            validateEmail(emailValue) &&
+            validatePassword(passwordValue) &&
+            emailValue !== '' &&
+            passwordValue !== ''
+          )
+        }
         className="mt-10"
         onPress={async () => {
           const { error } = await signUp(emailValue, passwordValue);

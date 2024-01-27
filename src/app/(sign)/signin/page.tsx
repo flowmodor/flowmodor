@@ -38,7 +38,6 @@ export default function SignIn() {
         color="secondary"
         radius="sm"
         onPress={() => handleSignIn(() => signInWithOAuth('google'))}
-        isDisabled
       >
         <Google />
         Continue with Google
