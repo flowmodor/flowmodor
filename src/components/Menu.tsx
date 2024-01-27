@@ -41,6 +41,13 @@ export default function Menu() {
             Stats
           </DropdownItem>
           <DropdownItem
+            key="plans"
+            href="plans"
+            className="data-[focus=true]:bg-secondary data-[hover=true]:bg-secondary"
+          >
+            Plans
+          </DropdownItem>
+          <DropdownItem
             key="settings"
             href="/settings"
             className="data-[focus=true]:bg-secondary data-[hover=true]:bg-secondary"
