@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
+import getAccessToken from '@/utils/paypal';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 
 export async function POST(request: Request) {
   const cookieStore = cookies();
@@ -23,9 +24,40 @@ export async function POST(request: Request) {
     },
   );
 
-  const body = await request.json();
-  console.log(body.event_type);
-  console.log(body);
+  const headerList = headers();
+  const transmissionId = headerList.get('paypal-transmission-id');
+  const transmissionTime = headerList.get('paypal-transmission-time');
+  const certUrl = headerList.get('paypal-cert-url');
+  const authAlgo = headerList.get('paypal-auth-algo');
+  const transmissionSig = headerList.get('paypal-transmission-sig');
+
+  const rawBody = await request.text();
+  const body = JSON.parse(rawBody);
+  const accessToken = await getAccessToken();
+  const verifyResponse = await fetch(
+    `${process.env.NEXT_PUBLIC_PAYPAL_API_URL}/notifications/verify-webhook-signature`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({
+        auth_algo: authAlgo,
+        cert_url: certUrl,
+        transmission_id: transmissionId,
+        transmission_sig: transmissionSig,
+        transmission_time: transmissionTime,
+        webhook_id: process.env.PAYPAL_WEBHOOK_ID,
+        webhook_event: body,
+      }),
+    },
+  );
+
+  const verifyBody = await verifyResponse.json();
+  if (verifyBody.verification_status !== 'SUCCESS') {
+    return new Response('Error verifying webhook', { status: 500 });
+  }
 
   if (body.event_type === 'BILLING.SUBSCRIPTION.CREATED') {
     const { error } = await supabase
