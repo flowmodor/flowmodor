@@ -1,8 +1,10 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-import getAccessToken from '@/utils/paypal';
 import { Button } from '@nextui-org/button';
 import Link from 'next/link';
+import { Chip } from '@nextui-org/react';
+import StarterButton from '@/components/Plans/StarterButton';
+import Menu from '@/components/Menu';
 
 function Feature({ name }: { name: string }) {
   return (
@@ -57,75 +59,67 @@ export default async function Plans() {
     'Priority Support',
   ];
 
-  const accessToken = await getAccessToken();
-  console.log(accessToken);
-
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  console.log('user', user);
-
-  const { data: plan } = await supabase
+  const { data } = await supabase
     .from('plans')
-    .select('subscription_id')
+    .select('*')
     .eq('user_id', user?.id)
     .single();
 
-  const id = plan?.subscription_id;
-
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_PAYPAL_API_URL}/billing/subscriptions/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-    },
-  );
-  const data = await response.json();
-  console.log(data);
-
   return (
-    <div className="mt-32 flex w-screen flex-col items-center justify-center gap-10 sm:flex-row sm:items-stretch">
-      <div className="flex w-[90%] flex-col gap-10 rounded-xl bg-[#23223C] p-10 sm:w-2/5 lg:w-1/3">
-        <div className="flex flex-col gap-2">
-          <h2 className="text-2xl">Starter</h2>
-          <div className="flex items-end gap-1">
-            <h2 className="text-4xl font-semibold">$0</h2>
-            <div className="text-sm opacity-50">/ month</div>
+    <>
+      <Menu />
+      <div className="mt-20 flex w-[90vw] flex-col gap-10">
+        <div className="mx-auto flex flex-col gap-2 sm:w-4/5 lg:w-2/3">
+          <div className="text-2xl font-semibold">Your subscription</div>
+          {data.status !== null ? (
+            <>
+              <div>
+                Status:{' '}
+                <Chip size="sm" color="primary">
+                  {data.status}
+                </Chip>
+              </div>
+              <div>End Time: {new Date(data.end_time).toLocaleString()}</div>
+            </>
+          ) : null}
+        </div>
+        <div className="flex flex-col items-center justify-center gap-10 sm:flex-row sm:items-stretch">
+          <div className="flex w-full flex-col gap-10 rounded-xl bg-[#23223C] p-10 sm:w-2/5 lg:w-1/3">
+            <div className="flex flex-col gap-2">
+              <h2 className="text-2xl">Starter</h2>
+              <div className="flex items-end gap-1">
+                <h2 className="text-4xl font-semibold">$0</h2>
+                <div className="text-sm opacity-50">/ month</div>
+              </div>
+            </div>
+            <StarterButton data={data} />
+            <Features names={starter} />
+          </div>
+          <div className="flex w-full flex-col gap-10 rounded-xl bg-[#23223C] p-10 sm:w-2/5 lg:w-1/3">
+            <div className="flex flex-col gap-2">
+              <h2 className="text-2xl">Pro</h2>
+              <div className="flex items-end gap-1">
+                <h2 className="text-4xl font-semibold">$5</h2>
+                <div className="text-sm opacity-50">/ month</div>
+              </div>
+            </div>
+            <Button
+              isDisabled={data?.status === 'ACTIVE'}
+              as={Link}
+              href="/plans/upgrade"
+              color="primary"
+              radius="sm"
+              className="font-semibold text-[#23223C]"
+            >
+              {data?.status === 'ACTIVE' ? 'Current plan' : 'Upgrade to Pro'}
+            </Button>
+            <Features names={pro} />
           </div>
         </div>
-        <Button
-          isDisabled={data.status !== 'ACTIVE'}
-          color="primary"
-          radius="sm"
-          className="font-semibold text-[#23223C]"
-        >
-          {data.status === 'ACTIVE' ? 'Downgrade to Starter' : 'Current plan'}
-        </Button>
-        <Features names={starter} />
       </div>
-      <div className="flex w-[90%] flex-col gap-10 rounded-xl bg-[#23223C] p-10 sm:w-2/5 lg:w-1/3">
-        <div className="flex flex-col gap-2">
-          <h2 className="text-2xl">Pro</h2>
-          <div className="flex items-end gap-1">
-            <h2 className="text-4xl font-semibold">$5</h2>
-            <div className="text-sm opacity-50">/ month</div>
-          </div>
-        </div>
-        <Button
-          isDisabled={data.status === 'ACTIVE'}
-          as={Link}
-          href="/plans/upgrade"
-          color="primary"
-          radius="sm"
-          className="font-semibold text-[#23223C]"
-        >
-          {data.status === 'ACTIVE' ? 'Current plan' : 'Upgrade to Pro'}
-        </Button>
-        <Features names={pro} />
-      </div>
-    </div>
+    </>
   );
 }

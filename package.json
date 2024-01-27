@@ -15,6 +15,7 @@
     "@nextui-org/dropdown": "^2.1.16",
     "@nextui-org/input": "^2.1.16",
     "@nextui-org/link": "^2.0.26",
+    "@nextui-org/modal": "^2.0.28",
     "@nextui-org/popover": "^2.1.14",
     "@nextui-org/progress": "^2.0.24",
     "@nextui-org/react": "^2.2.9",

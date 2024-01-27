@@ -562,7 +562,7 @@
     "@react-types/menu" "^3.9.5"
     "@react-types/shared" "^3.21.0"
 
-"@nextui-org/modal@2.0.28":
+"@nextui-org/modal@2.0.28", "@nextui-org/modal@^2.0.28":
   version "2.0.28"
   resolved "https://registry.yarnpkg.com/@nextui-org/modal/-/modal-2.0.28.tgz#0014c4d10f05e4b67d90d131af254bef7cd4f102"
   integrity sha512-unfP0EMF3FDg5CkRqou03s4/BopWbaBTeVIMZeA2A1WF5teHUOmpLdp44Z1KOoWB1RVMDVd4JeoauNHNhJMp0g==

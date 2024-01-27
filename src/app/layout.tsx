@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} flex h-screen justify-center bg-background text-white dark`}
+        className={`${inter.className} flex min-h-screen justify-center bg-background text-white dark`}
       >
         <Providers>{children}</Providers>
         <ToastContainer theme="dark" position="bottom-left" draggable />
