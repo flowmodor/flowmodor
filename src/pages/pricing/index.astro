@@ -2,8 +2,8 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Features from "../../components/Features";
 
-const starter = ['Flowmodoro Timer', 'Task List'];
-const pro = ['Everything in Starter', 'Custom Break Ratio', 'Historical Statistics', 'Priority Support'];
+const starter = ['Flowmodoro Timer', 'Task List', 'Today Stats'];
+const pro = ['Everything in Starter', 'Custom Break Ratio', 'Unlimited Stats', 'Priority Support'];
 ---
 
 <BaseLayout title="Pricing | Flowmodor" description="Pricing for Flowmodor">
@@ -19,7 +19,7 @@ const pro = ['Everything in Starter', 'Custom Break Ratio', 'Historical Statisti
       <a
         href="https://app.flowmodor.com/signin"
         class="text-center font-semibold cursor-pointer rounded-md p-2
-        text-white border border-[#DBBFFF] hover:bg-[#DBBFFF] hover:text-[#23223C] transition-all duration-300"
+        text-white border border-[#DBBFFF]"
       >
         Get started
       </a>
@@ -33,9 +33,12 @@ const pro = ['Everything in Starter', 'Custom Break Ratio', 'Historical Statisti
           <div class="opacity-50 text-sm">/ month</div>
         </div>
       </div>
-      <div class="text-center font-semibold rounded-md p-2 text-[#23223C] bg-[#DBBFFF] opacity-50">
-        Coming Soon
-      </div>
+      <a
+        href="https://app.flowmodor.com/plans"
+        class="text-center font-semibold rounded-md p-2 text-[#23223C] bg-[#DBBFFF]"
+      >
+        Get started
+      </a>
       <Features names={pro} />
     </div>
   </div>
