@@ -11,14 +11,15 @@ import DateButton from '@/components/Stats/DateButton';
 import Summary from '@/components/Stats/Summary';
 import Menu from '@/components/Menu';
 import useIsPro from '@/hooks/useIsPro';
-import { toast } from 'react-toastify';
 import GoHome from '@/components/GoHome';
+import { Link } from '@nextui-org/link';
 
 export default function Stats() {
   const [date, setDate] = useState(new Date());
   const [logs, setLogs] = useState<any[]>([]);
   const processedLogs = processLogs(logs);
   const isPro = useIsPro();
+  const isBlocked = !isPro && date.toDateString() !== new Date().toDateString();
 
   useEffect(() => {
     (async () => {
@@ -48,16 +49,12 @@ export default function Stats() {
             <GoHome />
             Stats
           </h1>
-          <Summary data={logs} />
+          <Summary data={isBlocked ? [] : logs} />
         </div>
         <Card className="rounded-lg bg-[#23223C] p-5">
           <CardHeader className="justify-center gap-5 font-semibold">
             <DateButton
               onPress={() => {
-                if (!isPro) {
-                  toast('Upgrade to Pro to view other dates.');
-                  return;
-                }
                 const yesterday = new Date(date);
                 yesterday.setDate(date.getDate() - 1);
                 setDate(yesterday);
@@ -68,10 +65,6 @@ export default function Stats() {
             {date.toDateString()}
             <DateButton
               onPress={() => {
-                if (!isPro) {
-                  toast('Upgrade to Pro to view other dates.');
-                  return;
-                }
                 const tomorrow = new Date(date);
                 tomorrow.setDate(date.getDate() + 1);
                 setDate(tomorrow);
@@ -80,13 +73,25 @@ export default function Stats() {
               <Right />
             </DateButton>
           </CardHeader>
-          <CardBody className="flex items-center justify-center lg:min-h-[60vh] lg:min-w-[50vw]">
+          <CardBody
+            className={`flex items-center justify-center lg:min-h-[60vh] lg:min-w-[50vw] ${
+              isBlocked ? 'blur-md' : ''
+            }`}
+          >
             {processedLogs ? (
               <LineChart data={processedLogs} />
             ) : (
               <Spinner color="primary" />
             )}
           </CardBody>
+          {isBlocked ? (
+            <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform text-white">
+              <Link underline="always" href="/plans">
+                Upgrade to Pro
+              </Link>{' '}
+              to see more stats
+            </div>
+          ) : null}
         </Card>
       </div>
     </>
