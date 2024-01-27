@@ -10,11 +10,14 @@ import LineChart from '@/components/Stats/LineChart';
 import DateButton from '@/components/Stats/DateButton';
 import Summary from '@/components/Stats/Summary';
 import Menu from '@/components/Menu';
+import useIsPro from '@/hooks/useIsPro';
+import { toast } from 'react-toastify';
 
 export default function Stats() {
   const [date, setDate] = useState(new Date());
   const [logs, setLogs] = useState<any[]>([]);
   const processedLogs = processLogs(logs);
+  const isPro = useIsPro();
 
   useEffect(() => {
     (async () => {
@@ -47,6 +50,10 @@ export default function Stats() {
           <CardHeader className="justify-center gap-5 font-semibold">
             <DateButton
               onPress={() => {
+                if (!isPro) {
+                  toast('Upgrade to Pro to view other dates.');
+                  return;
+                }
                 const yesterday = new Date(date);
                 yesterday.setDate(date.getDate() - 1);
                 setDate(yesterday);
@@ -57,6 +64,10 @@ export default function Stats() {
             {date.toDateString()}
             <DateButton
               onPress={() => {
+                if (!isPro) {
+                  toast('Upgrade to Pro to view other dates.');
+                  return;
+                }
                 const tomorrow = new Date(date);
                 tomorrow.setDate(date.getDate() + 1);
                 setDate(tomorrow);
