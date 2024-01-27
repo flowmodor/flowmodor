@@ -7,6 +7,7 @@ import supabase from '@/utils/supabase';
 import Menu from '@/components/Menu';
 import { toast } from 'react-toastify';
 import { Link } from '@nextui-org/link';
+import GoHome from '@/components/GoHome';
 
 export default function Feedback() {
   const [value, setValue] = useState('');
@@ -36,7 +37,10 @@ export default function Feedback() {
     <>
       <Menu />
       <div className="mt-20 w-screen px-10 sm:w-[70vw] md:w-[50vw] lg:w-[40vw]">
-        <h1 className="text-3xl font-semibold">Feedback</h1>
+        <h1 className="flex items-center gap-3 text-3xl font-semibold">
+          <GoHome />
+          Feedback
+        </h1>
         <div className="mt-10 text-sm">
           If you have GitHub account, please use{' '}
           <Link

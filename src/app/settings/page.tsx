@@ -1,5 +1,6 @@
 'use client';
 
+import GoHome from '@/components/GoHome';
 import Menu from '@/components/Menu';
 import useUpdateSettings from '@/hooks/useUpdateSettings';
 import supabase from '@/utils/supabase';
@@ -27,7 +28,10 @@ export default function Settings() {
     <>
       <Menu />
       <div className="mt-20 w-screen px-10 sm:w-[70vw] md:w-[50vw] lg:w-[40vw]">
-        <h1 className="text-3xl font-semibold">Settings</h1>
+        <h1 className="flex items-center gap-3 text-3xl font-semibold">
+          <GoHome />
+          Settings
+        </h1>
         <Input
           label="Break ratio"
           labelPlacement="outside"

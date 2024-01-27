@@ -12,6 +12,7 @@ import Summary from '@/components/Stats/Summary';
 import Menu from '@/components/Menu';
 import useIsPro from '@/hooks/useIsPro';
 import { toast } from 'react-toastify';
+import GoHome from '@/components/GoHome';
 
 export default function Stats() {
   const [date, setDate] = useState(new Date());
@@ -43,7 +44,10 @@ export default function Stats() {
       <Menu />
       <div className="flex h-full flex-col justify-center gap-3">
         <div className="flex flex-col items-center justify-between px-5 md:flex-row">
-          <h1 className="text-3xl font-semibold">Stats</h1>
+          <h1 className="flex items-center gap-3 text-3xl font-semibold">
+            <GoHome />
+            Stats
+          </h1>
           <Summary data={logs} />
         </div>
         <Card className="rounded-lg bg-[#23223C] p-5">

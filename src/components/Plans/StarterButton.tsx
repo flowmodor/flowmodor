@@ -43,13 +43,13 @@ export default function StarterButton({ data }: { data: any }) {
   return (
     <>
       <Button
-        isDisabled={data.status !== 'ACTIVE'}
+        isDisabled={data?.status !== 'ACTIVE'}
         color="primary"
         radius="sm"
         className="font-semibold text-[#23223C]"
         onPress={onOpen}
       >
-        {data.status === 'ACTIVE' ? 'Downgrade to Starter' : 'Current plan'}
+        {data?.status === 'ACTIVE' ? 'Downgrade to Starter' : 'Current plan'}
       </Button>
       <Modal
         isOpen={isOpen}

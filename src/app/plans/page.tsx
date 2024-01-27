@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Chip } from '@nextui-org/react';
 import StarterButton from '@/components/Plans/StarterButton';
 import Menu from '@/components/Menu';
+import GoHome from '@/components/GoHome';
 
 function Feature({ name }: { name: string }) {
   return (
@@ -73,8 +74,11 @@ export default async function Plans() {
       <Menu />
       <div className="mt-20 flex w-[90vw] flex-col gap-10">
         <div className="mx-auto flex flex-col gap-2 sm:w-4/5 lg:w-2/3">
-          <div className="text-2xl font-semibold">Your subscription</div>
-          {data.status !== null ? (
+          <div className="flex items-center gap-3 text-3xl font-semibold">
+            <GoHome />
+            Your subscription
+          </div>
+          {data?.status ? (
             <>
               <div className="flex items-center gap-2">
                 Status:
