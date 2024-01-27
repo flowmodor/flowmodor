@@ -2,15 +2,18 @@
 
 import GoHome from '@/components/GoHome';
 import Menu from '@/components/Menu';
+import useIsPro from '@/hooks/useIsPro';
 import useUpdateSettings from '@/hooks/useUpdateSettings';
 import supabase from '@/utils/supabase';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
+import { Link } from '@nextui-org/link';
 import { useEffect, useState } from 'react';
 
 export default function Settings() {
   const [breakRatio, setBreakRatio] = useState(0);
   const { isLoading, updateSettings } = useUpdateSettings();
+  const isPro = useIsPro();
 
   useEffect(() => {
     (async () => {
@@ -28,11 +31,20 @@ export default function Settings() {
     <>
       <Menu />
       <div className="mt-20 w-screen px-10 sm:w-[70vw] md:w-[50vw] lg:w-[40vw]">
-        <h1 className="flex items-center gap-3 text-3xl font-semibold">
+        <h1 className="mb-10 flex items-center gap-3 text-3xl font-semibold">
           <GoHome />
           Settings
         </h1>
+        {!isPro ? (
+          <div className="mb-10">
+            <Link underline="always" href="/plans">
+              Upgrade to Pro
+            </Link>{' '}
+            to set custom break ratio.
+          </div>
+        ) : null}
         <Input
+          isDisabled={!isPro}
           label="Break ratio"
           labelPlacement="outside"
           placeholder="5"
@@ -47,7 +59,7 @@ export default function Settings() {
           classNames={{
             input: 'text-[16px]',
             inputWrapper:
-              'mt-10 border-secondary data-[hover=true]:border-secondary data-[focus=true]:!border-primary',
+              'border-secondary data-[hover=true]:border-secondary data-[focus=true]:!border-primary',
           }}
         />
         <div className="flex">
@@ -55,7 +67,7 @@ export default function Settings() {
             color="primary"
             radius="sm"
             className="ml-auto mt-2"
-            isDisabled={breakRatio <= 0}
+            isDisabled={!isPro || breakRatio <= 0}
             isLoading={isLoading}
             onPress={() => updateSettings(breakRatio)}
           >

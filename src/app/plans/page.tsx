@@ -76,7 +76,7 @@ export default async function Plans() {
         <div className="mx-auto flex flex-col gap-2 sm:w-4/5 lg:w-2/3">
           <div className="flex items-center gap-3 text-3xl font-semibold">
             <GoHome />
-            Your subscription
+            Plans
           </div>
           {data?.status ? (
             <>
