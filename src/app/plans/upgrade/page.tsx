@@ -7,6 +7,8 @@ import {
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js';
 import supabase from '@/utils/supabase';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 function ButtonWrapper({
   type,
@@ -15,6 +17,7 @@ function ButtonWrapper({
   type: any;
   userId: string | undefined;
 }) {
+  const router = useRouter();
   const [{ options }, dispatch] = usePayPalScriptReducer();
 
   useEffect(() => {
@@ -39,11 +42,12 @@ function ButtonWrapper({
             plan_id: process.env.NEXT_PUBLIC_PAYPAL_PLAN_ID,
             custom_id: userId,
           })
-          .then((orderId) => {
-            console.log(orderId);
-            return orderId;
-          })
+          .then((orderId) => orderId)
       }
+      onApprove={async () => {
+        toast('Subscribed to Pro successfully!');
+        router.push('/plans');
+      }}
       style={{
         label: 'subscribe',
         color: 'silver',

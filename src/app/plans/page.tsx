@@ -76,11 +76,12 @@ export default async function Plans() {
           <div className="text-2xl font-semibold">Your subscription</div>
           {data.status !== null ? (
             <>
-              <div>
-                Status:{' '}
+              <div className="flex items-center gap-2">
+                Status:
                 <Chip size="sm" color="primary">
                   {data.status}
                 </Chip>
+                (takes a few minutes to update)
               </div>
               <div>End Time: {new Date(data.end_time).toLocaleString()}</div>
             </>
