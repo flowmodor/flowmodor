@@ -29,6 +29,6 @@ The first feature is pretty much complete, and I'm currently using it. The other
 
 ## Release Date?
 
-The good news is that you don't have to wait until the official release day of Flowmodor. Instead, you can become a beta tester by joining the [waitlist](/#getWaitlistContainer)!
+The good news is that you don't have to wait until the official release day of Flowmodor. Instead, you can become a beta tester by joining the waitlist!
 
 Once the first two features are finished, I'll grant access to beta testers. You can then provide feedback for improvements. Join me on this journey!

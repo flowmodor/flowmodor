@@ -50,4 +50,4 @@ I have been using Flowmodoro and it really help me improve my productivity while
 
 To address this, I'm currently working on Flowmodor to integrates with this workflow.
 
-Flowmodor is currently in development, and you can become a beta tester by joining the [waitlist](https://flowmodor.com/#getWaitlistContainer). You’ll get a chance to try out the tool as soon as it’s ready.
+Flowmodor is currently in public beta, and you can [try it out now](https://app.flowmodor.com/signin)!
