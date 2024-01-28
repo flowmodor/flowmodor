@@ -37,6 +37,7 @@ export default function Navbar() {
           alt="Logo of Flowmodor"
           width={32}
           className="rounded-md"
+          draggable={false}
         />
         <div>Flowmodor</div>
       </a>
