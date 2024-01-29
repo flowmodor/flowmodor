@@ -1,31 +1,37 @@
-'use client';
-
+import { cookies } from 'next/headers';
+import { createServerClient } from '@supabase/ssr';
+import { Link } from '@nextui-org/link';
 import GoHome from '@/components/GoHome';
 import Menu from '@/components/Menu';
-import useIsPro from '@/hooks/useIsPro';
-import useUpdateSettings from '@/hooks/useUpdateSettings';
-import supabase from '@/utils/supabase';
-import { Button } from '@nextui-org/button';
-import { Input } from '@nextui-org/input';
-import { Link } from '@nextui-org/link';
-import { useEffect, useState } from 'react';
+import Options from '@/components/Settings/Options';
 
-export default function Settings() {
-  const [breakRatio, setBreakRatio] = useState(0);
-  const { isLoading, updateSettings } = useUpdateSettings();
-  const isPro = useIsPro();
+export default async function Settings() {
+  const cookieStore = cookies();
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+      },
+    },
+  );
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await supabase
-        .from('settings')
-        .select('break_ratio')
-        .single();
-      if (data?.break_ratio) {
-        setBreakRatio(data.break_ratio);
-      }
-    })();
-  }, []);
+  const { data } = await supabase
+    .from('plans')
+    .select('end_time, status')
+    .single();
+
+  const { status, end_time: endTime } = data ?? {};
+  const isPro = status === 'ACTIVE' || new Date(endTime) > new Date();
+
+  const { data: settingsData } = await supabase
+    .from('settings')
+    .select('break_ratio')
+    .single();
+  const breakRatio = settingsData?.break_ratio ?? 5;
 
   return (
     <>
@@ -43,37 +49,7 @@ export default function Settings() {
             to set custom break ratio.
           </div>
         ) : null}
-        <Input
-          isDisabled={!isPro}
-          label="Break ratio"
-          labelPlacement="outside"
-          placeholder="5"
-          variant="bordered"
-          description="Your break time will be your focus time divided by this number."
-          radius="sm"
-          type="number"
-          value={breakRatio.toString()}
-          onValueChange={(value) =>
-            setBreakRatio(value === '' ? 0 : parseInt(value, 10))
-          }
-          classNames={{
-            input: 'text-[16px]',
-            inputWrapper:
-              'border-secondary data-[hover=true]:border-secondary data-[focus=true]:!border-primary',
-          }}
-        />
-        <div className="flex">
-          <Button
-            color="primary"
-            radius="sm"
-            className="ml-auto mt-2"
-            isDisabled={!isPro || breakRatio <= 0}
-            isLoading={isLoading}
-            onPress={() => updateSettings(breakRatio)}
-          >
-            Save
-          </Button>
-        </div>
+        <Options isPro={isPro} defaultBreakRatio={breakRatio} />
       </div>
     </>
   );
