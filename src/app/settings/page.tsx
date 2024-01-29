@@ -1,32 +1,15 @@
 import { cookies } from 'next/headers';
-import { createServerClient } from '@supabase/ssr';
 import { Link } from '@nextui-org/link';
 import GoHome from '@/components/GoHome';
 import Menu from '@/components/Menu';
 import Options from '@/components/Settings/Options';
+import checkIsPro from '@/utils/checkIsPro';
+import { getServerClient } from '@/utils/supabase';
 
 export default async function Settings() {
   const cookieStore = cookies();
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
-        },
-      },
-    },
-  );
-
-  const { data } = await supabase
-    .from('plans')
-    .select('end_time, status')
-    .single();
-
-  const { status, end_time: endTime } = data ?? {};
-  const isPro = status === 'ACTIVE' || new Date(endTime) > new Date();
-
+  const isPro = await checkIsPro(cookieStore);
+  const supabase = getServerClient(cookieStore);
   const { data: settingsData } = await supabase
     .from('settings')
     .select('break_ratio')

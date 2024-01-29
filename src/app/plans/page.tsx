@@ -1,11 +1,12 @@
-import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-import { Button } from '@nextui-org/button';
 import Link from 'next/link';
+import { Button } from '@nextui-org/button';
 import { Chip } from '@nextui-org/react';
+
 import StarterButton from '@/components/Plans/StarterButton';
 import Menu from '@/components/Menu';
 import GoHome from '@/components/GoHome';
+import { getServerClient } from '@/utils/supabase';
 
 function Feature({ name }: { name: string }) {
   return (
@@ -39,18 +40,7 @@ function Features({ names }: { names: string[] }) {
 
 export default async function Plans() {
   const cookieStore = cookies();
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
-        },
-      },
-    },
-  );
+  const supabase = getServerClient(cookieStore);
 
   const starter = ['Flowmodoro Timer', 'Task List'];
   const pro = [
