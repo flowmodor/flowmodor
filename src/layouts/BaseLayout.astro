@@ -32,13 +32,13 @@ const thumbnail = '/thumbnail.png';
 
     <link rel="icon" href="/favicon.ico" />
   </head>
-  <body
-    class="bg-[#131221] text-white font-sans flex flex-col justify-between min-h-screen"
-  >
-    <Navbar client:load />
-    <main class="flex flex-col items-center mb-20">
-      <slot />
-    </main>
+  <body class="bg-[#131221] text-white font-sans flex flex-col justify-between">
+    <div class="min-h-screen mb-auto">
+      <Navbar client:load />
+      <main class="flex flex-col items-center">
+        <slot />
+      </main>
+    </div>
     <Footer />
   </body>
 </html>
