@@ -1,6 +1,7 @@
 ---
-import { Down } from "./Icons";
+import { Down } from './Icons';
 ---
+
 <div
   class="flex flex-col lg:flex-row w-full h-screen bg-[#DBBFFF]
   items-center justify-center gap-10 lg:gap-2"
@@ -11,8 +12,8 @@ import { Down } from "./Icons";
       <div>Beyond Pomodoro</div>
     </div>
     <div class="w-4/5 max-w-xl text-center lg:text-start">
-      Flowmodor is an open-source flowmodoro timer web app based on the
-      Flowtime Technique, an alternative to the Pomodoro Technique.
+      Flowmodor is an open-source flowmodoro timer web app based on the Flowtime
+      Technique, an alternative to the Pomodoro Technique.
     </div>
     <div class="flex gap-5">
       <a
@@ -34,17 +35,22 @@ import { Down } from "./Icons";
     src="/single-mock.png"
     alt="Taks list of Flowmodor"
     draggable="false"
-    class="hidden lg:block xl:hidden w-[20rem] rounded-xl flex-shrink-0 hover:-translate-y-2 transition-all duration-300"
+    width={320}
+    height={320}
+    class="hidden lg:block xl:hidden rounded-xl flex-shrink-0 hover:-translate-y-2 transition-all duration-300"
   />
   <img
     src="/mock.png"
     alt="Taks list of Flowmodor"
     draggable="false"
-    class="hidden xl:block w-[30rem] rounded-xl flex-shrink-0 hover:-translate-y-2 transition-all duration-300"
+    width={480}
+    height={426}
+    class="hidden xl:block rounded-xl flex-shrink-0 hover:-translate-y-2 transition-all duration-300"
   />
   <a
     href="#features"
     class="hidden sm:block absolute cursor-pointer bottom-5 rounded-full animate-bounce"
+    aria-label="Scroll down to features section"
   >
     <Down />
   </a>

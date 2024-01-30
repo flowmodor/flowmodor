@@ -1,16 +1,21 @@
 ---
-import { X, GitHub } from "./Icons";
+import { X, GitHub } from './Icons';
 ---
 
-<div class="w-full border-[#ffffff20] border-t flex justify-center gap-5 items-center h-32">
-  <a href="https://twitter.com/flowmodor" class="cursor-pointer">
+<div
+  class="w-full border-[#ffffff20] border-t flex justify-center gap-5 items-center h-32"
+>
+  <a href="https://twitter.com/flowmodor" class="cursor-pointer" aria-label="X">
     <X />
   </a>
   <a
     href="https://github.com/flowmodor/flowmodor"
     class="cursor-pointer"
+    aria-label="GitHub"
   >
     <GitHub />
   </a>
-  <span class="text-white text-xs">Copyright © 2023–{new Date().getFullYear()} Flowmodor</span>
+  <span class="text-white text-xs"
+    >Copyright © 2023–{new Date().getFullYear()} Flowmodor</span
+  >
 </div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
 export default function AppearScroll({ children }: { children: any }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -24,7 +24,7 @@ export default function AppearScroll({ children }: { children: any }) {
   }, []);
 
   const classes = `transition-opacity duration-1000 
-        ${isVisible ? "opacity-100" : "opacity-0"}`;
+        ${isVisible ? 'opacity-100' : 'opacity-0'}`;
 
   return (
     <div ref={ref} className={classes}>

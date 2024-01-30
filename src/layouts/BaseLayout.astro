@@ -1,17 +1,18 @@
 ---
 import '@fontsource-variable/inter';
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer.astro'
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer.astro';
 
 const { title, description } = Astro.props;
 const image = '/og.png';
 const thumbnail = '/thumbnail.png';
 ---
+
 <html lang="en" class="scroll-smooth">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
@@ -29,14 +30,15 @@ const thumbnail = '/thumbnail.png';
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
-		<link rel="icon" href="/favicon.ico" />
-    <script defer data-domain="flowmodor.com" src="https://plausible.io/js/script.js"></script>
+    <link rel="icon" href="/favicon.ico" />
   </head>
-	<body class="bg-[#131221] text-white font-sans flex flex-col justify-between min-h-screen">
+  <body
+    class="bg-[#131221] text-white font-sans flex flex-col justify-between min-h-screen"
+  >
     <Navbar client:load />
-		<main class="flex flex-col items-center mb-auto">
+    <main class="flex flex-col items-center mb-auto">
       <slot />
     </main>
     <Footer />
-	</body>
+  </body>
 </html>

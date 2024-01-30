@@ -1,14 +1,23 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import Features from "../../components/Features";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Features from '../../components/Features';
 
 const starter = ['Flowmodoro Timer', 'Task List', 'Today Stats'];
-const pro = ['Everything in Starter', 'Custom Break Ratio', 'Unlimited Stats', 'Priority Support'];
+const pro = [
+  'Everything in Starter',
+  'Custom Break Ratio',
+  'Unlimited Stats',
+  'Priority Support',
+];
 ---
 
 <BaseLayout title="Pricing | Flowmodor" description="Pricing for Flowmodor">
-  <div class="w-full flex flex-col sm:flex-row items-center sm:items-stretch justify-center gap-10 mt-32">
-    <div class="w-[90%] sm:w-2/5 lg:w-1/3 flex flex-col gap-10 bg-[#23223C] p-10 rounded-xl">
+  <div
+    class="w-full flex flex-col sm:flex-row items-center sm:items-stretch justify-center gap-10 mt-32"
+  >
+    <div
+      class="w-[90%] sm:w-2/5 lg:w-1/3 flex flex-col gap-10 bg-[#23223C] p-10 rounded-xl"
+    >
       <div class="flex flex-col gap-2">
         <h2 class="text-2xl">Starter</h2>
         <div class="flex items-end gap-1">
@@ -25,7 +34,9 @@ const pro = ['Everything in Starter', 'Custom Break Ratio', 'Unlimited Stats', '
       </a>
       <Features names={starter} />
     </div>
-    <div class="w-[90%] sm:w-2/5 lg:w-1/3 flex flex-col gap-10 bg-[#23223C] p-10 rounded-xl">
+    <div
+      class="w-[90%] sm:w-2/5 lg:w-1/3 flex flex-col gap-10 bg-[#23223C] p-10 rounded-xl"
+    >
       <div class="flex flex-col gap-2">
         <h2 class="text-2xl">Pro</h2>
         <div class="flex items-end gap-1">

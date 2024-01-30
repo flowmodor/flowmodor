@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    if (window.location.pathname !== "/") {
+    if (window.location.pathname !== '/') {
       setIsScrolled(true);
       return;
     }
@@ -18,14 +18,14 @@ export default function Navbar() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <nav
       className={`sticky top-0 z-10 justify-center backdrop-blur border-[#FFFFFF20] border-b flex -mb-16 h-16 items-center transition-all ${
-        isScrolled ? "text-white" : "text-[#23223C]"
+        isScrolled ? 'text-white' : 'text-[#23223C]'
       }`}
     >
       <a
@@ -36,6 +36,7 @@ export default function Navbar() {
           src="/logo.png"
           alt="Logo of Flowmodor"
           width={32}
+          height={32}
           className="rounded-md"
           draggable={false}
         />
@@ -48,7 +49,7 @@ export default function Navbar() {
       <a
         href="https://app.flowmodor.com/signin"
         className={`right-5 absolute text-sm font-medium cursor-pointer rounded-md p-2 transition-all ${
-          isScrolled ? "text-[#23223C] bg-[#DBBFFF]" : "text-white bg-[#23223C]"
+          isScrolled ? 'text-[#23223C] bg-[#DBBFFF]' : 'text-white bg-[#23223C]'
         }`}
       >
         Get started

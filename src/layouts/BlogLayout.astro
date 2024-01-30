@@ -1,15 +1,20 @@
 ---
-import BaseLayout from './BaseLayout.astro'
+import BaseLayout from './BaseLayout.astro';
 
 const { frontmatter } = Astro.props;
 ---
+
 <BaseLayout
   title={`${frontmatter.title} | Flowmodor`}
   description={frontmatter.description}
 >
   <article class="prose prose-invert py-36 px-3">
     <h1 class="text-3xl font-extrabold">{frontmatter.title}</h1>
-    <div>{frontmatter.date} • <a href="https://github.com/m4xshen" class="no-underline">Max Shen</a></div>
+    <div>
+      {frontmatter.date} • <a
+        href="https://github.com/m4xshen"
+        class="no-underline">Max Shen</a>
+    </div>
     <slot />
   </article>
 </BaseLayout>

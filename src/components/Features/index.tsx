@@ -1,4 +1,4 @@
-import Feature from "./Feature";
+import Feature from './Feature';
 
 export default function Features({ names }: { names: string[] }) {
   return (
