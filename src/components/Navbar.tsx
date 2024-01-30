@@ -25,7 +25,7 @@ export default function Navbar() {
   return (
     <nav
       className={`sticky top-0 z-10 justify-center backdrop-blur border-[#FFFFFF20] border-b flex -mb-16 h-16 items-center transition-all ${
-        isScrolled ? 'text-white' : 'text-[#23223C]'
+        isScrolled ? 'text-white' : 'text-[#131221]'
       }`}
     >
       <a
@@ -37,7 +37,7 @@ export default function Navbar() {
           alt="Logo of Flowmodor"
           width={32}
           height={32}
-          className="rounded-md"
+          className="rounded-md bg-[#131221]"
           draggable={false}
         />
         <div>Flowmodor</div>
@@ -49,7 +49,7 @@ export default function Navbar() {
       <a
         href="https://app.flowmodor.com/signin"
         className={`right-5 absolute text-sm font-medium cursor-pointer rounded-md p-2 transition-all ${
-          isScrolled ? 'text-[#23223C] bg-[#DBBFFF]' : 'text-white bg-[#23223C]'
+          isScrolled ? 'text-[#131221] bg-[#DBBFFF]' : 'text-white bg-[#131221]'
         }`}
       >
         Get started

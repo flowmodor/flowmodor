@@ -16,7 +16,6 @@ export function X() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="fill-white hover:fill-[#D6B6FF] transition-all"
       height="24"
       width="24"
       viewBox="0 0 512 512"
@@ -29,7 +28,6 @@ export function X() {
 export function GitHub() {
   return (
     <svg
-      className="fill-white hover:fill-[#D6B6FF] transition-all"
       xmlns="http://www.w3.org/2000/svg"
       height="24"
       width="24"
