@@ -1,3 +1,3 @@
-# Website
+# Landing
 
-Website of Flowmodor
+Landing page of Flowmodor
