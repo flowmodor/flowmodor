@@ -6,7 +6,7 @@ export default async function checkIsPro(cookieStore: ReadonlyRequestCookies) {
   const supabase = getServerClient(cookieStore);
   const { data } = await supabase
     .from('plans')
-    .select('subscription_id')
+    .select('end_time, subscription_id')
     .single();
   const id = data?.subscription_id;
 
@@ -32,7 +32,12 @@ export default async function checkIsPro(cookieStore: ReadonlyRequestCookies) {
 
     const subscription = await response.json();
     status = subscription.status;
-    endTime = subscription.billing_info.next_billing_time;
+    endTime = subscription?.billing_info?.next_billing_time;
+    if (endTime) {
+      supabase.from('plans').update({ end_time: endTime }).single();
+    } else {
+      endTime = data?.end_time;
+    }
   } catch (error) {
     console.error(error);
   }
