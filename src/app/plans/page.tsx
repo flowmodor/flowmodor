@@ -40,7 +40,7 @@ export default async function Plans() {
 
     const subscription = await response.json();
     status = subscription.status;
-    endTime = subscription.billing_info.next_billing_time;
+    endTime = subscription?.billing_info?.next_billing_time;
     if (endTime) {
       supabase.from('plans').update({ end_time: endTime }).single();
     } else {
