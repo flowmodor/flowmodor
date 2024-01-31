@@ -6,12 +6,49 @@ import { Chip } from '@nextui-org/react';
 import StarterButton from '@/components/Plans/StarterButton';
 import Menu from '@/components/Menu';
 import GoHome from '@/components/GoHome';
-import { getServerClient } from '@/utils/supabase';
 import PlanCard from '@/components/Plans/PlanCard';
+import { getServerClient } from '@/utils/supabase';
+import getAccessToken from '@/utils/paypal';
 
 export default async function Plans() {
   const supabase = getServerClient(cookies());
-  const { data } = await supabase.from('plans').select('*').single();
+  const { data } = await supabase
+    .from('plans')
+    .select('end_time, subscription_id')
+    .single();
+  const id = data?.subscription_id;
+
+  let status = null;
+  let endTime = null;
+
+  try {
+    const accessToken = await getAccessToken();
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_PAYPAL_API_URL}/billing/subscriptions/${id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch subscription');
+    }
+
+    const subscription = await response.json();
+    status = subscription.status;
+    endTime = subscription.billing_info.next_billing_time;
+    if (endTime) {
+      supabase.from('plans').update({ end_time: endTime }).single();
+    } else {
+      endTime = data?.end_time;
+    }
+  } catch (error) {
+    console.error(error);
+  }
 
   const starter = ['Flowmodoro Timer', 'Task List', 'Today Stats'];
   const pro = [
@@ -30,33 +67,32 @@ export default async function Plans() {
             <GoHome />
             Plans
           </div>
-          {data?.status ? (
+          {status ? (
             <>
               <div className="flex items-center gap-2">
                 Status:
                 <Chip size="sm" color="primary">
-                  {data.status}
+                  {status}
                 </Chip>
-                (takes a few minutes to update)
               </div>
-              <div>End Time: {new Date(data.end_time).toLocaleString()}</div>
+              <div>End Time: {new Date(endTime).toLocaleString()}</div>
             </>
           ) : null}
         </div>
         <div className="flex flex-col items-center justify-center gap-10 sm:flex-row sm:items-stretch">
           <PlanCard name="Starter" price={0} features={starter}>
-            <StarterButton data={data} />
+            <StarterButton status={status} id={id} />
           </PlanCard>
           <PlanCard name="Pro" price={5} features={pro}>
             <Button
-              isDisabled={data?.status === 'ACTIVE'}
+              isDisabled={status === 'ACTIVE'}
               as={Link}
               href="/plans/upgrade"
               color="primary"
               radius="sm"
               className="font-semibold text-[#23223C]"
             >
-              {data?.status === 'ACTIVE' ? 'Current plan' : 'Upgrade to Pro'}
+              {status === 'ACTIVE' ? 'Current plan' : 'Upgrade to Pro'}
             </Button>
           </PlanCard>
         </div>

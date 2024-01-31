@@ -12,8 +12,10 @@ import {
 import getAccessToken from '@/utils/paypal';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
-async function cancelSubscription(id: string) {
+async function cancelSubscription(id: string, router: AppRouterInstance) {
   try {
     const accessToken = await getAccessToken();
     const response = await fetch(
@@ -31,25 +33,33 @@ async function cancelSubscription(id: string) {
       throw new Error('Something went wrong');
     }
     toast('Subscription cancelled successfully');
+    router.refresh();
   } catch (error: any) {
     toast(error.message);
   }
 }
 
-export default function StarterButton({ data }: { data: any }) {
+export default function StarterButton({
+  status,
+  id,
+}: {
+  status: string;
+  id: string;
+}) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   return (
     <>
       <Button
-        isDisabled={data?.status !== 'ACTIVE'}
+        isDisabled={status !== 'ACTIVE'}
         color="primary"
         radius="sm"
         className="font-semibold text-[#23223C]"
         onPress={onOpen}
       >
-        {data?.status === 'ACTIVE' ? 'Downgrade to Starter' : 'Current plan'}
+        {status === 'ACTIVE' ? 'Downgrade to Starter' : 'Current plan'}
       </Button>
       <Modal
         isOpen={isOpen}
@@ -83,7 +93,7 @@ export default function StarterButton({ data }: { data: any }) {
                   isLoading={isLoading}
                   onPress={async () => {
                     setIsLoading(true);
-                    await cancelSubscription(data.subscription_id);
+                    await cancelSubscription(id, router);
                     setIsLoading(false);
                     onClose();
                   }}
