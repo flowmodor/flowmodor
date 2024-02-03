@@ -33,13 +33,15 @@ export default async function checkIsPro(cookieStore: ReadonlyRequestCookies) {
     const subscription = await response.json();
     status = subscription.status;
     endTime = subscription?.billing_info?.next_billing_time;
-    if (endTime) {
-      supabase.from('plans').update({ end_time: endTime }).single();
-    } else {
-      endTime = data?.end_time;
-    }
+    console.log(endTime);
   } catch (error) {
     console.error(error);
+  }
+
+  if (endTime) {
+    supabase.from('plans').update({ end_time: endTime }).single();
+  } else {
+    endTime = data?.end_time;
   }
 
   return status === 'ACTIVE' || new Date(endTime) > new Date();
