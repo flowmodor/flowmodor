@@ -10,19 +10,14 @@ interface Props {
 
 export default function TaskBox({ task }: Props) {
   const { isRunning, mode } = useTimerStore((state) => state);
-  const { focusingTask, doCompleteTask, undoCompleteTask } = useTasksStore(
+  const { focusingTask, completeTask, undoCompleteTask } = useTasksStore(
     (state) => state,
   );
   const toastId = 'task-toast';
 
   const taskToast = (text: string, options?: UpdateOptions<unknown>) => {
     if (toast.isActive(toastId)) {
-      toast.update(toastId, {
-        ...options,
-        render: text || options?.render,
-        closeButton: options?.closeButton || undefined,
-        toastId,
-      });
+      toast.dismiss(toastId);
       return toastId;
     }
 
@@ -34,22 +29,16 @@ export default function TaskBox({ task }: Props) {
     return toast(text, { ...newOptions, toastId });
   };
 
-  const undoCompleteToast = () => taskToast(`Task ${task.name} undone.`);
-
-  const undoComplete = async () => {
-    undoCompleteToast();
-    await undoCompleteTask(task);
-  };
-
-  const undoButton = () => <Button onClick={() => undoComplete()}>UNDO</Button>;
-
-  const completeToast = () =>
-    taskToast(`Task ${task.name} completed.`, { closeButton: undoButton });
-
-  const doComplete = async () => {
-    completeToast();
-    await doCompleteTask(task);
-  };
+  const undoButton = () => (
+    <Button
+      onClick={async () => {
+        taskToast(`Task ${task.name} undone.`);
+        await undoCompleteTask(task);
+      }}
+    >
+      Undo
+    </Button>
+  );
 
   return (
     <div className="flex min-h-[4rem] items-center border-b border-b-secondary px-4">
@@ -61,12 +50,11 @@ export default function TaskBox({ task }: Props) {
         classNames={{
           wrapper: 'border border-primary',
         }}
-        onChange={async (e) => {
-          if (!e.target.checked) {
-            await undoComplete();
-          } else {
-            await doComplete();
-          }
+        onChange={async () => {
+          taskToast(`Task ${task.name} completed.`, {
+            closeButton: undoButton,
+          });
+          await completeTask(task);
         }}
         isSelected={task.completed}
       >
