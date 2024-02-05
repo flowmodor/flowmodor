@@ -53,7 +53,7 @@ const useTasksStore = create<TasksState>((set) => ({
             tasks: [payload.new, ...state.tasks],
             focusingTask:
               payload.old.id === state.focusingTask ? null : state.focusingTask,
-          }))
+          }));
         }
       },
     );
