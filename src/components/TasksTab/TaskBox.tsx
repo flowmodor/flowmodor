@@ -16,6 +16,8 @@ export default function TaskBox({ task }: Props) {
 
   const undoButton = () => (
     <Button
+      color="secondary"
+      radius="sm"
       onClick={async () => {
         await undoCompleteTask(task);
       }}
