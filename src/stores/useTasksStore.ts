@@ -4,6 +4,8 @@ import { create } from 'zustand';
 interface TasksState {
   tasks: any[];
   focusingTask: number | null;
+  doCompleteTask: (task: any) => Promise<void>; // Is there any better comment for this?
+  undoCompleteTask: (task: any) => Promise<void>;
   focusTask: (key: number) => void;
   fetchTasks: () => Promise<void>;
   subscribeToTasks: () => void;
@@ -19,6 +21,12 @@ const useTasksStore = create<TasksState>((set) => ({
       .select('*')
       .is('completed', false);
     set({ tasks: data! });
+  },
+  doCompleteTask: async (task) => {
+    await supabase.from('tasks').update({ completed: true }).eq('id', task.id);
+  },
+  undoCompleteTask: async (task) => {
+    await supabase.from('tasks').update({ completed: false }).eq('id', task.id);
   },
   subscribeToTasks: async () => {
     const tasksChannel = supabase.channel('tasks');
