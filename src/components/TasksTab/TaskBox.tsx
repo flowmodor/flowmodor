@@ -63,6 +63,7 @@ export default function TaskBox({ task }: Props) {
             await doComplete();
           }
         }}
+        isSelected={task.completed}
       >
         {task.name}
       </Checkbox>
