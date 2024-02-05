@@ -1,5 +1,6 @@
-import supabase from '@/utils/supabase';
 import { create } from 'zustand';
+import { toast } from 'react-toastify';
+import supabase from '@/utils/supabase';
 
 interface TasksState {
   tasks: any[];
@@ -51,9 +52,10 @@ const useTasksStore = create<TasksState>((set) => ({
         } else {
           set((state) => ({
             tasks: [payload.new, ...state.tasks],
-            focusingTask:
-              payload.old.id === state.focusingTask ? null : state.focusingTask,
           }));
+          if (toast.isActive(payload.new.id)) {
+            toast.dismiss(payload.new.id);
+          }
         }
       },
     );
