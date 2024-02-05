@@ -56,11 +56,12 @@ export default function TaskBox({ task }: Props) {
         classNames={{
           wrapper: 'border border-primary',
         }}
-        onChange={async () => {
-          await supabase
-            .from('tasks')
-            .update({ completed: true })
-            .eq('id', task.id);
+        onChange={async (e) => {
+          if (!e.target.checked) {
+            await undoComplete();
+          } else {
+            await doComplete();
+          }
         }}
       >
         {task.name}
