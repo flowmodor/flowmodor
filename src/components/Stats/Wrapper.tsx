@@ -12,10 +12,37 @@ import Summary from '@/components/Stats/Summary';
 import GoHome from '@/components/GoHome';
 import { processLogs } from '@/utils';
 import supabase from '@/utils/supabase';
+import TimeFormatter from './TimeFormatter';
+
+function calculateTaskTime(logs: any[]) {
+  const taskTimeMap: { [task: string]: number } = {};
+  for (let i = 0; i < logs.length; i += 1) {
+    if (logs[i].mode === 'focus') {
+      const task = logs[i].task === null ? 'unspecified' : logs[i].task;
+      const time =
+        (new Date(logs[i].end_time).getTime() -
+          new Date(logs[i].start_time).getTime()) /
+        60000;
+      if (taskTimeMap[task]) {
+        taskTimeMap[task] += time;
+      } else {
+        taskTimeMap[task] = time;
+      }
+    }
+  }
+
+  const taskTimeArray = Object.keys(taskTimeMap).map((task) => ({
+    task_id: task,
+    task_time: taskTimeMap[task],
+  }));
+
+  return taskTimeArray;
+}
 
 export default function Wrapper({ isPro }: { isPro: boolean }) {
   const [date, setDate] = useState(new Date());
   const [logs, setLogs] = useState<any[]>([]);
+  const taskTime = calculateTaskTime(logs);
   const processedLogs = processLogs(logs);
   const isBlocked = !isPro && date.toDateString() !== new Date().toDateString();
 
@@ -37,8 +64,9 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
       }
     })();
   }, [date]);
+
   return (
-    <>
+    <div className="flex flex-col gap-5 py-10">
       <div className="flex flex-col items-center justify-between px-5 md:flex-row">
         <h1 className="flex items-center gap-3 text-3xl font-semibold">
           <GoHome />
@@ -88,6 +116,16 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
           </div>
         ) : null}
       </Card>
-    </>
+      {taskTime.length > 0 ? (
+        <Card className="mt-5 rounded-lg bg-[#23223C] p-5">
+          {taskTime.map((task) => (
+            <CardBody key={task.task_id}>
+              <p>{task.task_id}</p>
+              <TimeFormatter minutes={Math.round(task.task_time)} />
+            </CardBody>
+          ))}
+        </Card>
+      ) : null}
+    </div>
   );
 }
