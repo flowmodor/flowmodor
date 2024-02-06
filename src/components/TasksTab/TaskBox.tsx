@@ -3,12 +3,9 @@ import { Button } from '@nextui-org/button';
 import { Checkbox } from '@nextui-org/checkbox';
 import useTasksStore from '@/stores/useTasksStore';
 import useTimerStore from '@/stores/useTimerStore';
+import { Tables } from '@/types/supabase';
 
-interface Props {
-  task: any;
-}
-
-export default function TaskBox({ task }: Props) {
+export default function TaskBox({ task }: { task: Tables<'tasks'> }) {
   const { isRunning, mode } = useTimerStore((state) => state);
   const { focusingTask, completeTask, undoCompleteTask } = useTasksStore(
     (state) => state,

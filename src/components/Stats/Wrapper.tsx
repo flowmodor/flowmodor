@@ -12,13 +12,20 @@ import Summary from '@/components/Stats/Summary';
 import GoHome from '@/components/GoHome';
 import { processLogs } from '@/utils';
 import supabase from '@/utils/supabase';
+import { Tables } from '@/types/supabase';
 import TaskTime from './TaskTime';
 
-function calculateTaskTime(logs: any[]) {
+type LogsWithTasks = Tables<'logs'> & {
+  tasks: {
+    name: string;
+  } | null;
+};
+
+function calculateTaskTime(logs: LogsWithTasks[]) {
   const taskTimeMap: { [task: string]: number } = {};
   for (let i = 0; i < logs.length; i += 1) {
     if (logs[i].mode === 'focus') {
-      const task = logs[i].task === null ? 'unspecified' : logs[i].tasks.name;
+      const task = logs[i].task === null ? 'unspecified' : logs[i].tasks!.name;
       const time =
         (new Date(logs[i].end_time).getTime() -
           new Date(logs[i].start_time).getTime()) /
@@ -41,7 +48,7 @@ function calculateTaskTime(logs: any[]) {
 
 export default function Wrapper({ isPro }: { isPro: boolean }) {
   const [date, setDate] = useState(new Date());
-  const [logs, setLogs] = useState<any[] | null>(null);
+  const [logs, setLogs] = useState<LogsWithTasks[] | null>(null);
   const taskTime = calculateTaskTime(logs ?? []);
   const processedLogs = processLogs(logs ?? []);
   const isBlocked = !isPro && date.toDateString() !== new Date().toDateString();

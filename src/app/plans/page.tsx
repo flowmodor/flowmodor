@@ -81,7 +81,7 @@ export default async function Plans() {
         </div>
         <div className="flex flex-col items-center justify-center gap-10 sm:flex-row sm:items-stretch">
           <PlanCard name="Starter" price={0} features={starter}>
-            <StarterButton status={status} id={id} />
+            <StarterButton status={status} id={id ?? ''} />
           </PlanCard>
           <PlanCard name="Pro" price={5} features={pro}>
             <Button

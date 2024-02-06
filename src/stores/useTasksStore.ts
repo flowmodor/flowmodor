@@ -1,12 +1,13 @@
 import { create } from 'zustand';
 import { toast } from 'react-toastify';
 import supabase from '@/utils/supabase';
+import { Tables } from '@/types/supabase';
 
 interface TasksState {
-  tasks: any[];
+  tasks: Tables<'tasks'>[];
   focusingTask: number | null;
-  completeTask: (task: any) => Promise<void>;
-  undoCompleteTask: (task: any) => Promise<void>;
+  completeTask: (task: Tables<'tasks'>) => Promise<void>;
+  undoCompleteTask: (task: Tables<'tasks'>) => Promise<void>;
   focusTask: (key: number) => void;
   fetchTasks: () => Promise<void>;
   subscribeToTasks: () => void;

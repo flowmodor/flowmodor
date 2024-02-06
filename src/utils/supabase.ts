@@ -1,3 +1,4 @@
+import { Database } from '@/types/supabase';
 import {
   createBrowserClient,
   createServerClient,
@@ -6,13 +7,13 @@ import {
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { NextRequest, NextResponse } from 'next/server';
 
-const supabase = createBrowserClient(
+const supabase = createBrowserClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 );
 
 export const getServerClient = (cookieStore: ReadonlyRequestCookies) =>
-  createServerClient(
+  createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
@@ -25,7 +26,7 @@ export const getServerClient = (cookieStore: ReadonlyRequestCookies) =>
   );
 
 export const getRouteClient = (cookieStore: ReadonlyRequestCookies) =>
-  createServerClient(
+  createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
@@ -50,7 +51,7 @@ export const getMiddlewareClient = (request: NextRequest) => {
     },
   });
 
-  const middlewareSupabase = createServerClient(
+  const middlewareSupabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {

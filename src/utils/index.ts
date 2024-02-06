@@ -1,3 +1,5 @@
+import { Tables } from '@/types/supabase';
+
 const formatTime = (t: number) => {
   const hours = Math.floor(t / 3600);
   const minutes = Math.floor((t % 3600) / 60);
@@ -21,16 +23,7 @@ const validateEmail = (email: string) =>
 
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-restricted-syntax */
-interface LogEntry {
-  id: number;
-  start_time: string;
-  end_time: string;
-  mode: 'focus' | 'break';
-  user_id: string;
-  task: number | null;
-}
-
-const processLogs = (logs: LogEntry[]) => {
+const processLogs = (logs: Tables<'logs'>[]) => {
   const entries = new Map<number, { focus: number; break: number }>();
 
   for (const log of logs) {

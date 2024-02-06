@@ -15,7 +15,7 @@ function ButtonWrapper({
   type,
   userId,
 }: {
-  type: any;
+  type: string;
   userId: string | undefined;
 }) {
   const router = useRouter();
