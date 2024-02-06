@@ -11,10 +11,14 @@ export default function useUpdateSettings() {
       data: { user },
     } = await supabase.auth.getUser();
 
+    if (!user) {
+      return { error: { message: 'User not found' } };
+    }
+
     const { data, error } = await supabase
       .from('settings')
       .update({ break_ratio: breakRatio })
-      .eq('user_id', user?.id);
+      .eq('user_id', user.id);
 
     if (error) {
       toast(error.message);
