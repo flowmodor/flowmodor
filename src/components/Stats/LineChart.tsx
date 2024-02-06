@@ -1,4 +1,4 @@
-import { Chip } from '@nextui-org/react';
+import { Chip } from '@nextui-org/chip';
 import {
   Chart as ChartJS,
   CategoryScale,

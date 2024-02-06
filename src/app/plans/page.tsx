@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { Button } from '@nextui-org/button';
-import { Chip } from '@nextui-org/react';
+import { Chip } from '@nextui-org/chip';
 
 import StarterButton from '@/components/Plans/StarterButton';
 import Menu from '@/components/Menu';
