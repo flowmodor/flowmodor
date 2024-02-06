@@ -710,7 +710,7 @@
     "@react-types/breadcrumbs" "^3.7.1"
     "@react-types/shared" "^3.21.0"
 
-"@nextui-org/button@2.0.26", "@nextui-org/button@^2.0.26":
+"@nextui-org/button@2.0.26":
   version "2.0.26"
   resolved "https://registry.yarnpkg.com/@nextui-org/button/-/button-2.0.26.tgz#006d29e7290b17ee267d200c006385e139c1cb69"
   integrity sha512-mDrSII1oneY4omwDdxUhl5oLa3AhoWCchwV/jt7egunnAFie32HbTqfFYGpLGiJw3JMMh3WDUthrI1islVTRKA==
@@ -727,7 +727,7 @@
     "@react-types/button" "^3.9.0"
     "@react-types/shared" "^3.21.0"
 
-"@nextui-org/card@2.0.24", "@nextui-org/card@^2.0.24":
+"@nextui-org/card@2.0.24":
   version "2.0.24"
   resolved "https://registry.yarnpkg.com/@nextui-org/card/-/card-2.0.24.tgz#e57764fa91a0711221d32e9d5481d9df902ef9ec"
   integrity sha512-16uAS0i6+EO+u8aqtmaCXatjovsyuTq51JwCLBlB67OldfgXoYcYl3GaE2VoZdEwxVu1G/qypDfXv29k46nZuA==
@@ -742,7 +742,7 @@
     "@react-aria/utils" "^3.21.1"
     "@react-types/shared" "^3.21.0"
 
-"@nextui-org/checkbox@2.0.25", "@nextui-org/checkbox@^2.0.25":
+"@nextui-org/checkbox@2.0.25":
   version "2.0.25"
   resolved "https://registry.yarnpkg.com/@nextui-org/checkbox/-/checkbox-2.0.25.tgz#d4a412d30ea87faef69152f5187cc76e9a32852f"
   integrity sha512-X6WkwPbZlDvioEcXF6HhKH21wD6OK+3+FSroKkzMPQLJrj2KYUIYGbiuw9rT9aCtdjbT+6HUCv+FA8/cBQr7cA==
@@ -793,7 +793,7 @@
     "@nextui-org/system-rsc" "2.0.11"
     "@react-types/shared" "^3.21.0"
 
-"@nextui-org/dropdown@2.1.16", "@nextui-org/dropdown@^2.1.16":
+"@nextui-org/dropdown@2.1.16":
   version "2.1.16"
   resolved "https://registry.yarnpkg.com/@nextui-org/dropdown/-/dropdown-2.1.16.tgz#4b9d328193e942235d04e5c1758618898275e412"
   integrity sha512-3KINNvC7Cz+deQltCM8gaB7iJCfU4Qsp1fwnoy1wUEjeZhEtPOPR59oTyqT+gPaPIisP1+LLOfcqRl4jNQoVXw==
@@ -825,7 +825,7 @@
     "@nextui-org/shared-utils" "2.0.4"
     "@nextui-org/use-image" "2.0.4"
 
-"@nextui-org/input@2.1.16", "@nextui-org/input@^2.1.16":
+"@nextui-org/input@2.1.16":
   version "2.1.16"
   resolved "https://registry.yarnpkg.com/@nextui-org/input/-/input-2.1.16.tgz#c9bbebb551c5f966c12ec95434042be0993afe29"
   integrity sha512-nUTlAvsXj5t88ycvQdICxf78/pko6Wznx2OomvYjb3E45eb77twQcWUDhydkJCWIh3b4AhGHSMM6GYxwWUgMDA==
@@ -852,7 +852,7 @@
     "@nextui-org/system-rsc" "2.0.11"
     "@react-aria/utils" "^3.21.1"
 
-"@nextui-org/link@2.0.26", "@nextui-org/link@^2.0.26":
+"@nextui-org/link@2.0.26":
   version "2.0.26"
   resolved "https://registry.yarnpkg.com/@nextui-org/link/-/link-2.0.26.tgz#154446f755a52a51cf4d0d1a6f1c9412856053f2"
   integrity sha512-X8zX3U5MWfiStOCd45oIZ2YKZG0GoUio6PcMFYjpOPsEG7wV58CuhUSxpyx3QTF8JavVSO/p/cl4Pc9pukVDUg==
@@ -905,7 +905,7 @@
     "@react-types/menu" "^3.9.5"
     "@react-types/shared" "^3.21.0"
 
-"@nextui-org/modal@2.0.28", "@nextui-org/modal@^2.0.28":
+"@nextui-org/modal@2.0.28":
   version "2.0.28"
   resolved "https://registry.yarnpkg.com/@nextui-org/modal/-/modal-2.0.28.tgz#0014c4d10f05e4b67d90d131af254bef7cd4f102"
   integrity sha512-unfP0EMF3FDg5CkRqou03s4/BopWbaBTeVIMZeA2A1WF5teHUOmpLdp44Z1KOoWB1RVMDVd4JeoauNHNhJMp0g==
@@ -959,7 +959,7 @@
     "@react-aria/utils" "^3.21.1"
     scroll-into-view-if-needed "3.0.10"
 
-"@nextui-org/popover@2.1.14", "@nextui-org/popover@^2.1.14":
+"@nextui-org/popover@2.1.14":
   version "2.1.14"
   resolved "https://registry.yarnpkg.com/@nextui-org/popover/-/popover-2.1.14.tgz#9ef43ef04fc325231001188e6b0c2a93f94e8b94"
   integrity sha512-fqqktFQ/chIBS9Y3MghL6KX6qAy3hodtXUDchnxLa1GL+oi6TCBLUjo+wgI5EMJrTTbqo/eFLui/Ks00JfCj+A==
@@ -980,7 +980,7 @@
     "@react-types/overlays" "^3.8.3"
     react-remove-scroll "^2.5.6"
 
-"@nextui-org/progress@2.0.24", "@nextui-org/progress@^2.0.24":
+"@nextui-org/progress@2.0.24":
   version "2.0.24"
   resolved "https://registry.yarnpkg.com/@nextui-org/progress/-/progress-2.0.24.tgz#009681d4aa0233f5f62783a35d249a95a6ac1a74"
   integrity sha512-RPVsFCF8COFClS/8PqEepzryhDFtIcJGQLu/P+qAr7jIDlXizXaBDrp0X34GVtQsapNeE9ExxX9Kt+QIspuHHQ==
@@ -1086,7 +1086,7 @@
     "@nextui-org/shared-utils" "2.0.4"
     "@nextui-org/use-data-scroll-overflow" "2.1.2"
 
-"@nextui-org/select@2.1.20", "@nextui-org/select@^2.1.20":
+"@nextui-org/select@2.1.20":
   version "2.1.20"
   resolved "https://registry.yarnpkg.com/@nextui-org/select/-/select-2.1.20.tgz#26c8ea37c6be99500fe0483ffba53e307ac8b318"
   integrity sha512-GCO9uzyYnFIdJTqIe6aDe2NnYlclcdYfZnECFAze/R2MW0jpoysk5ysGBDjVDmZis6tLu+BOFXJbIlYEi+LoUQ==
@@ -1166,7 +1166,7 @@
     "@nextui-org/shared-utils" "2.0.4"
     "@nextui-org/system-rsc" "2.0.11"
 
-"@nextui-org/spinner@2.0.24", "@nextui-org/spinner@^2.0.24":
+"@nextui-org/spinner@2.0.24":
   version "2.0.24"
   resolved "https://registry.yarnpkg.com/@nextui-org/spinner/-/spinner-2.0.24.tgz#99bfea6572ae9a64a20ab57249f483a912e07672"
   integrity sha512-s/q2FmxGPNEqA0ifWfc7xgs5a5D9c3xKkxL3n7jDoRnWo0NPlRsa6QRJGiSL5dHNoUqspRf/lNw2V94Bxk86Pg==
@@ -1229,7 +1229,7 @@
     "@react-types/grid" "^3.2.2"
     "@react-types/table" "^3.9.0"
 
-"@nextui-org/tabs@2.0.26", "@nextui-org/tabs@^2.0.26":
+"@nextui-org/tabs@2.0.26":
   version "2.0.26"
   resolved "https://registry.yarnpkg.com/@nextui-org/tabs/-/tabs-2.0.26.tgz#5064c81fd8a48af54d2b04e86b915cb4bb179e2e"
   integrity sha512-GjERgBYUAY1KD4GqNVy0cRi6GyQnf62q0ddcN4je3sEM6rsq3PygEXhkN5pxxFPacoYM/UE6rBswHSKlbjJjgw==
