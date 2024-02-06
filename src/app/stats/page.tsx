@@ -10,9 +10,7 @@ export default async function Stats() {
   return (
     <>
       <Menu />
-      <div className="flex h-full flex-col justify-center gap-3">
-        <Wrapper isPro={isPro} />
-      </div>
+      <Wrapper isPro={isPro} />
     </>
   );
 }
