@@ -1,9 +1,12 @@
-import supabase from '@/utils/supabase';
 import { create } from 'zustand';
+import { toast } from 'react-toastify';
+import supabase from '@/utils/supabase';
 
 interface TasksState {
   tasks: any[];
   focusingTask: number | null;
+  completeTask: (task: any) => Promise<void>;
+  undoCompleteTask: (task: any) => Promise<void>;
   focusTask: (key: number) => void;
   fetchTasks: () => Promise<void>;
   subscribeToTasks: () => void;
@@ -19,6 +22,12 @@ const useTasksStore = create<TasksState>((set) => ({
       .select('*')
       .is('completed', false);
     set({ tasks: data! });
+  },
+  completeTask: async (task) => {
+    await supabase.from('tasks').update({ completed: true }).eq('id', task.id);
+  },
+  undoCompleteTask: async (task) => {
+    await supabase.from('tasks').update({ completed: false }).eq('id', task.id);
   },
   subscribeToTasks: async () => {
     const tasksChannel = supabase.channel('tasks');
@@ -40,6 +49,13 @@ const useTasksStore = create<TasksState>((set) => ({
             focusingTask:
               payload.old.id === state.focusingTask ? null : state.focusingTask,
           }));
+        } else {
+          set((state) => ({
+            tasks: [payload.new, ...state.tasks],
+          }));
+          if (toast.isActive(payload.new.id)) {
+            toast.dismiss(payload.new.id);
+          }
         }
       },
     );

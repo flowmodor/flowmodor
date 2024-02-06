@@ -1,7 +1,8 @@
+import { toast } from 'react-toastify';
+import { Button } from '@nextui-org/button';
+import { Checkbox } from '@nextui-org/checkbox';
 import useTasksStore from '@/stores/useTasksStore';
 import useTimerStore from '@/stores/useTimerStore';
-import supabase from '@/utils/supabase';
-import { Checkbox } from '@nextui-org/checkbox';
 
 interface Props {
   task: any;
@@ -9,7 +10,21 @@ interface Props {
 
 export default function TaskBox({ task }: Props) {
   const { isRunning, mode } = useTimerStore((state) => state);
-  const { focusingTask } = useTasksStore((state) => state);
+  const { focusingTask, completeTask, undoCompleteTask } = useTasksStore(
+    (state) => state,
+  );
+
+  const undoButton = () => (
+    <Button
+      color="secondary"
+      radius="sm"
+      onClick={async () => {
+        await undoCompleteTask(task);
+      }}
+    >
+      Undo
+    </Button>
+  );
 
   return (
     <div className="flex min-h-[4rem] items-center border-b border-b-secondary px-4">
@@ -22,11 +37,13 @@ export default function TaskBox({ task }: Props) {
           wrapper: 'border border-primary',
         }}
         onChange={async () => {
-          await supabase
-            .from('tasks')
-            .update({ completed: true })
-            .eq('id', task.id);
+          toast(`Task ${task.name} completed.`, {
+            closeButton: undoButton,
+            toastId: task.id,
+          });
+          await completeTask(task);
         }}
+        isSelected={task.completed}
       >
         {task.name}
       </Checkbox>
