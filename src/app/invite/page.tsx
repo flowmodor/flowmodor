@@ -1,11 +1,12 @@
 'use client';
 
 /* eslint-disable @typescript-eslint/no-throw-literal */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-await-in-loop */
 
-import { createClient } from '@supabase/supabase-js';
+/* eslint-disable no-restricted-syntax */
+
+/* eslint-disable no-await-in-loop */
 import { Button } from '@nextui-org/button';
+import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,

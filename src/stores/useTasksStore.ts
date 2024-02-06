@@ -1,7 +1,7 @@
-import { create } from 'zustand';
 import { toast } from 'react-toastify';
-import supabase from '@/utils/supabase';
+import { create } from 'zustand';
 import { Tables } from '@/types/supabase';
+import supabase from '@/utils/supabase';
 
 interface TasksState {
   tasks: Tables<'tasks'>[];

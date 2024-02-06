@@ -1,10 +1,10 @@
 'use client';
 
+import { Button } from '@nextui-org/button';
+import { Input } from '@nextui-org/input';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
-import { Input } from '@nextui-org/input';
-import { Button } from '@nextui-org/button';
 import { Hide, Show } from '@/components/Icons';
 import useChangePassword from '@/hooks/useChangePassword';
 import { validatePassword } from '@/utils';

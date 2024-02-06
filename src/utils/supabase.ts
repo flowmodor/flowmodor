@@ -1,11 +1,11 @@
-import { Database } from '@/types/supabase';
 import {
+  type CookieOptions,
   createBrowserClient,
   createServerClient,
-  type CookieOptions,
 } from '@supabase/ssr';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { NextRequest, NextResponse } from 'next/server';
+import { Database } from '@/types/supabase';
 
 const supabase = createBrowserClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_URL,

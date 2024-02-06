@@ -1,6 +1,6 @@
 import { CircularProgress } from '@nextui-org/progress';
-import { formatTime } from '@/utils';
 import useTimerStore from '@/stores/useTimerStore';
+import { formatTime } from '@/utils';
 
 export default function Progress() {
   const { totalTime, displayTime, mode, showTime } = useTimerStore(

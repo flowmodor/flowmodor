@@ -1,7 +1,7 @@
-import { Hide, Play, Show, Stop } from '@/components/Icons';
 import { Button } from '@nextui-org/button';
-import useTimerStore from '@/stores/useTimerStore';
+import { Hide, Play, Show, Stop } from '@/components/Icons';
 import useLog from '@/hooks/useLog';
+import useTimerStore from '@/stores/useTimerStore';
 
 export default function Toolbar() {
   const { showTime, isRunning, startTimer, stopTimer, toggleShowTime } =

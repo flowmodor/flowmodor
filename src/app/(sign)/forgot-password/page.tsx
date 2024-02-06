@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
-import useSendPasswordReset from '@/hooks/useSendPasswordReset';
-import { toast } from 'react-toastify';
 import { Link } from '@nextui-org/link';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import useSendPasswordReset from '@/hooks/useSendPasswordReset';
 
 export default function ForgotPassword() {
   const [emailValue, setEmailValue] = useState('');

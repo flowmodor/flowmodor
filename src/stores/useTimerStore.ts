@@ -1,5 +1,5 @@
-import supabase from '@/utils/supabase';
 import { create } from 'zustand';
+import supabase from '@/utils/supabase';
 
 interface TimerState {
   startTime: number | null;

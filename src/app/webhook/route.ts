@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
+import { cookies, headers } from 'next/headers';
 import getAccessToken from '@/utils/paypal';
 import { getRouteClient } from '@/utils/supabase';
-import { cookies, headers } from 'next/headers';
 
 export async function POST(request: Request) {
   const cookieStore = cookies();

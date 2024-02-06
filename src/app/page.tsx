@@ -1,13 +1,13 @@
 'use client';
 
+import { Tab, Tabs } from '@nextui-org/tabs';
 import { useEffect, useState } from 'react';
-import { Tabs, Tab } from '@nextui-org/tabs';
+import Menu from '@/components/Menu';
 import TasksTab from '@/components/TasksTab';
 import TimerTab from '@/components/TimerTab/index';
-import useTimerStore from '@/stores/useTimerStore';
-import useTasksStore from '@/stores/useTasksStore';
 import useLog from '@/hooks/useLog';
-import Menu from '@/components/Menu';
+import useTasksStore from '@/stores/useTasksStore';
+import useTimerStore from '@/stores/useTimerStore';
 
 export default function App() {
   const { endTime, mode, isRunning, tickTimer, stopTimer } = useTimerStore(
@@ -48,7 +48,7 @@ export default function App() {
   }, [tick, isRunning]);
 
   return (
-    <div className='h-full flex flex-col justify-center'>
+    <div className="flex h-full flex-col justify-center">
       <Menu />
       <Tabs
         fullWidth

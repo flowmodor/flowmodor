@@ -1,6 +1,6 @@
 import { Select, SelectItem } from '@nextui-org/select';
-import useTimerStore from '@/stores/useTimerStore';
 import useTasksStore from '@/stores/useTasksStore';
+import useTimerStore from '@/stores/useTimerStore';
 
 export default function TaskSelector() {
   const { isRunning } = useTimerStore((state) => state);

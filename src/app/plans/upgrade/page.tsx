@@ -1,15 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import {
-  PayPalScriptProvider,
   PayPalButtons,
+  PayPalScriptProvider,
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js';
-import supabase from '@/utils/supabase';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import GoHome from '@/components/GoHome';
+import supabase from '@/utils/supabase';
 
 function ButtonWrapper({
   type,

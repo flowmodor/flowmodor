@@ -1,18 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Spinner } from '@nextui-org/spinner';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { Link } from '@nextui-org/link';
-
-import { Left, Right } from '@/components/Icons';
-import LineChart from '@/components/Stats/LineChart';
-import DateButton from '@/components/Stats/DateButton';
-import Summary from '@/components/Stats/Summary';
+import { Spinner } from '@nextui-org/spinner';
+import { useEffect, useState } from 'react';
 import GoHome from '@/components/GoHome';
+import { Left, Right } from '@/components/Icons';
+import DateButton from '@/components/Stats/DateButton';
+import LineChart from '@/components/Stats/LineChart';
+import Summary from '@/components/Stats/Summary';
+import { Tables } from '@/types/supabase';
 import { processLogs } from '@/utils';
 import supabase from '@/utils/supabase';
-import { Tables } from '@/types/supabase';
 import TaskTime from './TaskTime';
 
 type LogsWithTasks = Tables<'logs'> & {

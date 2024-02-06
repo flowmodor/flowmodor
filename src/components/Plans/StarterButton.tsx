@@ -3,17 +3,17 @@
 import { Button } from '@nextui-org/button';
 import {
   Modal,
-  ModalContent,
-  ModalHeader,
   ModalBody,
+  ModalContent,
   ModalFooter,
+  ModalHeader,
   useDisclosure,
 } from '@nextui-org/modal';
-import getAccessToken from '@/utils/paypal';
-import { toast } from 'react-toastify';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import getAccessToken from '@/utils/paypal';
 
 async function cancelSubscription(id: string, router: AppRouterInstance) {
   try {

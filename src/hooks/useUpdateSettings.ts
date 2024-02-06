@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import supabase from '@/utils/supabase';
 import { toast } from 'react-toastify';
+import supabase from '@/utils/supabase';
 
 export default function useUpdateSettings() {
   const [isLoading, setIsLoading] = useState(false);

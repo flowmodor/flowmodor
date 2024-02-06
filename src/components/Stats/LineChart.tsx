@@ -1,14 +1,14 @@
 import { Chip } from '@nextui-org/chip';
 import {
-  Chart as ChartJS,
   CategoryScale,
+  Chart as ChartJS,
+  Filler,
+  Legend,
+  LineElement,
   LinearScale,
   PointElement,
-  LineElement,
   Title,
   Tooltip,
-  Legend,
-  Filler,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 

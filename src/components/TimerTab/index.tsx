@@ -1,8 +1,8 @@
 import { Card, CardBody } from '@nextui-org/card';
-import TaskSelector from './TaskSelector';
-import Progress from './Progress';
-import Toolbar from './Toolbar';
 import TabWrapper from '../TabWrapper';
+import Progress from './Progress';
+import TaskSelector from './TaskSelector';
+import Toolbar from './Toolbar';
 
 export default function TimerTab() {
   return (

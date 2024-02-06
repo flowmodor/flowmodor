@@ -1,6 +1,6 @@
+import { Provider } from '@supabase/supabase-js';
 import { useState } from 'react';
 import supabase from '@/utils/supabase';
-import { Provider } from '@supabase/supabase-js';
 
 export default function useSignIn() {
   const [isLoading, setIsLoading] = useState(false);

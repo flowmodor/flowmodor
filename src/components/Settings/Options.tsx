@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
+import { useState } from 'react';
 import useUpdateSettings from '@/hooks/useUpdateSettings';
 
 export default function Options({

@@ -1,5 +1,5 @@
-import { cookies } from 'next/headers';
 import { Link } from '@nextui-org/link';
+import { cookies } from 'next/headers';
 import GoHome from '@/components/GoHome';
 import Menu from '@/components/Menu';
 import Options from '@/components/Settings/Options';

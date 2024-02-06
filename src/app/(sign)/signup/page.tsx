@@ -1,13 +1,13 @@
 'use client';
 
-import { useState } from 'react';
-import { Hide, Show } from '@/components/Icons';
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
-import useSignUp from '@/hooks/useSignUp';
-import { toast } from 'react-toastify';
-import { validateEmail, validatePassword } from '@/utils';
 import { Link } from '@nextui-org/link';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { Hide, Show } from '@/components/Icons';
+import useSignUp from '@/hooks/useSignUp';
+import { validateEmail, validatePassword } from '@/utils';
 
 export default function SignUp() {
   const [emailValue, setEmailValue] = useState('');

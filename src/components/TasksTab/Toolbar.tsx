@@ -1,9 +1,9 @@
+import { Button } from '@nextui-org/button';
+import { Input } from '@nextui-org/input';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { Button } from '@nextui-org/button';
 import { Plus } from '@/components/Icons';
 import supabase from '@/utils/supabase';
-import { Input } from '@nextui-org/input';
 
 export default function Toolbar() {
   const [inputValue, setInputValue] = useState<string>('');

@@ -1,15 +1,15 @@
 'use client';
 
+import { Button } from '@nextui-org/button';
 import {
   Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
   DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
 } from '@nextui-org/dropdown';
-import { Button } from '@nextui-org/button';
+import { useRouter } from 'next/navigation';
 import { Bars } from '@/components/Icons';
 import useSignOut from '@/hooks/useSignOut';
-import { useRouter } from 'next/navigation';
 
 export default function Menu() {
   const { signOut } = useSignOut();

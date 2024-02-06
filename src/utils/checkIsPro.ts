@@ -1,6 +1,6 @@
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
-import { getServerClient } from './supabase';
 import getAccessToken from './paypal';
+import { getServerClient } from './supabase';
 
 export default async function checkIsPro(cookieStore: ReadonlyRequestCookies) {
   const supabase = getServerClient(cookieStore);

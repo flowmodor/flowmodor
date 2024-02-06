@@ -1,14 +1,13 @@
-import { cookies } from 'next/headers';
-import Link from 'next/link';
 import { Button } from '@nextui-org/button';
 import { Chip } from '@nextui-org/chip';
-
-import StarterButton from '@/components/Plans/StarterButton';
-import Menu from '@/components/Menu';
+import { cookies } from 'next/headers';
+import Link from 'next/link';
 import GoHome from '@/components/GoHome';
+import Menu from '@/components/Menu';
 import PlanCard from '@/components/Plans/PlanCard';
-import { getServerClient } from '@/utils/supabase';
+import StarterButton from '@/components/Plans/StarterButton';
 import getAccessToken from '@/utils/paypal';
+import { getServerClient } from '@/utils/supabase';
 
 export default async function Plans() {
   const supabase = getServerClient(cookies());

@@ -1,6 +1,6 @@
-import { toast } from 'react-toastify';
 import { Button } from '@nextui-org/button';
 import { Checkbox } from '@nextui-org/checkbox';
+import { toast } from 'react-toastify';
 import useTasksStore from '@/stores/useTasksStore';
 import useTimerStore from '@/stores/useTimerStore';
 import { Tables } from '@/types/supabase';
