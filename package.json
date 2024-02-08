@@ -23,7 +23,7 @@
     "react-dom": "^18",
     "react-paypal-button-v2": "^2.6.3",
     "react-toastify": "^10.0.3",
-    "sharp": "^0.33.2",
+    "sharp": "^0.32.6",
     "supabase": "^1.134.8",
     "tailwind-scrollbar-hide": "^1.1.7",
     "zustand": "^4.4.7"
