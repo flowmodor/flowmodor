@@ -10,6 +10,7 @@ import {
   Title,
   Tooltip,
 } from 'chart.js';
+import { ForwardedRef, forwardRef } from 'react';
 import { Line } from 'react-chartjs-2';
 
 ChartJS.register(
@@ -45,6 +46,7 @@ const options = {
     },
   },
   plugins: {
+    setBackground: {},
     tooltip: {
       boxPadding: 2,
       usePointStyle: true,
@@ -70,11 +72,11 @@ const options = {
   },
 };
 
-export default function LineChart({
-  data,
-}: {
+interface Props {
   data: Map<number, any> | undefined;
-}) {
+}
+
+function LineChart({ data }: Props, ref: ForwardedRef<any>) {
   const hours = Array.from(Array(24).keys());
   const focusTimes = data
     ? hours.map((hour) => data.get(hour)?.focus ?? 0)
@@ -83,10 +85,24 @@ export default function LineChart({
     ? hours.map((hour) => data.get(hour)?.break ?? 0)
     : null;
 
+  const setBackground = {
+    id: 'setBackground',
+    beforeDraw: (chart: any) => {
+      const { ctx } = chart;
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-over';
+      ctx.fillStyle = '#23223C';
+      ctx.fillRect(0, 0, chart.width, chart.height);
+      ctx.restore();
+    },
+  };
+
   return (
     <>
       <Line
+        ref={ref}
         options={options}
+        plugins={[setBackground]}
         data={{
           labels: hours,
           datasets: [
@@ -142,3 +158,5 @@ export default function LineChart({
     </>
   );
 }
+
+export default forwardRef<any, Props>(LineChart);

@@ -1,53 +1,28 @@
 'use client';
 
+import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { Link } from '@nextui-org/link';
 import { Spinner } from '@nextui-org/spinner';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import GoHome from '@/components/GoHome';
-import { Left, Right } from '@/components/Icons';
+import { Left, Right, Share } from '@/components/Icons';
 import DateButton from '@/components/Stats/DateButton';
 import LineChart from '@/components/Stats/LineChart';
 import Summary from '@/components/Stats/Summary';
-import { Tables } from '@/types/supabase';
 import { processLogs } from '@/utils';
+import {
+  LogsWithTasks,
+  calculateTaskTime,
+} from '@/utils/stats/calculateTaskTime';
+import downloadImage from '@/utils/stats/downloadImage';
 import supabase from '@/utils/supabase';
 import TaskTime from './TaskTime';
-
-type LogsWithTasks = Tables<'logs'> & {
-  tasks: {
-    name: string;
-  } | null;
-};
-
-function calculateTaskTime(logs: LogsWithTasks[]) {
-  const taskTimeMap: { [task: string]: number } = {};
-  for (let i = 0; i < logs.length; i += 1) {
-    if (logs[i].mode === 'focus') {
-      const task = logs[i].task === null ? 'unspecified' : logs[i].tasks!.name;
-      const time =
-        (new Date(logs[i].end_time).getTime() -
-          new Date(logs[i].start_time).getTime()) /
-        60000;
-      if (taskTimeMap[task]) {
-        taskTimeMap[task] += time;
-      } else {
-        taskTimeMap[task] = time;
-      }
-    }
-  }
-
-  const taskTimeArray = Object.keys(taskTimeMap).map((task) => ({
-    name: task,
-    time: taskTimeMap[task],
-  }));
-
-  return taskTimeArray;
-}
 
 export default function Wrapper({ isPro }: { isPro: boolean }) {
   const [date, setDate] = useState(new Date());
   const [logs, setLogs] = useState<LogsWithTasks[] | null>(null);
+  const chartRef = useRef<any>(null);
   const taskTime = calculateTaskTime(logs ?? []);
   const processedLogs = processLogs(logs ?? []);
   const isBlocked = !isPro && date.toDateString() !== new Date().toDateString();
@@ -101,6 +76,15 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
           >
             <Right />
           </DateButton>
+          <Button
+            isIconOnly
+            color="secondary"
+            size="sm"
+            className="absolute top-5 right-5 fill-white"
+            onPress={() => downloadImage(chartRef, date)}
+          >
+            <Share />
+          </Button>
         </CardHeader>
         <CardBody
           className={`flex items-center justify-center lg:min-h-[60vh] lg:min-w-[50vw] ${
@@ -108,7 +92,7 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
           }`}
         >
           {logs ? (
-            <LineChart data={processedLogs} />
+            <LineChart ref={chartRef} data={processedLogs} />
           ) : (
             <Spinner color="primary" />
           )}
