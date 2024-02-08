@@ -26,6 +26,7 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
   const taskTime = calculateTaskTime(logs ?? []);
   const processedLogs = processLogs(logs ?? []);
   const isBlocked = !isPro && date.toDateString() !== new Date().toDateString();
+  const summaryRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     (async () => {
@@ -53,7 +54,7 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
           <GoHome />
           Stats
         </h1>
-        <Summary data={!isBlocked && logs ? logs : []} />
+        <Summary ref={summaryRef} data={!isBlocked && logs ? logs : []} />
       </div>
       <Card className="rounded-lg bg-[#23223C] p-5">
         <CardHeader className="justify-center gap-5 font-semibold">
@@ -76,15 +77,17 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
           >
             <Right />
           </DateButton>
-          <Button
-            isIconOnly
-            color="secondary"
-            size="sm"
-            className="absolute top-5 right-5 fill-white"
-            onPress={() => downloadImage(chartRef, date)}
-          >
-            <Share />
-          </Button>
+          {logs ? (
+            <Button
+              isIconOnly
+              color="secondary"
+              size="sm"
+              className="absolute top-5 right-5 fill-white"
+              onPress={() => downloadImage(chartRef, summaryRef, date)}
+            >
+              <Share />
+            </Button>
+          ) : null}
         </CardHeader>
         <CardBody
           className={`flex items-center justify-center lg:min-h-[60vh] lg:min-w-[50vw] ${

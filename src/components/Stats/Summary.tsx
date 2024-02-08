@@ -1,3 +1,4 @@
+import { ForwardedRef, forwardRef } from 'react';
 import TimeFormatter from './TimeFormatter';
 
 /* eslint-disable no-restricted-syntax */
@@ -36,11 +37,11 @@ function calculateFocusTimes(sessions: Session[]): {
   };
 }
 
-export default function Summary({ data }: { data: any[] }) {
+function Summary({ data }: { data: any[] }, ref: ForwardedRef<HTMLDivElement>) {
   const { totalFocusTime, longestFocusTime } = calculateFocusTimes(data);
 
   return (
-    <div className="flex gap-10">
+    <div ref={ref} className="flex gap-10">
       <div className="flex flex-col items-center text-sm">
         Total Focus
         <TimeFormatter minutes={Math.round(totalFocusTime)} />
@@ -52,3 +53,5 @@ export default function Summary({ data }: { data: any[] }) {
     </div>
   );
 }
+
+export default forwardRef(Summary);
