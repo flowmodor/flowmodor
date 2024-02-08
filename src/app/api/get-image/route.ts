@@ -21,9 +21,8 @@ export async function POST(req: Request) {
     const newWidth = width! + padding * 2 + borderSize * 2;
     const newHeight = height! + topPadding + padding + borderSize * 2;
 
-    const summaryLeftPosition = Math.max(
-      0,
-      (newWidth - summaryMetadata.width!) / 2,
+    const summaryLeftPosition = Math.round(
+      Math.max(0, (newWidth - summaryMetadata.width!) / 2),
     );
 
     const modifiedImage = await sharp({
