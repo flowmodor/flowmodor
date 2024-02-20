@@ -31,22 +31,24 @@ import { Down } from './Icons';
       </a>
     </div>
   </div>
-  <img
-    src="/single-mock.png"
-    alt="Taks list of Flowmodor"
-    draggable="false"
-    width={320}
-    height={320}
-    class="hidden lg:block xl:hidden rounded-xl flex-shrink-0 hover:-translate-y-2 transition-all duration-300"
-  />
-  <img
-    src="/mock.png"
-    alt="Taks list of Flowmodor"
-    draggable="false"
-    width={480}
-    height={426}
-    class="hidden xl:block rounded-xl flex-shrink-0 hover:-translate-y-2 transition-all duration-300"
-  />
+  <div class="relative">
+    <img
+      src="/mock2.png"
+      alt="Taks list of Flowmodor"
+      draggable="false"
+      width={320}
+      height={320}
+      class="hidden xl:block rounded-xl shadow-custom flex-shrink-0 hover:-translate-y-2 transition-all duration-300"
+    />
+    <img
+      src="/single-mock.png"
+      alt="Taks list of Flowmodor"
+      draggable="false"
+      width={320}
+      height={320}
+      class="xl:absolute xl:top-24 xl:left-24 hidden shadow-custom lg:block rounded-xl flex-shrink-0 hover:-translate-y-2 transition-all duration-300"
+    />
+  </div>
   <a
     href="#features"
     class="hidden sm:block absolute cursor-pointer bottom-5 rounded-full animate-bounce"
