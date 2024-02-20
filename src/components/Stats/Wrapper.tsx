@@ -1,21 +1,22 @@
 'use client';
 
-// import { Button } from '@nextui-org/button';
+import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { Link } from '@nextui-org/link';
 import { Spinner } from '@nextui-org/spinner';
 import { useEffect, useRef, useState } from 'react';
 import GoHome from '@/components/GoHome';
-import { Left, Right, /* Share */ } from '@/components/Icons';
+import { Left, Right, Share } from '@/components/Icons';
 import DateButton from '@/components/Stats/DateButton';
 import LineChart from '@/components/Stats/LineChart';
 import Summary from '@/components/Stats/Summary';
 import { processLogs } from '@/utils';
+import calculateFocusTimes from '@/utils/stats/calculateFocusTime';
 import {
   LogsWithTasks,
   calculateTaskTime,
 } from '@/utils/stats/calculateTaskTime';
-// import downloadImage from '@/utils/stats/downloadImage';
+import downloadImage from '@/utils/stats/downloadImage';
 import supabase from '@/utils/supabase';
 import TaskTime from './TaskTime';
 
@@ -26,7 +27,6 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
   const taskTime = calculateTaskTime(logs ?? []);
   const processedLogs = processLogs(logs ?? []);
   const isBlocked = !isPro && date.toDateString() !== new Date().toDateString();
-  const summaryRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     (async () => {
@@ -47,6 +47,8 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
     })();
   }, [date]);
 
+  const { totalFocusTime } = calculateFocusTimes(logs ?? []);
+
   return (
     <div className="flex flex-col gap-5 py-10">
       <div className="flex flex-col items-center justify-between gap-10 px-5 md:flex-row md:gap-0">
@@ -54,7 +56,7 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
           <GoHome />
           Stats
         </h1>
-        <Summary ref={summaryRef} data={!isBlocked && logs ? logs : []} />
+        <Summary data={!isBlocked && logs ? logs : []} />
       </div>
       <Card className="rounded-lg bg-[#23223C] p-5">
         <CardHeader className="justify-center gap-5 font-semibold">
@@ -77,17 +79,19 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
           >
             <Right />
           </DateButton>
-          {/* logs ? (
+          {logs ? (
             <Button
               isIconOnly
               color="secondary"
               size="sm"
               className="absolute top-5 right-5 fill-white"
-              onPress={() => downloadImage(chartRef, summaryRef, date)}
+              onPress={() =>
+                downloadImage(chartRef, totalFocusTime, date)
+              }
             >
               <Share />
             </Button>
-          ) : null */}
+          ) : null}
         </CardHeader>
         <CardBody
           className={`flex items-center justify-center lg:min-h-[60vh] lg:min-w-[50vw] ${

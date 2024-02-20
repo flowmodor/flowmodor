@@ -1,26 +1,23 @@
-import { elementToSVG } from 'dom-to-svg';
-import { MutableRefObject, RefObject } from 'react';
+import { MutableRefObject } from 'react';
 import { toast } from 'react-toastify';
 import { base64ToBlob } from '..';
 
 export default async function downloadImage(
   chartRef: MutableRefObject<any>,
-  summaryRef: RefObject<HTMLDivElement>,
+  totalFocusTime: number,
   date: Date,
 ) {
-  if (!chartRef.current || !summaryRef.current) {
+  if (!chartRef.current) {
     return;
   }
-
-  const svgDocument = elementToSVG(summaryRef.current);
-  const svgString = new XMLSerializer().serializeToString(svgDocument);
 
   const base64Image = chartRef.current.toBase64Image();
   const result = await fetch('/api/get-image', {
     method: 'POST',
     body: JSON.stringify({
       image: base64Image,
-      summary: svgString,
+      totalFocusTime: Math.round(totalFocusTime),
+      date: date.toDateString(),
     }),
   });
 

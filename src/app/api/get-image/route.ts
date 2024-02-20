@@ -3,13 +3,15 @@ import sharp from 'sharp';
 // eslint-disable-next-line import/prefer-default-export
 export async function POST(req: Request) {
   try {
-    const { image, summary } = await req.json();
+    const { image, totalFocusTime, date } = await req.json();
+
+    const hours = Math.floor(totalFocusTime / 60);
+    const leftMinutes = totalFocusTime % 60;
 
     const imageBuffer = Buffer.from(
       image.replace(/^data:image\/\w+;base64,/, ''),
       'base64',
     );
-    const summaryBuffer = Buffer.from(summary);
 
     const padding = 36;
     const topPadding = 80;
@@ -17,13 +19,18 @@ export async function POST(req: Request) {
     const borderColor = '#23223C';
 
     const { width, height } = await sharp(imageBuffer).metadata();
-    const summaryMetadata = await sharp(summaryBuffer).metadata();
     const newWidth = width! + padding * 2 + borderSize * 2;
     const newHeight = height! + topPadding + padding + borderSize * 2;
 
-    const summaryLeftPosition = Math.round(
-      Math.max(0, (newWidth - summaryMetadata.width!) / 2),
-    );
+    const textSvg = `<svg width="${newWidth}" height="${topPadding}">
+      <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-size="32" fill="#FFFFFF" font-weight="bold" font-family="Inter">
+        ${hours > 0 ? `${hours} hr` : ''} ${leftMinutes} min
+      </text>
+      <text x="50%" y="90%" dominant-baseline="middle" text-anchor="middle" font-size="16" fill="#FFFFFFA0" font-weight="medium" font-family="Inter">
+        ${date}
+      </text>
+    </svg>`;
+    const textBuffer = Buffer.from(textSvg);
 
     const modifiedImage = await sharp({
       create: {
@@ -35,14 +42,14 @@ export async function POST(req: Request) {
     })
       .composite([
         {
+          input: textBuffer, // Add the SVG with text as an overlay
+          top: 0,
+          left: 0,
+        },
+        {
           input: imageBuffer,
           top: topPadding + borderSize,
           left: padding + borderSize,
-        },
-        {
-          input: summaryBuffer,
-          top: padding / 2,
-          left: summaryLeftPosition,
         },
       ])
       .toFormat('png')
