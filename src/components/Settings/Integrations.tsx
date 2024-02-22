@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@nextui-org/button';
+import { Chip } from '@nextui-org/chip';
 import { useTransition } from 'react';
 import { connectTodoist, disconnectTodoist } from '@/app/settings/actions';
 import { Enums } from '@/types/supabase';
@@ -15,7 +16,15 @@ export default function Integrations({
 
   return (
     <div className="flex flex-col gap-3 items-start">
-      <h2 className="text-xl font-semibold">Integrations</h2>
+      <div className="flex items-center gap-3">
+        <h2 className="text-xl font-semibold">Integrations</h2>
+        <Chip color="primary" size="sm" radius="sm">
+          Beta
+        </Chip>
+      </div>
+      <div className="text-sm color-secondary">
+        Fetch tasks from thirdparty apps
+      </div>
       <Button
         color="secondary"
         radius="sm"
