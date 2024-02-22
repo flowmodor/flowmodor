@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
+import { getRouteClient } from '@/utils/supabase';
 
 /* eslint-disable import/prefer-default-export */
 export async function GET(request: Request) {
@@ -25,10 +26,22 @@ export async function GET(request: Request) {
     url.searchParams.append('code', code);
 
     const response = await fetch(url, { method: 'POST' });
-    const data = await response.json();
-    console.log(data);
+    const { access_token: accessToken } = await response.json();
+    const supabase = getRouteClient(cookieStore);
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    if (response.ok) {
+    if (!user) {
+      return NextResponse.redirect(`${origin}/auth/auth-code-error`);
+    }
+
+    const { error } = await supabase
+      .from('integrations')
+      .update({ provider: 'todoist', access_token: accessToken })
+      .eq('user_id', user.id);
+
+    if (!error && response.ok) {
       return NextResponse.redirect(`${origin}/settings`);
     }
   }
