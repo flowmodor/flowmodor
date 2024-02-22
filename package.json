@@ -10,6 +10,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@doist/todoist-api-typescript": "^3.0.2",
     "@nextui-org/react": "^2.2.9",
     "@paypal/react-paypal-js": "^8.1.3",
     "@supabase/ssr": "^0.0.10",

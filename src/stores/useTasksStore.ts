@@ -1,3 +1,4 @@
+import { TodoistApi } from '@doist/todoist-api-typescript';
 import { toast } from 'react-toastify';
 import { create } from 'zustand';
 import { Tables } from '@/types/supabase';
@@ -18,11 +19,37 @@ const useTasksStore = create<TasksState>((set) => ({
   focusingTask: null,
   focusTask: (key) => set(() => ({ focusingTask: key })),
   fetchTasks: async () => {
-    const { data } = await supabase
-      .from('tasks')
-      .select('*')
-      .is('completed', false);
-    set({ tasks: data! });
+    const { data: integrationsData } = await supabase
+      .from('integrations')
+      .select('provider, access_token')
+      .single();
+
+    if (
+      integrationsData?.provider === 'todoist' &&
+      integrationsData.access_token
+    ) {
+      const api = new TodoistApi(integrationsData.access_token);
+      const tasks = await api.getTasks();
+
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      const processedTasks = tasks.map((task) => ({
+        id: parseInt(task.id, 10),
+        name: task.content,
+        completed: task.isCompleted,
+        created_at: task.createdAt,
+        user_id: user?.id ?? null,
+      }));
+      set({ tasks: processedTasks });
+    } else {
+      const { data } = await supabase
+        .from('tasks')
+        .select('*')
+        .is('completed', false);
+      set({ tasks: data! });
+    }
   },
   completeTask: async (task) => {
     await supabase.from('tasks').update({ completed: true }).eq('id', task.id);

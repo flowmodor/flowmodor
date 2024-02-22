@@ -2,6 +2,7 @@ import { Link } from '@nextui-org/link';
 import { cookies } from 'next/headers';
 import GoHome from '@/components/GoHome';
 import Menu from '@/components/Menu';
+import Integrations from '@/components/Settings/Integrations';
 import Options from '@/components/Settings/Options';
 import checkIsPro from '@/utils/checkIsPro';
 import { getServerClient } from '@/utils/supabase';
@@ -16,6 +17,11 @@ export default async function Settings() {
     .single();
   const breakRatio = settingsData?.break_ratio ?? 5;
 
+  const { data: integrationsData } = await supabase
+    .from('integrations')
+    .select('provider')
+    .single();
+
   return (
     <>
       <Menu />
@@ -29,10 +35,11 @@ export default async function Settings() {
             <Link underline="always" href="/plans">
               Upgrade to Pro
             </Link>{' '}
-            to set custom break ratio.
+            to access advanced settings.
           </div>
         ) : null}
         <Options isPro={isPro} defaultBreakRatio={breakRatio} />
+        <Integrations provider={integrationsData?.provider} />
       </div>
     </>
   );
