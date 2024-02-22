@@ -34,11 +34,12 @@ export default function TaskBox({ task }: { task: Tables<'tasks'> }) {
           wrapper: 'border border-primary',
         }}
         onChange={async () => {
+          await completeTask(task);
+
           toast(`Task ${task.name} completed.`, {
             closeButton: undoButton,
             toastId: task.id,
           });
-          await completeTask(task);
         }}
         isSelected={task.completed}
       >

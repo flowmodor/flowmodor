@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { create } from 'zustand';
 import { Tables } from '@/types/supabase';
 import supabase from '@/utils/supabase';
+import getClient from '@/utils/todoist';
 
 interface TasksState {
   tasks: Tables<'tasks'>[];
@@ -52,10 +53,38 @@ const useTasksStore = create<TasksState>((set) => ({
     }
   },
   completeTask: async (task) => {
-    await supabase.from('tasks').update({ completed: true }).eq('id', task.id);
+    const todoist = await getClient();
+    if (todoist) {
+      try {
+        await todoist.closeTask(task.id.toString());
+        await useTasksStore.getState().fetchTasks();
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      await supabase
+        .from('tasks')
+        .update({ completed: true })
+        .eq('id', task.id);
+    }
   },
   undoCompleteTask: async (task) => {
-    await supabase.from('tasks').update({ completed: false }).eq('id', task.id);
+    const todoist = await getClient();
+    if (todoist) {
+      try {
+        await todoist.reopenTask(task.id.toString());
+        await useTasksStore.getState().fetchTasks();
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      await supabase
+        .from('tasks')
+        .update({ completed: false })
+        .eq('id', task.id);
+    }
+
+    toast.dismiss(task.id);
   },
   subscribeToTasks: async () => {
     const tasksChannel = supabase.channel('tasks');
@@ -81,9 +110,6 @@ const useTasksStore = create<TasksState>((set) => ({
           set((state) => ({
             tasks: [payload.new, ...state.tasks],
           }));
-          if (toast.isActive(payload.new.id)) {
-            toast.dismiss(payload.new.id);
-          }
         }
       },
     );
