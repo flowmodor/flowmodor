@@ -3,10 +3,13 @@ import { Input } from '@nextui-org/input';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Plus } from '@/components/Icons';
+import useTasksStore from '@/stores/useTasksStore';
 import supabase from '@/utils/supabase';
+import getClient from '@/utils/todoist';
 
 export default function Toolbar() {
   const [inputValue, setInputValue] = useState<string>('');
+  const { fetchTasks } = useTasksStore((state) => state);
   const isDisabled = inputValue.trim() === '';
 
   const onAddTask = async (name: string | undefined) => {
@@ -14,10 +17,22 @@ export default function Toolbar() {
       return;
     }
 
-    const { error } = await supabase.from('tasks').insert([{ name }]);
+    const todoist = await getClient();
+    if (todoist) {
+      try {
+        await todoist.addTask({
+          content: name,
+        });
+        fetchTasks();
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      const { error } = await supabase.from('tasks').insert([{ name }]);
 
-    if (error) {
-      toast(error.message);
+      if (error) {
+        toast(error.message);
+      }
     }
   };
 
