@@ -1,5 +1,8 @@
+'use client';
+
 import { Button } from '@nextui-org/button';
-import Link from 'next/link';
+import { useTransition } from 'react';
+import { connectTodoist, disconnectTodoist } from '@/app/settings/actions';
 import { Enums } from '@/types/supabase';
 import { Todoist } from '../Icons';
 
@@ -8,16 +11,26 @@ export default function Integrations({
 }: {
   provider: Enums<'provider'> | null | undefined;
 }) {
+  const [isPending, startTransition] = useTransition();
+
   return (
     <div className="flex flex-col gap-3 items-start">
       <h2 className="text-xl font-semibold">Integrations</h2>
       <Button
-        as={Link}
         color="secondary"
         radius="sm"
-        href="/auth/todoist/authorize"
+        isLoading={isPending}
+        onPress={() => {
+          startTransition(async () => {
+            if (provider === 'todoist') {
+              await disconnectTodoist();
+            } else {
+              await connectTodoist();
+            }
+          });
+        }}
       >
-        <Todoist />{' '}
+        {isPending ? null : <Todoist />}
         {provider === 'todoist' ? 'Disconnect Todoist' : 'Connect Todoist'}
       </Button>
     </div>
