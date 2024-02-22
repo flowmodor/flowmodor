@@ -1,7 +1,8 @@
+import { Spinner } from '@nextui-org/spinner';
 import useTasksStore from '@/stores/useTasksStore';
 import TaskBox from './TaskBox';
 
-export default function Tasks() {
+export default function Tasks({ isPending }: { isPending: boolean }) {
   const { tasks } = useTasksStore((state) => state);
 
   return tasks.length > 0 ? (
@@ -12,7 +13,7 @@ export default function Tasks() {
     ))
   ) : (
     <div className="flex h-full items-center justify-center">
-      All tasks completed!
+      {isPending ? <Spinner color="primary" /> : 'All tasks completed!'}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { Tab, Tabs } from '@nextui-org/tabs';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import Menu from '@/components/Menu';
 import TasksTab from '@/components/TasksTab';
 import TimerTab from '@/components/TimerTab/index';
@@ -17,8 +17,10 @@ export default function App() {
   const [tick, setTick] = useState(0);
   const { log } = useLog();
 
+  const [isPending, startTransition] = useTransition();
+
   useEffect(() => {
-    fetchTasks();
+    startTransition(fetchTasks);
     subscribeToTasks();
   }, []);
 
@@ -70,7 +72,7 @@ export default function App() {
           title="Tasks"
           className="data-[selected=true]:bg-secondary"
         >
-          <TasksTab />
+          <TasksTab isPending={isPending} />
         </Tab>
       </Tabs>
     </div>

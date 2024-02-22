@@ -3,7 +3,7 @@ import TabWrapper from '../TabWrapper';
 import Tasks from './Tasks';
 import Toolbar from './Toolbar';
 
-export default function TasksTab() {
+export default function TasksTab({ isPending }: { isPending: boolean }) {
   return (
     <TabWrapper>
       <Card className="h-[55vh] w-[90vw] bg-[#23223C] sm:h-[30rem] sm:w-[30rem]">
@@ -11,7 +11,7 @@ export default function TasksTab() {
           className="itesm flex h-full w-full flex-col gap-3
             overflow-y-scroll scrollbar-hide"
         >
-          <Tasks />
+          <Tasks isPending={isPending} />
         </CardBody>
       </Card>
       <Card className="bg-[#23223C]">
