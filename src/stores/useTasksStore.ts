@@ -6,8 +6,9 @@ import supabase from '@/utils/supabase';
 import getClient from '@/utils/todoist';
 
 interface TasksState {
-  tasks: Tables<'tasks'>[];
+  tasks: Omit<Tables<'tasks'>, 'user_id' | 'created_at'>[];
   focusingTask: number | null;
+  addTask: (name: string) => Promise<void>;
   completeTask: (task: Tables<'tasks'>) => Promise<void>;
   undoCompleteTask: (task: Tables<'tasks'>) => Promise<void>;
   focusTask: (key: number) => void;
@@ -32,16 +33,10 @@ const useTasksStore = create<TasksState>((set) => ({
       const api = new TodoistApi(integrationsData.access_token);
       const tasks = await api.getTasks();
 
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
       const processedTasks = tasks.map((task) => ({
         id: parseInt(task.id, 10),
         name: task.content,
         completed: task.isCompleted,
-        created_at: task.createdAt,
-        user_id: user?.id ?? null,
       }));
       set({ tasks: processedTasks });
     } else {
@@ -52,12 +47,36 @@ const useTasksStore = create<TasksState>((set) => ({
       set({ tasks: data! });
     }
   },
+  addTask: async (name) => {
+    const todoist = await getClient();
+    if (todoist) {
+      try {
+        const { id } = await todoist.addTask({
+          content: name,
+        });
+        set({
+          tasks: [
+            ...useTasksStore.getState().tasks,
+            { id: parseInt(id, 10), name, completed: false },
+          ],
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      const { error } = await supabase.from('tasks').insert([{ name }]);
+
+      if (error) {
+        toast(error.message);
+      }
+    }
+  },
   completeTask: async (task) => {
     const todoist = await getClient();
     if (todoist) {
       try {
         await todoist.closeTask(task.id.toString());
-        await useTasksStore.getState().fetchTasks();
+        await useTasksStore.getState().fetchTasks(); // TODO: optimistic ui
       } catch (error) {
         console.error(error);
       }
