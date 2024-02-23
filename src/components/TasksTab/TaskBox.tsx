@@ -41,7 +41,6 @@ export default function TaskBox({ task }: { task: Tables<'tasks'> }) {
             toastId: task.id,
           });
         }}
-        isSelected={task.completed}
       >
         {task.name}
       </Checkbox>

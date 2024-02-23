@@ -75,8 +75,15 @@ const useTasksStore = create<TasksState>((set) => ({
     const todoist = await getClient();
     if (todoist) {
       try {
-        await todoist.closeTask(task.id.toString());
-        await useTasksStore.getState().fetchTasks(); // TODO: optimistic ui
+        const isSuccess = await todoist.closeTask(task.id.toString());
+        if (!isSuccess) {
+          throw new Error('Failed to complete task');
+        }
+
+        const newTasks = useTasksStore
+          .getState()
+          .tasks.filter((t) => t.id !== task.id);
+        set({ tasks: newTasks });
       } catch (error) {
         console.error(error);
       }
@@ -91,8 +98,22 @@ const useTasksStore = create<TasksState>((set) => ({
     const todoist = await getClient();
     if (todoist) {
       try {
-        await todoist.reopenTask(task.id.toString());
-        await useTasksStore.getState().fetchTasks();
+        const isSuccess = await todoist.reopenTask(task.id.toString());
+        if (!isSuccess) {
+          throw new Error('Failed to reopen task');
+        }
+
+        set({
+          tasks: [
+            {
+              id: parseInt(task.id.toString(), 10),
+              name: task.name,
+              completed: false,
+            },
+            ...useTasksStore.getState().tasks,
+          ],
+        });
+        toast.dismiss(task.id);
       } catch (error) {
         console.error(error);
       }
@@ -101,9 +122,8 @@ const useTasksStore = create<TasksState>((set) => ({
         .from('tasks')
         .update({ completed: false })
         .eq('id', task.id);
+      toast.dismiss(task.id);
     }
-
-    toast.dismiss(task.id);
   },
   subscribeToTasks: async () => {
     const tasksChannel = supabase.channel('tasks');
