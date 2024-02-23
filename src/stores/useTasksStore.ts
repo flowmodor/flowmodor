@@ -5,13 +5,15 @@ import { Tables } from '@/types/supabase';
 import supabase from '@/utils/supabase';
 import getClient from '@/utils/todoist';
 
+export type Task = Omit<Tables<'tasks'>, 'user_id' | 'created_at'>;
+
 interface TasksState {
-  tasks: Omit<Tables<'tasks'>, 'user_id' | 'created_at'>[];
-  focusingTask: number | null;
+  tasks: Task[];
+  focusingTask: Task | null;
   addTask: (name: string) => Promise<void>;
-  completeTask: (task: Tables<'tasks'>) => Promise<void>;
-  undoCompleteTask: (task: Tables<'tasks'>) => Promise<void>;
-  focusTask: (key: number) => void;
+  completeTask: (task: Task) => Promise<void>;
+  undoCompleteTask: (task: Task) => Promise<void>;
+  focusTask: (task: Task) => void;
   fetchTasks: () => Promise<void>;
   subscribeToTasks: () => void;
 }
@@ -19,7 +21,7 @@ interface TasksState {
 const useTasksStore = create<TasksState>((set) => ({
   tasks: [],
   focusingTask: null,
-  focusTask: (key) => set(() => ({ focusingTask: key })),
+  focusTask: (task) => set(() => ({ focusingTask: task })),
   fetchTasks: async () => {
     const { data: integrationsData } = await supabase
       .from('integrations')

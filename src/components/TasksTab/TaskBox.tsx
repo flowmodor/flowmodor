@@ -1,11 +1,10 @@
 import { Button } from '@nextui-org/button';
 import { Checkbox } from '@nextui-org/checkbox';
 import { toast } from 'react-toastify';
-import useTasksStore from '@/stores/useTasksStore';
+import useTasksStore, { Task } from '@/stores/useTasksStore';
 import useTimerStore from '@/stores/useTimerStore';
-import { Tables } from '@/types/supabase';
 
-export default function TaskBox({ task }: { task: Tables<'tasks'> }) {
+export default function TaskBox({ task }: { task: Task }) {
   const { isRunning, mode } = useTimerStore((state) => state);
   const { focusingTask, completeTask, undoCompleteTask } = useTasksStore(
     (state) => state,
@@ -26,7 +25,9 @@ export default function TaskBox({ task }: { task: Tables<'tasks'> }) {
   return (
     <div className="flex min-h-[4rem] items-center border-b border-b-secondary px-4">
       <Checkbox
-        isDisabled={isRunning && mode === 'focus' && task.id === focusingTask}
+        isDisabled={
+          isRunning && mode === 'focus' && task.id === focusingTask?.id
+        }
         radius="full"
         size="lg"
         lineThrough

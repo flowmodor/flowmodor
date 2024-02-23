@@ -10,7 +10,7 @@ export default function TaskSelector() {
     <Select
       isDisabled={isRunning || tasks.length === 0}
       selectionMode="single"
-      selectedKeys={focusingTask ? [focusingTask.toString()] : []}
+      selectedKeys={focusingTask ? [focusingTask.id.toString()] : []}
       label="Select a task"
       size="sm"
       radius="sm"
@@ -20,12 +20,15 @@ export default function TaskSelector() {
         popoverContent: 'bg-background',
       }}
       onChange={(e) => {
-        focusTask(parseInt(e.target.value, 10));
+        const task = tasks.find((t) => t.id === parseInt(e.target.value, 10));
+        if (task) {
+          focusTask(task);
+        }
       }}
     >
       {tasks.map((task) => (
         <SelectItem
-          key={task.id}
+          key={task.id.toString()}
           value={task.name}
           classNames={{
             base: 'data-[focus=true]:!bg-secondary data-[hover=true]:!bg-secondary',
