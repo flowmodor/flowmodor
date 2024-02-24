@@ -1,0 +1,9 @@
+{
+  "singleQuote": true,
+  "importOrder": ["<THIRD_PARTY_MODULES>", "^@/", "^[./]"],
+  "plugins": [
+    "prettier-plugin-tailwindcss",
+    "@trivago/prettier-plugin-sort-imports"
+  ],
+  "importOrderSortSpecifiers": true
+}
