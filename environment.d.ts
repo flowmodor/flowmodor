@@ -10,6 +10,6 @@ namespace NodeJS {
     NEXT_PUBLIC_PAYPAL_AUTH_URL: string;
     NEXT_PUBLIC_PAYPAL_API_URL: string;
     NEXT_PUBLIC_TODOIST_CLIENT_ID: string;
-    NEXT_PUBLIC_TODOIST_CLIENT_SECRET: string;
+    TODOIST_CLIENT_SECRET: string;
   }
 }
