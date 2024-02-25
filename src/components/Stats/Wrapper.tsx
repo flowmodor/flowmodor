@@ -85,9 +85,7 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
               color="secondary"
               size="sm"
               className="absolute top-5 right-5 fill-white"
-              onPress={() =>
-                downloadImage(chartRef, totalFocusTime, date)
-              }
+              onPress={() => downloadImage(chartRef, totalFocusTime, date)}
             >
               <Share />
             </Button>

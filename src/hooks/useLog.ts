@@ -13,8 +13,6 @@ async function log(
   const start_time = new Date(startTime).toISOString();
   const end_time = new Date(endTime).toISOString();
 
-  console.log(task);
-
   if (!task) {
     await supabase.from('logs').insert([
       {
@@ -32,7 +30,7 @@ async function log(
       mode,
       start_time,
       end_time,
-      task: todoist ? null : task.id,
+      task_id: todoist ? null : task.id,
       task_name: todoist ? task.name : null,
     },
   ]);

@@ -98,7 +98,8 @@ export interface Database {
           id: number
           mode: string
           start_time: string
-          task: number | null
+          task_id: number | null
+          task_name: string | null
           user_id: string | null
         }
         Insert: {
@@ -106,7 +107,8 @@ export interface Database {
           id?: number
           mode: string
           start_time: string
-          task?: number | null
+          task_id?: number | null
+          task_name?: string | null
           user_id?: string | null
         }
         Update: {
@@ -114,13 +116,14 @@ export interface Database {
           id?: number
           mode?: string
           start_time?: string
-          task?: number | null
+          task_id?: number | null
+          task_name?: string | null
           user_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "logs_task_fkey"
-            columns: ["task"]
+            foreignKeyName: "logs_task_id_fkey"
+            columns: ["task_id"]
             isOneToOne: false
             referencedRelation: "tasks"
             referencedColumns: ["id"]
