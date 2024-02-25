@@ -29,7 +29,6 @@ export default function Integrations({
         color="secondary"
         radius="sm"
         isLoading={isPending}
-        isDisabled
         onPress={() => {
           startTransition(async () => {
             if (provider === 'todoist') {

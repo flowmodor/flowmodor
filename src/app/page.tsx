@@ -5,6 +5,7 @@ import { useEffect, useState, useTransition } from 'react';
 import Menu from '@/components/Menu';
 import TasksTab from '@/components/TasksTab';
 import TimerTab from '@/components/TimerTab/index';
+import useLists from '@/hooks/useLists';
 import useLog from '@/hooks/useLog';
 import useTasksStore from '@/stores/useTasksStore';
 import useTimerStore from '@/stores/useTimerStore';
@@ -14,10 +15,10 @@ export default function App() {
     (state) => state,
   );
   const { fetchTasks, subscribeToTasks } = useTasksStore((state) => state);
-  const [tick, setTick] = useState(0);
-  const { log } = useLog();
-
   const [isPending, startTransition] = useTransition();
+  const [tick, setTick] = useState(0);
+  const { lists } = useLists();
+  const { log } = useLog();
 
   useEffect(() => {
     startTransition(fetchTasks);
@@ -72,7 +73,7 @@ export default function App() {
           title="Tasks"
           className="data-[selected=true]:bg-secondary"
         >
-          <TasksTab isPending={isPending} />
+          <TasksTab isPending={isPending} lists={lists} />
         </Tab>
       </Tabs>
     </div>
