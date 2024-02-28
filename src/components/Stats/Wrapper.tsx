@@ -79,7 +79,7 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
           >
             <Right />
           </DateButton>
-          {logs ? (
+          {logs && !isBlocked ? (
             <Button
               isIconOnly
               color="secondary"
@@ -111,7 +111,7 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
           </div>
         ) : null}
       </Card>
-      {taskTime.length > 0 ? <TaskTime datas={taskTime} /> : null}
+      {taskTime.length > 0 && !isBlocked ? <TaskTime datas={taskTime} /> : null}
     </div>
   );
 }
