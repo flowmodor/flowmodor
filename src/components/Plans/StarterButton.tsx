@@ -11,7 +11,7 @@ import {
 } from '@nextui-org/modal';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useTransition } from 'react';
 import { toast } from 'react-toastify';
 import getAccessToken from '@/utils/paypal';
 
@@ -47,7 +47,7 @@ export default function StarterButton({
   id: string;
 }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, startTransition] = useTransition();
   const router = useRouter();
 
   return (
@@ -91,11 +91,11 @@ export default function StarterButton({
                 <Button
                   color="primary"
                   isLoading={isLoading}
-                  onPress={async () => {
-                    setIsLoading(true);
-                    await cancelSubscription(id, router);
-                    setIsLoading(false);
-                    onClose();
+                  onPress={() => {
+                    startTransition(async () => {
+                      await cancelSubscription(id, router);
+                      onClose();
+                    });
                   }}
                 >
                   Yes, Cancel Subscription
