@@ -23,7 +23,7 @@ export default function Integrations({
         </Chip>
       </div>
       <div className="text-sm color-secondary">
-        Fetch tasks from thirdparty apps
+        Sync tasks with third-party apps
       </div>
       <Button
         color="secondary"
