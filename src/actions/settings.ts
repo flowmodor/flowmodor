@@ -6,6 +6,24 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getActionClient } from '@/utils/supabase';
 
+export async function updateOptions(breakRatio: number) {
+  const supabase = getActionClient(cookies());
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { error: { message: 'User not found' } };
+  }
+
+  const { error } = await supabase
+    .from('settings')
+    .update({ break_ratio: breakRatio })
+    .eq('user_id', user.id);
+
+  return { error };
+}
+
 export async function connectTodoist() {
   const url = new URL('https://todoist.com/oauth/authorize');
   url.searchParams.append(

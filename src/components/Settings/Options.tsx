@@ -2,8 +2,9 @@
 
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
-import { useState } from 'react';
-import useUpdateSettings from '@/hooks/useUpdateSettings';
+import { useState, useTransition } from 'react';
+import { toast } from 'react-toastify';
+import { updateOptions } from '@/actions/settings';
 
 export default function Options({
   isPro,
@@ -13,7 +14,7 @@ export default function Options({
   defaultBreakRatio: number;
 }) {
   const [breakRatio, setBreakRatio] = useState(defaultBreakRatio);
-  const { isLoading, updateSettings } = useUpdateSettings();
+  const [isLoading, startTransition] = useTransition();
 
   return (
     <div className="flex flex-col gap-3">
@@ -44,7 +45,17 @@ export default function Options({
           className="ml-auto mt-2"
           isDisabled={!isPro || breakRatio <= 0}
           isLoading={isLoading}
-          onPress={() => updateSettings(breakRatio)}
+          onPress={() => {
+            startTransition(async () => {
+              const { error } = await updateOptions(breakRatio);
+
+              if (error) {
+                toast(error.message);
+              } else {
+                toast('Settings updated successfully!');
+              }
+            });
+          }}
         >
           Save
         </Button>
