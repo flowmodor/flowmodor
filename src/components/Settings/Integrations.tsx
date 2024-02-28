@@ -3,7 +3,7 @@
 import { Button } from '@nextui-org/button';
 import { Chip } from '@nextui-org/chip';
 import { useTransition } from 'react';
-import { connectTodoist, disconnectTodoist } from '@/app/settings/actions';
+import { connectTodoist, disconnectTodoist } from '@/actions/settings';
 import { Enums } from '@/types/supabase';
 import { Todoist } from '../Icons';
 
