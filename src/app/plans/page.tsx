@@ -6,48 +6,11 @@ import GoHome from '@/components/GoHome';
 import Menu from '@/components/Menu';
 import PlanCard from '@/components/Plans/PlanCard';
 import StarterButton from '@/components/Plans/StarterButton';
-import getAccessToken from '@/utils/paypal';
-import { getServerClient } from '@/utils/supabase';
+import { getPlan } from '@/utils/checkIsPro';
 
 export default async function Plans() {
-  const supabase = getServerClient(cookies());
-  const { data } = await supabase
-    .from('plans')
-    .select('end_time, subscription_id')
-    .single();
-  const id = data?.subscription_id;
-
-  let status = null;
-  let endTime = null;
-
-  try {
-    const accessToken = await getAccessToken();
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYPAL_API_URL}/billing/subscriptions/${id}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch subscription');
-    }
-
-    const subscription = await response.json();
-    status = subscription.status;
-    endTime = subscription?.billing_info?.next_billing_time;
-    if (endTime) {
-      supabase.from('plans').update({ end_time: endTime }).single();
-    } else {
-      endTime = data?.end_time;
-    }
-  } catch (error) {
-    console.error(error);
-  }
+  const cookieStore = cookies();
+  const { status, endTime, id } = await getPlan(cookieStore);
 
   const starter = ['Flowmodoro Timer', 'Task List', 'Today Stats'];
   const pro = [

@@ -2,7 +2,7 @@ import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adap
 import getAccessToken from './paypal';
 import { getServerClient } from './supabase';
 
-export default async function checkIsPro(cookieStore: ReadonlyRequestCookies) {
+export async function getPlan(cookieStore: ReadonlyRequestCookies) {
   const supabase = getServerClient(cookieStore);
   const { data } = await supabase
     .from('plans')
@@ -33,16 +33,32 @@ export default async function checkIsPro(cookieStore: ReadonlyRequestCookies) {
     const subscription = await response.json();
     status = subscription.status;
     endTime = subscription?.billing_info?.next_billing_time;
-    console.log(endTime);
   } catch (error) {
     console.error(error);
   }
 
   if (endTime) {
-    supabase.from('plans').update({ end_time: endTime }).single();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    const { error } = await supabase
+      .from('plans')
+      .update({ end_time: endTime })
+      .eq('user_id', user!.id);
+
+    if (error) {
+      console.error(error);
+    }
   } else {
     endTime = data?.end_time;
   }
+
+  return { status, endTime, id: data?.subscription_id };
+}
+
+export default async function checkIsPro(cookieStore: ReadonlyRequestCookies) {
+  const { status, endTime } = await getPlan(cookieStore);
 
   return status === 'ACTIVE' || new Date(endTime) > new Date();
 }
