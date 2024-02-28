@@ -1,0 +1,39 @@
+---
+import { useEffect, useState } from 'react';
+import { supabase } from '../lib/supabase';
+
+let { data: totalFocusHours } = await supabase.rpc('get_total_focus_hours');
+totalFocusHours = Math.round(totalFocusHours);
+
+const { data: totalTasksCompleted } = await supabase.rpc(
+  'get_completed_tasks_count',
+);
+---
+
+<div
+  class="h-screen justify-center mx-4 flex flex-col lg:w-1/2 items-center text-center"
+>
+  <div class="text-4xl font-semibold">
+    Get into <span class="text-[#DBBFFF]">flow</span> state with us.
+  </div>
+  <div class="flex flex-col gap-10 mt-5 mb-10">
+    Our community has already achieved ...
+    <div class="flex gap-10 sm:gap-20 items-center">
+      <div>
+        <div class="text-4xl font-bold">{totalFocusHours}</div>
+        <div>hours of focus</div>
+      </div>
+      <div class="border-r border-[#FFFFFF40] py-14"></div>
+      <div>
+        <div class="text-4xl font-bold">{totalTasksCompleted}</div>
+        <div>completed tasks</div>
+      </div>
+    </div>
+  </div>
+  <a
+    href="https://app.flowmodor.com/signin"
+    class="font-semibold cursor-pointer rounded-md p-3 text-[#131221] bg-[#DBBFFF] hover:brightness-105 transition-all duration-300"
+  >
+    Get started
+  </a>
+</div>
