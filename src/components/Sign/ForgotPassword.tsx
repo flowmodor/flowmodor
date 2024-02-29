@@ -3,20 +3,25 @@
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { Link } from '@nextui-org/link';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { toast } from 'react-toastify';
-import useSendPasswordReset from '@/hooks/useSendPasswordReset';
+import { sendPasswordReset } from '@/actions/auth';
 
 export default function ForgotPassword() {
   const [emailValue, setEmailValue] = useState('');
-  const { isSent, isLoading, sendPasswordReset } = useSendPasswordReset();
+  const [isSent, setIsSent] = useState(false);
+  const [isLoading, startTransition] = useTransition();
 
-  const handleSendPasswordReset = async () => {
-    const { error } = await sendPasswordReset(emailValue);
-    if (error) {
-      toast(error.message);
-      setEmailValue('');
-    }
+  const handleSendPasswordReset = () => {
+    startTransition(async () => {
+      const { error } = await sendPasswordReset(emailValue);
+      if (error) {
+        toast(error.message);
+        setEmailValue('');
+      } else {
+        setIsSent(true);
+      }
+    });
   };
 
   return (
