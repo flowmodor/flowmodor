@@ -3,26 +3,32 @@
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { Link } from '@nextui-org/link';
-import { useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { signInWithOAuth, signInWithPassword } from '@/actions/auth';
 import { Google } from '@/components/Icons';
 import Or from '@/components/Or';
+import useSignIn from '@/hooks/useSignIn';
 
 export default function SignIn() {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
-  const [isLoading, startTransition] = useTransition();
+  const { isLoading, signInWithPassword, signInWithOAuth } = useSignIn();
+  const router = useRouter();
 
-  const handleSignIn = (signIn: () => Promise<any>) => {
-    startTransition(async () => {
-      const { error } = await signIn();
+  const handleSignIn = async (signIn: () => Promise<any>) => {
+    if (isLoading) {
+      return;
+    }
 
-      if (error) {
-        toast(error.message);
-        console.error(error);
-      }
-    });
+    const { error } = await signIn();
+
+    if (error) {
+      toast(error.message);
+      console.error(error);
+    } else {
+      router.push('/');
+    }
   };
 
   return (
@@ -31,11 +37,7 @@ export default function SignIn() {
       <Button
         color="secondary"
         radius="sm"
-        isDisabled={isLoading}
-        onPress={() =>
-          // eslint-disable-next-line no-restricted-globals
-          handleSignIn(() => signInWithOAuth(location.origin, 'google'))
-        }
+        onPress={() => handleSignIn(() => signInWithOAuth('google'))}
       >
         <Google />
         Continue with Google
