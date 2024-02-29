@@ -181,8 +181,6 @@ const useTasksStore = create<TasksState>((set) => ({
     );
 
     tasksChannel.subscribe();
-
-    console.log('Subscribed to tasks');
   },
   onListChange: (e) => {
     set({ activeList: e.target.value });
