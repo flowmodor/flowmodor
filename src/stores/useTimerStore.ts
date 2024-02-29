@@ -46,15 +46,20 @@ const useTimerStore = create<TimerState>((set) => ({
   },
   stopTimer: async () => {
     const breakRatio = await getBreakRatio();
-    set((state) => ({
-      endTime: Date.now(),
-      totalTime:
+
+    set((state) => {
+      const totalTime =
         state.mode === 'focus'
           ? (Date.now() - state.startTime!) / breakRatio
-          : 0,
-      mode: state.mode === 'focus' ? 'break' : 'focus',
-      isRunning: false,
-    }));
+          : 0;
+      return {
+        endTime: Date.now(),
+        totalTime,
+        displayTime: Math.floor(totalTime / 1000),
+        mode: state.mode === 'focus' ? 'break' : 'focus',
+        isRunning: false,
+      };
+    });
   },
   tickTimer: async () => {
     let breakRatio: number;

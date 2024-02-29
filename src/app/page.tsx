@@ -1,7 +1,7 @@
 'use client';
 
 import { Tab, Tabs } from '@nextui-org/tabs';
-import { useEffect, useState, useTransition } from 'react';
+import { useEffect, useTransition } from 'react';
 import Menu from '@/components/Menu';
 import TasksTab from '@/components/TasksTab';
 import TimerTab from '@/components/TimerTab/index';
@@ -16,7 +16,6 @@ export default function App() {
   );
   const { fetchTasks, subscribeToTasks } = useTasksStore((state) => state);
   const [isPending, startTransition] = useTransition();
-  const [tick, setTick] = useState(0);
   const { lists } = useLists();
   const { log } = useLog();
 
@@ -26,29 +25,27 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout | null = null;
+    if (!isRunning) {
+      return () => {};
+    }
 
-    if (isRunning) {
-      interval = setInterval(() => {
-        setTick(tick + 1);
-      }, 1000);
-
+    const interval = setInterval(() => {
       if (mode === 'break' && endTime! < Date.now()) {
         stopTimer();
         log();
         const audio = new Audio('/alarm.mp3');
         audio.play();
+      } else {
+        tickTimer();
       }
-    }
-
-    tickTimer();
+    }, 1000);
 
     return () => {
       if (interval) {
         clearInterval(interval);
       }
     };
-  }, [tick, isRunning]);
+  }, [isRunning]);
 
   return (
     <div className="flex h-full flex-col justify-center">
