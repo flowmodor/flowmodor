@@ -1,4 +1,5 @@
 import { Link } from '@nextui-org/link';
+import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import GoHome from '@/components/GoHome';
 import Menu from '@/components/Menu';
@@ -6,6 +7,10 @@ import Integrations from '@/components/Settings/Integrations';
 import Options from '@/components/Settings/Options';
 import checkIsPro from '@/utils/checkIsPro';
 import { getServerClient } from '@/utils/supabase';
+
+export const metadata: Metadata = {
+  title: 'Settings | Flowmodor',
+};
 
 export default async function Settings() {
   const cookieStore = cookies();

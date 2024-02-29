@@ -1,5 +1,6 @@
 import { Button } from '@nextui-org/button';
 import { Chip } from '@nextui-org/chip';
+import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import GoHome from '@/components/GoHome';
@@ -7,6 +8,10 @@ import Menu from '@/components/Menu';
 import PlanCard from '@/components/Plans/PlanCard';
 import StarterButton from '@/components/Plans/StarterButton';
 import { getPlan } from '@/utils/checkIsPro';
+
+export const metadata: Metadata = {
+  title: 'Plans | Flowmodor',
+};
 
 export default async function Plans() {
   const cookieStore = cookies();
