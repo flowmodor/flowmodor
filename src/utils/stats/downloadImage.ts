@@ -1,5 +1,4 @@
 import { MutableRefObject } from 'react';
-import { toast } from 'react-toastify';
 import { base64ToBlob } from '..';
 
 export default async function downloadImage(
@@ -8,7 +7,7 @@ export default async function downloadImage(
   date: Date,
 ) {
   if (!chartRef.current) {
-    return;
+    return false;
   }
 
   const base64Image = chartRef.current.toBase64Image();
@@ -32,7 +31,7 @@ export default async function downloadImage(
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  } else {
-    toast('Error downloading image. Please try again.');
+    return true;
   }
+  return false;
 }

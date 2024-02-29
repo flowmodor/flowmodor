@@ -1,15 +1,16 @@
-import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { Link } from '@nextui-org/link';
 import { Spinner } from '@nextui-org/spinner';
 import { Dispatch, SetStateAction, useRef } from 'react';
-import { Left, Right, Share } from '@/components/Icons';
+import { toast } from 'react-toastify';
+import { Left, Right } from '@/components/Icons';
 import DateButton from '@/components/Stats/DateButton';
 import LineChart from '@/components/Stats/LineChart';
 import { processLogs } from '@/utils';
 import calculateFocusTimes from '@/utils/stats/calculateFocusTime';
 import { LogsWithTasks } from '@/utils/stats/calculateTaskTime';
 import downloadImage from '@/utils/stats/downloadImage';
+import ShareButton from './ShareButton';
 
 export default function DailyStats({
   logs,
@@ -25,6 +26,19 @@ export default function DailyStats({
   const chartRef = useRef<any>(null);
   const processedLogs = processLogs(logs);
   const { totalFocusTime } = calculateFocusTimes(logs);
+
+  const handleShare = async (openX: boolean) => {
+    const isSuccess = await downloadImage(chartRef, totalFocusTime, date);
+    if (!isSuccess) {
+      toast('Error downloading image. Please try again.');
+      return;
+    }
+    if (openX) {
+      window.open(
+        'https://twitter.com/intent/tweet?text=Check out my daily stats on @flowmodor!%0a%28attach the image that was just downloaded%29',
+      );
+    }
+  };
 
   return (
     <Card className="rounded-lg bg-[#23223C] p-5">
@@ -48,17 +62,7 @@ export default function DailyStats({
         >
           <Right />
         </DateButton>
-        {logs && !isBlocked ? (
-          <Button
-            isIconOnly
-            color="secondary"
-            size="sm"
-            className="absolute top-5 right-5 fill-white"
-            onPress={() => downloadImage(chartRef, totalFocusTime, date)}
-          >
-            <Share />
-          </Button>
-        ) : null}
+        {logs && !isBlocked ? <ShareButton handleShare={handleShare} /> : null}
       </CardHeader>
       <CardBody
         className={`flex items-center justify-center lg:min-h-[60vh] lg:min-w-[50vw] ${
