@@ -6,7 +6,7 @@ import TabWrapper from '../TabWrapper';
 import Tasks from './Tasks';
 import Toolbar from './Toolbar';
 
-export default function TasksTab({ isPending }: { isPending: boolean }) {
+export default function TasksTab() {
   const { lists, activeList, onListChange, fetchTasks } = useTasksStore(
     (state) => state,
   );
@@ -49,7 +49,7 @@ export default function TasksTab({ isPending }: { isPending: boolean }) {
               ))}
             </Select>
           )}
-          <Tasks isLoading={isPending || isFetching} />
+          <Tasks isLoading={isFetching} />
         </CardBody>
       </Card>
       <Card className="bg-[#23223C]">

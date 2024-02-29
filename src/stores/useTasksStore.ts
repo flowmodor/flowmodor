@@ -152,7 +152,7 @@ const useTasksStore = create<TasksState>((set) => ({
       toast.dismiss(task.id);
     }
   },
-  subscribeToTasks: async () => {
+  subscribeToTasks: () => {
     const tasksChannel = supabase.channel('tasks');
     tasksChannel.on(
       'postgres_changes',
@@ -181,6 +181,8 @@ const useTasksStore = create<TasksState>((set) => ({
     );
 
     tasksChannel.subscribe();
+
+    console.log('Subscribed to tasks');
   },
   onListChange: (e) => {
     set({ activeList: e.target.value });
@@ -188,6 +190,13 @@ const useTasksStore = create<TasksState>((set) => ({
 }));
 
 export default useTasksStore;
+
+useTasksStore
+  .getState()
+  .fetchTasks()
+  .then(() => {
+    useTasksStore.getState().subscribeToTasks();
+  });
 
 getClient().then(async (todoist) => {
   if (!todoist) {
