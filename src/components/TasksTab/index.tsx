@@ -1,20 +1,13 @@
 import { Card, CardBody } from '@nextui-org/card';
 import { Select, SelectItem } from '@nextui-org/select';
 import { useTransition } from 'react';
-import { List } from '@/hooks/useLists';
 import useTasksStore from '@/stores/useTasksStore';
 import TabWrapper from '../TabWrapper';
 import Tasks from './Tasks';
 import Toolbar from './Toolbar';
 
-export default function TasksTab({
-  isPending,
-  lists,
-}: {
-  isPending: boolean;
-  lists: List[];
-}) {
-  const { activeList, onListChange, fetchTasks } = useTasksStore(
+export default function TasksTab({ isPending }: { isPending: boolean }) {
+  const { lists, activeList, onListChange, fetchTasks } = useTasksStore(
     (state) => state,
   );
   const [isFetching, startTransition] = useTransition();

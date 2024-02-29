@@ -10,8 +10,9 @@ export type Task = Omit<Tables<'tasks'>, 'user_id' | 'created_at'>;
 
 interface TasksState {
   tasks: Task[];
-  activeList: string;
   focusingTask: Task | null;
+  lists: { provider: string; name: string; id: string }[];
+  activeList: string;
   addTask: (name: string) => Promise<void>;
   completeTask: (task: Task) => Promise<void>;
   undoCompleteTask: (task: Task) => Promise<void>;
@@ -23,8 +24,15 @@ interface TasksState {
 
 const useTasksStore = create<TasksState>((set) => ({
   tasks: [],
-  activeList: 'Flowmodor - default',
   focusingTask: null,
+  lists: [
+    {
+      provider: 'Flowmodor',
+      name: 'Default',
+      id: 'default',
+    },
+  ],
+  activeList: 'Flowmodor - default',
   focusTask: (task) => set(() => ({ focusingTask: task })),
   fetchTasks: async () => {
     set({ focusingTask: null });
@@ -180,3 +188,24 @@ const useTasksStore = create<TasksState>((set) => ({
 }));
 
 export default useTasksStore;
+
+getClient().then(async (todoist) => {
+  if (!todoist) {
+    return;
+  }
+
+  const data = await todoist.getProjects();
+  const todoistLists = data.map((list) => ({
+    provider: 'Todoist',
+    name: list.name,
+    id: list.id,
+  }));
+  todoistLists.unshift({
+    provider: 'Todoist',
+    name: 'All',
+    id: 'all',
+  });
+  useTasksStore.setState({
+    lists: [...useTasksStore.getState().lists, ...todoistLists],
+  });
+});

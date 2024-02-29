@@ -5,7 +5,6 @@ import { useEffect, useTransition } from 'react';
 import Menu from '@/components/Menu';
 import TasksTab from '@/components/TasksTab';
 import TimerTab from '@/components/TimerTab/index';
-import useLists from '@/hooks/useLists';
 import useLog from '@/hooks/useLog';
 import useTasksStore from '@/stores/useTasksStore';
 import useTimerStore from '@/stores/useTimerStore';
@@ -16,7 +15,6 @@ export default function App() {
   );
   const { fetchTasks, subscribeToTasks } = useTasksStore((state) => state);
   const [isPending, startTransition] = useTransition();
-  const { lists } = useLists();
   const { log } = useLog();
 
   useEffect(() => {
@@ -70,7 +68,7 @@ export default function App() {
           title="Tasks"
           className="data-[selected=true]:bg-secondary"
         >
-          <TasksTab isPending={isPending} lists={lists} />
+          <TasksTab isPending={isPending} />
         </Tab>
       </Tabs>
     </div>
