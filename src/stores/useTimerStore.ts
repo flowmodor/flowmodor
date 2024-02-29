@@ -57,7 +57,12 @@ const useTimerStore = create<TimerState>((set) => ({
     }));
   },
   tickTimer: async () => {
-    const breakRatio = await getBreakRatio();
+    let breakRatio: number;
+    const { isRunning } = useTimerStore.getState();
+    if (!isRunning) {
+      breakRatio = await getBreakRatio();
+    }
+
     set((state) => {
       let time;
       if (state.isRunning) {
