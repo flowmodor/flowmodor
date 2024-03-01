@@ -13,6 +13,10 @@ export async function getPlan(cookieStore: ReadonlyRequestCookies) {
   let status = null;
   let endTime = null;
 
+  if (!id) {
+    return { status, endTime };
+  }
+
   try {
     const accessToken = await getAccessToken();
     const response = await fetch(
