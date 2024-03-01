@@ -1,7 +1,6 @@
 'use client';
 
 import { Tab, Tabs } from '@nextui-org/tabs';
-import Menu from '@/components/Menu';
 import TasksTab from '@/components/TasksTab';
 import TimerTab from '@/components/TimerTab/index';
 import useTick from '@/hooks/useTick';
@@ -11,7 +10,6 @@ export default function App() {
 
   return (
     <div className="flex h-full flex-col justify-center">
-      <Menu />
       <Tabs
         fullWidth
         disableAnimation
