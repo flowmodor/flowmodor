@@ -3,10 +3,10 @@
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { Link } from '@nextui-org/link';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { toast } from 'react-toastify';
+import { signUp } from '@/actions/auth';
 import { Hide, Show } from '@/components/Icons';
-import useSignUp from '@/hooks/useSignUp';
 import { validateEmail, validatePassword } from '@/utils';
 
 export default function SignUp() {
@@ -14,7 +14,7 @@ export default function SignUp() {
   const [passwordValue, setPasswordValue] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
-  const { isLoading, signUp } = useSignUp();
+  const [isLoading, startTransition] = useTransition();
 
   return (
     <div className="flex flex-col gap-5 text-center sm:w-96">
@@ -83,20 +83,22 @@ export default function SignUp() {
           )
         }
         className="mt-10"
-        onPress={async () => {
-          const { error } = await signUp(emailValue, passwordValue);
+        onPress={() => {
+          startTransition(async () => {
+            const { error } = await signUp(emailValue, passwordValue);
 
-          if (error) {
-            console.error(error);
-          }
+            if (error) {
+              console.error(error);
+            }
 
-          const message = error
-            ? 'Something went wrong. Please try again.'
-            : 'Sign up successfully! Check your email to verify your account.';
-          toast(message);
+            const message = error
+              ? 'Something went wrong. Please try again.'
+              : 'Sign up successfully! Check your email to verify your account.';
+            toast(message);
 
-          setEmailValue('');
-          setPasswordValue('');
+            setEmailValue('');
+            setPasswordValue('');
+          });
         }}
       >
         Sign Up

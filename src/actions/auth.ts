@@ -10,6 +10,16 @@ export async function sendPasswordReset(email: string) {
   return { error };
 }
 
+export async function signUp(email: string, password: string) {
+  const supabase = getActionClient(cookies());
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
+
+  return { error };
+}
+
 export async function signOut() {
   const supabase = getActionClient(cookies());
   const { error } = await supabase.auth.signOut();
