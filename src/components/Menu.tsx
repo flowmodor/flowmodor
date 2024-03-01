@@ -7,14 +7,10 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from '@nextui-org/dropdown';
-import { useRouter } from 'next/navigation';
+import { signOut } from '@/actions/auth';
 import { Bars } from '@/components/Icons';
-import useSignOut from '@/hooks/useSignOut';
 
 export default function Menu() {
-  const { signOut } = useSignOut();
-  const router = useRouter();
-
   return (
     <div className="absolute right-5 top-5 mb-5 flex justify-end gap-3">
       <Dropdown
@@ -66,7 +62,6 @@ export default function Menu() {
             className="data-[focus=true]:bg-secondary data-[hover=true]:bg-secondary"
             onPress={async () => {
               await signOut();
-              router.push('/signin');
             }}
           >
             Sign out
