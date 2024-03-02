@@ -9,6 +9,7 @@ import {
 } from '@nextui-org/dropdown';
 import { signOut } from '@/actions/auth';
 import { Bars } from '@/components/Icons';
+import mixpanel from 'mixpanel-browser';
 
 export default function Menu() {
   return (
@@ -61,6 +62,7 @@ export default function Menu() {
             key="signout"
             className="data-[focus=true]:bg-secondary data-[hover=true]:bg-secondary"
             onPress={async () => {
+              mixpanel.reset();
               await signOut();
             }}
           >

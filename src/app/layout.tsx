@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import Script from 'next/script';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import './globals.css';
@@ -27,11 +26,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Script
-        defer
-        src="https://us.umami.is/script.js"
-        data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
-      />
       <body
         className={`${inter.className} flex min-h-screen justify-center bg-background text-white scrollbar-hide dark`}
       >

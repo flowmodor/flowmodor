@@ -3,6 +3,7 @@
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { Link } from '@nextui-org/link';
+import mixpanel from 'mixpanel-browser';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
@@ -21,12 +22,15 @@ export default function SignIn() {
       return;
     }
 
-    const { error } = await signIn();
+    const { data, error } = await signIn();
 
     if (error) {
       toast(error.message);
       console.error(error);
     } else {
+      if (data?.user?.id) {
+        mixpanel.identify(data.user.id);
+      }
       router.push('/');
     }
   };

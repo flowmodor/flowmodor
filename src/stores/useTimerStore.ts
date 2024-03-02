@@ -1,3 +1,4 @@
+import mixpanel from 'mixpanel-browser';
 import { create } from 'zustand';
 import supabase from '@/utils/supabase';
 
@@ -45,6 +46,11 @@ const useTimerStore = create<TimerState>((set) => ({
     }));
   },
   stopTimer: async () => {
+    const focusTime = Date.now() - useTimerStore.getState().startTime!;
+    if (focusTime / 1000 >= 60 * 1) {
+      mixpanel.track('Focus', { duration: focusTime / 1000 });
+    }
+
     const breakRatio = await getBreakRatio();
 
     set((state) => {
