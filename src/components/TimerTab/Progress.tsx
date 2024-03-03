@@ -1,14 +1,25 @@
 import { CircularProgress } from '@nextui-org/progress';
+import { useEffect } from 'react';
 import useTimerStore from '@/stores/useTimerStore';
 import { formatTime } from '@/utils';
+import { useTour } from '@reactour/tour';
 
 export default function Progress() {
   const { totalTime, displayTime, mode, showTime } = useTimerStore(
     (state) => state,
   );
 
+  const { currentStep, setCurrentStep } = useTour();
+
+  useEffect(() => {
+    if (displayTime === 10) {
+      setCurrentStep(currentStep + 1);
+    }
+  }, [displayTime]);
+
   return (
     <CircularProgress
+      id="progress"
       value={
         mode === 'focus'
           ? 0

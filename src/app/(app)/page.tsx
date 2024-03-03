@@ -4,8 +4,15 @@ import { Tab, Tabs } from '@nextui-org/tabs';
 import TasksTab from '@/components/TasksTab';
 import TimerTab from '@/components/TimerTab/index';
 import useTick from '@/hooks/useTick';
+import { useTour } from '@reactour/tour';
+import { useEffect } from 'react';
 
 export default function App() {
+  const { setIsOpen } = useTour();
+  useEffect(() => {
+    setIsOpen(true);
+  }, []);
+
   useTick();
 
   return (

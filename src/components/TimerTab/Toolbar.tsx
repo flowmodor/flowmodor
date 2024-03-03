@@ -1,4 +1,5 @@
 import { Button } from '@nextui-org/button';
+import { useTour } from '@reactour/tour';
 import { Hide, Play, Show, Stop } from '@/components/Icons';
 import useLog from '@/hooks/useLog';
 import useTimerStore from '@/stores/useTimerStore';
@@ -7,6 +8,7 @@ export default function Toolbar() {
   const { showTime, isRunning, startTimer, stopTimer, toggleShowTime } =
     useTimerStore((state) => state);
   const { log } = useLog();
+  const { currentStep, setCurrentStep } = useTour();
 
   return (
     <div className="flex items-center justify-center gap-5">
@@ -20,18 +22,21 @@ export default function Toolbar() {
         {showTime ? <Hide /> : <Show />}
       </Button>
       <Button
+        id="start-stop-button"
         type="button"
         variant="flat"
         isIconOnly
         className="bg-secondary"
-        onPress={
-          isRunning
-            ? () => {
-                stopTimer();
-                log();
-              }
-            : startTimer
-        }
+        onPress={() => {
+          if (isRunning) {
+            stopTimer();
+            log();
+          } else {
+            startTimer();
+          }
+
+          setCurrentStep(currentStep + 1);
+        }}
       >
         {isRunning ? <Stop /> : <Play />}
       </Button>

@@ -1,3 +1,4 @@
+import { useTour } from '@reactour/tour';
 import { useEffect } from 'react';
 import useLog from '@/hooks/useLog';
 import useTimerStore from '@/stores/useTimerStore';
@@ -7,6 +8,7 @@ export default function useTick() {
     (state) => state,
   );
   const { log } = useLog();
+  const { currentStep, setCurrentStep } = useTour();
 
   useEffect(() => {
     if (!isRunning) {
@@ -19,6 +21,7 @@ export default function useTick() {
         log();
         const audio = new Audio('/alarm.mp3');
         audio.play();
+        setCurrentStep(currentStep + 1);
       } else {
         tickTimer();
       }
