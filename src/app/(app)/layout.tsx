@@ -1,11 +1,35 @@
+import { cookies } from 'next/headers';
 import Menu from '@/components/Menu';
-import { Providers } from './providers';
+import { getServerClient } from '@/utils/supabase';
+import { MixpanelProvider, TourCustomProvider } from './providers';
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+export default async function AppLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const supabase = getServerClient(cookies());
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('is_new')
+    .single();
+
+  const isNewUser = !error && data?.is_new;
+  if (isNewUser) {
+    return (
+      <TourCustomProvider>
+        <MixpanelProvider>
+          <Menu />
+          {children}
+        </MixpanelProvider>
+      </TourCustomProvider>
+    );
+  }
+
   return (
-    <Providers>
+    <MixpanelProvider>
       <Menu />
       {children}
-    </Providers>
+    </MixpanelProvider>
   );
 }
