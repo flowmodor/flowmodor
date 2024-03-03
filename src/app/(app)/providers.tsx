@@ -67,10 +67,16 @@ function NextButton() {
           const {
             data: { user },
           } = await supabase.auth.getUser();
+
+          if (!user) {
+            console.error('User not found');
+            return;
+          }
+
           const { error } = await supabase
             .from('profiles')
             .update({ is_new: false })
-            .eq('user_id', user?.id);
+            .eq('user_id', user.id);
           if (error) {
             console.error(error);
           }
