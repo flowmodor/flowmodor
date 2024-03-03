@@ -28,14 +28,14 @@ import AppearScroll from './AppearScroll';
       <img-comparison-slider class="outline-none cursor-grab">
         <img
           slot="first"
-          src="/focus.png"
+          src="/timer-focus.png"
           width="100%"
           class="ml-2 max-w-[25rem]"
           alt="Timer feature of Flowmodor app"
         />
         <img
           slot="second"
-          src="/break.png"
+          src="/timer-break.png"
           width="100%"
           class="ml-2 max-w-[25rem]"
           alt="Timer feature of Flowmodor app"
@@ -46,8 +46,9 @@ import AppearScroll from './AppearScroll';
     </AppearScroll>
     <div class="order-first lg:order-last max-w-[24rem] flex flex-col gap-5">
       <h1 class="text-3xl font-bold">Flowmodoro Timer</h1>
-      Counting up during focus and counting down during breaks, based on your work
-      duration.
+      <div>
+        Counting up during focus and counting down during breaks, <span class="underline decoration-[#DBBFFF] decoration-wavy">based on your focus duration</span>.
+      </div>
     </div>
   </div>
   <div
@@ -55,13 +56,13 @@ import AppearScroll from './AppearScroll';
   >
     <div class="max-w-[24rem] flex flex-col gap-5">
       <h1 class="text-3xl font-bold">Task List</h1>
-      A simple task list which can be selected when starting a focus session to stay
-      monotasked.
+      <div>A simple task list which can be selected when starting a focus session to stay
+<span class="underline decoration-[#DBBFFF] decoration-wavy">monotasked</span>.</div>
     </div>
     <AppearScroll client:load>
       <img
         draggable="false"
-        src="/taskTab.png"
+        src="/tasks.png"
         alt="Taks list feature of Flowmodor app"
         width="100%"
         class="ml-2 max-w-[25rem]"
@@ -74,7 +75,7 @@ import AppearScroll from './AppearScroll';
     <AppearScroll client:load>
       <img
         draggable="false"
-        src="/report.png"
+        src="/stats.png"
         alt="Historical statistics feature of Flowmodor app"
         width="100%"
         class="ml-2 max-w-xl"
@@ -82,7 +83,7 @@ import AppearScroll from './AppearScroll';
     </AppearScroll>
     <div class="order-first lg:order-last max-w-[24rem] flex flex-col gap-5">
       <h1 class="text-3xl font-bold">Historical Stats</h1>
-      Tracks and summarizes work and break patterns for enhanced productivity insights.
+      <div>Tracks and summarizes work and break patterns for enhanced <span class="underline decoration-[#DBBFFF] decoration-wavy">productivity insights</span>.</div>
     </div>
   </div>
 </div>
