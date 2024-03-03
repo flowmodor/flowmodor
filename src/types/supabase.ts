@@ -166,6 +166,32 @@ export interface Database {
           }
         ]
       }
+      profiles: {
+        Row: {
+          id: number
+          is_new: boolean
+          user_id: string
+        }
+        Insert: {
+          id?: number
+          is_new: boolean
+          user_id: string
+        }
+        Update: {
+          id?: number
+          is_new?: boolean
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       settings: {
         Row: {
           break_ratio: number
