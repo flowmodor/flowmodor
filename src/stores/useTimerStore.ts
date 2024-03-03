@@ -47,7 +47,7 @@ const useTimerStore = create<TimerState>((set) => ({
   },
   stopTimer: async () => {
     const focusTime = Date.now() - useTimerStore.getState().startTime!;
-    if (focusTime / 1000 >= 60 * 1) {
+    if (focusTime / 1000 >= 10) {
       mixpanel.track('Focus', { duration: focusTime / 1000 });
     }
 
