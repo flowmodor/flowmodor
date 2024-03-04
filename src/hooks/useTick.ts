@@ -11,11 +11,11 @@ export default function useTick() {
   const { currentStep, setCurrentStep } = useTour();
 
   useEffect(() => {
-    if (!isRunning) {
-      return () => {};
-    }
-
     const interval = setInterval(() => {
+      if (!isRunning) {
+        return;
+      }
+
       if (mode === 'break' && endTime! < Date.now()) {
         stopTimer();
         log();
