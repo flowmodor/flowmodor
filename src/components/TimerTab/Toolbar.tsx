@@ -1,13 +1,11 @@
 import { Button } from '@nextui-org/button';
 import { useTour } from '@reactour/tour';
 import { Hide, Play, Show, Stop } from '@/components/Icons';
-import useLog from '@/hooks/useLog';
 import useTimerStore from '@/stores/useTimerStore';
 
 export default function Toolbar() {
-  const { showTime, isRunning, startTimer, stopTimer, toggleShowTime } =
+  const { showTime, isRunning, startTimer, stopTimer, log, toggleShowTime } =
     useTimerStore((state) => state);
-  const { log } = useLog();
   const { currentStep, setCurrentStep } = useTour();
 
   return (

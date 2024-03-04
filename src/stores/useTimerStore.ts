@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import mixpanel from 'mixpanel-browser';
 import { create } from 'zustand';
 import supabase from '@/utils/supabase';
+import useTasksStore from './useTasksStore';
 
 interface TimerState {
   startTime: number | null;
@@ -12,7 +14,8 @@ interface TimerState {
   isRunning: boolean;
   startTimer: () => void;
   stopTimer: () => void;
-  tickTimer: () => void;
+  log: () => void;
+  tickTimer: (nextStep: () => void) => void;
   toggleShowTime: () => void;
 }
 
@@ -67,7 +70,37 @@ const useTimerStore = create<TimerState>((set) => ({
       };
     });
   },
-  tickTimer: async () => {
+  log: async () => {
+    const start_time = new Date(
+      useTimerStore.getState().startTime!,
+    ).toISOString();
+    const end_time = new Date(Date.now()).toISOString();
+    const { mode } = useTimerStore.getState();
+    const { focusingTask } = useTasksStore.getState();
+
+    if (!focusingTask) {
+      await supabase.from('logs').insert([
+        {
+          mode,
+          start_time,
+          end_time,
+        },
+      ]);
+      return;
+    }
+
+    const hasId = useTasksStore.getState().activeList === 'Flowmodor - default';
+    await supabase.from('logs').insert([
+      {
+        mode,
+        start_time,
+        end_time,
+        task_id: hasId ? focusingTask.id : null,
+        task_name: hasId ? null : focusingTask.name,
+      },
+    ]);
+  },
+  tickTimer: async (nextStep: () => void) => {
     let breakRatio: number;
     const { isRunning } = useTimerStore.getState();
     if (!isRunning) {
@@ -87,6 +120,19 @@ const useTimerStore = create<TimerState>((set) => ({
             ? 0
             : (state.endTime! - state.startTime!) / breakRatio;
       }
+
+      if (state.mode === 'break' && time <= 0) {
+        state.stopTimer();
+        state.log();
+        nextStep();
+        const audio = new Audio('/alarm.mp3');
+        audio.play();
+
+        return {
+          displayTime: 0,
+        };
+      }
+
       return {
         displayTime: Math.floor(time / 1000),
       };
