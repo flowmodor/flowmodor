@@ -20,11 +20,6 @@ export default async function Settings() {
     .single();
   const breakRatio = settingsData?.break_ratio ?? 5;
 
-  const { data: integrationsData } = await supabase
-    .from('integrations')
-    .select('provider')
-    .single();
-
   return (
     <div className="mt-20 w-screen px-10 sm:w-[70vw] md:w-[50vw] lg:w-[40vw]">
       <h1 className="mb-10 flex items-center gap-3 text-3xl font-semibold">
@@ -39,7 +34,7 @@ export default async function Settings() {
         </div>
       ) : null}
       <Options isPro={isPro} defaultBreakRatio={breakRatio} />
-      <Integrations provider={integrationsData?.provider} />
+      <Integrations />
     </div>
   );
 }

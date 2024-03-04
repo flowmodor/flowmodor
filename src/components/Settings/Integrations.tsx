@@ -1,18 +1,16 @@
-'use client';
-
-import { Button } from '@nextui-org/button';
 import { Chip } from '@nextui-org/chip';
-import { useTransition } from 'react';
-import { connectTodoist, disconnectTodoist } from '@/actions/settings';
-import { Enums } from '@/types/supabase';
-import { Todoist } from '../Icons';
+import { cookies } from 'next/headers';
+import { getServerClient } from '@/utils/supabase';
+import TodoistButton from './TodoistButton';
 
-export default function Integrations({
-  provider,
-}: {
-  provider: Enums<'provider'> | null | undefined;
-}) {
-  const [isPending, startTransition] = useTransition();
+export default async function Integrations() {
+  const supabase = getServerClient(cookies());
+  const { data } = await supabase
+    .from('integrations')
+    .select('provider')
+    .single();
+
+  const provider = data?.provider;
 
   return (
     <div className="flex flex-col gap-3 items-start">
@@ -25,23 +23,7 @@ export default function Integrations({
       <div className="text-sm color-secondary">
         Sync tasks with third-party apps
       </div>
-      <Button
-        color="secondary"
-        radius="sm"
-        isLoading={isPending}
-        onPress={() => {
-          startTransition(async () => {
-            if (provider === 'todoist') {
-              await disconnectTodoist();
-            } else {
-              await connectTodoist();
-            }
-          });
-        }}
-      >
-        {isPending ? null : <Todoist />}
-        {provider === 'todoist' ? 'Disconnect Todoist' : 'Connect Todoist'}
-      </Button>
+      <TodoistButton provider={provider} />
     </div>
   );
 }
