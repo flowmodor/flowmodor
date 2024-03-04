@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { fetchLogs } from '@/actions/stats';
 import Summary from '@/components/Stats/Summary';
 import {
   LogsWithTasks,
   calculateTaskTime,
 } from '@/utils/stats/calculateTaskTime';
-import supabase from '@/utils/supabase';
 import DailyStats from './DailyStats';
 import TaskTime from './TaskTime';
 
@@ -18,17 +18,7 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
 
   useEffect(() => {
     (async () => {
-      const startDate = new Date(date);
-      startDate.setHours(0, 0, 0, 0);
-      const endDate = new Date(date);
-      endDate.setHours(23, 59, 59, 999);
-
-      const { data, error } = await supabase
-        .from('logs')
-        .select('*, tasks(name)')
-        .gte('start_time', startDate.toISOString())
-        .lte('start_time', endDate.toISOString());
-
+      const { data, error } = await fetchLogs(date);
       if (!error) {
         setLogs(data);
       }
