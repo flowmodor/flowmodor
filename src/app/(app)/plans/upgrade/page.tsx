@@ -9,14 +9,17 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import GoHome from '@/components/GoHome';
+import { Cycle } from '@/components/Plans/ProCard';
 import supabase from '@/utils/supabase';
 
 function ButtonWrapper({
   type,
   userId,
+  cycle,
 }: {
   type: string;
   userId: string | undefined;
+  cycle: string;
 }) {
   const router = useRouter();
   const [{ options }, dispatch] = usePayPalScriptReducer();
@@ -40,7 +43,13 @@ function ButtonWrapper({
       createSubscription={(data, actions) =>
         actions.subscription
           .create({
-            plan_id: process.env.NEXT_PUBLIC_PAYPAL_PLAN_ID,
+            ...(cycle === 'yearly'
+              ? {
+                  plan_id: process.env.NEXT_PUBLIC_PAYPAL_YEARLY_PLAN_ID,
+                }
+              : {
+                  plan_id: process.env.NEXT_PUBLIC_PAYPAL_MONTHLY_PLAN_ID,
+                }),
             custom_id: userId,
           })
           .then((orderId) => orderId)
@@ -57,8 +66,13 @@ function ButtonWrapper({
   );
 }
 
-export default function Upgrade() {
+export default function Upgrade({
+  searchParams,
+}: {
+  searchParams: { cycle: Cycle };
+}) {
   const [userId, setUserId] = useState<string | undefined>();
+  const { cycle } = searchParams;
 
   useEffect(() => {
     (async () => {
@@ -85,7 +99,7 @@ export default function Upgrade() {
         }}
       >
         <div className="rounded-md bg-white p-5">
-          <ButtonWrapper type="subscription" userId={userId} />
+          <ButtonWrapper type="subscription" userId={userId} cycle={cycle} />
         </div>
       </PayPalScriptProvider>
     </div>

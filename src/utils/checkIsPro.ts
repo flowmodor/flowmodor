@@ -12,9 +12,10 @@ export async function getPlan(cookieStore: ReadonlyRequestCookies) {
 
   let status = null;
   let endTime = null;
+  let planId = null;
 
   if (!id) {
-    return { status, endTime };
+    return { status, endTime, planId };
   }
 
   try {
@@ -35,6 +36,7 @@ export async function getPlan(cookieStore: ReadonlyRequestCookies) {
     }
 
     const subscription = await response.json();
+    planId = subscription.plan_id;
     status = subscription.status;
     endTime = subscription?.billing_info?.next_billing_time;
   } catch (error) {
@@ -58,7 +60,7 @@ export async function getPlan(cookieStore: ReadonlyRequestCookies) {
     endTime = data?.end_time;
   }
 
-  return { status, endTime, id: data?.subscription_id };
+  return { status, endTime, id: data?.subscription_id, planId };
 }
 
 export default async function checkIsPro(cookieStore: ReadonlyRequestCookies) {
