@@ -1,7 +1,6 @@
 import { Chip } from '@nextui-org/chip';
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
-import GoHome from '@/components/GoHome';
 import ProCard from '@/components/Plans/ProCard';
 import StarterCard from '@/components/Plans/StarterCard';
 import { getPlan } from '@/utils/checkIsPro';
@@ -18,7 +17,6 @@ export default async function Plans() {
     <div className="mt-20 flex w-[90vw] flex-col gap-10 mb-10">
       <div className="mx-auto flex flex-col gap-2 sm:w-4/5 lg:w-2/3">
         <div className="flex items-center gap-3 text-3xl font-semibold">
-          <GoHome />
           Plans
         </div>
         {status ? (

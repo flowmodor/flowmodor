@@ -5,7 +5,6 @@ import { Textarea } from '@nextui-org/input';
 import { Link } from '@nextui-org/link';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import GoHome from '@/components/GoHome';
 import supabase from '@/utils/supabase';
 
 export default function Feedback() {
@@ -35,7 +34,6 @@ export default function Feedback() {
   return (
     <div className="mt-20 w-screen px-10 sm:w-[70vw] md:w-[50vw] lg:w-[40vw]">
       <h1 className="flex items-center gap-3 text-3xl font-semibold">
-        <GoHome />
         Feedback
       </h1>
       <div className="mt-10 text-sm">

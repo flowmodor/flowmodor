@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import Menu from '@/components/Menu';
+import Sidebar from '@/components/Layout/Sidebar';
 import { getServerClient } from '@/utils/supabase';
 import { MixpanelProvider, TourCustomProvider } from './providers';
 
@@ -19,7 +19,7 @@ export default async function AppLayout({
     return (
       <TourCustomProvider>
         <MixpanelProvider>
-          <Menu />
+          <Sidebar />
           {children}
         </MixpanelProvider>
       </TourCustomProvider>
@@ -28,7 +28,7 @@ export default async function AppLayout({
 
   return (
     <MixpanelProvider>
-      <Menu />
+      <Sidebar />
       {children}
     </MixpanelProvider>
   );

@@ -1,7 +1,6 @@
 import { Link } from '@nextui-org/link';
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
-import GoHome from '@/components/GoHome';
 import Integrations from '@/components/Settings/Integrations';
 import Options from '@/components/Settings/Options';
 import checkIsPro from '@/utils/checkIsPro';
@@ -29,7 +28,6 @@ export default async function Settings() {
   return (
     <div className="mt-20 w-screen px-10 sm:w-[70vw] md:w-[50vw] lg:w-[40vw]">
       <h1 className="mb-10 flex items-center gap-3 text-3xl font-semibold">
-        <GoHome />
         Settings
       </h1>
       {!isPro ? (

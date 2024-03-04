@@ -8,7 +8,6 @@ import {
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import GoHome from '@/components/GoHome';
 import { Cycle } from '@/components/Plans/ProCard';
 import supabase from '@/utils/supabase';
 
@@ -87,7 +86,6 @@ export default function Upgrade({
   return (
     <div className="flex h-full flex-col items-center justify-center gap-5">
       <div className="flex items-center gap-3 text-2xl font-semibold">
-        <GoHome href="/plans" />
         Upgrade to Pro
       </div>
       <PayPalScriptProvider
