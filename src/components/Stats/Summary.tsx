@@ -1,8 +1,10 @@
+import useStatsStore from '@/stores/useStatsStore';
 import calculateFocusTimes from '@/utils/stats/calculateFocusTime';
 import TimeFormatter from './TimeFormatter';
 
-function Summary({ data }: { data: any[] }) {
-  const { totalFocusTime, longestFocusTime } = calculateFocusTimes(data);
+export default function Summary() {
+  const { logs } = useStatsStore((state) => state);
+  const { totalFocusTime, longestFocusTime } = calculateFocusTimes(logs ?? []);
 
   return (
     <div className="flex gap-10">
@@ -17,5 +19,3 @@ function Summary({ data }: { data: any[] }) {
     </div>
   );
 }
-
-export default Summary;

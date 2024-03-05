@@ -1,31 +1,24 @@
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { Link } from '@nextui-org/link';
 import { Spinner } from '@nextui-org/spinner';
-import { Dispatch, SetStateAction, useRef } from 'react';
+import { useRef } from 'react';
 import { toast } from 'react-toastify';
 import { Left, Right } from '@/components/Icons';
 import DateButton from '@/components/Stats/DateButton';
 import LineChart from '@/components/Stats/LineChart';
-import { processLogs } from '@/utils';
+import useStatsStore from '@/stores/useStatsStore';
+import { logsToChartData } from '@/utils';
 import calculateFocusTimes from '@/utils/stats/calculateFocusTime';
-import { LogsWithTasks } from '@/utils/stats/calculateTaskTime';
 import downloadImage from '@/utils/stats/downloadImage';
 import ShareButton from './ShareButton';
 
-export default function DailyStats({
-  logs,
-  date,
-  isBlocked,
-  setDate,
-}: {
-  logs: LogsWithTasks[];
-  date: Date;
-  isBlocked: boolean;
-  setDate: Dispatch<SetStateAction<Date>>;
-}) {
+export default function DailyStats({ isBlocked }: { isBlocked: boolean }) {
+  const { date, logs, goPreviousDay, goNextDay } = useStatsStore(
+    (state) => state,
+  );
+  const totalFocusTime = logs ? calculateFocusTimes(logs).totalFocusTime : 0;
+  const chartData = logs ? logsToChartData(logs) : null;
   const chartRef = useRef<any>(null);
-  const processedLogs = processLogs(logs);
-  const { totalFocusTime } = calculateFocusTimes(logs);
 
   const handleShare = async (openX: boolean) => {
     const isSuccess = await downloadImage(chartRef, totalFocusTime, date);
@@ -43,23 +36,11 @@ export default function DailyStats({
   return (
     <Card className="rounded-lg bg-[#23223C] p-5">
       <CardHeader className="justify-center gap-5 font-semibold">
-        <DateButton
-          onPress={() => {
-            const yesterday = new Date(date);
-            yesterday.setDate(date.getDate() - 1);
-            setDate(yesterday);
-          }}
-        >
+        <DateButton onPress={goPreviousDay}>
           <Left />
         </DateButton>
         {date.toDateString()}
-        <DateButton
-          onPress={() => {
-            const tomorrow = new Date(date);
-            tomorrow.setDate(date.getDate() + 1);
-            setDate(tomorrow);
-          }}
-        >
+        <DateButton onPress={goNextDay}>
           <Right />
         </DateButton>
         {logs && !isBlocked ? <ShareButton handleShare={handleShare} /> : null}
@@ -69,8 +50,8 @@ export default function DailyStats({
           isBlocked ? 'blur-md' : ''
         }`}
       >
-        {logs ? (
-          <LineChart ref={chartRef} data={processedLogs} />
+        {chartData ? (
+          <LineChart ref={chartRef} data={chartData} />
         ) : (
           <Spinner color="primary" />
         )}

@@ -23,7 +23,7 @@ const validateEmail = (email: string) =>
 
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-restricted-syntax */
-const processLogs = (logs: Tables<'logs'>[]) => {
+const logsToChartData = (logs: Tables<'logs'>[]) => {
   const entries = new Map<number, { focus: number; break: number }>();
 
   for (const log of logs) {
@@ -76,6 +76,6 @@ export {
   formatTime,
   validatePassword,
   validateEmail,
-  processLogs,
+  logsToChartData,
   base64ToBlob,
 };
