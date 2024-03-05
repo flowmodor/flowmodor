@@ -1,8 +1,13 @@
-import { Avatar } from '@nextui-org/avatar';
-import { Chart, Comment, Gear, House, MoneyBill, User } from '../Icons';
+import { cookies } from 'next/headers';
+import { getServerClient } from '@/utils/supabase';
+import { Chart, Comment, Gear, House, MoneyBill } from '../Icons';
 import SidebarTab from './SidebarTab';
+import UserDropdown from './UserDropdown';
 
-export default function Sidebar() {
+export default async function Sidebar() {
+  const supabase = getServerClient(cookies());
+  const { data } = await supabase.auth.getUser();
+
   return (
     <div className="py-3 flex flex-col items-center fixed left-0 w-14 h-full bg-[#23223C]">
       <div className="flex flex-col gap-3">
@@ -22,12 +27,7 @@ export default function Sidebar() {
           <Comment />
         </SidebarTab>
       </div>
-      <Avatar
-        color="secondary"
-        showFallback
-        fallback={<User />}
-        className="mt-auto"
-      />
+      <UserDropdown email={data.user?.email ?? ''} />
     </div>
   );
 }
