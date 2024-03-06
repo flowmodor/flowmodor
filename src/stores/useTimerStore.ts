@@ -13,6 +13,7 @@ interface TimerState {
   mode: 'focus' | 'break';
   showTime: boolean;
   isRunning: boolean;
+  stopped: boolean;
   startTimer: () => void;
   stopTimer: () => void;
   log: () => void;
@@ -36,6 +37,7 @@ const useTimerStore = create<TimerState>((set) => ({
   mode: 'focus',
   showTime: true,
   isRunning: false,
+  stopped: true,
   startTimer: async () => {
     const breakRatio = await getBreakRatio();
     set((state) => ({
@@ -133,6 +135,7 @@ const useTimerStore = create<TimerState>((set) => ({
         audio.play();
 
         return {
+          isRunning: false,
           displayTime: 0,
         };
       }
