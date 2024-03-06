@@ -4,9 +4,11 @@ import { ReactNode } from 'react';
 export default function DateButton({
   children,
   onPress,
+  isDisabled,
 }: {
   children: ReactNode;
   onPress: () => void;
+  isDisabled?: boolean;
 }) {
   return (
     <Button
@@ -15,8 +17,13 @@ export default function DateButton({
       radius="full"
       className="bg-secondary fill-white"
       onPress={onPress}
+      isDisabled={isDisabled}
     >
       {children}
     </Button>
   );
 }
+
+DateButton.defaultProps = {
+  isDisabled: false,
+};

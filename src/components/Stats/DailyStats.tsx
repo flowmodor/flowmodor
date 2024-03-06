@@ -39,7 +39,10 @@ export default function DailyStats({ isBlocked }: { isBlocked: boolean }) {
           <Left />
         </DateButton>
         {date.toDateString()}
-        <DateButton onPress={goNextDay}>
+        <DateButton
+          onPress={goNextDay}
+          isDisabled={new Date().getDate() === date.getDate()}
+        >
           <Right />
         </DateButton>
         {logs && !isBlocked ? <ShareButton handleShare={handleShare} /> : null}
