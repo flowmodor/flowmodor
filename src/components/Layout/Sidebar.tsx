@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import Image from 'next/image';
 import { getServerClient } from '@/utils/supabase';
 import { Chart, Comment, Gear, House, MoneyBill } from '../Icons';
 import SidebarTab from './SidebarTab';
@@ -10,7 +11,14 @@ export default async function Sidebar() {
 
   return (
     <div className="py-3 flex flex-col items-center fixed left-0 w-14 h-full bg-[#23223C]">
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col items-center gap-3">
+        <Image
+          src="/images/logo.png"
+          alt="logo"
+          unoptimized
+          width={36}
+          height={36}
+        />
         <SidebarTab tabPathname="/" tabName="Home">
           <House />
         </SidebarTab>
