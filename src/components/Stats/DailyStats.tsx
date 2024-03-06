@@ -1,6 +1,5 @@
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { Link } from '@nextui-org/link';
-import { Spinner } from '@nextui-org/spinner';
 import { useRef } from 'react';
 import { toast } from 'react-toastify';
 import { Left, Right } from '@/components/Icons';
@@ -17,7 +16,7 @@ export default function DailyStats({ isBlocked }: { isBlocked: boolean }) {
     (state) => state,
   );
   const totalFocusTime = logs ? calculateFocusTimes(logs).totalFocusTime : 0;
-  const chartData = logs ? logsToChartData(logs) : null;
+  const chartData = logs ? logsToChartData(logs) : undefined;
   const chartRef = useRef<any>(null);
 
   const handleShare = async (openX: boolean) => {
@@ -50,11 +49,7 @@ export default function DailyStats({ isBlocked }: { isBlocked: boolean }) {
           isBlocked ? 'blur-md' : ''
         }`}
       >
-        {chartData ? (
-          <LineChart ref={chartRef} data={chartData} />
-        ) : (
-          <Spinner color="primary" />
-        )}
+        <LineChart ref={chartRef} data={chartData} />
       </CardBody>
       {isBlocked ? (
         <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform text-white">

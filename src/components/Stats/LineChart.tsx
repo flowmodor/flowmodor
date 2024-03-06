@@ -28,6 +28,9 @@ const options = {
   responsive: true,
   scales: {
     x: {
+      min: 0,
+      max: 23,
+      stepSize: 1,
       grid: {
         color: '#3F3E55',
       },
@@ -36,7 +39,9 @@ const options = {
       },
     },
     y: {
+      min: 0,
       max: 60,
+      stepSize: 10,
       grid: {
         color: '#3F3E55',
       },
@@ -114,6 +119,7 @@ function LineChart({ data }: Props, ref: ForwardedRef<any>) {
               hoverBorderColor: '#D6B6FF',
               backgroundColor: '#D6B6FF10',
               fill: true,
+              clip: false,
               tension: 0.5,
               pointHoverRadius: 7,
               pointHitRadius: 30,
@@ -127,6 +133,7 @@ function LineChart({ data }: Props, ref: ForwardedRef<any>) {
               hoverBorderColor: '#3F3E55',
               backgroundColor: '#3F3E5510',
               fill: true,
+              clip: false,
               tension: 0.5,
               pointHoverRadius: 7,
               pointHitRadius: 30,
