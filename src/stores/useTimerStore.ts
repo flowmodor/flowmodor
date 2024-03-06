@@ -2,6 +2,7 @@
 import mixpanel from 'mixpanel-browser';
 import { create } from 'zustand';
 import supabase from '@/utils/supabase';
+import useStatsStore from './useStatsStore';
 import useTasksStore from './useTasksStore';
 
 interface TimerState {
@@ -70,6 +71,8 @@ const useTimerStore = create<TimerState>((set) => ({
         isRunning: false,
       };
     });
+
+    await useStatsStore.getState().updateLogs();
   },
   log: async () => {
     const start_time = new Date(

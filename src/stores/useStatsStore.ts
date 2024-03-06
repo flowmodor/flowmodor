@@ -5,7 +5,7 @@ import supabase from '@/utils/supabase';
 interface StatsStore {
   date: Date;
   logs: LogsWithTasks[] | null;
-  updateLogs: () => void;
+  updateLogs: () => Promise<void>;
   goNextDay: () => void;
   goPreviousDay: () => void;
 }
