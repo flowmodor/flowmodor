@@ -11,6 +11,7 @@ export type Task = Omit<Tables<'tasks'>, 'user_id' | 'created_at'>;
 interface TasksState {
   tasks: Task[];
   focusingTask: Task | null;
+  isLoadingTasks: boolean;
   lists: { provider: string; name: string; id: string }[];
   activeList: string;
   isLoadingLists: boolean;
@@ -27,6 +28,7 @@ interface TasksState {
 const useTasksStore = create<TasksState>((set) => ({
   tasks: [],
   focusingTask: null,
+  isLoadingTasks: true,
   lists: [
     {
       provider: 'Flowmodor',
@@ -38,7 +40,7 @@ const useTasksStore = create<TasksState>((set) => ({
   isLoadingLists: true,
   focusTask: (task) => set(() => ({ focusingTask: task })),
   fetchTasks: async () => {
-    set({ focusingTask: null });
+    set({ focusingTask: null, isLoadingTasks: true });
     const [provider, id] = useTasksStore.getState().activeList.split(' - ', 2);
 
     const { data: integrationsData } = await supabase
@@ -61,20 +63,19 @@ const useTasksStore = create<TasksState>((set) => ({
         name: task.content,
         completed: task.isCompleted,
       }));
-      set({ tasks: processedTasks });
+      set({ tasks: processedTasks, isLoadingTasks: false });
     } else {
       const { data } = await supabase
         .from('tasks')
         .select('*')
         .is('completed', false);
-      set({ tasks: data! });
+      set({ tasks: data!, isLoadingTasks: false });
     }
   },
   addTask: async (name) => {
     const [provider, projectId] = useTasksStore
       .getState()
       .activeList.split(' - ', 2);
-    console.log(projectId);
     const todoist = await getClient();
     if (provider === 'Todoist' && todoist) {
       try {

@@ -1,15 +1,19 @@
 import { Card, CardBody } from '@nextui-org/card';
 import { Select, SelectItem } from '@nextui-org/select';
-import { useTransition } from 'react';
 import useTasksStore from '@/stores/useTasksStore';
 import TabWrapper from '../TabWrapper';
 import Tasks from './Tasks';
 import Toolbar from './Toolbar';
 
 export default function TasksTab() {
-  const { lists, activeList, isLoadingLists, onListChange, fetchTasks } =
-    useTasksStore((state) => state);
-  const [isFetching, startTransition] = useTransition();
+  const {
+    lists,
+    activeList,
+    isLoadingTasks,
+    isLoadingLists,
+    onListChange,
+    fetchTasks,
+  } = useTasksStore((state) => state);
 
   return (
     <TabWrapper>
@@ -29,15 +33,12 @@ export default function TasksTab() {
               popoverContent: 'bg-background',
             }}
             selectedKeys={[activeList]}
-            onChange={(e) => {
+            onChange={async (e) => {
               const isSuccess = onListChange(e);
               if (!isSuccess) {
                 return;
               }
-
-              startTransition(async () => {
-                await fetchTasks();
-              });
+              await fetchTasks();
             }}
           >
             {lists.map((list) => (
@@ -51,7 +52,7 @@ export default function TasksTab() {
               </SelectItem>
             ))}
           </Select>
-          <Tasks isLoading={isFetching} />
+          <Tasks isLoading={isLoadingTasks} />
         </CardBody>
       </Card>
       <Card className="bg-[#23223C]">

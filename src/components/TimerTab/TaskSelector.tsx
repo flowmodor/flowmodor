@@ -5,11 +5,14 @@ import useTimerStore from '@/stores/useTimerStore';
 
 export default function TaskSelector() {
   const { isRunning } = useTimerStore((state) => state);
-  const { tasks, focusingTask, focusTask } = useTasksStore((state) => state);
+  const { tasks, isLoadingTasks, focusingTask, focusTask } = useTasksStore(
+    (state) => state,
+  );
 
   return (
     <Select
       isDisabled={isRunning || tasks.length === 0}
+      isLoading={isLoadingTasks}
       selectionMode="single"
       selectedKeys={focusingTask ? [focusingTask.id.toString()] : []}
       label="Select a task"
