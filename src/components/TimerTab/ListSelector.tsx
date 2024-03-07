@@ -12,6 +12,11 @@ export default function ListSelector() {
       selectionMode="single"
       label="Select a list"
       isLoading={isLoadingLists}
+      description={
+        lists.length === 1
+          ? 'Connect Todoist in settings to access multiple lists'
+          : null
+      }
       classNames={{
         trigger: 'bg-secondary data-[hover=true]:bg-secondary',
         popoverContent: 'bg-background',
