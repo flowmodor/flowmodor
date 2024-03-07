@@ -17,6 +17,7 @@ interface TasksState {
   addTask: (name: string) => Promise<void>;
   completeTask: (task: Task) => Promise<void>;
   undoCompleteTask: (task: Task) => Promise<void>;
+  updateLists: () => Promise<void>;
   focusTask: (task: Task) => void;
   fetchTasks: () => Promise<void>;
   subscribeToTasks: () => void;
@@ -154,6 +155,41 @@ const useTasksStore = create<TasksState>((set) => ({
       toast.dismiss(task.id);
     }
   },
+  updateLists: async () => {
+    const todoist = await getClient();
+    if (todoist) {
+      const data = await todoist.getProjects();
+      const todoistLists = data.map((list) => ({
+        provider: 'Todoist',
+        name: list.name,
+        id: list.id,
+      }));
+      todoistLists.unshift({
+        provider: 'Todoist',
+        name: 'All',
+        id: 'all',
+      });
+      set((state) => ({
+        lists: [...state.lists, ...todoistLists],
+        activeList: 'Flowmodor - default',
+        isLoadingLists: false,
+      }));
+      useTasksStore.getState().fetchTasks();
+      return;
+    }
+
+    set((state) => {
+      const newLists = state.lists.filter(
+        (list) => list.provider !== 'Todoist',
+      );
+      return {
+        lists: newLists,
+        activeList: 'Flowmodor - default',
+        isLoadingLists: false,
+      };
+    });
+    useTasksStore.getState().fetchTasks();
+  },
   subscribeToTasks: () => {
     const tasksChannel = supabase.channel('tasks');
     tasksChannel.on(
@@ -203,25 +239,4 @@ useTasksStore
     useTasksStore.getState().subscribeToTasks();
   });
 
-getClient().then(async (todoist) => {
-  if (!todoist) {
-    useTasksStore.setState({ isLoadingLists: false });
-    return;
-  }
-
-  const data = await todoist.getProjects();
-  const todoistLists = data.map((list) => ({
-    provider: 'Todoist',
-    name: list.name,
-    id: list.id,
-  }));
-  todoistLists.unshift({
-    provider: 'Todoist',
-    name: 'All',
-    id: 'all',
-  });
-  useTasksStore.setState({
-    lists: [...useTasksStore.getState().lists, ...todoistLists],
-    isLoadingLists: false,
-  });
-});
+useTasksStore.getState().updateLists();

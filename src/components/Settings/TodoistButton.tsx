@@ -3,8 +3,8 @@
 import { Button } from '@nextui-org/button';
 import { useTransition } from 'react';
 import { connectTodoist, disconnectTodoist } from '@/actions/settings';
+import useTasksStore from '@/stores/useTasksStore';
 import { Enums } from '@/types/supabase';
-import { revalidatePath } from 'next/cache';
 import { Todoist } from '../Icons';
 
 export default function TodoistButton({
@@ -12,7 +12,9 @@ export default function TodoistButton({
 }: {
   provider: Enums<'provider'> | null | undefined;
 }) {
+  const { updateLists } = useTasksStore((state) => state);
   const [isPending, startTransition] = useTransition();
+
   return (
     <Button
       color="secondary"
@@ -22,6 +24,7 @@ export default function TodoistButton({
         startTransition(async () => {
           if (provider === 'todoist') {
             await disconnectTodoist();
+            await updateLists();
           } else {
             await connectTodoist();
           }
