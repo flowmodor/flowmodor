@@ -1,19 +1,12 @@
 import { Card, CardBody } from '@nextui-org/card';
-import { Select, SelectItem } from '@nextui-org/select';
 import useTasksStore from '@/stores/useTasksStore';
 import TabWrapper from '../TabWrapper';
+import ListSelector from '../TimerTab/ListSelector';
 import Tasks from './Tasks';
 import Toolbar from './Toolbar';
 
 export default function TasksTab() {
-  const {
-    lists,
-    activeList,
-    isLoadingTasks,
-    isLoadingLists,
-    onListChange,
-    fetchTasks,
-  } = useTasksStore((state) => state);
+  const { isLoadingTasks } = useTasksStore((state) => state);
 
   return (
     <TabWrapper>
@@ -22,36 +15,7 @@ export default function TasksTab() {
           className="itesm flex h-full w-full flex-col gap-3
             overflow-y-scroll scrollbar-hide"
         >
-          <Select
-            size="sm"
-            radius="sm"
-            selectionMode="single"
-            label="Select a list"
-            isLoading={isLoadingLists}
-            classNames={{
-              trigger: 'bg-secondary data-[hover=true]:bg-secondary',
-              popoverContent: 'bg-background',
-            }}
-            selectedKeys={[activeList]}
-            onChange={async (e) => {
-              const isSuccess = onListChange(e);
-              if (!isSuccess) {
-                return;
-              }
-              await fetchTasks();
-            }}
-          >
-            {lists.map((list) => (
-              <SelectItem
-                key={`${list.provider} - ${list.id}`}
-                classNames={{
-                  base: 'data-[focus=true]:!bg-secondary data-[hover=true]:!bg-secondary',
-                }}
-              >
-                {`${list.provider} - ${list.name}`}
-              </SelectItem>
-            ))}
-          </Select>
+          <ListSelector />
           <Tasks isLoading={isLoadingTasks} />
         </CardBody>
       </Card>
