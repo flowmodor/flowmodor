@@ -13,13 +13,14 @@ interface TasksState {
   focusingTask: Task | null;
   lists: { provider: string; name: string; id: string }[];
   activeList: string;
+  isLoadingLists: boolean;
   addTask: (name: string) => Promise<void>;
   completeTask: (task: Task) => Promise<void>;
   undoCompleteTask: (task: Task) => Promise<void>;
   focusTask: (task: Task) => void;
   fetchTasks: () => Promise<void>;
   subscribeToTasks: () => void;
-  onListChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+  onListChange: (e: ChangeEvent<HTMLSelectElement>) => boolean;
 }
 
 const useTasksStore = create<TasksState>((set) => ({
@@ -33,6 +34,7 @@ const useTasksStore = create<TasksState>((set) => ({
     },
   ],
   activeList: 'Flowmodor - default',
+  isLoadingLists: true,
   focusTask: (task) => set(() => ({ focusingTask: task })),
   fetchTasks: async () => {
     set({ focusingTask: null });
@@ -183,7 +185,12 @@ const useTasksStore = create<TasksState>((set) => ({
     tasksChannel.subscribe();
   },
   onListChange: (e) => {
+    if (e.target.value === '') {
+      return false;
+    }
+
     set({ activeList: e.target.value });
+    return true;
   },
 }));
 
@@ -198,6 +205,7 @@ useTasksStore
 
 getClient().then(async (todoist) => {
   if (!todoist) {
+    useTasksStore.setState({ isLoadingLists: false });
     return;
   }
 
@@ -214,5 +222,6 @@ getClient().then(async (todoist) => {
   });
   useTasksStore.setState({
     lists: [...useTasksStore.getState().lists, ...todoistLists],
+    isLoadingLists: false,
   });
 });

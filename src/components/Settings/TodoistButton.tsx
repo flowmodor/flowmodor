@@ -4,6 +4,7 @@ import { Button } from '@nextui-org/button';
 import { useTransition } from 'react';
 import { connectTodoist, disconnectTodoist } from '@/actions/settings';
 import { Enums } from '@/types/supabase';
+import { revalidatePath } from 'next/cache';
 import { Todoist } from '../Icons';
 
 export default function TodoistButton({

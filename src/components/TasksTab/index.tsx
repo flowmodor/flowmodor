@@ -7,9 +7,8 @@ import Tasks from './Tasks';
 import Toolbar from './Toolbar';
 
 export default function TasksTab() {
-  const { lists, activeList, onListChange, fetchTasks } = useTasksStore(
-    (state) => state,
-  );
+  const { lists, activeList, isLoadingLists, onListChange, fetchTasks } =
+    useTasksStore((state) => state);
   const [isFetching, startTransition] = useTransition();
 
   return (
@@ -19,36 +18,39 @@ export default function TasksTab() {
           className="itesm flex h-full w-full flex-col gap-3
             overflow-y-scroll scrollbar-hide"
         >
-          {lists.length > 1 && (
-            <Select
-              size="sm"
-              radius="sm"
-              selectionMode="single"
-              label="Select a list"
-              classNames={{
-                trigger: 'bg-secondary data-[hover=true]:bg-secondary',
-                popoverContent: 'bg-background',
-              }}
-              selectedKeys={[activeList]}
-              onChange={(e) => {
-                onListChange(e);
-                startTransition(async () => {
-                  await fetchTasks();
-                });
-              }}
-            >
-              {lists.map((list) => (
-                <SelectItem
-                  key={`${list.provider} - ${list.id}`}
-                  classNames={{
-                    base: 'data-[focus=true]:!bg-secondary data-[hover=true]:!bg-secondary',
-                  }}
-                >
-                  {`${list.provider} - ${list.name}`}
-                </SelectItem>
-              ))}
-            </Select>
-          )}
+          <Select
+            size="sm"
+            radius="sm"
+            selectionMode="single"
+            label="Select a list"
+            isLoading={isLoadingLists}
+            classNames={{
+              trigger: 'bg-secondary data-[hover=true]:bg-secondary',
+              popoverContent: 'bg-background',
+            }}
+            selectedKeys={[activeList]}
+            onChange={(e) => {
+              const isSuccess = onListChange(e);
+              if (!isSuccess) {
+                return;
+              }
+
+              startTransition(async () => {
+                await fetchTasks();
+              });
+            }}
+          >
+            {lists.map((list) => (
+              <SelectItem
+                key={`${list.provider} - ${list.id}`}
+                classNames={{
+                  base: 'data-[focus=true]:!bg-secondary data-[hover=true]:!bg-secondary',
+                }}
+              >
+                {`${list.provider} - ${list.name}`}
+              </SelectItem>
+            ))}
+          </Select>
           <Tasks isLoading={isFetching} />
         </CardBody>
       </Card>
