@@ -15,8 +15,8 @@ interface TimerState {
   isRunning: boolean;
   stopped: boolean;
   startTimer: () => void;
-  stopTimer: () => void;
-  log: () => void;
+  stopTimer: () => Promise<void>;
+  log: () => Promise<void>;
   tickTimer: (nextStep: () => void) => void;
   toggleShowTime: () => void;
 }
@@ -128,8 +128,8 @@ const useTimerStore = create<TimerState>((set) => ({
       }
 
       if (state.mode === 'break' && time <= 0) {
-        state.stopTimer();
         state.log();
+        state.stopTimer();
         nextStep();
         const audio = new Audio('/alarm.mp3');
         audio.play();

@@ -25,10 +25,10 @@ export default function Toolbar() {
         variant="flat"
         isIconOnly
         className="bg-secondary"
-        onPress={() => {
+        onPress={async () => {
           if (isRunning) {
-            stopTimer();
-            log();
+            await log();
+            await stopTimer();
           } else {
             startTimer();
           }
