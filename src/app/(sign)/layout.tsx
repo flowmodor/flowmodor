@@ -7,7 +7,7 @@ export default function SignLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-screen flex items-center">
+    <div className="h-screen flex items-center justify-center">
       <Link
         href="https://flowmodor.com"
         className="absolute left-5 top-5 flex items-center gap-2 text-white sm:left-10 sm:top-10"

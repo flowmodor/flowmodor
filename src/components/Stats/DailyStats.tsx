@@ -33,7 +33,7 @@ export default function DailyStats({ isBlocked }: { isBlocked: boolean }) {
   };
 
   return (
-    <Card className="rounded-lg bg-[#23223C] p-5">
+    <Card radius='sm' className="bg-[#23223C] p-5">
       <CardHeader className="justify-center gap-5 font-semibold">
         <DateButton onPress={goPreviousDay}>
           <Left />

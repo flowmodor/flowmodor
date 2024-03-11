@@ -19,8 +19,7 @@ export default async function AppLayout({
     return (
       <TourCustomProvider>
         <MixpanelProvider>
-          <Sidebar />
-          {children}
+          <Sidebar>{children}</Sidebar>
         </MixpanelProvider>
       </TourCustomProvider>
     );
@@ -28,8 +27,7 @@ export default async function AppLayout({
 
   return (
     <MixpanelProvider>
-      <Sidebar />
-      {children}
+      <Sidebar>{children}</Sidebar>
     </MixpanelProvider>
   );
 }

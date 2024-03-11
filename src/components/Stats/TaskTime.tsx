@@ -1,22 +1,47 @@
-import { Card, CardBody } from '@nextui-org/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from '@nextui-org/table';
 import useStatsStore from '@/stores/useStatsStore';
 import { calculateTaskTime } from '@/utils/stats/calculateTaskTime';
-import TimeFormatter from './TimeFormatter';
 
 export default function TaskTime() {
   const { logs } = useStatsStore((state) => state);
   const taskTime = calculateTaskTime(logs ?? []);
 
-  if (taskTime.length === 0) return null;
-
   return (
-    <Card className="mt-5 rounded-lg bg-[#23223C] p-5">
-      {taskTime.map((data) => (
-        <CardBody key={data.name}>
-          <p>{data.name}</p>
-          <TimeFormatter minutes={Math.round(data.time)} />
-        </CardBody>
-      ))}
-    </Card>
+    <Table
+      radius="sm"
+      color="secondary"
+      className="h-full"
+      classNames={{
+        wrapper: 'h-full bg-[#23223C]',
+        th: 'bg-secondary',
+      }}
+    >
+      <TableHeader>
+        <TableColumn>Task</TableColumn>
+        <TableColumn>Time</TableColumn>
+      </TableHeader>
+      <TableBody emptyContent="No tasks to display">
+        {taskTime.map((data) => (
+          <TableRow key={data.name}>
+            <TableCell>{data.name}</TableCell>
+            <TableCell>
+              {Math.floor(data.time / 60) > 0 ? (
+                <span>{Math.floor(data.time / 60)} hr </span>
+              ) : null}
+              {data.time % 60 > 0 ? (
+                <span>{Math.floor(data.time % 60)} min</span>
+              ) : null}
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 }

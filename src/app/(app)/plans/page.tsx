@@ -31,7 +31,7 @@ export default async function Plans() {
           </>
         ) : null}
       </div>
-      <div className="flex flex-col items-center justify-center gap-10 lg:flex-row lg:items-stretch">
+      <div className="flex mx-5 flex-col items-center justify-center gap-10 lg:flex-row lg:items-stretch">
         <StarterCard status={status} id={id} />
         <ProCard status={status} planId={planId} />
       </div>

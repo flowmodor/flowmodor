@@ -15,5 +15,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       persistence: 'localStorage',
     });
   }, []);
-  return <NextUIProvider navigate={router.push}>{children}</NextUIProvider>;
+  return (
+    <NextUIProvider navigate={router.push} className="w-full">
+      {children}
+    </NextUIProvider>
+  );
 }

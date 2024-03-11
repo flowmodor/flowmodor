@@ -10,15 +10,14 @@ export default function Wrapper({ isPro }: { isPro: boolean }) {
   const isBlocked = !isPro && date.toDateString() !== new Date().toDateString();
 
   return (
-    <div className="flex flex-col gap-5 py-10">
-      <div className="flex flex-col items-center justify-between gap-10 px-5 md:flex-row md:gap-0">
-        <h1 className="flex items-center gap-3 self-start text-3xl font-semibold">
-          Stats
-        </h1>
-        {!isBlocked ? <Summary /> : null}
-      </div>
+    <div className="w-full p-5 flex flex-col h-max lg:h-auto lg:justify-center lg:flex-row gap-5">
       <DailyStats isBlocked={isBlocked} />
-      {!isBlocked ? <TaskTime /> : null}
+      {!isBlocked ? (
+        <div className="flex flex-col gap-5 xl:min-w-[28rem]">
+          <Summary />
+          <TaskTime />
+        </div>
+      ) : null}
     </div>
   );
 }
