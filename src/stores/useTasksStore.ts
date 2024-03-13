@@ -20,6 +20,7 @@ interface TasksState {
   undoCompleteTask: (task: Task) => Promise<void>;
   updateLists: () => Promise<void>;
   focusTask: (task: Task) => void;
+  unfocusTask: () => void;
   fetchTasks: () => Promise<void>;
   subscribeToTasks: () => void;
   onListChange: (e: ChangeEvent<HTMLSelectElement>) => boolean;
@@ -39,6 +40,7 @@ const useTasksStore = create<TasksState>((set) => ({
   activeList: 'Flowmodor - default',
   isLoadingLists: true,
   focusTask: (task) => set(() => ({ focusingTask: task })),
+  unfocusTask: () => set(() => ({ focusingTask: null })),
   fetchTasks: async () => {
     set({ focusingTask: null, isLoadingTasks: true });
     const [provider, id] = useTasksStore.getState().activeList.split(' - ', 2);

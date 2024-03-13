@@ -5,9 +5,8 @@ import useTimerStore from '@/stores/useTimerStore';
 
 export default function TaskSelector() {
   const { isRunning } = useTimerStore((state) => state);
-  const { tasks, isLoadingTasks, focusingTask, focusTask } = useTasksStore(
-    (state) => state,
-  );
+  const { tasks, isLoadingTasks, focusingTask, focusTask, unfocusTask } =
+    useTasksStore((state) => state);
 
   return (
     <Select
@@ -25,6 +24,11 @@ export default function TaskSelector() {
       }}
       onChange={(e) => {
         const task = tasks.find((t) => t.id === parseInt(e.target.value, 10));
+
+        if (e.target.value === '') {
+          unfocusTask();
+        }
+
         if (task) {
           focusTask(task);
         }
