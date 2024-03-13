@@ -9,7 +9,7 @@ import {
 import useStatsStore from '@/stores/useStatsStore';
 import { calculateTaskTime } from '@/utils/stats/calculateTaskTime';
 
-export default function TaskTime() {
+export default function TaskTime({ isBlocked }: { isBlocked: boolean }) {
   const { logs } = useStatsStore((state) => state);
   const taskTime = calculateTaskTime(logs ?? []);
 
@@ -28,19 +28,21 @@ export default function TaskTime() {
         <TableColumn>Time</TableColumn>
       </TableHeader>
       <TableBody emptyContent="No tasks to display">
-        {taskTime.map((data) => (
-          <TableRow key={data.name}>
-            <TableCell>{data.name}</TableCell>
-            <TableCell>
-              {Math.floor(data.time / 60) > 0 ? (
-                <span>{Math.floor(data.time / 60)} hr </span>
-              ) : null}
-              {data.time % 60 > 0 ? (
-                <span>{Math.floor(data.time % 60)} min</span>
-              ) : null}
-            </TableCell>
-          </TableRow>
-        ))}
+        {isBlocked
+          ? []
+          : taskTime.map((data) => (
+              <TableRow key={data.name}>
+                <TableCell>{data.name}</TableCell>
+                <TableCell>
+                  {Math.floor(data.time / 60) > 0 ? (
+                    <span>{Math.floor(data.time / 60)} hr </span>
+                  ) : null}
+                  {data.time % 60 > 0 ? (
+                    <span>{Math.floor(data.time % 60)} min</span>
+                  ) : null}
+                </TableCell>
+              </TableRow>
+            ))}
       </TableBody>
     </Table>
   );

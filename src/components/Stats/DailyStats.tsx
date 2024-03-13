@@ -33,7 +33,7 @@ export default function DailyStats({ isBlocked }: { isBlocked: boolean }) {
   };
 
   return (
-    <Card radius='sm' className="bg-[#23223C] p-5">
+    <Card radius="sm" className="bg-[#23223C] p-5">
       <CardHeader className="justify-center gap-5 font-semibold">
         <DateButton onPress={goPreviousDay}>
           <Left />
@@ -49,7 +49,7 @@ export default function DailyStats({ isBlocked }: { isBlocked: boolean }) {
       </CardHeader>
       <CardBody
         className={`flex items-center justify-center lg:min-h-[60vh] lg:min-w-[50vw] ${
-          isBlocked ? 'blur-md' : ''
+          isBlocked ? 'blur-lg' : ''
         }`}
       >
         <LineChart ref={chartRef} data={chartData} />

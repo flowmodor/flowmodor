@@ -3,7 +3,7 @@ import useStatsStore from '@/stores/useStatsStore';
 import calculateFocusTimes from '@/utils/stats/calculateFocusTime';
 import TimeFormatter from './TimeFormatter';
 
-export default function Summary() {
+export default function Summary({ isBlocked }: { isBlocked: boolean }) {
   const { logs } = useStatsStore((state) => state);
   const { totalFocusTime, longestFocusTime } = calculateFocusTimes(logs ?? []);
 
@@ -14,11 +14,11 @@ export default function Summary() {
     >
       <div className="flex flex-col items-center text-sm">
         Total Focus
-        <TimeFormatter minutes={Math.round(totalFocusTime)} />
+        <TimeFormatter minutes={isBlocked ? 0 : Math.round(totalFocusTime)} />
       </div>
       <div className="flex flex-col items-center text-sm">
         Longest Focus
-        <TimeFormatter minutes={Math.round(longestFocusTime)} />
+        <TimeFormatter minutes={isBlocked ? 0 : Math.round(longestFocusTime)} />
       </div>
     </Card>
   );
