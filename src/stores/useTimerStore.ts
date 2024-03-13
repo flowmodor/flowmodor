@@ -14,7 +14,7 @@ interface TimerState {
   showTime: boolean;
   isRunning: boolean;
   stopped: boolean;
-  startTimer: () => void;
+  startTimer: () => Promise<void>;
   stopTimer: () => Promise<void>;
   log: () => Promise<void>;
   tickTimer: (nextStep: () => void) => void;
