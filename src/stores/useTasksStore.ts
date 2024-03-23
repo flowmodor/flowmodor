@@ -6,7 +6,9 @@ import { Tables } from '@/types/supabase';
 import supabase from '@/utils/supabase';
 import getClient from '@/utils/todoist';
 
-export type Task = Omit<Tables<'tasks'>, 'user_id' | 'created_at'>;
+export type Task = Omit<Tables<'tasks'>, 'user_id' | 'created_at'> & {
+  labels?: string[];
+};
 
 interface TasksState {
   tasks: Task[];
@@ -64,6 +66,7 @@ const useTasksStore = create<TasksState>((set) => ({
         id: parseInt(task.id, 10),
         name: task.content,
         completed: task.isCompleted,
+        labels: task.labels,
       }));
       set({ tasks: processedTasks, isLoadingTasks: false });
     } else {
@@ -142,6 +145,7 @@ const useTasksStore = create<TasksState>((set) => ({
               id: parseInt(task.id.toString(), 10),
               name: task.name,
               completed: false,
+              labels: task.labels,
             },
             ...useTasksStore.getState().tasks,
           ],

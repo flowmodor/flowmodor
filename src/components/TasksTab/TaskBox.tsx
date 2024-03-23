@@ -23,7 +23,7 @@ export default function TaskBox({ task }: { task: Task }) {
   );
 
   return (
-    <div className="flex min-h-[4rem] items-center border-b border-b-secondary px-4">
+    <div className="flex min-h-[4rem] items-center border-b border-b-secondary px-4 py-1">
       <Checkbox
         isDisabled={
           isRunning && mode === 'focus' && task.id === focusingTask?.id
@@ -43,7 +43,12 @@ export default function TaskBox({ task }: { task: Task }) {
           });
         }}
       >
-        {task.name}
+        <div>
+          {task.name}
+          <div className="gap-x-2 flex text-[#ffffffa0] text-sm flex-wrap">
+            {task.labels?.map((label) => <div key={label}>#{label}</div>)}
+          </div>
+        </div>
       </Checkbox>
     </div>
   );
