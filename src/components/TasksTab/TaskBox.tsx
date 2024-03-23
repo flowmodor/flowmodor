@@ -1,6 +1,5 @@
-import { Button } from '@nextui-org/button';
 import { Checkbox } from '@nextui-org/checkbox';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import useTasksStore, { Task } from '@/stores/useTasksStore';
 import useTimerStore from '@/stores/useTimerStore';
 
@@ -8,18 +7,6 @@ export default function TaskBox({ task }: { task: Task }) {
   const { isRunning, mode } = useTimerStore((state) => state);
   const { focusingTask, completeTask, undoCompleteTask } = useTasksStore(
     (state) => state,
-  );
-
-  const undoButton = () => (
-    <Button
-      color="secondary"
-      radius="sm"
-      onClick={async () => {
-        await undoCompleteTask(task);
-      }}
-    >
-      Undo
-    </Button>
   );
 
   return (
@@ -38,8 +25,12 @@ export default function TaskBox({ task }: { task: Task }) {
           await completeTask(task);
 
           toast(`Task ${task.name} completed.`, {
-            closeButton: undoButton,
-            toastId: task.id,
+            action: {
+              label: 'Undo',
+              onClick: async () => {
+                await undoCompleteTask(task);
+              },
+            },
           });
         }}
       >

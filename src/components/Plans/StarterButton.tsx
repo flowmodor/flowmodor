@@ -12,7 +12,7 @@ import {
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import getAccessToken from '@/utils/paypal';
 
 async function cancelSubscription(id: string, router: AppRouterInstance) {
@@ -32,10 +32,10 @@ async function cancelSubscription(id: string, router: AppRouterInstance) {
       console.error(response);
       throw new Error('Something went wrong');
     }
-    toast('Subscription cancelled successfully');
+    toast.success('Subscription cancelled successfully');
     router.refresh();
   } catch (error: any) {
-    toast(error.message);
+    toast.error(error.message);
   }
 }
 

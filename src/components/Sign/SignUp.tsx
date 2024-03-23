@@ -4,7 +4,7 @@ import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { Link } from '@nextui-org/link';
 import { useState, useTransition } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { signUp } from '@/actions/auth';
 import { Hide, Show } from '@/components/Icons';
 import { validateEmail, validatePassword } from '@/utils';
@@ -88,13 +88,13 @@ export default function SignUp() {
             const { error } = await signUp(emailValue, passwordValue);
 
             if (error) {
+              toast.error('Something went wrong. Please try again.');
               console.error(error);
+            } else {
+              toast.success(
+                'Sign up successfully! Check your email to verify your account.',
+              );
             }
-
-            const message = error
-              ? 'Something went wrong. Please try again.'
-              : 'Sign up successfully! Check your email to verify your account.';
-            toast(message);
 
             setEmailValue('');
             setPasswordValue('');

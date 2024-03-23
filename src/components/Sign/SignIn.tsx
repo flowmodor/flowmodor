@@ -6,7 +6,7 @@ import { Link } from '@nextui-org/link';
 import mixpanel from 'mixpanel-browser';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { Google } from '@/components/Icons';
 import Or from '@/components/Or';
 import useSignIn from '@/hooks/useSignIn';
@@ -25,7 +25,7 @@ export default function SignIn() {
     const { data, error } = await signIn();
 
     if (error) {
-      toast(error.message);
+      toast.error(error.message);
       console.error(error);
     } else {
       if (data?.user?.id) {

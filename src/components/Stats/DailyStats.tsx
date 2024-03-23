@@ -1,7 +1,7 @@
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { Link } from '@nextui-org/link';
 import { useRef } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { Left, Right } from '@/components/Icons';
 import DateButton from '@/components/Stats/DateButton';
 import LineChart from '@/components/Stats/LineChart';
@@ -22,7 +22,7 @@ export default function DailyStats({ isBlocked }: { isBlocked: boolean }) {
   const handleShare = async (openX: boolean) => {
     const isSuccess = await downloadImage(chartRef, totalFocusTime, date);
     if (!isSuccess) {
-      toast('Error downloading image. Please try again.');
+      toast.error('Error downloading image. Please try again.');
       return;
     }
     if (openX) {

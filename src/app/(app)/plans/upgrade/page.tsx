@@ -7,7 +7,7 @@ import {
 } from '@paypal/react-paypal-js';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { Cycle } from '@/components/Plans/ProCard';
 import supabase from '@/utils/supabase';
 
@@ -54,7 +54,7 @@ function ButtonWrapper({
           .then((orderId) => orderId)
       }
       onApprove={async () => {
-        toast('Subscribed to Pro successfully!');
+        toast.success('Subscribed to Pro successfully!');
         router.push('/plans');
       }}
       style={{

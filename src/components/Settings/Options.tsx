@@ -3,8 +3,8 @@
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { useState, useTransition } from 'react';
-import { toast } from 'react-toastify';
 import { updateOptions } from '@/actions/settings';
+import { toast } from 'sonner';
 
 export default function Options({
   isPro,
@@ -50,9 +50,9 @@ export default function Options({
               const { error } = await updateOptions(breakRatio);
 
               if (error) {
-                toast(error.message);
+                toast.error(error.message);
               } else {
-                toast('Settings updated successfully!');
+                toast.success('Settings updated successfully!');
               }
             });
           }}

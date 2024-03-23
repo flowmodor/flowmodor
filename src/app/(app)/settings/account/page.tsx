@@ -4,7 +4,7 @@ import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { Hide, Show } from '@/components/Icons';
 import useChangePassword from '@/hooks/useChangePassword';
 import { validatePassword } from '@/utils';
@@ -27,9 +27,9 @@ export default function Account() {
     setConfirm('');
 
     if (error) {
-      toast(error.message);
+      toast.error(error.message);
     } else {
-      toast('Password changed successfully.');
+      toast.success('Password changed successfully.');
       router.push('/');
     }
   };

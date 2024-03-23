@@ -4,7 +4,7 @@ import { Button } from '@nextui-org/button';
 import { Textarea } from '@nextui-org/input';
 import { Link } from '@nextui-org/link';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import supabase from '@/utils/supabase';
 
 export default function Feedback() {
@@ -24,10 +24,10 @@ export default function Feedback() {
     ]);
 
     if (!error) {
-      toast('Feedback sent successfully!');
+      toast.success('Feedback sent successfully!');
       setValue('');
     } else {
-      toast(error.message);
+      toast.error(error.message);
     }
   };
 

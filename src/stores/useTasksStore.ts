@@ -1,6 +1,6 @@
 import { TodoistApi } from '@doist/todoist-api-typescript';
 import { ChangeEvent } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { create } from 'zustand';
 import { Tables } from '@/types/supabase';
 import supabase from '@/utils/supabase';
@@ -101,7 +101,7 @@ const useTasksStore = create<TasksState>((set) => ({
       const { error } = await supabase.from('tasks').insert([{ name }]);
 
       if (error) {
-        toast(error.message);
+        toast.error(error.message);
       }
     }
   },
@@ -150,7 +150,6 @@ const useTasksStore = create<TasksState>((set) => ({
             ...useTasksStore.getState().tasks,
           ],
         });
-        toast.dismiss(task.id);
       } catch (error) {
         console.error(error);
       }
@@ -159,7 +158,6 @@ const useTasksStore = create<TasksState>((set) => ({
         .from('tasks')
         .update({ completed: false })
         .eq('id', task.id);
-      toast.dismiss(task.id);
     }
   },
   updateLists: async () => {
