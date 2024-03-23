@@ -237,9 +237,7 @@ export default useTasksStore;
 
 useTasksStore
   .getState()
-  .fetchTasks()
+  .updateLists()
   .then(() => {
     useTasksStore.getState().subscribeToTasks();
   });
-
-useTasksStore.getState().updateLists();
