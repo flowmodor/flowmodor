@@ -58,9 +58,15 @@ const useTasksStore = create<TasksState>((set) => ({
       integrationsData.access_token
     ) {
       const api = new TodoistApi(integrationsData.access_token);
-      const tasks = await (id === 'all'
-        ? api.getTasks()
-        : api.getTasks({ projectId: id }));
+
+      let tasks;
+      if (id === 'all') {
+        tasks = await api.getTasks();
+      } else if (id === 'today') {
+        tasks = await api.getTasks({ filter: 'today' });
+      } else {
+        tasks = await api.getTasks({ projectId: id });
+      }
 
       const processedTasks = tasks.map((task) => ({
         id: parseInt(task.id, 10),
@@ -81,12 +87,15 @@ const useTasksStore = create<TasksState>((set) => ({
     const [provider, projectId] = useTasksStore
       .getState()
       .activeList.split(' - ', 2);
+
     const todoist = await getClient();
     if (provider === 'Todoist' && todoist) {
       try {
         const { id } = await todoist.addTask({
           content: name,
-          ...(projectId !== 'all' && { project_id: projectId }),
+          ...(projectId !== 'all' &&
+            projectId !== 'today' && { project_id: projectId }),
+          ...(projectId === 'today' && { due_string: 'today' }),
         });
         set({
           tasks: [
@@ -173,6 +182,11 @@ const useTasksStore = create<TasksState>((set) => ({
         provider: 'Todoist',
         name: 'All',
         id: 'all',
+      });
+      todoistLists.unshift({
+        provider: 'Todoist',
+        name: 'Today',
+        id: 'today',
       });
       set((state) => ({
         lists: [...state.lists, ...todoistLists],
