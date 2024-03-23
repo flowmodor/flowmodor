@@ -23,6 +23,7 @@ export default function SidebarTab({
       content={tabName}
       placement="right"
       offset={15}
+      delay={1000}
       radius="sm"
     >
       <Button

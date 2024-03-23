@@ -43,6 +43,7 @@ export default function TaskSelector() {
           }}
         >
           <Tooltip
+            delay={1000}
             key={task.id}
             content={task.name}
             className="bg-background"
