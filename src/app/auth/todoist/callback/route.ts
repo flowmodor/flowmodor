@@ -39,9 +39,13 @@ export async function GET(request: Request) {
       .eq('user_id', user.id);
 
     if (!error && response.ok) {
-      return NextResponse.redirect(`${origin}/settings`);
+      return NextResponse.redirect(
+        `${origin}/settings?success=Todoist connected successfully!`,
+      );
     }
   }
 
-  return NextResponse.redirect(`${origin}/auth/auth-code-error`);
+  return NextResponse.redirect(
+    `${origin}/settings?error=Failed to connect Todoist.`,
+  );
 }

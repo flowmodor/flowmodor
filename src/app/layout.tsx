@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Toaster } from 'sonner';
+import { Suspense } from 'react';
+import ToasterWrapper from '@/components/Layout/ToasterWrapper';
 import './globals.css';
 import { Providers } from './providers';
 
@@ -29,18 +30,9 @@ export default function RootLayout({
         className={`${inter.className} flex min-h-screen justify-center bg-background text-white scrollbar-hide dark`}
       >
         <Providers>{children}</Providers>
-        <Toaster
-          toastOptions={{
-            style: {
-              background: '#23223C',
-              borderColor: '#3F3E55',
-              color: '#ffffff',
-            },
-            actionButtonStyle: {
-              background: '#3F3E55',
-            },
-          }}
-        />
+        <Suspense>
+          <ToasterWrapper />
+        </Suspense>
       </body>
     </html>
   );
