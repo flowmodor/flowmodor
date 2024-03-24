@@ -14,14 +14,22 @@ export async function sendPasswordReset(formData: FormData) {
   redirect("/signin?success=You've been emailed a password reset link!");
 }
 
-export async function signUp(email: string, password: string) {
+export async function signUp(formData: FormData) {
+  const email = formData.get('email') as string;
+  const password = formData.get('password') as string;
+
   const supabase = getActionClient(cookies());
   const { error } = await supabase.auth.signUp({
     email,
     password,
   });
 
-  return { error };
+  if (error) {
+    redirect(`/signup?error=${error.message}`);
+  }
+  redirect(
+    '/signin?success=Sign up successfully! Check your email to verify your account.',
+  );
 }
 
 export async function signOut() {

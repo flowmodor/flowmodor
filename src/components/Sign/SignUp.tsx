@@ -1,25 +1,24 @@
 'use client';
 
-import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { Link } from '@nextui-org/link';
-import { useState, useTransition } from 'react';
-import { toast } from 'sonner';
+import { useState } from 'react';
 import { signUp } from '@/actions/auth';
 import { Hide, Show } from '@/components/Icons';
 import { validateEmail, validatePassword } from '@/utils';
+import Submit from '../Submit';
 
 export default function SignUp() {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
-  const [isLoading, startTransition] = useTransition();
 
   return (
-    <div className="flex flex-col gap-5 text-center sm:w-96">
+    <form action={signUp} className="flex flex-col gap-5 text-center sm:w-96">
       <h1 className="text-3xl font-semibold">Get started</h1>
       <Input
+        name="email"
         label="Email"
         labelPlacement="outside"
         placeholder="you@example.com"
@@ -40,6 +39,7 @@ export default function SignUp() {
         }}
       />
       <Input
+        name="password"
         label="Password"
         labelPlacement="outside"
         placeholder="••••••••"
@@ -70,10 +70,7 @@ export default function SignUp() {
         }
         type={isVisible ? 'text' : 'password'}
       />
-      <Button
-        color="primary"
-        radius="sm"
-        isLoading={isLoading}
+      <Submit
         isDisabled={
           !(
             validateEmail(emailValue) &&
@@ -82,33 +79,15 @@ export default function SignUp() {
             passwordValue !== ''
           )
         }
-        className="mt-10"
-        onPress={() => {
-          startTransition(async () => {
-            const { error } = await signUp(emailValue, passwordValue);
-
-            if (error) {
-              toast.error('Something went wrong. Please try again.');
-              console.error(error);
-            } else {
-              toast.success(
-                'Sign up successfully! Check your email to verify your account.',
-              );
-            }
-
-            setEmailValue('');
-            setPasswordValue('');
-          });
-        }}
       >
         Sign Up
-      </Button>
+      </Submit>
       <div className="mx-auto text-sm">
         Have an account?{' '}
         <Link href="/signin" className="text-sm text-white" underline="always">
           Sign in now
         </Link>
       </div>
-    </div>
+    </form>
   );
 }
