@@ -1,3 +1,4 @@
+import { Link } from '@nextui-org/link';
 import { Select, SelectItem } from '@nextui-org/select';
 import useTasksStore from '@/stores/useTasksStore';
 
@@ -13,9 +14,19 @@ export default function ListSelector() {
       label="Select a list"
       isLoading={isLoadingLists}
       description={
-        lists.length === 1
-          ? 'Connect Todoist in settings to access multiple lists'
-          : null
+        lists.length === 1 ? (
+          <span>
+            Connect Todoist in{' '}
+            <Link
+              href="/settings"
+              underline="always"
+              className="text-inherit text-xs underline-offset-2"
+            >
+              settings
+            </Link>{' '}
+            to access multiple lists
+          </span>
+        ) : null
       }
       classNames={{
         trigger: 'bg-secondary data-[hover=true]:bg-secondary',
