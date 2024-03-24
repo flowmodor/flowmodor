@@ -12,6 +12,7 @@
   "rules": {
     "import/no-extraneous-dependencies": "off",
     "no-console": "off",
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "react/require-default-props": "off"
   }
 }

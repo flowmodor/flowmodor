@@ -6,7 +6,7 @@ import { useFormStatus } from 'react-dom';
 
 export default function Submit({
   children,
-  isDisabled,
+  isDisabled = false,
 }: {
   children: ReactNode;
   isDisabled?: boolean;
@@ -25,7 +25,3 @@ export default function Submit({
     </Button>
   );
 }
-
-Submit.defaultProps = {
-  isDisabled: false,
-};
