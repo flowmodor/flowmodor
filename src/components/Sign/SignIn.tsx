@@ -3,51 +3,41 @@
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { Link } from '@nextui-org/link';
-import mixpanel from 'mixpanel-browser';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { toast } from 'sonner';
+import { useState, useTransition } from 'react';
+import { signInWithOAuth, signInWithPassword } from '@/actions/auth';
 import { Google } from '@/components/Icons';
 import Or from '@/components/Or';
-import useSignIn from '@/hooks/useSignIn';
+import Submit from '../Submit';
 
 export default function SignIn() {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
-  const { isLoading, signInWithPassword, signInWithOAuth } = useSignIn();
-  const router = useRouter();
-
-  const handleSignIn = async (signIn: () => Promise<any>) => {
-    if (isLoading) {
-      return;
-    }
-
-    const { data, error } = await signIn();
-
-    if (error) {
-      toast.error(error.message);
-      console.error(error);
-    } else {
-      if (data?.user?.id) {
-        mixpanel.identify(data.user.id);
-      }
-      router.push('/');
-    }
-  };
+  const [isLoading, startTransition] = useTransition();
 
   return (
-    <div className="flex flex-col gap-5 text-center sm:w-96">
+    <form
+      action={signInWithPassword}
+      className="flex flex-col gap-5 text-center sm:w-96"
+    >
       <h1 className="mb-5 text-3xl font-semibold">Welcome back</h1>
       <Button
         color="secondary"
         radius="sm"
-        onPress={() => handleSignIn(() => signInWithOAuth('google'))}
+        type="button"
+        isLoading={isLoading}
+        onPress={() => {
+          startTransition(async () => {
+            // eslint-disable-next-line no-restricted-globals
+            await signInWithOAuth(location.origin, 'google');
+          });
+        }}
       >
         <Google />
         Continue with Google
       </Button>
       <Or />
       <Input
+        name="email"
         label="Email"
         labelPlacement="outside"
         placeholder="you@example.com"
@@ -63,6 +53,7 @@ export default function SignIn() {
         onValueChange={setEmailValue}
       />
       <Input
+        name="password"
         label="Password"
         labelPlacement="outside"
         placeholder="••••••••"
@@ -76,11 +67,6 @@ export default function SignIn() {
         }}
         value={passwordValue}
         onValueChange={setPasswordValue}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            handleSignIn(() => signInWithPassword(emailValue, passwordValue));
-          }
-        }}
       />
       <Link
         href="/forgot-password"
@@ -89,22 +75,13 @@ export default function SignIn() {
       >
         Forgot password?
       </Link>
-      <Button
-        color="primary"
-        radius="sm"
-        isLoading={isLoading}
-        onPress={() =>
-          handleSignIn(() => signInWithPassword(emailValue, passwordValue))
-        }
-      >
-        Sign In
-      </Button>
+      <Submit>Sign In</Submit>
       <div className="mx-auto text-sm">
         Don&apos;t have an account?{' '}
         <Link href="/signup" className="text-sm text-white" underline="always">
           Sign up now
         </Link>
       </div>
-    </div>
+    </form>
   );
 }
