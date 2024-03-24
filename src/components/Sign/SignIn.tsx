@@ -32,7 +32,7 @@ export default function SignIn() {
           });
         }}
       >
-        <Google />
+        {isLoading ? null : <Google />}
         Continue with Google
       </Button>
       <Or />
