@@ -2,8 +2,6 @@
 
 import { Button } from '@nextui-org/button';
 import { TourProvider, useTour } from '@reactour/tour';
-import mixpanel from 'mixpanel-browser';
-import { useEffect } from 'react';
 import supabase from '@/utils/supabase';
 
 const steps = [
@@ -91,19 +89,6 @@ function NextButton() {
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export function MixpanelProvider({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    (async () => {
-      const { data } = await supabase.auth.getUser();
-      if (data?.user?.id) {
-        mixpanel.identify(data.user.id);
-      }
-    })();
-  }, []);
-
-  return children;
-}
-
 export function TourCustomProvider({
   children,
 }: {

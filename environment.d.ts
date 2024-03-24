@@ -12,6 +12,5 @@ namespace NodeJS {
     NEXT_PUBLIC_PAYPAL_API_URL: string;
     NEXT_PUBLIC_TODOIST_CLIENT_ID: string;
     TODOIST_CLIENT_SECRET: string;
-    NEXT_PUBLIC_MIXPANEL_TOKEN: string;
   }
 }

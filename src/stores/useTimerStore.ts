@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import mixpanel from 'mixpanel-browser';
 import { create } from 'zustand';
 import supabase from '@/utils/supabase';
 import useStatsStore from './useStatsStore';
@@ -52,14 +51,7 @@ const useTimerStore = create<TimerState>((set) => ({
     }));
   },
   stopTimer: async () => {
-    const focusTime = Date.now() - useTimerStore.getState().startTime!;
-    const { mode } = useTimerStore.getState();
-    if (mode === 'focus' && focusTime / 1000 >= 10) {
-      mixpanel.track('Focus', { duration: focusTime / 1000 });
-    }
-
     const breakRatio = await getBreakRatio();
-
     set((state) => {
       const totalTime =
         state.mode === 'focus'
