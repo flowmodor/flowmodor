@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { toast } from 'sonner';
 import { Left, Right } from '@/components/Icons';
 import DateButton from '@/components/Stats/DateButton';
-import LineChart from '@/components/Stats/LineChart';
+import BarChart from '@/components/Stats/BarChart';
 import useStatsStore from '@/stores/useStatsStore';
 import { logsToChartData } from '@/utils';
 import calculateFocusTimes from '@/utils/stats/calculateFocusTime';
@@ -52,7 +52,7 @@ export default function DailyStats({ isBlocked }: { isBlocked: boolean }) {
           isBlocked ? 'blur-lg' : ''
         }`}
       >
-        <LineChart ref={chartRef} data={chartData} />
+        <BarChart ref={chartRef} data={chartData} />
       </CardBody>
       {isBlocked ? (
         <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform text-white">

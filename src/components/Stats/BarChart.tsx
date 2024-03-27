@@ -1,33 +1,30 @@
 import { Chip } from '@nextui-org/chip';
 import {
+  BarElement,
   CategoryScale,
   Chart as ChartJS,
-  Filler,
   Legend,
-  LineElement,
   LinearScale,
-  PointElement,
   Title,
   Tooltip,
 } from 'chart.js';
 import { ForwardedRef, forwardRef } from 'react';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
   Title,
   Tooltip,
   Legend,
-  Filler,
+  BarElement,
 );
 
 const options = {
   responsive: true,
   scales: {
     x: {
+      stacked: true,
       min: 0,
       max: 23,
       stepSize: 1,
@@ -39,6 +36,7 @@ const options = {
       },
     },
     y: {
+      stacked: true,
       min: 0,
       max: 60,
       stepSize: 10,
@@ -81,7 +79,7 @@ interface Props {
   data: Map<number, any> | undefined;
 }
 
-function LineChart({ data }: Props, ref: ForwardedRef<any>) {
+function BarChart({ data }: Props, ref: ForwardedRef<any>) {
   const hours = Array.from(Array(24).keys());
   const focusTimes = data
     ? hours.map((hour) => data.get(hour)?.focus ?? 0)
@@ -104,7 +102,7 @@ function LineChart({ data }: Props, ref: ForwardedRef<any>) {
 
   return (
     <>
-      <Line
+      <Bar
         ref={ref}
         options={options}
         plugins={[setBackground]}
@@ -115,29 +113,21 @@ function LineChart({ data }: Props, ref: ForwardedRef<any>) {
               label: 'Focus Time',
               data: focusTimes,
               borderColor: '#D6B6FF',
-              hoverBackgroundColor: '#D6B6FF',
-              hoverBorderColor: '#D6B6FF',
-              backgroundColor: '#D6B6FF10',
-              fill: true,
+              backgroundColor: '#D6B6FF',
+              hoverBackgroundColor: '#D6B6FFC0',
+              hoverBorderColor: '#D6B6FFC0',
+              borderRadius: 3,
               clip: false,
-              tension: 0.5,
-              pointHoverRadius: 7,
-              pointHitRadius: 30,
-              pointRadius: 1,
             },
             {
               label: 'Break Time',
               data: breakTimes,
               borderColor: '#3F3E55',
-              hoverBackgroundColor: '#3F3E55',
-              hoverBorderColor: '#3F3E55',
-              backgroundColor: '#3F3E5510',
-              fill: true,
+              backgroundColor: '#3F3E55',
+              hoverBackgroundColor: '#3F3E55C0',
+              hoverBorderColor: '#3F3E55C0',
+              borderRadius: 3,
               clip: false,
-              tension: 0.5,
-              pointHoverRadius: 7,
-              pointHitRadius: 30,
-              pointRadius: 1,
             },
           ],
         }}
@@ -166,4 +156,4 @@ function LineChart({ data }: Props, ref: ForwardedRef<any>) {
   );
 }
 
-export default forwardRef<any, Props>(LineChart);
+export default forwardRef<any, Props>(BarChart);
