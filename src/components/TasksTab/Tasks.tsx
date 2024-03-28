@@ -2,10 +2,10 @@ import { Spinner } from '@nextui-org/spinner';
 import useTasksStore from '@/stores/useTasksStore';
 import TaskBox from './TaskBox';
 
-export default function Tasks({ isLoading }: { isLoading: boolean }) {
-  const { tasks } = useTasksStore((state) => state);
+export default function Tasks() {
+  const { tasks, isLoadingTasks } = useTasksStore((state) => state);
 
-  if (isLoading) {
+  if (isLoadingTasks) {
     return (
       <div className="flex h-full items-center justify-center">
         <Spinner color="primary" />
@@ -13,15 +13,19 @@ export default function Tasks({ isLoading }: { isLoading: boolean }) {
     );
   }
 
-  return tasks.length > 0 ? (
-    tasks.map((task) => (
-      <div key={task.id}>
-        <TaskBox task={task} />
+  if (tasks.length === 0) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        All tasks completed!
       </div>
-    ))
-  ) : (
-    <div className="flex h-full items-center justify-center">
-      All tasks completed!
+    );
+  }
+
+  return (
+    <div className="overflow-y-scroll scrollbar-hide">
+      {tasks.map((task) => (
+        <TaskBox task={task} key={task.id} />
+      ))}
     </div>
   );
 }

@@ -10,7 +10,7 @@ export default function TaskBox({ task }: { task: Task }) {
   );
 
   return (
-    <div className="flex min-h-[4rem] items-center border-b border-b-secondary px-4 py-1">
+    <div className="flex min-h-[4rem] items-center border-b border-b-secondary px-4 py-4 flex-shrink-0">
       <Checkbox
         isDisabled={
           isRunning && mode === 'focus' && task.id === focusingTask?.id
@@ -19,7 +19,7 @@ export default function TaskBox({ task }: { task: Task }) {
         size="lg"
         lineThrough
         classNames={{
-          wrapper: 'border border-primary',
+          wrapper: 'border border-primary flex-shrink-0 mr-4',
         }}
         onChange={async () => {
           await completeTask(task);

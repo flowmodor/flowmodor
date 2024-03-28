@@ -1,22 +1,16 @@
 import { Card, CardBody } from '@nextui-org/card';
-import useTasksStore from '@/stores/useTasksStore';
 import TabWrapper from '../TabWrapper';
 import ListSelector from '../TimerTab/ListSelector';
 import Tasks from './Tasks';
 import Toolbar from './Toolbar';
 
 export default function TasksTab() {
-  const { isLoadingTasks } = useTasksStore((state) => state);
-
   return (
     <TabWrapper>
       <Card className="h-[55vh] w-[90vw] bg-[#23223C] sm:h-[30rem] sm:w-[30rem]">
-        <CardBody
-          className="itesm flex h-full w-full flex-col gap-3
-            overflow-y-scroll scrollbar-hide"
-        >
+        <CardBody className="flex h-full flex-col gap-3">
           <ListSelector />
-          <Tasks isLoading={isLoadingTasks} />
+          <Tasks />
         </CardBody>
       </Card>
       <Card className="bg-[#23223C]">
