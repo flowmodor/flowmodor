@@ -49,6 +49,18 @@ export async function sendPasswordReset(formData: FormData) {
   redirect("/signin?success=You've been emailed a password reset link!");
 }
 
+export async function updatePassword(formData: FormData) {
+  const password = formData.get('password') as string;
+
+  const supabase = getActionClient(cookies());
+  const { error } = await supabase.auth.updateUser({ password });
+
+  if (error) {
+    redirect(`/settings/account?error=${error.message}`);
+  }
+  redirect('/?success=Password updated successfully!');
+}
+
 export async function signUp(formData: FormData) {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;

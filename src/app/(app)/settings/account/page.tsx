@@ -1,12 +1,10 @@
 'use client';
 
-import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { toast } from 'sonner';
+import { updatePassword } from '@/actions/auth';
 import { Hide, Show } from '@/components/Icons';
-import useChangePassword from '@/hooks/useChangePassword';
+import Submit from '@/components/Submit';
 import { validatePassword } from '@/utils';
 
 export default function Account() {
@@ -14,33 +12,18 @@ export default function Account() {
   const [confirm, setConfirm] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
-  const { isLoading, changePassword } = useChangePassword();
-  const router = useRouter();
-
-  const handleChangePassword = async () => {
-    if (isLoading || password !== confirm || password === '') {
-      return;
-    }
-
-    const { error } = await changePassword(password);
-    setPassword('');
-    setConfirm('');
-
-    if (error) {
-      toast.error(error.message);
-    } else {
-      toast.success('Password changed successfully.');
-      router.push('/');
-    }
-  };
 
   return (
-    <div className="flex h-full flex-col justify-center gap-10">
+    <form
+      action={updatePassword}
+      className="flex h-full flex-col justify-center gap-10"
+    >
       <div className="text-center">
         <h1 className="text-2xl font-semibold">Change Password</h1>
         <div className="text-sm">Enter a new password for your account.</div>
       </div>
       <Input
+        name="password"
         label="New password"
         labelPlacement="outside"
         placeholder="••••••••"
@@ -75,11 +58,6 @@ export default function Account() {
         radius="sm"
         value={confirm}
         onValueChange={setConfirm}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            handleChangePassword();
-          }
-        }}
         classNames={{
           inputWrapper: 'border-secondary data-[hover=true]:border-secondary',
         }}
@@ -96,15 +74,9 @@ export default function Account() {
         isInvalid={password !== confirm}
         errorMessage={password !== confirm && 'Passwords do not match.'}
       />
-      <Button
-        radius="sm"
-        color="primary"
-        isDisabled={password !== confirm || password === ''}
-        isLoading={isLoading}
-        onPress={handleChangePassword}
-      >
+      <Submit isDisabled={password === '' || password !== confirm}>
         Set Password
-      </Button>
-    </div>
+      </Submit>
+    </form>
   );
 }
