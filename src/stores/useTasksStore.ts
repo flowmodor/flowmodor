@@ -116,6 +116,11 @@ const useTasksStore = create<TasksState>((set) => ({
   },
   completeTask: async (task) => {
     const [provider] = useTasksStore.getState().activeList.split(' - ', 2);
+
+    if (useTasksStore.getState().focusingTask?.id === task.id) {
+      useTasksStore.getState().unfocusTask();
+    }
+
     const todoist = await getClient();
     if (provider === 'Todoist' && todoist) {
       try {
