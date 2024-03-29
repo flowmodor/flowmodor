@@ -10,9 +10,9 @@ For a detailed explanation, read more about it on [this blog](https://flowmodor.
 
 ## Features
 
-- 🕒 **Flowmodoro Timer:** Counts up during work and down for breaks, based on your focus duration.
-- 📋 **Task List:** Organizes and manages tasks, integrating seamlessly with focus sessions.
-- 📊 **Focus Report:** Tracks and summarizes work and break patterns for enhanced productivity insights.
+- 🕒 **Flowmodoro Timer:** Counting up during focus and counting down during breaks, based on your focus duration.
+- 📋 **Task List:** Select a task when starting a focus session to stay monotasked. Todoist integration available.
+- 📊 **Stats:** Tracks and summarizes work and break patterns for enhanced productivity insights.
 
 > [!NOTE]
 > To stay up to date with all the latest news and updates, make sure to follow us on X [@Flowmodor](https://twitter.com/flowmodor).
