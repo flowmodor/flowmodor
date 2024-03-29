@@ -14,6 +14,8 @@ interface TimerState {
   status: 'idle' | 'running' | 'paused';
   startTimer: () => Promise<void>;
   stopTimer: () => Promise<void>;
+  pauseTimer: () => Promise<void>;
+  resumeTimer: () => Promise<void>;
   log: () => Promise<void>;
   tickTimer: (nextStep: () => void) => void;
   toggleShowTime: () => void;
@@ -65,6 +67,16 @@ const useTimerStore = create<TimerState>((set) => ({
         status: 'idle',
       };
     });
+  },
+  pauseTimer: async () => {
+    set(() => ({
+      status: 'paused',
+    }));
+  },
+  resumeTimer: async () => {
+    set(() => ({
+      status: 'running',
+    }));
   },
   log: async () => {
     const start_time = new Date(

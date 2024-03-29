@@ -1,12 +1,19 @@
 import { Button } from '@nextui-org/button';
 import { useTour } from '@reactour/tour';
 import { useTransition } from 'react';
-import { Hide, Play, Show, Stop } from '@/components/Icons';
+import { Hide, Pause, Play, Show, Stop } from '@/components/Icons';
 import useTimerStore from '@/stores/useTimerStore';
 
 export default function Toolbar() {
-  const { showTime, status, startTimer, stopTimer, toggleShowTime } =
-    useTimerStore((state) => state);
+  const {
+    showTime,
+    status,
+    startTimer,
+    stopTimer,
+    pauseTimer,
+    resumeTimer,
+    toggleShowTime,
+  } = useTimerStore((state) => state);
   const { currentStep, setCurrentStep } = useTour();
   const [isLoading, startTransition] = useTransition();
 
@@ -21,6 +28,26 @@ export default function Toolbar() {
       >
         {showTime ? <Hide /> : <Show />}
       </Button>
+      {status === 'running' || status === 'paused' ? (
+        <Button
+          type="button"
+          variant="flat"
+          isLoading={isLoading}
+          isIconOnly
+          className="bg-secondary"
+          onPress={() => {
+            startTransition(async () => {
+              if (status === 'running') {
+                await pauseTimer();
+              } else {
+                await resumeTimer();
+              }
+            });
+          }}
+        >
+          {status === 'running' ? <Pause /> : <Play />}
+        </Button>
+      ) : null}
       <Button
         id="start-stop-button"
         type="button"
@@ -39,7 +66,7 @@ export default function Toolbar() {
           setCurrentStep(currentStep + 1);
         }}
       >
-        {status === 'running' ? <Stop /> : <Play />}
+        {status === 'idle' ? <Play /> : <Stop />}
       </Button>
     </div>
   );
