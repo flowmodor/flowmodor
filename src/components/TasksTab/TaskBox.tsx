@@ -4,7 +4,7 @@ import useTasksStore, { Task } from '@/stores/useTasksStore';
 import useTimerStore from '@/stores/useTimerStore';
 
 export default function TaskBox({ task }: { task: Task }) {
-  const { isRunning, mode } = useTimerStore((state) => state);
+  const { status, mode } = useTimerStore((state) => state);
   const { focusingTask, completeTask, undoCompleteTask } = useTasksStore(
     (state) => state,
   );
@@ -13,7 +13,9 @@ export default function TaskBox({ task }: { task: Task }) {
     <div className="flex min-h-[4rem] items-center border-b border-b-secondary px-4 py-4 flex-shrink-0">
       <Checkbox
         isDisabled={
-          isRunning && mode === 'focus' && task.id === focusingTask?.id
+          status === 'running' &&
+          mode === 'focus' &&
+          task.id === focusingTask?.id
         }
         radius="full"
         size="lg"

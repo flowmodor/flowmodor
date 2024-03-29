@@ -11,8 +11,7 @@ interface TimerState {
   displayTime: number;
   mode: 'focus' | 'break';
   showTime: boolean;
-  isRunning: boolean;
-  stopped: boolean;
+  status: 'idle' | 'running' | 'paused';
   startTimer: () => Promise<void>;
   stopTimer: () => Promise<void>;
   log: () => Promise<void>;
@@ -35,8 +34,7 @@ const useTimerStore = create<TimerState>((set) => ({
   displayTime: 0,
   mode: 'focus',
   showTime: true,
-  isRunning: false,
-  stopped: true,
+  status: 'idle',
   startTimer: async () => {
     const breakRatio = await getBreakRatio();
     set((state) => ({
@@ -47,7 +45,7 @@ const useTimerStore = create<TimerState>((set) => ({
               Date.now() + (state.endTime! - state.startTime!) / breakRatio,
             )
           : state.endTime,
-      isRunning: true,
+      status: 'running',
     }));
   },
   stopTimer: async () => {
@@ -64,7 +62,7 @@ const useTimerStore = create<TimerState>((set) => ({
         totalTime,
         displayTime: Math.floor(totalTime / 1000),
         mode: state.mode === 'focus' ? 'break' : 'focus',
-        isRunning: false,
+        status: 'idle',
       };
     });
   },
@@ -102,14 +100,14 @@ const useTimerStore = create<TimerState>((set) => ({
   },
   tickTimer: async (nextStep: () => void) => {
     let breakRatio: number;
-    const { isRunning } = useTimerStore.getState();
-    if (!isRunning) {
+    const { status } = useTimerStore.getState();
+    if (status !== 'running') {
       breakRatio = await getBreakRatio();
     }
 
     set((state) => {
       let time;
-      if (state.isRunning) {
+      if (state.status === 'running') {
         time =
           state.mode === 'focus'
             ? Date.now() - state.startTime!
@@ -128,7 +126,7 @@ const useTimerStore = create<TimerState>((set) => ({
         audio.play();
 
         return {
-          isRunning: false,
+          status: 'idle',
           displayTime: 0,
         };
       }

@@ -5,7 +5,7 @@ import { Hide, Play, Show, Stop } from '@/components/Icons';
 import useTimerStore from '@/stores/useTimerStore';
 
 export default function Toolbar() {
-  const { showTime, isRunning, startTimer, stopTimer, log, toggleShowTime } =
+  const { showTime, status, startTimer, stopTimer, toggleShowTime } =
     useTimerStore((state) => state);
   const { currentStep, setCurrentStep } = useTour();
   const [isLoading, startTransition] = useTransition();
@@ -30,7 +30,7 @@ export default function Toolbar() {
         className="bg-secondary"
         onPress={() => {
           startTransition(async () => {
-            if (isRunning) {
+            if (status === 'running') {
               await stopTimer();
             } else {
               await startTimer();
@@ -39,7 +39,7 @@ export default function Toolbar() {
           setCurrentStep(currentStep + 1);
         }}
       >
-        {isRunning ? <Stop /> : <Play />}
+        {status === 'running' ? <Stop /> : <Play />}
       </Button>
     </div>
   );

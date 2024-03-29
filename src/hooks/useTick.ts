@@ -3,12 +3,12 @@ import { useEffect } from 'react';
 import useTimerStore from '@/stores/useTimerStore';
 
 export default function useTick() {
-  const { isRunning, tickTimer } = useTimerStore((state) => state);
+  const { status, tickTimer } = useTimerStore((state) => state);
   const { currentStep, setCurrentStep } = useTour();
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!isRunning) {
+      if (status !== 'running') {
         return;
       }
 
@@ -22,5 +22,5 @@ export default function useTick() {
         clearInterval(interval);
       }
     };
-  }, [isRunning]);
+  }, [status]);
 }
