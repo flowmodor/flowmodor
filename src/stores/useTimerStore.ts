@@ -51,6 +51,8 @@ const useTimerStore = create<TimerState>((set) => ({
     }));
   },
   stopTimer: async () => {
+    await useTimerStore.getState().log();
+
     const breakRatio = await getBreakRatio();
     set((state) => {
       const totalTime =
@@ -65,8 +67,6 @@ const useTimerStore = create<TimerState>((set) => ({
         isRunning: false,
       };
     });
-
-    await useStatsStore.getState().updateLogs();
   },
   log: async () => {
     const start_time = new Date(
@@ -97,6 +97,8 @@ const useTimerStore = create<TimerState>((set) => ({
         task_name: hasId ? null : focusingTask.name,
       },
     ]);
+
+    await useStatsStore.getState().updateLogs();
   },
   tickTimer: async (nextStep: () => void) => {
     let breakRatio: number;
@@ -120,7 +122,6 @@ const useTimerStore = create<TimerState>((set) => ({
       }
 
       if (state.mode === 'break' && time <= 0) {
-        state.log();
         state.stopTimer();
         nextStep();
         const audio = new Audio('/alarm.mp3');

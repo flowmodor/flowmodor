@@ -31,7 +31,6 @@ export default function Toolbar() {
         onPress={() => {
           startTransition(async () => {
             if (isRunning) {
-              await log();
               await stopTimer();
             } else {
               await startTimer();
