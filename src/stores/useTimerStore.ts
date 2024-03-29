@@ -7,7 +7,7 @@ import useTasksStore from './useTasksStore';
 interface TimerState {
   startTime: number | null;
   endTime: number | null;
-  totalTime: number | null;
+  totalTime: number;
   displayTime: number;
   mode: 'focus' | 'break';
   showTime: boolean;
@@ -32,32 +32,40 @@ async function getBreakRatio() {
 const useTimerStore = create<TimerState>((set) => ({
   startTime: null,
   endTime: null,
-  totalTime: null,
+  totalTime: 0,
   displayTime: 0,
   mode: 'focus',
   showTime: true,
   status: 'idle',
   startTimer: async () => {
-    const breakRatio = await getBreakRatio();
     set((state) => ({
       startTime: Date.now(),
       endTime:
         state.mode === 'break'
-          ? Math.floor(
-              Date.now() + (state.endTime! - state.startTime!) / breakRatio,
-            )
+          ? Math.floor(Date.now() + state.totalTime)
           : state.endTime,
       status: 'running',
     }));
   },
   stopTimer: async () => {
-    await useTimerStore.getState().log();
-
     const breakRatio = await getBreakRatio();
+
+    if (useTimerStore.getState().status === 'paused') {
+      const totalTime = useTimerStore.getState().totalTime / breakRatio;
+      set((state) => ({
+        totalTime,
+        displayTime: Math.floor(totalTime / 1000),
+        mode: state.mode === 'focus' ? 'break' : 'focus',
+        status: 'idle',
+      }));
+      return;
+    }
+
+    await useTimerStore.getState().log();
     set((state) => {
       const totalTime =
         state.mode === 'focus'
-          ? (Date.now() - state.startTime!) / breakRatio
+          ? (state.totalTime + Date.now() - state.startTime!) / breakRatio
           : 0;
       return {
         endTime: Date.now(),
@@ -69,13 +77,20 @@ const useTimerStore = create<TimerState>((set) => ({
     });
   },
   pauseTimer: async () => {
-    set(() => ({
-      status: 'paused',
-    }));
+    await useTimerStore.getState().log();
+
+    set((state) => {
+      const totalTime = state.totalTime + Date.now() - state.startTime!;
+      return {
+        status: 'paused',
+        totalTime,
+      };
+    });
   },
   resumeTimer: async () => {
     set(() => ({
       status: 'running',
+      startTime: Date.now(),
     }));
   },
   log: async () => {
@@ -122,7 +137,7 @@ const useTimerStore = create<TimerState>((set) => ({
       if (state.status === 'running') {
         time =
           state.mode === 'focus'
-            ? Date.now() - state.startTime!
+            ? state.totalTime + Date.now() - state.startTime!
             : state.endTime! - Date.now();
       } else {
         time =

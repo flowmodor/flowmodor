@@ -8,6 +8,7 @@ export default function Toolbar() {
   const {
     showTime,
     status,
+    mode,
     startTimer,
     stopTimer,
     pauseTimer,
@@ -28,7 +29,7 @@ export default function Toolbar() {
       >
         {showTime ? <Hide /> : <Show />}
       </Button>
-      {status === 'running' || status === 'paused' ? (
+      {mode === 'focus' && (status === 'running' || status === 'paused') ? (
         <Button
           type="button"
           variant="flat"
@@ -57,7 +58,7 @@ export default function Toolbar() {
         className="bg-secondary"
         onPress={() => {
           startTransition(async () => {
-            if (status === 'running') {
+            if (status !== 'idle') {
               await stopTimer();
             } else {
               await startTimer();
