@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import { Chip } from '@nextui-org/chip';
 import {
   BarElement,
@@ -10,6 +11,8 @@ import {
 } from 'chart.js';
 import { ForwardedRef, forwardRef } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { logToChartData } from '@/utils';
+import { LogsWithTasks } from '@/utils/stats/calculateTaskTime';
 
 ChartJS.register(
   CategoryScale,
@@ -22,6 +25,9 @@ ChartJS.register(
 
 const options = {
   responsive: true,
+  interaction: {
+    mode: 'dataset' as 'dataset',
+  },
   scales: {
     x: {
       stacked: true,
@@ -36,7 +42,6 @@ const options = {
       },
     },
     y: {
-      stacked: true,
       min: 0,
       max: 60,
       stepSize: 10,
@@ -51,15 +56,30 @@ const options = {
   plugins: {
     setBackground: {},
     tooltip: {
+      position: 'nearest' as 'nearest',
       boxPadding: 2,
       usePointStyle: true,
       backgroundColor: '#131221',
       callbacks: {
-        title: (xDatapoint: any) =>
-          `${xDatapoint[0].label}:00 - ${
-            parseInt(xDatapoint[0].label, 10) + 1
-          }:00`,
-        label: (yDatapoint: any) => `${yDatapoint.raw} mins`,
+        title: (xDatapoint: any) => {
+          const datapoints = xDatapoint.filter(
+            (point: any) => point.raw[0] + point.raw[1] > 0,
+          );
+
+          const hourStart = datapoints[0].label;
+          const hourEnd = datapoints[datapoints.length - 1].label;
+
+          const minuteStart = datapoints[0].raw[0].toString().padStart(2, '0');
+          const minuteEnd = datapoints[datapoints.length - 1].raw[1]
+            .toString()
+            .padStart(2, '0');
+
+          return `${hourStart}:${minuteStart} - ${hourEnd}:${minuteEnd}`;
+        },
+        label: (yDatapoint: any) => {
+          console.log(yDatapoint);
+          return '';
+        },
         labelColor(ctx: any) {
           return {
             borderColor: ctx.dataset.borderColor,
@@ -76,17 +96,19 @@ const options = {
 };
 
 interface Props {
-  data: Map<number, any> | undefined;
+  logs: LogsWithTasks[];
 }
 
-function BarChart({ data }: Props, ref: ForwardedRef<any>) {
+function BarChart({ logs }: Props, ref: ForwardedRef<any>) {
   const hours = Array.from(Array(24).keys());
-  const focusTimes = data
-    ? hours.map((hour) => data.get(hour)?.focus ?? 0)
-    : null;
-  const breakTimes = data
-    ? hours.map((hour) => data.get(hour)?.break ?? 0)
-    : null;
+
+  const focusDatasets = logs
+    .filter((log) => log.mode === 'focus')
+    .map((log) => logToChartData(log));
+
+  const breakDatasets = logs
+    .filter((log) => log.mode === 'break')
+    .map((log) => logToChartData(log));
 
   const setBackground = {
     id: 'setBackground',
@@ -109,26 +131,26 @@ function BarChart({ data }: Props, ref: ForwardedRef<any>) {
         data={{
           labels: hours,
           datasets: [
-            {
+            ...focusDatasets.map((data) => ({
               label: 'Focus Time',
-              data: focusTimes,
+              data,
               borderColor: '#D6B6FF',
               backgroundColor: '#D6B6FF',
               hoverBackgroundColor: '#D6B6FFC0',
               hoverBorderColor: '#D6B6FFC0',
               borderRadius: 3,
-              clip: false,
-            },
-            {
+              borderSkipped: false,
+            })),
+            ...breakDatasets.map((data) => ({
               label: 'Break Time',
-              data: breakTimes,
+              data,
               borderColor: '#3F3E55',
               backgroundColor: '#3F3E55',
               hoverBackgroundColor: '#3F3E55C0',
               hoverBorderColor: '#3F3E55C0',
               borderRadius: 3,
-              clip: false,
-            },
+              borderSkipped: false,
+            })),
           ],
         }}
       />

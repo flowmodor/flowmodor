@@ -27,7 +27,7 @@ const useStatsStore = create<StatsStore>((set) => ({
       .lte('start_time', endDate.toISOString());
 
     if (!error) {
-      useStatsStore.setState({ logs: data });
+      set({ logs: data });
     }
   },
   goNextDay: () => {
@@ -36,6 +36,7 @@ const useStatsStore = create<StatsStore>((set) => ({
       tomorrow.setDate(state.date.getDate() + 1);
       return {
         date: tomorrow,
+        logs: null,
       };
     });
     useStatsStore.getState().updateLogs();
@@ -46,6 +47,7 @@ const useStatsStore = create<StatsStore>((set) => ({
       yesterday.setDate(state.date.getDate() - 1);
       return {
         date: yesterday,
+        logs: null,
       };
     });
     useStatsStore.getState().updateLogs();

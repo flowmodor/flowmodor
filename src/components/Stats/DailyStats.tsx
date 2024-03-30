@@ -3,10 +3,9 @@ import { Link } from '@nextui-org/link';
 import { useRef } from 'react';
 import { toast } from 'sonner';
 import { Left, Right } from '@/components/Icons';
-import DateButton from '@/components/Stats/DateButton';
 import BarChart from '@/components/Stats/BarChart';
+import DateButton from '@/components/Stats/DateButton';
 import useStatsStore from '@/stores/useStatsStore';
-import { logsToChartData } from '@/utils';
 import calculateFocusTimes from '@/utils/stats/calculateFocusTime';
 import downloadImage from '@/utils/stats/downloadImage';
 import ShareButton from './ShareButton';
@@ -16,7 +15,6 @@ export default function DailyStats({ isBlocked }: { isBlocked: boolean }) {
     (state) => state,
   );
   const totalFocusTime = logs ? calculateFocusTimes(logs).totalFocusTime : 0;
-  const chartData = logs ? logsToChartData(logs) : undefined;
   const chartRef = useRef<any>(null);
 
   const handleShare = async (openX: boolean) => {
@@ -52,7 +50,7 @@ export default function DailyStats({ isBlocked }: { isBlocked: boolean }) {
           isBlocked ? 'blur-lg' : ''
         }`}
       >
-        <BarChart ref={chartRef} data={chartData} />
+        <BarChart ref={chartRef} logs={logs ?? []} />
       </CardBody>
       {isBlocked ? (
         <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform text-white">
