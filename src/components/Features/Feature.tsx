@@ -1,9 +1,9 @@
 export default function Feature({ name }: { name: string }) {
   return (
-    <li className="fill-primary flex items-center gap-5">
+    <li className="flex items-center gap-5 fill-primary">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-5 text-indigo-600"
+        className="text-indigo-600 h-5 w-5"
         viewBox="0 0 20 20"
       >
         <path

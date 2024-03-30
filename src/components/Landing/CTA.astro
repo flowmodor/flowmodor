@@ -11,16 +11,16 @@ const { data: totalTasksCompleted } = await supabase.rpc(
 ---
 
 <div
-  class="h-screen justify-center mx-4 flex flex-col lg:w-1/2 items-center text-center"
+  class="mx-4 flex h-screen flex-col items-center justify-center text-center lg:w-1/2"
 >
   <div class="text-4xl font-semibold">
-    Get into <span class="underline decoration-wavy decoration-primary"
+    Get into <span class="underline decoration-primary decoration-wavy"
       >flow state</span
     > with us.
   </div>
-  <div class="flex flex-col gap-10 mt-5 mb-10">
+  <div class="mb-10 mt-5 flex flex-col gap-10">
     Our community has already achieved ...
-    <div class="flex gap-10 sm:gap-20 items-center">
+    <div class="flex items-center gap-10 sm:gap-20">
       <div>
         <div class="text-4xl font-bold">{totalFocusHours}</div>
         <div>hours of focus</div>
@@ -34,7 +34,7 @@ const { data: totalTasksCompleted } = await supabase.rpc(
   </div>
   <a
     href="https://app.flowmodor.com/signin"
-    class="font-semibold cursor-pointer rounded-md p-3 text-background bg-primary hover:brightness-105 transition-all duration-300"
+    class="cursor-pointer rounded-md bg-primary p-3 font-semibold text-background transition-all duration-300 hover:brightness-105"
   >
     Get started
   </a>

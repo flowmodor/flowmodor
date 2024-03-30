@@ -24,13 +24,13 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-10 justify-center backdrop-blur border-[#FFFFFF20] border-b flex -mb-16 h-16 items-center transition-all ${
+      className={`sticky top-0 z-10 -mb-16 flex h-16 items-center justify-center border-b border-[#FFFFFF20] backdrop-blur transition-all ${
         isScrolled ? 'text-white' : 'text-background'
       }`}
     >
       <a
         href="/"
-        className="left-5 absolute flex cursor-pointer items-center gap-2 text-2xl font-bold"
+        className="absolute left-5 flex cursor-pointer items-center gap-2 text-2xl font-bold"
       >
         <img
           src="/logo.png"
@@ -42,14 +42,14 @@ export default function Navbar() {
         />
         <div>Flowmodor</div>
       </a>
-      <div className="hidden sm:flex gap-10 font-medium text-lg">
+      <div className="hidden gap-10 text-lg font-medium sm:flex">
         <a href="/blog">Blog</a>
         <a href="/pricing">Pricing</a>
       </div>
       <a
         href="https://app.flowmodor.com/signin"
-        className={`right-5 absolute text-sm font-medium cursor-pointer rounded-md p-2 transition-all ${
-          isScrolled ? 'text-background bg-primary' : 'text-white bg-background'
+        className={`absolute right-5 cursor-pointer rounded-md p-2 text-sm font-medium transition-all ${
+          isScrolled ? 'bg-primary text-background' : 'bg-background text-white'
         }`}
       >
         Get started

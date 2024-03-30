@@ -19,13 +19,13 @@ import AppearScroll from '../AppearScroll';
 
 <div
   id="features"
-  class="flex flex-col text-center lg:text-start items-center w-full px-3"
+  class="flex w-full flex-col items-center px-3 text-center lg:text-start"
 >
   <div
-    class="h-screen flex flex-col lg:flex-row items-center justify-center gap-10 mt-20"
+    class="mt-20 flex h-screen flex-col items-center justify-center gap-10 lg:flex-row"
   >
     <AppearScroll client:load>
-      <img-comparison-slider class="outline-none cursor-grab">
+      <img-comparison-slider class="cursor-grab outline-none">
         <img
           slot="first"
           src="/timer-focus.png"
@@ -40,11 +40,11 @@ import AppearScroll from '../AppearScroll';
           class="ml-2 max-w-[25rem]"
           alt="Timer feature of Flowmodor app"
         />
-        <div slot="handle" class="w-8 h-8 bg-white animate-pulse rounded-full">
+        <div slot="handle" class="h-8 w-8 animate-pulse rounded-full bg-white">
         </div>
       </img-comparison-slider>
     </AppearScroll>
-    <div class="order-first lg:order-last max-w-[24rem] flex flex-col gap-5">
+    <div class="order-first flex max-w-[24rem] flex-col gap-5 lg:order-last">
       <h1 class="text-3xl font-bold">Flowmodoro Timer</h1>
       <div>
         Counting up during focus and counting down during breaks, <span
@@ -55,9 +55,9 @@ import AppearScroll from '../AppearScroll';
     </div>
   </div>
   <div
-    class="h-screen flex flex-col lg:flex-row items-center justify-center gap-10"
+    class="flex h-screen flex-col items-center justify-center gap-10 lg:flex-row"
   >
-    <div class="max-w-[24rem] flex flex-col gap-5">
+    <div class="flex max-w-[24rem] flex-col gap-5">
       <h1 class="text-3xl font-bold">Task List</h1>
       <div>
         Select a task when starting a focus session to stay <span
@@ -76,7 +76,7 @@ import AppearScroll from '../AppearScroll';
     </AppearScroll>
   </div>
   <div
-    class="h-screen flex flex-col lg:flex-row items-center justify-center gap-10"
+    class="flex h-screen flex-col items-center justify-center gap-10 lg:flex-row"
   >
     <AppearScroll client:load>
       <img
@@ -87,7 +87,7 @@ import AppearScroll from '../AppearScroll';
         class="ml-2 max-w-xl"
       />
     </AppearScroll>
-    <div class="order-first lg:order-last max-w-[24rem] flex flex-col gap-5">
+    <div class="order-first flex max-w-[24rem] flex-col gap-5 lg:order-last">
       <h1 class="text-3xl font-bold">Stats</h1>
       <div>
         Tracks and summarizes work and break patterns for enhanced <span
