@@ -1,6 +1,5 @@
 ---
 import '@fontsource-variable/inter';
-import SpeedInsights from '@vercel/speed-insights/astro';
 import Navbar from '../components/Layout/Navbar';
 import Footer from '../components/Layout/Footer.astro';
 
@@ -30,10 +29,6 @@ const image = '/og.png';
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
     <link rel="icon" href="/favicon.ico" />
-    <script
-      defer
-      src="https://us.umami.is/script.js"
-      data-website-id="cfefb0c7-ce9d-4a46-94a3-1b3509bbfe95"></script>
   </head>
   <body class="bg-[#131221] text-white font-sans flex flex-col justify-between">
     <div class="min-h-screen mb-auto">
@@ -43,6 +38,5 @@ const image = '/og.png';
       </main>
     </div>
     <Footer />
-    <SpeedInsights />
   </body>
 </html>
