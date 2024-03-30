@@ -126,25 +126,15 @@ const useTimerStore = create<TimerState>((set) => ({
     await useStatsStore.getState().updateLogs();
   },
   tickTimer: async (nextStep: () => void) => {
-    let breakRatio: number;
-    const { status } = useTimerStore.getState();
-    if (status !== 'running') {
-      breakRatio = await getBreakRatio();
-    }
-
     set((state) => {
-      let time;
-      if (state.status === 'running') {
-        time =
-          state.mode === 'focus'
-            ? state.totalTime + Date.now() - state.startTime!
-            : state.endTime! - Date.now();
-      } else {
-        time =
-          state.mode === 'focus'
-            ? 0
-            : (state.endTime! - state.startTime!) / breakRatio;
+      if (state.status !== 'running') {
+        return {};
       }
+
+      const time =
+        state.mode === 'focus'
+          ? state.totalTime + Date.now() - state.startTime!
+          : state.endTime! - Date.now();
 
       if (state.mode === 'break' && time <= 0) {
         state.stopTimer();
