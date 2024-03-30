@@ -1,15 +1,15 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import DynamicNavbarLayout from '../layouts/DynamicNavbarLayout.astro';
 import Hero from '../components/Landing/Hero.astro';
 import Features from '../components/Landing/Features.astro';
 import CTA from '../components/Landing/CTA.astro';
 ---
 
-<BaseLayout
+<DynamicNavbarLayout
   title="Flowmodor | A flowmodoro timer for the Flowtime Technique"
   description="Flowmodor is an open-source flowmodoro timer web app based on the Flowtime Technique, an alternative to the Pomodoro Technique."
 >
   <Hero />
   <Features />
   <CTA />
-</BaseLayout>
+</DynamicNavbarLayout>

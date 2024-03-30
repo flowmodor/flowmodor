@@ -32,10 +32,7 @@ const image = '/og.png';
   </head>
   <body class="bg-background text-white font-sans flex flex-col justify-between">
     <div class="min-h-screen mb-auto">
-      <Navbar client:load />
-      <main class="flex flex-col items-center">
-        <slot />
-      </main>
+      <slot />
     </div>
     <Footer />
   </body>

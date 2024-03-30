@@ -1,10 +1,10 @@
 ---
-import BaseLayout from './BaseLayout.astro';
+import NavbarLayout from './NavbarLayout.astro';
 
 const { frontmatter } = Astro.props;
 ---
 
-<BaseLayout
+<NavbarLayout
   title={`${frontmatter.title} | Flowmodor`}
   description={frontmatter.description}
 >
@@ -13,4 +13,4 @@ const { frontmatter } = Astro.props;
     <div>Last updated: {frontmatter.date}</div>
     <slot />
   </article>
-</BaseLayout>
+</NavbarLayout>

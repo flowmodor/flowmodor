@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavbarLayout from '../../layouts/NavbarLayout.astro';
 import Features from '../../components/Features';
 
 const starter = ['Flowmodoro Timer', 'Task List', 'Today Stats'];
@@ -11,7 +11,7 @@ const pro = [
 ];
 ---
 
-<BaseLayout title="Pricing | Flowmodor" description="Pricing for Flowmodor">
+<NavbarLayout title="Pricing | Flowmodor" description="Pricing for Flowmodor">
   <div
     class="mt-32 flex w-full flex-col items-center justify-center gap-10 sm:flex-row sm:items-stretch"
   >
@@ -53,4 +53,4 @@ const pro = [
       <Features names={pro} />
     </div>
   </div>
-</BaseLayout>
+</NavbarLayout>

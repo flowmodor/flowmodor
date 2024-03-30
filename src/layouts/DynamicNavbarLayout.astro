@@ -1,0 +1,13 @@
+---
+import DynamicNavbar from '../components/Layout/DynamicNavbar.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const { title, description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <DynamicNavbar />
+  <main class="flex flex-col items-center">
+    <slot />
+  </main>
+</BaseLayout>
