@@ -33,6 +33,10 @@
   const getStarted = document.getElementById('get-started');
 
   function handleScroll() {
+    if (navbar === null || getStarted === null) {
+      return;
+    }
+
     const windowHeight = window.innerHeight - 30;
     if (window.scrollY > windowHeight) {
       navbar.classList.add('text-white');
