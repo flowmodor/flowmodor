@@ -3,10 +3,10 @@ import { Down } from '../Icons';
 ---
 
 <div
-  class="flex flex-col lg:flex-row w-full h-screen bg-[#DBBFFF]
+  class="flex flex-col lg:flex-row w-full h-screen bg-primary
   items-center justify-center gap-10 lg:gap-2"
 >
-  <div class="flex gap-10 flex-col items-center lg:items-start text-[#23223C]">
+  <div class="flex gap-10 flex-col items-center lg:items-start text-secondary">
     <div class="text-center lg:text-start font-bold text-6xl">
       <div>Flow and Focus</div>
       <div>Beyond Pomodoro</div>
@@ -18,14 +18,14 @@ import { Down } from '../Icons';
     <div class="flex gap-5">
       <a
         href="https://app.flowmodor.com/signin"
-        class="font-semibold cursor-pointer rounded-md p-3 text-white bg-[#23223C] hover:brightness-125 transition-all duration-300"
+        class="font-semibold cursor-pointer rounded-md p-3 text-white bg-secondary hover:brightness-125 transition-all duration-300"
       >
         Get started
       </a>
       <a
         href="https://github.com/flowmodor/flowmodor"
         class="flex items-center gap-x-2 font-semibold cursor-pointer rounded-md p-3
-        border-2 border-[#23223C] text-[#23223C]"
+        border-2 border-secondary text-secondary"
       >
         Star GitHub
       </a>
@@ -38,7 +38,7 @@ import { Down } from '../Icons';
       draggable="false"
       width={320}
       height={320}
-      class="bg-[#23223C] xl:absolute xl:top-24 xl:left-24 hidden shadow-custom lg:block rounded-xl flex-shrink-0 hover:-translate-y-2 transition-all duration-300 z-10"
+      class="bg-secondary xl:absolute xl:top-24 xl:left-24 hidden shadow-custom lg:block rounded-xl flex-shrink-0 hover:-translate-y-2 transition-all duration-300 z-10"
     />
     <img
       src="/tasks-hero.png"
@@ -46,12 +46,12 @@ import { Down } from '../Icons';
       draggable="false"
       width={320}
       height={320}
-      class="bg-[#23223C] hidden xl:block rounded-xl shadow-custom flex-shrink-0 hover:-translate-y-2 transition-all duration-300 z-0"
+      class="bg-secondary hidden xl:block rounded-xl shadow-custom flex-shrink-0 hover:-translate-y-2 transition-all duration-300 z-0"
     />
   </div>
   <a
     href="#features"
-    class="hidden sm:block absolute cursor-pointer bottom-5 rounded-full animate-bounce"
+    class="fill-secondary hidden sm:block absolute cursor-pointer bottom-5 rounded-full animate-bounce"
     aria-label="Scroll down to features section"
   >
     <Down />
