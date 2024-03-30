@@ -74,12 +74,11 @@ const options = {
             .toString()
             .padStart(2, '0');
 
-          return `${hourStart}:${minuteStart} - ${hourEnd}:${minuteEnd}`;
+          return `${hourStart}:${minuteStart} - ${hourEnd}:${minuteEnd}\n${
+            datapoints[0].dataset.label ?? 'unspecified'
+          }`;
         },
-        label: (yDatapoint: any) => {
-          console.log(yDatapoint);
-          return '';
-        },
+        label: () => '',
         labelColor(ctx: any) {
           return {
             borderColor: ctx.dataset.borderColor,
@@ -131,9 +130,9 @@ function BarChart({ logs }: Props, ref: ForwardedRef<any>) {
         data={{
           labels: hours,
           datasets: [
-            ...focusDatasets.map((data) => ({
-              label: 'Focus Time',
-              data,
+            ...focusDatasets.map((dataset) => ({
+              label: dataset.label ?? 'unspecified',
+              data: dataset.chartData,
               borderColor: '#D6B6FF',
               backgroundColor: '#D6B6FF',
               hoverBackgroundColor: '#D6B6FFC0',
@@ -141,9 +140,9 @@ function BarChart({ logs }: Props, ref: ForwardedRef<any>) {
               borderRadius: 3,
               borderSkipped: false,
             })),
-            ...breakDatasets.map((data) => ({
-              label: 'Break Time',
-              data,
+            ...breakDatasets.map((dataset) => ({
+              label: dataset.label ?? 'unspecified',
+              data: dataset.chartData,
               borderColor: '#3F3E55',
               backgroundColor: '#3F3E55',
               hoverBackgroundColor: '#3F3E55C0',

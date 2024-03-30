@@ -42,7 +42,10 @@ function logToChartData(log: LogsWithTasks) {
     }
   }
 
-  return chartData;
+  return {
+    label: log.mode === 'focus' ? log.task_name : 'break',
+    chartData,
+  };
 }
 
 const base64ToBlob = (base64: string, mimeType: string) => {
