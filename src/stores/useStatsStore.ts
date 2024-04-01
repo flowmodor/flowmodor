@@ -36,7 +36,6 @@ const useStatsStore = create<StatsStore>((set) => ({
       tomorrow.setDate(state.date.getDate() + 1);
       return {
         date: tomorrow,
-        logs: null,
       };
     });
     useStatsStore.getState().updateLogs();
@@ -47,7 +46,6 @@ const useStatsStore = create<StatsStore>((set) => ({
       yesterday.setDate(state.date.getDate() - 1);
       return {
         date: yesterday,
-        logs: null,
       };
     });
     useStatsStore.getState().updateLogs();

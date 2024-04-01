@@ -7,7 +7,7 @@ import {
   Title,
   Tooltip,
 } from 'chart.js';
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef, memo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { logToChartData } from '@/utils';
 import { LogsWithTasks } from '@/utils/stats/calculateTaskTime';
@@ -137,4 +137,4 @@ function BarChart({ logs }: Props, ref: ForwardedRef<any>) {
   );
 }
 
-export default forwardRef<any, Props>(BarChart);
+export default memo(forwardRef<any, Props>(BarChart));
