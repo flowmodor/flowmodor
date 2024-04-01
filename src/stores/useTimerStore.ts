@@ -4,7 +4,7 @@ import supabase from '@/utils/supabase';
 import useStatsStore from './useStatsStore';
 import useTasksStore from './useTasksStore';
 
-interface TimerState {
+interface State {
   startTime: number | null;
   endTime: number | null;
   totalTime: number;
@@ -12,6 +12,9 @@ interface TimerState {
   mode: 'focus' | 'break';
   showTime: boolean;
   status: 'idle' | 'running' | 'paused';
+}
+
+interface Action {
   startTimer: () => Promise<void>;
   stopTimer: () => Promise<void>;
   pauseTimer: () => Promise<void>;
@@ -29,7 +32,7 @@ async function getBreakRatio() {
   return data?.break_ratio || 5;
 }
 
-const useTimerStore = create<TimerState>((set) => ({
+const useTimerStore = create<State & Action>((set) => ({
   startTime: null,
   endTime: null,
   totalTime: 0,

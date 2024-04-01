@@ -2,15 +2,18 @@ import { create } from 'zustand';
 import { LogsWithTasks } from '@/utils/stats/calculateTaskTime';
 import supabase from '@/utils/supabase';
 
-interface StatsStore {
+interface State {
   date: Date;
   logs: LogsWithTasks[] | null;
+}
+
+interface Action {
   updateLogs: () => Promise<void>;
   goNextDay: () => void;
   goPreviousDay: () => void;
 }
 
-const useStatsStore = create<StatsStore>((set) => ({
+const useStatsStore = create<State & Action>((set) => ({
   date: new Date(),
   logs: null,
   updateLogs: async () => {

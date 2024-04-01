@@ -10,13 +10,16 @@ export type Task = Omit<Tables<'tasks'>, 'user_id' | 'created_at'> & {
   labels?: string[];
 };
 
-interface TasksState {
+interface State {
   tasks: Task[];
   focusingTask: Task | null;
   isLoadingTasks: boolean;
   lists: { provider: string; name: string; id: string }[];
   activeList: string;
   isLoadingLists: boolean;
+}
+
+interface Action {
   addTask: (name: string) => Promise<void>;
   completeTask: (task: Task) => Promise<void>;
   undoCompleteTask: (task: Task) => Promise<void>;
@@ -28,7 +31,7 @@ interface TasksState {
   onListChange: (e: ChangeEvent<HTMLSelectElement>) => boolean;
 }
 
-const useTasksStore = create<TasksState>((set) => ({
+const useTasksStore = create<State & Action>((set) => ({
   tasks: [],
   focusingTask: null,
   isLoadingTasks: true,
