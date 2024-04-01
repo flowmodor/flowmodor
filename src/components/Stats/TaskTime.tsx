@@ -22,6 +22,7 @@ export default function TaskTime({ isBlocked }: { isBlocked: boolean }) {
         wrapper: 'h-full bg-[#23223C]',
         th: 'bg-secondary',
       }}
+      aria-label="Table of each task and time spent on it"
     >
       <TableHeader>
         <TableColumn>Task</TableColumn>
