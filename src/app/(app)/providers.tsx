@@ -62,6 +62,8 @@ function NextButton() {
         className="ml-auto"
         onPress={async () => {
           setIsOpen(false);
+          setCurrentStep(currentStep + 1);
+
           const {
             data: { user },
           } = await supabase.auth.getUser();
