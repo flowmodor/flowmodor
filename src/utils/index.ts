@@ -38,8 +38,10 @@ function logToChartData(log: LogsWithTasks) {
     chartData[endTime.getHours()] = [0, endTime.getMinutes()];
   }
 
+  const taskName = log.task_name ?? log.tasks?.name;
+
   return {
-    label: log.task_name ?? 'General Focus',
+    label: taskName ?? 'General Focus',
     chartData,
   };
 }
