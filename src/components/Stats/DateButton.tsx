@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 export default function DateButton({
   children,
   onPress,
-  isDisabled,
+  isDisabled = false,
 }: {
   children: ReactNode;
   onPress: () => void;
@@ -23,7 +23,3 @@ export default function DateButton({
     </Button>
   );
 }
-
-DateButton.defaultProps = {
-  isDisabled: false,
-};
