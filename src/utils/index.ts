@@ -36,14 +36,10 @@ function logToChartData(log: LogsWithTasks) {
   } else {
     chartData[startTime.getHours()] = [startTime.getMinutes(), 60];
     chartData[endTime.getHours()] = [0, endTime.getMinutes()];
-
-    if (log.mode === 'break') {
-      console.log(chartData[endTime.getHours()]);
-    }
   }
 
   return {
-    label: log.mode === 'focus' ? log.task_name : 'break',
+    label: log.task_name ?? 'General Focus',
     chartData,
   };
 }

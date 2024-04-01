@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-import { Chip } from '@nextui-org/chip';
 import {
   BarElement,
   CategoryScale,
@@ -74,9 +72,7 @@ const options = {
             .toString()
             .padStart(2, '0');
 
-          return `${hourStart}:${minuteStart} - ${hourEnd}:${minuteEnd}\n${
-            datapoints[0].dataset.label ?? 'unspecified'
-          }`;
+          return `${hourStart}:${minuteStart} - ${hourEnd}:${minuteEnd}\n${datapoints[0].dataset.label}`;
         },
         label: () => '',
         labelColor(ctx: any) {
@@ -105,10 +101,6 @@ function BarChart({ logs }: Props, ref: ForwardedRef<any>) {
     .filter((log) => log.mode === 'focus')
     .map((log) => logToChartData(log));
 
-  const breakDatasets = logs
-    .filter((log) => log.mode === 'break')
-    .map((log) => logToChartData(log));
-
   const setBackground = {
     id: 'setBackground',
     beforeDraw: (chart: any) => {
@@ -122,58 +114,26 @@ function BarChart({ logs }: Props, ref: ForwardedRef<any>) {
   };
 
   return (
-    <>
-      <Bar
-        ref={ref}
-        options={options}
-        plugins={[setBackground]}
-        data={{
-          labels: hours,
-          datasets: [
-            ...focusDatasets.map((dataset) => ({
-              label: dataset.label ?? 'unspecified',
-              data: dataset.chartData,
-              borderColor: '#D6B6FF',
-              backgroundColor: '#D6B6FF',
-              hoverBackgroundColor: '#D6B6FFC0',
-              hoverBorderColor: '#D6B6FFC0',
-              borderRadius: 3,
-              borderSkipped: false,
-            })),
-            ...breakDatasets.map((dataset) => ({
-              label: dataset.label ?? 'unspecified',
-              data: dataset.chartData,
-              borderColor: '#3F3E55',
-              backgroundColor: '#3F3E55',
-              hoverBackgroundColor: '#3F3E55C0',
-              hoverBorderColor: '#3F3E55C0',
-              borderRadius: 3,
-              borderSkipped: false,
-            })),
-          ],
-        }}
-      />
-      <div className="mt-2 flex gap-5">
-        <Chip
-          color="primary"
-          variant="dot"
-          classNames={{
-            base: 'border border-secondary',
-          }}
-        >
-          focus
-        </Chip>
-        <Chip
-          color="secondary"
-          variant="dot"
-          classNames={{
-            base: 'border border-secondary',
-          }}
-        >
-          break
-        </Chip>
-      </div>
-    </>
+    <Bar
+      ref={ref}
+      options={options}
+      plugins={[setBackground]}
+      data={{
+        labels: hours,
+        datasets: [
+          ...focusDatasets.map((dataset) => ({
+            label: dataset.label,
+            data: dataset.chartData,
+            borderColor: '#D6B6FF',
+            backgroundColor: '#D6B6FF',
+            hoverBackgroundColor: '#D6B6FFC0',
+            hoverBorderColor: '#D6B6FFC0',
+            borderRadius: 3,
+            borderSkipped: false,
+          })),
+        ],
+      }}
+    />
   );
 }
 

@@ -16,7 +16,7 @@ export function calculateTaskTime(logs: LogsWithTasks[]) {
       } else if (logs[i].task_name) {
         task = logs[i].task_name;
       }
-      task = task || 'unspecified';
+      task = task || 'General Focus';
 
       const time =
         (new Date(logs[i].end_time).getTime() -
