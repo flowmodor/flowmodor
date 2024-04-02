@@ -1,10 +1,17 @@
 import { Link } from '@nextui-org/link';
 import { Select, SelectItem } from '@nextui-org/select';
-import useTasksStore from '@/stores/useTasksStore';
+import {
+  useActiveList,
+  useIsLoadingLists,
+  useLists,
+  useTasksActions,
+} from '@/stores/useTasksStore';
 
 export default function ListSelector() {
-  const { lists, activeList, isLoadingLists, onListChange, fetchTasks } =
-    useTasksStore((state) => state);
+  const lists = useLists();
+  const activeList = useActiveList();
+  const isLoadingLists = useIsLoadingLists();
+  const { onListChange, fetchTasks } = useTasksActions();
 
   return (
     <Select

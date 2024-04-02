@@ -2,7 +2,7 @@
 import { create } from 'zustand';
 import supabase from '@/utils/supabase';
 import { useStatsStore } from './useStatsStore';
-import useTasksStore from './useTasksStore';
+import { useTasksStore } from './useTasksStore';
 
 interface State {
   startTime: number | null;

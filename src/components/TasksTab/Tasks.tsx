@@ -1,9 +1,10 @@
 import { Spinner } from '@nextui-org/spinner';
-import useTasksStore from '@/stores/useTasksStore';
+import { useIsLoadingTasks, useTasks } from '@/stores/useTasksStore';
 import TaskBox from './TaskBox';
 
 export default function Tasks() {
-  const { tasks, isLoadingTasks } = useTasksStore((state) => state);
+  const tasks = useTasks();
+  const isLoadingTasks = useIsLoadingTasks();
 
   if (isLoadingTasks) {
     return (

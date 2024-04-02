@@ -4,7 +4,7 @@ import { Button } from '@nextui-org/button';
 import { useTransition } from 'react';
 import { toast } from 'sonner';
 import { connectTodoist, disconnectTodoist } from '@/actions/settings';
-import useTasksStore from '@/stores/useTasksStore';
+import { useTasksActions } from '@/stores/useTasksStore';
 import { Enums } from '@/types/supabase';
 import { Todoist } from '../Icons';
 
@@ -13,7 +13,7 @@ export default function TodoistButton({
 }: {
   provider: Enums<'provider'> | null | undefined;
 }) {
-  const { updateLists } = useTasksStore((state) => state);
+  const { updateLists } = useTasksActions();
   const [isPending, startTransition] = useTransition();
 
   return (

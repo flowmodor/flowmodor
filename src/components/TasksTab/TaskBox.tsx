@@ -1,13 +1,12 @@
 import { Checkbox } from '@nextui-org/checkbox';
 import { toast } from 'sonner';
-import useTasksStore, { Task } from '@/stores/useTasksStore';
+import { Task, useFocusingTask, useTasksActions } from '@/stores/useTasksStore';
 import useTimerStore from '@/stores/useTimerStore';
 
 export default function TaskBox({ task }: { task: Task }) {
   const { status, mode } = useTimerStore((state) => state);
-  const { focusingTask, completeTask, undoCompleteTask } = useTasksStore(
-    (state) => state,
-  );
+  const focusingTask = useFocusingTask();
+  const { completeTask, undoCompleteTask } = useTasksActions();
 
   return (
     <div className="flex min-h-[4rem] items-center border-b border-b-secondary px-4 py-4 flex-shrink-0">

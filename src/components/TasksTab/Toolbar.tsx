@@ -2,11 +2,11 @@ import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { useState } from 'react';
 import { Plus } from '@/components/Icons';
-import useTasksStore from '@/stores/useTasksStore';
+import { useTasksActions } from '@/stores/useTasksStore';
 
 export default function Toolbar() {
   const [inputValue, setInputValue] = useState<string>('');
-  const { addTask } = useTasksStore((state) => state);
+  const { addTask } = useTasksActions();
   const isDisabled = inputValue.trim() === '';
 
   return (

@@ -1,12 +1,19 @@
 import { Select, SelectItem } from '@nextui-org/select';
 import { Tooltip } from '@nextui-org/tooltip';
-import useTasksStore from '@/stores/useTasksStore';
+import {
+  useFocusingTask,
+  useIsLoadingLists,
+  useTasks,
+  useTasksActions,
+} from '@/stores/useTasksStore';
 import useTimerStore from '@/stores/useTimerStore';
 
 export default function TaskSelector() {
   const { status } = useTimerStore((state) => state);
-  const { tasks, isLoadingTasks, focusingTask, focusTask, unfocusTask } =
-    useTasksStore((state) => state);
+  const tasks = useTasks();
+  const isLoadingTasks = useIsLoadingLists();
+  const focusingTask = useFocusingTask();
+  const { focusTask, unfocusTask } = useTasksActions();
 
   return (
     <Select
