@@ -6,10 +6,10 @@ import {
   useTasks,
   useTasksActions,
 } from '@/stores/useTasksStore';
-import useTimerStore from '@/stores/useTimerStore';
+import { useStatus } from '@/stores/useTimerStore';
 
 export default function TaskSelector() {
-  const { status } = useTimerStore((state) => state);
+  const status = useStatus();
   const tasks = useTasks();
   const isLoadingTasks = useIsLoadingLists();
   const focusingTask = useFocusingTask();

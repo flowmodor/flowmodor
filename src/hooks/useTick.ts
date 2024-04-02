@@ -1,9 +1,10 @@
 import { useTour } from '@reactour/tour';
 import { useEffect } from 'react';
-import useTimerStore from '@/stores/useTimerStore';
+import { useStatus, useTimerActions } from '@/stores/useTimerStore';
 
 export default function useTick() {
-  const { status, tickTimer } = useTimerStore((state) => state);
+  const status = useStatus();
+  const { tickTimer } = useTimerActions();
   const { currentStep, setCurrentStep } = useTour();
 
   useEffect(() => {

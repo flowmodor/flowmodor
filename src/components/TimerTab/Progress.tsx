@@ -1,13 +1,19 @@
 import { CircularProgress } from '@nextui-org/progress';
-import { useEffect } from 'react';
-import useTimerStore from '@/stores/useTimerStore';
-import { formatTime } from '@/utils';
 import { useTour } from '@reactour/tour';
+import { useEffect } from 'react';
+import {
+  useDisplayTime,
+  useMode,
+  useShowTime,
+  useTotalTime,
+} from '@/stores/useTimerStore';
+import { formatTime } from '@/utils';
 
 export default function Progress() {
-  const { totalTime, displayTime, mode, showTime } = useTimerStore(
-    (state) => state,
-  );
+  const totalTime = useTotalTime();
+  const displayTime = useDisplayTime();
+  const mode = useMode();
+  const showTime = useShowTime();
 
   const { currentStep, setCurrentStep } = useTour();
 

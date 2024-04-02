@@ -1,10 +1,11 @@
 import { Checkbox } from '@nextui-org/checkbox';
 import { toast } from 'sonner';
 import { Task, useFocusingTask, useTasksActions } from '@/stores/useTasksStore';
-import useTimerStore from '@/stores/useTimerStore';
+import { useMode, useStatus } from '@/stores/useTimerStore';
 
 export default function TaskBox({ task }: { task: Task }) {
-  const { status, mode } = useTimerStore((state) => state);
+  const status = useStatus();
+  const mode = useMode();
   const focusingTask = useFocusingTask();
   const { completeTask, undoCompleteTask } = useTasksActions();
 
