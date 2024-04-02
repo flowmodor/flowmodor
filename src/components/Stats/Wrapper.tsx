@@ -1,12 +1,12 @@
 'use client';
 
 import Summary from '@/components/Stats/Summary';
-import useStatsStore from '@/stores/useStatsStore';
+import { useDate } from '@/stores/useStatsStore';
 import DailyStats from './DailyStats';
 import TaskTime from './TaskTime';
 
 export default function Wrapper({ isPro }: { isPro: boolean }) {
-  const { date } = useStatsStore((state) => state);
+  const date = useDate();
   const isBlocked = !isPro && date.toDateString() !== new Date().toDateString();
 
   return (

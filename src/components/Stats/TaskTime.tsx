@@ -6,11 +6,11 @@ import {
   TableHeader,
   TableRow,
 } from '@nextui-org/table';
-import useStatsStore from '@/stores/useStatsStore';
+import { useLogs } from '@/stores/useStatsStore';
 import { calculateTaskTime } from '@/utils/stats/calculateTaskTime';
 
 export default function TaskTime({ isBlocked }: { isBlocked: boolean }) {
-  const { logs } = useStatsStore((state) => state);
+  const logs = useLogs();
   const taskTime = calculateTaskTime(logs ?? []);
 
   return (

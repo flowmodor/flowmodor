@@ -1,10 +1,10 @@
 import { Card } from '@nextui-org/card';
-import useStatsStore from '@/stores/useStatsStore';
+import { useLogs } from '@/stores/useStatsStore';
 import calculateFocusTimes from '@/utils/stats/calculateFocusTime';
 import TimeFormatter from './TimeFormatter';
 
 export default function Summary({ isBlocked }: { isBlocked: boolean }) {
-  const { logs } = useStatsStore((state) => state);
+  const logs = useLogs();
   const { totalFocusTime, longestFocusTime } = calculateFocusTimes(logs ?? []);
 
   return (

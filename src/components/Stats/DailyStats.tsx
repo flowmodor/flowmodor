@@ -5,15 +5,15 @@ import { toast } from 'sonner';
 import { Left, Right } from '@/components/Icons';
 import BarChart from '@/components/Stats/BarChart';
 import DateButton from '@/components/Stats/DateButton';
-import useStatsStore from '@/stores/useStatsStore';
+import { useDate, useLogs, useStatsActions } from '@/stores/useStatsStore';
 import calculateFocusTimes from '@/utils/stats/calculateFocusTime';
 import downloadImage from '@/utils/stats/downloadImage';
 import ShareButton from './ShareButton';
 
 export default function DailyStats({ isBlocked }: { isBlocked: boolean }) {
-  const { date, logs, goPreviousDay, goNextDay } = useStatsStore(
-    (state) => state,
-  );
+  const date = useDate();
+  const logs = useLogs();
+  const { goPreviousDay, goNextDay } = useStatsActions();
   const totalFocusTime = logs ? calculateFocusTimes(logs).totalFocusTime : 0;
   const chartRef = useRef<any>(null);
 

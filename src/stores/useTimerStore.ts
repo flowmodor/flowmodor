@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { create } from 'zustand';
 import supabase from '@/utils/supabase';
-import useStatsStore from './useStatsStore';
+import { useStatsStore } from './useStatsStore';
 import useTasksStore from './useTasksStore';
 
 interface State {
@@ -126,7 +126,7 @@ const useTimerStore = create<State & Action>((set) => ({
       },
     ]);
 
-    await useStatsStore.getState().updateLogs();
+    await useStatsStore.getState().actions.updateLogs();
   },
   tickTimer: async (nextStep: () => void) => {
     set((state) => {
