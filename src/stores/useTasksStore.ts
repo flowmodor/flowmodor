@@ -29,9 +29,10 @@ interface Action {
   focusTask: (task: Task) => void;
   unfocusTask: () => void;
   fetchTasks: () => Promise<void>;
-  subscribeToTasks: () => void;
   onListChange: (e: ChangeEvent<HTMLSelectElement>) => boolean;
 }
+
+const defaultActiveList = 'Flowmodor - default';
 
 const useTasksStore = create<State & Action>((set) => ({
   tasks: [],
@@ -44,7 +45,7 @@ const useTasksStore = create<State & Action>((set) => ({
       id: 'default',
     },
   ],
-  activeList: 'Flowmodor - default',
+  activeList: defaultActiveList,
   isLoadingLists: true,
   focusTask: (task) => set(() => ({ focusingTask: task })),
   unfocusTask: () => set(() => ({ focusingTask: null })),
@@ -108,11 +109,19 @@ const useTasksStore = create<State & Action>((set) => ({
         console.error(error);
       }
     } else {
-      const { error } = await supabase.from('tasks').insert([{ name }]);
+      const { data, error } = await supabase
+        .from('tasks')
+        .insert([{ name }])
+        .select();
 
       if (error) {
         toast.error(error.message);
+        return;
       }
+
+      set((state) => ({
+        tasks: [...state.tasks, data[0]],
+      }));
     }
   },
   completeTask: async (task) => {
@@ -124,56 +133,59 @@ const useTasksStore = create<State & Action>((set) => ({
 
     const todoist = await getClient();
     if (provider === 'Todoist' && todoist) {
-      try {
-        const isSuccess = await todoist.closeTask(task.id.toString());
-        if (!isSuccess) {
-          throw new Error('Failed to complete task');
-        }
-
-        const newTasks = useTasksStore
-          .getState()
-          .tasks.filter((t) => t.id !== task.id);
-        set({ tasks: newTasks });
-      } catch (error) {
-        console.error(error);
+      const isSuccess = await todoist.closeTask(task.id.toString());
+      if (!isSuccess) {
+        toast.error('Failed to complete task');
+        return;
       }
     } else {
-      await supabase
+      const { error } = await supabase
         .from('tasks')
         .update({ completed: true })
-        .eq('id', task.id);
+        .eq('id', task.id)
+        .select();
+
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
     }
+
+    set((state) => ({ tasks: state.tasks.filter((t) => t.id !== task.id) }));
   },
   undoCompleteTask: async (task) => {
     const [provider] = useTasksStore.getState().activeList.split(' - ', 2);
     const todoist = await getClient();
     if (provider === 'Todoist' && todoist) {
-      try {
-        const isSuccess = await todoist.reopenTask(task.id.toString());
-        if (!isSuccess) {
-          throw new Error('Failed to reopen task');
-        }
-
-        set({
-          tasks: [
-            {
-              id: parseInt(task.id.toString(), 10),
-              name: task.name,
-              completed: false,
-              labels: task.labels,
-            },
-            ...useTasksStore.getState().tasks,
-          ],
-        });
-      } catch (error) {
-        console.error(error);
+      const isSuccess = await todoist.reopenTask(task.id.toString());
+      if (!isSuccess) {
+        toast.error('Failed to undo complete task');
+        return;
       }
     } else {
-      await supabase
+      const { error } = await supabase
         .from('tasks')
         .update({ completed: false })
-        .eq('id', task.id);
+        .eq('id', task.id)
+        .select();
+
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
     }
+
+    set((state) => ({
+      tasks: [
+        {
+          id: task.id,
+          name: task.name,
+          completed: false,
+          labels: task.labels,
+        },
+        ...state.tasks,
+      ],
+    }));
   },
   updateLists: async () => {
     const todoist = await getClient();
@@ -192,7 +204,7 @@ const useTasksStore = create<State & Action>((set) => ({
           { provider: 'Todoist', name: 'Today', id: 'today' },
           ...todoistLists,
         ],
-        activeList: 'Flowmodor - default',
+        activeList: defaultActiveList,
         isLoadingLists: false,
       }));
       useTasksStore.getState().fetchTasks();
@@ -205,41 +217,11 @@ const useTasksStore = create<State & Action>((set) => ({
       );
       return {
         lists: newLists,
-        activeList: 'Flowmodor - default',
+        activeList: defaultActiveList,
         isLoadingLists: false,
       };
     });
     useTasksStore.getState().fetchTasks();
-  },
-  subscribeToTasks: () => {
-    const tasksChannel = supabase.channel('tasks');
-    tasksChannel.on(
-      'postgres_changes',
-      { event: 'INSERT', schema: 'public' },
-      (payload: any) => {
-        set((state) => ({ tasks: [...state.tasks, payload.new] }));
-      },
-    );
-
-    tasksChannel.on(
-      'postgres_changes',
-      { event: 'UPDATE', schema: 'public' },
-      (payload: any) => {
-        if (payload.new.completed) {
-          set((state) => ({
-            tasks: state.tasks.filter((task) => task.id !== payload.new.id),
-            focusingTask:
-              payload.old.id === state.focusingTask ? null : state.focusingTask,
-          }));
-        } else {
-          set((state) => ({
-            tasks: [payload.new, ...state.tasks],
-          }));
-        }
-      },
-    );
-
-    tasksChannel.subscribe();
   },
   onListChange: (e) => {
     if (e.target.value === '') {
@@ -253,9 +235,4 @@ const useTasksStore = create<State & Action>((set) => ({
 
 export default useTasksStore;
 
-useTasksStore
-  .getState()
-  .updateLists()
-  .then(() => {
-    useTasksStore.getState().subscribeToTasks();
-  });
+useTasksStore.getState().updateLists();
