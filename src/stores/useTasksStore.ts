@@ -2,13 +2,15 @@ import { TodoistApi } from '@doist/todoist-api-typescript';
 import { ChangeEvent } from 'react';
 import { toast } from 'sonner';
 import { create } from 'zustand';
-import { Tables } from '@/types/supabase';
 import supabase from '@/utils/supabase';
 import getClient from '@/utils/todoist';
 
-export type Task = Omit<Tables<'tasks'>, 'user_id' | 'created_at'> & {
+export interface Task {
+  id: number;
+  name: string;
+  completed: boolean;
   labels?: string[];
-};
+}
 
 interface State {
   tasks: Task[];
@@ -61,15 +63,11 @@ const useTasksStore = create<State & Action>((set) => ({
       integrationsData.access_token
     ) {
       const api = new TodoistApi(integrationsData.access_token);
-
-      let tasks;
-      if (id === 'all') {
-        tasks = await api.getTasks();
-      } else if (id === 'today') {
-        tasks = await api.getTasks({ filter: 'today' });
-      } else {
-        tasks = await api.getTasks({ projectId: id });
-      }
+      const tasks = await api.getTasks({
+        ...(id === 'all' && { filter: 'all' }),
+        ...(id === 'today' && { filter: 'today' }),
+        ...(id !== 'all' && id !== 'today' && { projectId: id }),
+      });
 
       const processedTasks = tasks.map((task) => ({
         id: parseInt(task.id, 10),
@@ -186,18 +184,14 @@ const useTasksStore = create<State & Action>((set) => ({
         name: list.name,
         id: list.id,
       }));
-      todoistLists.unshift({
-        provider: 'Todoist',
-        name: 'All',
-        id: 'all',
-      });
-      todoistLists.unshift({
-        provider: 'Todoist',
-        name: 'Today',
-        id: 'today',
-      });
+
       set((state) => ({
-        lists: [...state.lists, ...todoistLists],
+        lists: [
+          ...state.lists,
+          { provider: 'Todoist', name: 'All', id: 'all' },
+          { provider: 'Todoist', name: 'Today', id: 'today' },
+          ...todoistLists,
+        ],
         activeList: 'Flowmodor - default',
         isLoadingLists: false,
       }));
