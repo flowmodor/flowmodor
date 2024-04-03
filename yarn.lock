@@ -1520,6 +1520,14 @@
   resolved "https://registry.yarnpkg.com/@paddle/paddle-js/-/paddle-js-1.0.3.tgz#88ba4158edb6085b3ac437edb0c4694affdc13ef"
   integrity sha512-ZV3Gy/7P1eVBLHFIX5vBv+fbe2qeaC2y8/85lRbfvzBRq+ZxY+20ujzvIEIZv7OtS51mbn2TTWtSVeAM0Cke5Q==
 
+"@paddle/paddle-node-sdk@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@paddle/paddle-node-sdk/-/paddle-node-sdk-1.2.1.tgz#c14214dd5e9219c5f3f2a9028af2f5cc968eb996"
+  integrity sha512-6kVzC+qxJsVxkSl3JFcu81UQ8huUai7tzx55E1xGzyJbA9GjXA1GwUu7iXa4LuaVr4GmeKi+AZfhLNi/VGq0ig==
+  dependencies:
+    lodash "^4.17.21"
+    node-fetch "^2.7.0"
+
 "@paypal/paypal-js@^7.0.0":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@paypal/paypal-js/-/paypal-js-7.1.1.tgz#3547cbb96f1692209c4b33cf0f8e69225c2e84a3"
@@ -5314,6 +5322,13 @@ node-domexception@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/node-domexception/-/node-domexception-1.0.0.tgz#6888db46a1f71c0b76b3f7555016b63fe64766e5"
   integrity sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==
+
+node-fetch@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.7.0.tgz#d0f0fa6e3e2dc1d27efcd8ad99d550bda94d187d"
+  integrity sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==
+  dependencies:
+    whatwg-url "^5.0.0"
 
 node-fetch@^3.3.2:
   version "3.3.2"

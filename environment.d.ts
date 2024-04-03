@@ -20,5 +20,6 @@ namespace NodeJS {
     NEXT_PUBLIC_PADDLE_SELLER_ID: string;
     NEXT_PUBLIC_PADDLE_MONTHLY_PLAN_ID: string;
     NEXT_PUBLIC_PADDLE_YEARLY_PLAN_ID: string;
+    PADDLE_SECRET_KEY: string;
   }
 }

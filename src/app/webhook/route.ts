@@ -1,62 +1,41 @@
 /* eslint-disable import/prefer-default-export */
-import { cookies, headers } from 'next/headers';
-import getAccessToken from '@/utils/paypal';
-import { getRouteClient } from '@/utils/supabase';
+import { EventName } from '@paddle/paddle-node-sdk';
+import { headers } from 'next/headers';
+import validateSignature from '@/utils/paddle';
 
 export async function POST(request: Request) {
-  const cookieStore = cookies();
-  const supabase = getRouteClient(cookieStore);
+  const rawRequestBody = await request.text();
+  const signature = (headers().get('paddle-signature') as string) || '';
 
-  const headerList = headers();
-  const transmissionId = headerList.get('paypal-transmission-id');
-  const transmissionTime = headerList.get('paypal-transmission-time');
-  const certUrl = headerList.get('paypal-cert-url');
-  const authAlgo = headerList.get('paypal-auth-algo');
-  const transmissionSig = headerList.get('paypal-transmission-sig');
-
-  const rawBody = await request.text();
-  const body = JSON.parse(rawBody);
-  const accessToken = await getAccessToken();
-  const verifyResponse = await fetch(
-    `${process.env.NEXT_PUBLIC_PAYPAL_API_URL}/notifications/verify-webhook-signature`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify({
-        auth_algo: authAlgo,
-        cert_url: certUrl,
-        transmission_id: transmissionId,
-        transmission_sig: transmissionSig,
-        transmission_time: transmissionTime,
-        webhook_id: process.env.PAYPAL_WEBHOOK_ID,
-        webhook_event: body,
-      }),
-    },
+  const isValid = await validateSignature(
+    signature,
+    rawRequestBody,
+    process.env.PADDLE_SECRET_KEY,
   );
 
-  const verifyBody = await verifyResponse.json();
-  if (verifyBody.verification_status !== 'SUCCESS') {
-    return new Response('Error verifying webhook', { status: 500 });
+  if (!isValid) {
+    return new Response('Invalid signature', { status: 401 });
   }
 
-  if (body.event_type === 'BILLING.SUBSCRIPTION.CREATED') {
-    const { error } = await supabase
-      .from('plans')
-      .update({
-        subscription_id: body.resource.id,
-      })
-      .eq('user_id', body.resource.custom_id);
+  const parsedBody = JSON.parse(rawRequestBody);
 
-    if (!error) {
-      return new Response('Subscription created successfully', { status: 200 });
+  try {
+    switch (parsedBody.event_type) {
+      case EventName.SubscriptionCreated:
+        console.log(`Subscription ${parsedBody.data.id} was created`);
+        break;
+      case EventName.SubscriptionActivated:
+        console.log(`Subscription ${parsedBody.data.id} was activated`);
+        break;
+      case EventName.SubscriptionCanceled:
+        console.log(`Subscription ${parsedBody.data.id} was canceled`);
+        break;
+      default:
+        console.log(parsedBody.eventType);
     }
-
-    console.error(error);
-    return new Response('Error creating subscription', { status: 500 });
+  } catch (error) {
+    console.log(error);
   }
 
-  return new Response('Event not handled', { status: 200 });
+  return new Response('Processed webhook event', { status: 200 });
 }
