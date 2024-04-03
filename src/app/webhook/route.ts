@@ -19,19 +19,19 @@ export async function POST(request: Request) {
   }
 
   const parsedBody = JSON.parse(rawRequestBody);
-
   const supabase = getRouteClient(cookies());
 
   try {
     switch (parsedBody.event_type) {
-      case EventName.SubscriptionActivated: {
+      case EventName.SubscriptionActivated:
+      case EventName.SubscriptionCanceled: {
         const { error } = await supabase
           .from('plans')
           .update({
             subscription_id: parsedBody.data.id,
             status: parsedBody.data.status,
             plan: parsedBody.data.items[0].price.name,
-            end_time: parsedBody.data.current_billing_period.ends_at,
+            end_time: parsedBody.data.current_billing_period?.ends_at ?? null,
           })
           .eq('user_id', parsedBody.data.custom_data.user_id);
 
@@ -41,9 +41,6 @@ export async function POST(request: Request) {
 
         break;
       }
-      case EventName.SubscriptionCanceled:
-        console.log(`Subscription ${parsedBody.data.id} was canceled`);
-        break;
       default:
         console.log(parsedBody.eventType);
     }

@@ -1,5 +1,6 @@
 'use client';
 
+import { cancelSubscription } from '@/actions/paddle';
 import { Button } from '@nextui-org/button';
 import {
   Modal,
@@ -54,13 +55,13 @@ export default function StarterButton({ isPro }: { isPro: boolean }) {
                   Go Back
                 </Button>
                 <Button
-                  color="primary"
                   isLoading={isLoading}
+                  color="primary"
                   onPress={() => {
                     startTransition(async () => {
-                      // TODO: cancel subscription
+                      await cancelSubscription();
                       onClose();
-                    });
+                    })
                   }}
                 >
                   Yes, Cancel Subscription

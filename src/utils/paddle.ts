@@ -1,3 +1,5 @@
+import { Environment, Paddle } from "@paddle/paddle-node-sdk";
+
 async function hashSignature(
   ts: string,
   requestBody: string,
@@ -46,4 +48,13 @@ export default async function validateSignature(
     secret,
   );
   return result;
+}
+
+const paddle = new Paddle(process.env.PADDLE_API_KEY, {
+  environment: Environment.sandbox
+})
+
+export async function getSubscription(id: string) {
+  const data = await paddle.subscriptions.get(id);
+  return data;
 }
