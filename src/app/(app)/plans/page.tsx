@@ -1,9 +1,8 @@
-import { Chip } from '@nextui-org/chip';
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import ProCard from '@/components/Plans/ProCard';
 import StarterCard from '@/components/Plans/StarterCard';
-import { getPlan } from '@/utils/checkIsPro';
+import checkIsPro from '@/utils/checkIsPro';
 
 export const metadata: Metadata = {
   title: 'Plans | Flowmodor',
@@ -11,7 +10,7 @@ export const metadata: Metadata = {
 
 export default async function Plans() {
   const cookieStore = cookies();
-  const { status, endTime, id, planId } = await getPlan(cookieStore);
+  const isPro = await checkIsPro(cookieStore);
 
   return (
     <div className="mt-20 flex w-[90vw] flex-col gap-10 mb-10">
@@ -19,21 +18,10 @@ export default async function Plans() {
         <div className="flex items-center gap-3 text-3xl font-semibold">
           Plans
         </div>
-        {status ? (
-          <>
-            <div className="flex items-center gap-2">
-              Status:
-              <Chip size="sm" color="primary">
-                {status}
-              </Chip>
-            </div>
-            <div>End Time: {new Date(endTime).toLocaleString()}</div>
-          </>
-        ) : null}
       </div>
       <div className="flex mx-5 flex-col items-center justify-center gap-10 lg:flex-row lg:items-stretch">
-        <StarterCard status={status} id={id} />
-        <ProCard status={status} planId={planId} />
+        <StarterCard isPro={isPro} />
+        <ProCard isPro={isPro} />
       </div>
     </div>
   );

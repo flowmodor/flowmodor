@@ -3,13 +3,7 @@ import StarterButton from './StarterButton';
 
 const features = ['Flowmodoro Timer', 'Task List', 'Today Stats'];
 
-export default function StarterCard({
-  status,
-  id,
-}: {
-  status: any;
-  id: string | null | undefined;
-}) {
+export default function StarterCard({ isPro }: { isPro: boolean }) {
   return (
     <div className="flex w-full flex-col gap-10 rounded-xl bg-[#23223C] p-10 lg:w-2/5">
       <div className="flex flex-col gap-2">
@@ -19,7 +13,7 @@ export default function StarterCard({
           <div className="text-sm opacity-50">/ forever</div>
         </div>
       </div>
-      <StarterButton status={status} id={id ?? ''} />
+      <StarterButton isPro={isPro} />
       <ul>
         {features.map((feature) => (
           <Feature key={feature} feature={feature} />

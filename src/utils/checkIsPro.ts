@@ -65,23 +65,9 @@ export async function getPlan(cookieStore: ReadonlyRequestCookies) {
 
 export default async function checkIsPro(cookieStore: ReadonlyRequestCookies) {
   const supabase = getServerClient(cookieStore);
-  const { data } = await supabase
-    .from('plans')
-    .select('end_time, subscription_id')
-    .single();
+  const { data } = await supabase.from('plans').select('end_time').single();
 
-  const noSubscription = !data?.subscription_id;
-  if (noSubscription) {
-    return false;
-  }
-
-  const invalidSubscription =
-    !data?.end_time || new Date(data.end_time) < new Date();
-  if (invalidSubscription) {
-    const { endTime: newEndTime } = await getPlan(cookieStore);
-    if (newEndTime) {
-      return new Date(newEndTime) >= new Date();
-    }
+  if (!data?.end_time) {
     return false;
   }
 

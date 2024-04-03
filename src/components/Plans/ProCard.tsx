@@ -14,18 +14,9 @@ const features = [
 
 export type Cycle = 'Monthly' | 'Yearly';
 
-export default function ProCard({
-  status,
-  planId,
-}: {
-  status: any;
-  planId: string;
-}) {
-  const [cycle, setCyle] = useState<Cycle>(
-    planId === process.env.NEXT_PUBLIC_PAYPAL_MONTHLY_PLAN_ID
-      ? 'Monthly'
-      : 'Yearly',
-  );
+export default function ProCard({ isPro }: { isPro: boolean }) {
+  // TODO: get billing cycle
+  const [cycle, setCyle] = useState<Cycle>('Yearly');
 
   const { openCheckout } = usePaddle();
 
@@ -36,7 +27,7 @@ export default function ProCard({
         <div className="flex justify-between">
           <button
             type="button"
-            disabled={status === 'ACTIVE'}
+            disabled={isPro}
             className={`flex gap-1 flex-col items-center justify-center p-3
               rounded-lg border-2 w-[49%] transition-colors outline-none ${
                 cycle === 'Monthly' ? 'border-primary' : 'border-secondary'
@@ -51,7 +42,7 @@ export default function ProCard({
           </button>
           <button
             type="button"
-            disabled={status === 'ACTIVE'}
+            disabled={isPro}
             className={`flex gap-1 flex-col items-center justify-center p-3 rounded-lg border-2 w-[49%] transition-colors outline-none ${
               cycle === 'Yearly' ? 'border-primary' : 'border-secondary'
             }`}
@@ -73,7 +64,7 @@ export default function ProCard({
           </span>
         </div>
         <Button
-          isDisabled={status === 'ACTIVE'}
+          isDisabled={isPro}
           color="primary"
           radius="sm"
           className="font-semibold text-[#23223C]"
@@ -85,7 +76,7 @@ export default function ProCard({
             );
           }}
         >
-          {status === 'ACTIVE' ? 'Current plan' : `Upgrade to Pro ${cycle}`}
+          {isPro ? 'Current plan' : `Upgrade to Pro ${cycle}`}
         </Button>
       </div>
       <ul>
