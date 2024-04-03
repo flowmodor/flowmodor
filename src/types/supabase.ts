@@ -141,18 +141,24 @@ export interface Database {
         Row: {
           end_time: string | null
           id: number
+          plan: Database["public"]["Enums"]["plan"]
+          status: Database["public"]["Enums"]["status"] | null
           subscription_id: string | null
           user_id: string
         }
         Insert: {
           end_time?: string | null
           id?: number
+          plan?: Database["public"]["Enums"]["plan"]
+          status?: Database["public"]["Enums"]["status"] | null
           subscription_id?: string | null
-          user_id?: string
+          user_id: string
         }
         Update: {
           end_time?: string | null
           id?: number
+          plan?: Database["public"]["Enums"]["plan"]
+          status?: Database["public"]["Enums"]["status"] | null
           subscription_id?: string | null
           user_id?: string
         }
@@ -258,14 +264,9 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
+      plan: "Starter" | "Pro"
       provider: "todoist"
-      status:
-        | "SUSPENDED"
-        | "ACTIVE"
-        | "APPROVAL_PENDING"
-        | "CANCELLED"
-        | "APPROVED"
-        | "EXPIRED"
+      status: "active" | "canceled" | "past_due" | "paused" | "trialing"
     }
     CompositeTypes: {
       [_ in never]: never

@@ -1,7 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 import { EventName } from '@paddle/paddle-node-sdk';
-import { headers } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import validateSignature from '@/utils/paddle';
+import { getRouteClient } from '@/utils/supabase';
 
 export async function POST(request: Request) {
   const rawRequestBody = await request.text();
@@ -19,14 +20,27 @@ export async function POST(request: Request) {
 
   const parsedBody = JSON.parse(rawRequestBody);
 
+  const supabase = getRouteClient(cookies());
+
   try {
     switch (parsedBody.event_type) {
-      case EventName.SubscriptionCreated:
-        console.log(`Subscription ${parsedBody.data.id} was created`);
+      case EventName.SubscriptionActivated: {
+        const { error } = await supabase
+          .from('plans')
+          .update({
+            subscription_id: parsedBody.data.id,
+            status: parsedBody.data.status,
+            plan: parsedBody.data.items[0].price.name,
+            end_time: parsedBody.data.current_billing_period.ends_at,
+          })
+          .eq('user_id', parsedBody.data.custom_data.user_id);
+
+        if (error) {
+          console.log(error);
+        }
+
         break;
-      case EventName.SubscriptionActivated:
-        console.log(`Subscription ${parsedBody.data.id} was activated`);
-        break;
+      }
       case EventName.SubscriptionCanceled:
         console.log(`Subscription ${parsedBody.data.id} was canceled`);
         break;

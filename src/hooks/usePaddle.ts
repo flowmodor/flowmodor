@@ -37,7 +37,7 @@ export default function usePaddle() {
         email: user?.email ?? '',
       },
       customData: {
-        userId: user.id,
+        user_id: user.id,
       },
     });
   };
