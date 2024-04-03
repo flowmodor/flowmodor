@@ -1,8 +1,8 @@
 'use client';
 
 import { Button } from '@nextui-org/button';
-import Link from 'next/link';
 import { useState } from 'react';
+import usePaddle from '@/hooks/usePaddle';
 import Feature from './Feature';
 
 const features = [
@@ -26,6 +26,8 @@ export default function ProCard({
       ? 'Monthly'
       : 'Yearly',
   );
+
+  const { openCheckout } = usePaddle();
 
   return (
     <div className="flex w-full flex-col gap-10 rounded-xl bg-[#23223C] p-10 lg:w-2/5">
@@ -72,11 +74,16 @@ export default function ProCard({
         </div>
         <Button
           isDisabled={status === 'ACTIVE'}
-          as={Link}
-          href={`/plans/upgrade?cycle=${cycle.toLowerCase()}`}
           color="primary"
           radius="sm"
           className="font-semibold text-[#23223C]"
+          onPress={() => {
+            openCheckout(
+              cycle === 'Monthly'
+                ? process.env.NEXT_PUBLIC_PADDLE_MONTHLY_PLAN_ID
+                : process.env.NEXT_PUBLIC_PADDLE_YEARLY_PLAN_ID,
+            );
+          }}
         >
           {status === 'ACTIVE' ? 'Current plan' : `Upgrade to Pro ${cycle}`}
         </Button>

@@ -1515,6 +1515,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@paddle/paddle-js@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@paddle/paddle-js/-/paddle-js-1.0.3.tgz#88ba4158edb6085b3ac437edb0c4694affdc13ef"
+  integrity sha512-ZV3Gy/7P1eVBLHFIX5vBv+fbe2qeaC2y8/85lRbfvzBRq+ZxY+20ujzvIEIZv7OtS51mbn2TTWtSVeAM0Cke5Q==
+
 "@paypal/paypal-js@^7.0.0":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@paypal/paypal-js/-/paypal-js-7.1.1.tgz#3547cbb96f1692209c4b33cf0f8e69225c2e84a3"
