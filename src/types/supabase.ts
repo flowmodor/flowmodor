@@ -141,6 +141,7 @@ export interface Database {
         Row: {
           end_time: string | null
           id: number
+          next_billed_at: string | null
           plan: Database["public"]["Enums"]["plan"]
           status: Database["public"]["Enums"]["status"] | null
           subscription_id: string | null
@@ -149,6 +150,7 @@ export interface Database {
         Insert: {
           end_time?: string | null
           id?: number
+          next_billed_at?: string | null
           plan?: Database["public"]["Enums"]["plan"]
           status?: Database["public"]["Enums"]["status"] | null
           subscription_id?: string | null
@@ -157,6 +159,7 @@ export interface Database {
         Update: {
           end_time?: string | null
           id?: number
+          next_billed_at?: string | null
           plan?: Database["public"]["Enums"]["plan"]
           status?: Database["public"]["Enums"]["status"] | null
           subscription_id?: string | null

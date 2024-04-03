@@ -1,6 +1,5 @@
 'use client';
 
-import { cancelSubscription } from '@/actions/paddle';
 import { Button } from '@nextui-org/button';
 import {
   Modal,
@@ -11,15 +10,22 @@ import {
   useDisclosure,
 } from '@nextui-org/modal';
 import { useTransition } from 'react';
+import { cancelSubscription } from '@/actions/paddle';
 
-export default function StarterButton({ isPro }: { isPro: boolean }) {
+export default function StarterButton({
+  isPro,
+  isDisabled,
+}: {
+  isPro: boolean;
+  isDisabled: boolean;
+}) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isLoading, startTransition] = useTransition();
 
   return (
     <>
       <Button
-        isDisabled={!isPro}
+        isDisabled={isDisabled}
         color="primary"
         radius="sm"
         className="font-semibold text-[#23223C]"
@@ -61,7 +67,7 @@ export default function StarterButton({ isPro }: { isPro: boolean }) {
                     startTransition(async () => {
                       await cancelSubscription();
                       onClose();
-                    })
+                    });
                   }}
                 >
                   Yes, Cancel Subscription

@@ -24,6 +24,7 @@ export async function POST(request: Request) {
   try {
     switch (parsedBody.event_type) {
       case EventName.SubscriptionActivated:
+      case EventName.SubscriptionUpdated:
       case EventName.SubscriptionCanceled: {
         const { error } = await supabase
           .from('plans')
@@ -32,6 +33,7 @@ export async function POST(request: Request) {
             status: parsedBody.data.status,
             plan: parsedBody.data.items[0].price.name,
             end_time: parsedBody.data.current_billing_period?.ends_at ?? null,
+            next_billed_at: parsedBody.data.next_billed_at,
           })
           .eq('user_id', parsedBody.data.custom_data.user_id);
 
