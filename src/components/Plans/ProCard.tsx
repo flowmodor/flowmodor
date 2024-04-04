@@ -38,7 +38,7 @@ export default function ProCard({ isPro }: { isPro: boolean }) {
               <h2 className="text-4xl font-semibold">$5</h2>
               <div className="text-sm opacity-50">/ month</div>
             </div>
-            <div className="font-semibold">Monthly</div>
+            <div className="text-xs">+ VAT if applicable</div>
           </button>
           <button
             type="button"
@@ -49,10 +49,10 @@ export default function ProCard({ isPro }: { isPro: boolean }) {
             onClick={() => setCyle('Yearly')}
           >
             <div className="flex items-end gap-1">
-              <h2 className="text-4xl font-semibold">$4</h2>
-              <div className="text-sm opacity-50">/ month</div>
+              <h2 className="text-4xl font-semibold">$48</h2>
+              <div className="text-sm opacity-50">/ year</div>
             </div>
-            <div className="font-semibold">Yearly</div>
+            <div className="text-xs">+ VAT if applicable</div>
           </button>
         </div>
       </div>

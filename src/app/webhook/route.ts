@@ -5,23 +5,23 @@ import validateSignature from '@/utils/paddle';
 import { getRouteClient } from '@/utils/supabase';
 
 export async function POST(request: Request) {
-  const rawRequestBody = await request.text();
-  const signature = (headers().get('paddle-signature') as string) || '';
-
-  const isValid = await validateSignature(
-    signature,
-    rawRequestBody,
-    process.env.PADDLE_SECRET_KEY,
-  );
-
-  if (!isValid) {
-    return new Response('Invalid signature', { status: 401 });
-  }
-
-  const parsedBody = JSON.parse(rawRequestBody);
-  const supabase = getRouteClient(cookies());
-
   try {
+    const rawRequestBody = await request.text();
+    const signature = (headers().get('paddle-signature') as string) || '';
+
+    const isValid = await validateSignature(
+      signature,
+      rawRequestBody,
+      process.env.PADDLE_SECRET_KEY,
+    );
+
+    if (!isValid) {
+      return new Response('Invalid signature', { status: 401 });
+    }
+
+    const parsedBody = JSON.parse(rawRequestBody);
+    const supabase = getRouteClient(cookies());
+
     switch (parsedBody.event_type) {
       case EventName.SubscriptionActivated:
       case EventName.SubscriptionUpdated:
@@ -48,6 +48,7 @@ export async function POST(request: Request) {
     }
   } catch (error) {
     console.log(error);
+    return new Response('Error processing webhook event', { status: 500 });
   }
 
   return new Response('Processed webhook event', { status: 200 });
