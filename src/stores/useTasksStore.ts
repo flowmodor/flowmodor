@@ -20,6 +20,8 @@ interface State {
   lists: { provider: string; name: string; id: string }[];
   activeList: string;
   isLoadingLists: boolean;
+  activeLabel: string;
+  labels: string[];
 }
 
 interface Action {
@@ -27,17 +29,19 @@ interface Action {
   completeTask: (task: Task) => Promise<void>;
   undoCompleteTask: (task: Task) => Promise<void>;
   updateLists: () => Promise<void>;
+  updateLabels: () => Promise<void>;
   focusTask: (task: Task) => void;
   unfocusTask: () => void;
   fetchTasks: () => Promise<void>;
   onListChange: (e: ChangeEvent<HTMLSelectElement>) => boolean;
+  onLabelChange: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 interface Store extends State {
   actions: Action;
 }
 
-const defaultActiveList = 'Flowmodor - default';
+export const defaultActiveList = 'Flowmodor - default';
 
 export const useTasksStore = create<Store>((set) => ({
   tasks: [],
@@ -52,6 +56,8 @@ export const useTasksStore = create<Store>((set) => ({
   ],
   activeList: defaultActiveList,
   isLoadingLists: true,
+  activeLabel: '',
+  labels: [],
   actions: {
     focusTask: (task) => set(() => ({ focusingTask: task })),
     unfocusTask: () => set(() => ({ focusingTask: null })),
@@ -72,11 +78,27 @@ export const useTasksStore = create<Store>((set) => ({
         integrationsData.access_token
       ) {
         const api = new TodoistApi(integrationsData.access_token);
-        const tasks = await api.getTasks({
-          ...(id === 'all' && { filter: 'all' }),
-          ...(id === 'today' && { filter: 'today' }),
-          ...(id !== 'all' && id !== 'today' && { projectId: id }),
-        });
+
+        const listName = useTasksStore
+          .getState()
+          .lists.find((list) => list.id === id)?.name;
+
+        let filter = '';
+        if (id === 'all') {
+          filter = 'all';
+        } else if (id === 'today') {
+          filter = 'today';
+        } else if (listName) {
+          filter = `#${listName}`;
+        }
+
+        if (useTasksStore.getState().activeLabel) {
+          filter += `${filter !== '' ? ' & ' : ''}@${
+            useTasksStore.getState().activeLabel
+          }`;
+        }
+
+        const tasks = await api.getTasks({ filter });
 
         const processedTasks = tasks.map((task) => ({
           id: parseInt(task.id, 10),
@@ -231,6 +253,13 @@ export const useTasksStore = create<Store>((set) => ({
       });
       useTasksStore.getState().actions.fetchTasks();
     },
+    updateLabels: async () => {
+      const todoist = await getClient();
+      if (todoist) {
+        const data = await todoist.getLabels();
+        set({ labels: data.map((label) => label.name) });
+      }
+    },
     onListChange: (e) => {
       if (e.target.value === '') {
         return false;
@@ -238,6 +267,9 @@ export const useTasksStore = create<Store>((set) => ({
 
       set({ activeList: e.target.value });
       return true;
+    },
+    onLabelChange: (e) => {
+      set({ activeLabel: e.target.value });
     },
   },
 }));
@@ -251,6 +283,10 @@ export const useLists = () => useTasksStore(useShallow((state) => state.lists));
 export const useActiveList = () => useTasksStore((state) => state.activeList);
 export const useIsLoadingLists = () =>
   useTasksStore((state) => state.isLoadingLists);
+export const useLabels = () =>
+  useTasksStore(useShallow((state) => state.labels));
+export const useActiveLabel = () => useTasksStore((state) => state.activeLabel);
 export const useTasksActions = () => useTasksStore((state) => state.actions);
 
 useTasksStore.getState().actions.updateLists();
+useTasksStore.getState().actions.updateLabels();
