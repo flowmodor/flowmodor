@@ -1,26 +1,39 @@
 'use client';
 
 import { Button } from '@nextui-org/button';
+import { Kbd } from '@nextui-org/react';
 import { Tooltip } from '@nextui-org/tooltip';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 export default function SidebarTab({
   children,
   tabPathname,
   tabName,
+  hotkey,
 }: {
   children: ReactNode;
   tabPathname: string;
   tabName: string;
+  hotkey: string;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  useHotkeys(hotkey, () => {
+    router.push(tabPathname);
+  });
 
   return (
     <Tooltip
       color="secondary"
-      content={tabName}
+      content={
+        <div className="flex items-center gap-1">
+          {tabName} <Kbd className="bg-[#23223C]">{hotkey}</Kbd>
+        </div>
+      }
       placement="right"
       offset={15}
       delay={1000}

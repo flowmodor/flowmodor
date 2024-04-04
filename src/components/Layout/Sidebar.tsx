@@ -24,19 +24,19 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
             height={36}
             priority
           />
-          <SidebarTab tabPathname="/" tabName="Home">
+          <SidebarTab tabPathname="/" tabName="Home" hotkey="H">
             <House />
           </SidebarTab>
-          <SidebarTab tabPathname="/stats" tabName="Stats">
+          <SidebarTab tabPathname="/stats" tabName="Stats" hotkey="T">
             <Chart />
           </SidebarTab>
-          <SidebarTab tabPathname="/settings" tabName="Settings">
+          <SidebarTab tabPathname="/settings" tabName="Settings" hotkey="S">
             <Gear />
           </SidebarTab>
-          <SidebarTab tabPathname="/plans" tabName="Plans">
+          <SidebarTab tabPathname="/plans" tabName="Plans" hotkey="P">
             <MoneyBill />
           </SidebarTab>
-          <SidebarTab tabPathname="/feedback" tabName="Feedback">
+          <SidebarTab tabPathname="/feedback" tabName="Feedback" hotkey="F">
             <Comment />
           </SidebarTab>
         </div>
