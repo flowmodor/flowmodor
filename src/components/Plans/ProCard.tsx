@@ -57,12 +57,6 @@ export default function ProCard({ isPro }: { isPro: boolean }) {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <div className="text-sm">
-          You&apos;ll be charged{' '}
-          <span className="font-semibold">
-            {cycle === 'Monthly' ? '$5 per month' : '$48 per year'}.
-          </span>
-        </div>
         <Button
           isDisabled={isPro}
           color="primary"
