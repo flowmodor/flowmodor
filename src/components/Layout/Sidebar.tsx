@@ -8,7 +8,9 @@ import UserDropdown from './UserDropdown';
 
 export default async function Sidebar({ children }: { children: ReactNode }) {
   const supabase = getServerClient(cookies());
-  const { data } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   return (
     <div className="flex h-screen">
@@ -38,7 +40,7 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
             <Comment />
           </SidebarTab>
         </div>
-        <UserDropdown email={data.user?.email ?? ''} />
+        <UserDropdown user={user} />
       </div>
       <div className="w-full flex justify-center scrollbar-hide overflow-y-scroll">
         {children}

@@ -10,7 +10,7 @@ import {
 import { signOut } from '@/actions/auth';
 import { User } from '../Icons';
 
-export default function UserDropdown({ email }: { email: string }) {
+export default function UserDropdown({ user }: { user: any }) {
   return (
     <Dropdown
       classNames={{
@@ -21,7 +21,10 @@ export default function UserDropdown({ email }: { email: string }) {
         <Avatar
           as="button"
           color="secondary"
+          size="sm"
+          isBordered
           showFallback
+          src={user.user_metadata?.avatar_url}
           fallback={<User />}
           className="mt-auto"
         />
@@ -34,7 +37,7 @@ export default function UserDropdown({ email }: { email: string }) {
         >
           <div className="font-semibold">
             <div>Signed in as</div>
-            <div>{email}</div>
+            <div>{user.email}</div>
           </div>
         </DropdownItem>
         <DropdownItem
