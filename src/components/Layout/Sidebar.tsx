@@ -20,6 +20,7 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
             unoptimized
             width={36}
             height={36}
+            priority
           />
           <SidebarTab tabPathname="/" tabName="Home">
             <House />

@@ -26,9 +26,10 @@ export default function UserDropdown({ email }: { email: string }) {
           className="mt-auto"
         />
       </DropdownTrigger>
-      <DropdownMenu>
+      <DropdownMenu aria-label="user info menu">
         <DropdownItem
           key="info"
+          textValue="info"
           className="data-[focus=true]:outline-none data-[focus=true]:bg-transparent data-[hover=true]:bg-transparent"
         >
           <div className="font-semibold">

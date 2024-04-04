@@ -30,7 +30,7 @@ export default function ShareButton({
           <Share />
         </Button>
       </DropdownTrigger>
-      <DropdownMenu>
+      <DropdownMenu aria-label="share menu">
         <DropdownItem
           startContent={<Download />}
           className="fill-white data-[focus=true]:bg-secondary data-[hover=true]:bg-secondary"
