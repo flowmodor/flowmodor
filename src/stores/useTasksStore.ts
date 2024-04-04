@@ -11,6 +11,7 @@ export interface Task {
   name: string;
   completed: boolean;
   labels?: string[];
+  due?: Date | null;
 }
 
 interface State {
@@ -105,6 +106,7 @@ export const useTasksStore = create<Store>((set) => ({
           name: task.content,
           completed: task.isCompleted,
           labels: task.labels,
+          due: task.due?.date ? new Date(task.due.date) : null,
         }));
         set({ tasks: processedTasks, isLoadingTasks: false });
       } else {

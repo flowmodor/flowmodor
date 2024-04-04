@@ -2,6 +2,7 @@ import { Checkbox } from '@nextui-org/checkbox';
 import { toast } from 'sonner';
 import { Task, useFocusingTask, useTasksActions } from '@/stores/useTasksStore';
 import { useMode, useStatus } from '@/stores/useTimerStore';
+import { Calendar, Label } from '../Icons';
 
 export default function TaskBox({ task }: { task: Task }) {
   const status = useStatus();
@@ -36,11 +37,23 @@ export default function TaskBox({ task }: { task: Task }) {
           });
         }}
       >
-        <div>
+        <div className="flex flex-wrap items-center gap-x-3">
           {task.name}
-          <div className="gap-x-2 flex text-[#ffffffa0] text-sm flex-wrap">
-            {task.labels?.map((label) => <div key={label}>#{label}</div>)}
+          <div className="gap-x-2 flex text-[#ffffffa0] fill-[#ffffffa0] text-sm flex-wrap">
+            {task.labels?.map((label) => (
+              <div key={label} className="flex gap-1">
+                <Label />
+                {label}
+              </div>
+            ))}
           </div>
+
+          {task.due ? (
+            <div className="flex text-sm text-[#ffffffa0] fill-[#ffffffa0] gap-1">
+              <Calendar />
+              {task.due.toDateString()}
+            </div>
+          ) : null}
         </div>
       </Checkbox>
     </div>
