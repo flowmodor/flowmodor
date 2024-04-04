@@ -13,7 +13,7 @@ export default async function StarterCard({ isPro }: { isPro: boolean }) {
     .single();
 
   return (
-    <div className="flex w-full flex-col gap-10 rounded-xl bg-[#23223C] p-10 lg:w-2/5">
+    <div className="flex w-full flex-col gap-10 rounded-xl bg-[#23223C] p-10">
       <div className="flex flex-col gap-2">
         <h2 className="text-2xl">Starter</h2>
         <div className="flex items-end gap-1">

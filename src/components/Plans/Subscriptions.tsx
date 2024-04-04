@@ -13,7 +13,7 @@ import { Tables } from '@/types/supabase';
 
 export default function Subscriptions({ data }: { data: Tables<'plans'> }) {
   return (
-    <div className="grid gap-5 mx-5 lg:mx-32">
+    <div className="grid gap-5">
       <h1 className="text-2xl font-semibold">Your subscription</h1>
       <Table
         radius="sm"
