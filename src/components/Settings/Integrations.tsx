@@ -17,7 +17,7 @@ export default async function Integrations() {
       <div className="flex items-center gap-3">
         <h2 className="text-xl font-semibold">Integrations</h2>
         <Chip color="primary" size="sm" radius="sm">
-          Beta
+          Beta (ends at April 10)
         </Chip>
       </div>
       <div className="text-sm color-secondary">
