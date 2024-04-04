@@ -214,6 +214,7 @@ export const useTasksStore = create<Store>((set) => ({
             name: task.name,
             completed: false,
             labels: task.labels,
+            due: task.due,
           },
           ...state.tasks,
         ],
