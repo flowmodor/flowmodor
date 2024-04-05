@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Table,
   TableBody,
@@ -9,7 +11,7 @@ import {
 import { useLogs } from '@/stores/useStatsStore';
 import { calculateTaskTime } from '@/utils/stats/calculateTaskTime';
 
-export default function TaskTime({ isBlocked }: { isBlocked: boolean }) {
+export default function TaskTime() {
   const logs = useLogs();
   const taskTime = calculateTaskTime(logs ?? []);
 
@@ -29,21 +31,19 @@ export default function TaskTime({ isBlocked }: { isBlocked: boolean }) {
         <TableColumn>Time</TableColumn>
       </TableHeader>
       <TableBody emptyContent="No tasks to display">
-        {isBlocked
-          ? []
-          : taskTime.map((data) => (
-              <TableRow key={data.name}>
-                <TableCell>{data.name}</TableCell>
-                <TableCell>
-                  {Math.floor(data.time / 60) > 0 ? (
-                    <span>{Math.floor(data.time / 60)} hr </span>
-                  ) : null}
-                  {data.time % 60 > 0 ? (
-                    <span>{Math.floor(data.time % 60)} min</span>
-                  ) : null}
-                </TableCell>
-              </TableRow>
-            ))}
+        {taskTime.map((data) => (
+          <TableRow key={data.name}>
+            <TableCell>{data.name}</TableCell>
+            <TableCell>
+              {Math.floor(data.time / 60) > 0 ? (
+                <span>{Math.floor(data.time / 60)} hr </span>
+              ) : null}
+              {data.time % 60 > 0 ? (
+                <span>{Math.floor(data.time % 60)} min</span>
+              ) : null}
+            </TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   );

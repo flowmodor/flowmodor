@@ -1,4 +1,6 @@
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
+'use client';
+
+import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Link } from '@nextui-org/link';
 import { useRef } from 'react';
 import { toast } from 'sonner';
@@ -10,11 +12,11 @@ import calculateFocusTimes from '@/utils/stats/calculateFocusTime';
 import downloadImage from '@/utils/stats/downloadImage';
 import ShareButton from './ShareButton';
 
-export default function DailyStats({ isBlocked }: { isBlocked: boolean }) {
-  const date = useDate();
+export default function DailyStats({ isPro }: { isPro: boolean }) {
   const logs = useLogs();
   const { goPreviousDay, goNextDay } = useStatsActions();
   const totalFocusTime = logs ? calculateFocusTimes(logs).totalFocusTime : 0;
+  const date = useDate();
   const chartRef = useRef<any>(null);
 
   const handleShare = async (openX: boolean) => {
@@ -32,34 +34,32 @@ export default function DailyStats({ isBlocked }: { isBlocked: boolean }) {
 
   return (
     <Card radius="sm" className="bg-[#23223C] p-5">
-      <CardHeader className="justify-center gap-5 font-semibold">
-        <DateButton onPress={goPreviousDay}>
-          <Left />
-        </DateButton>
-        {date.toDateString()}
-        <DateButton
-          onPress={goNextDay}
-          isDisabled={new Date().getDate() === date.getDate()}
-        >
-          <Right />
-        </DateButton>
-        {logs && !isBlocked ? <ShareButton handleShare={handleShare} /> : null}
+      <CardHeader className="flex flex-col gap-1">
+        <div className="flex items-center gap-5 font-semibold">
+          <DateButton onPress={goPreviousDay} isDisabled={!isPro}>
+            <Left />
+          </DateButton>
+          {date.toDateString()}
+          <DateButton
+            onPress={goNextDay}
+            isDisabled={new Date().getDate() === date.getDate()}
+          >
+            <Right />
+          </DateButton>
+        </div>
+        {logs ? <ShareButton handleShare={handleShare} /> : null}
       </CardHeader>
-      <CardBody
-        className={`flex items-center justify-center lg:min-h-[60vh] lg:min-w-[50vw] ${
-          isBlocked ? 'blur-lg' : ''
-        }`}
-      >
+      <CardBody className="flex items-center justify-center lg:min-h-[60vh] lg:min-w-[50vw]">
         <BarChart ref={chartRef} logs={logs ?? []} />
       </CardBody>
-      {isBlocked ? (
-        <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform text-white">
-          <Link underline="always" href="/plans">
+      <CardFooter>
+        <div className="text-sm mx-auto">
+          <Link underline="always" href="/plans" className="text-sm">
             Upgrade to Pro
           </Link>{' '}
           to see more stats
         </div>
-      ) : null}
+      </CardFooter>
     </Card>
   );
 }

@@ -1,9 +1,11 @@
+'use client';
+
 import { Card } from '@nextui-org/card';
 import { useLogs } from '@/stores/useStatsStore';
 import calculateFocusTimes from '@/utils/stats/calculateFocusTime';
 import TimeFormatter from './TimeFormatter';
 
-export default function Summary({ isBlocked }: { isBlocked: boolean }) {
+export default function Summary() {
   const logs = useLogs();
   const { totalFocusTime, longestFocusTime } = calculateFocusTimes(logs ?? []);
 
@@ -14,11 +16,11 @@ export default function Summary({ isBlocked }: { isBlocked: boolean }) {
     >
       <div className="flex flex-col items-center text-sm">
         Total Focus
-        <TimeFormatter minutes={isBlocked ? 0 : Math.round(totalFocusTime)} />
+        <TimeFormatter minutes={Math.round(totalFocusTime)} />
       </div>
       <div className="flex flex-col items-center text-sm">
         Longest Focus
-        <TimeFormatter minutes={isBlocked ? 0 : Math.round(longestFocusTime)} />
+        <TimeFormatter minutes={Math.round(longestFocusTime)} />
       </div>
     </Card>
   );
