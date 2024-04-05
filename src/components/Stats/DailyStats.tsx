@@ -1,6 +1,7 @@
 'use client';
 
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
+import { Chip } from '@nextui-org/chip';
 import { Link } from '@nextui-org/link';
 import { useRef } from 'react';
 import { toast } from 'sonner';
@@ -55,9 +56,10 @@ export default function DailyStats({ isPro }: { isPro: boolean }) {
       {!isPro ? (
         <CardFooter>
           <div className="text-sm mx-auto">
-            <Link underline="always" href="/plans" className="text-sm">
-              Upgrade to Pro
-            </Link>{' '}
+            Upgrade to{' '}
+            <Chip as={Link} size="sm" radius="sm" color="primary" href="/plans">
+              Pro
+            </Chip>{' '}
             to see more stats
           </div>
         </CardFooter>

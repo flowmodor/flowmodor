@@ -1,4 +1,3 @@
-import { Link } from '@nextui-org/link';
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import Integrations from '@/components/Settings/Integrations';
@@ -25,14 +24,6 @@ export default async function Settings() {
       <h1 className="mb-10 flex items-center gap-3 text-3xl font-semibold">
         Settings
       </h1>
-      {!isPro ? (
-        <div className="mb-10">
-          <Link underline="always" href="/plans">
-            Upgrade to Pro
-          </Link>{' '}
-          to access advanced settings.
-        </div>
-      ) : null}
       <Options isPro={isPro} defaultBreakRatio={breakRatio} />
       <Integrations />
     </div>
