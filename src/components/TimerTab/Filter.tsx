@@ -9,8 +9,11 @@ import {
   useLabels,
   useTasksActions,
 } from '@/stores/useTasksStore';
+import { useMode, useStatus } from '@/stores/useTimerStore';
 
 export default function Filter() {
+  const status = useStatus();
+  const mode = useMode();
   const labels = useLabels();
   const activeLabel = useActiveLabel();
   const isLoadingLists = useIsLoadingLists();
@@ -28,6 +31,7 @@ export default function Filter() {
       selectionMode="single"
       label="Filter by label"
       isLoading={isLoadingLists}
+      isDisabled={status === 'running' && mode === 'focus'}
       classNames={{
         trigger: 'bg-secondary data-[hover=true]:bg-secondary',
         popoverContent: 'bg-background',

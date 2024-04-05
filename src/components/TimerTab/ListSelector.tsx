@@ -8,8 +8,11 @@ import {
   useLists,
   useTasksActions,
 } from '@/stores/useTasksStore';
+import { useMode, useStatus } from '@/stores/useTimerStore';
 
 export default function ListSelector() {
+  const status = useStatus();
+  const mode = useMode();
   const lists = useLists();
   const activeList = useActiveList();
   const isLoadingLists = useIsLoadingLists();
@@ -22,6 +25,7 @@ export default function ListSelector() {
       selectionMode="single"
       label="Select a list"
       isLoading={isLoadingLists}
+      isDisabled={status === 'running' && mode === 'focus'}
       description={
         lists.length === 1 ? (
           <span>
