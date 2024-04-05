@@ -52,14 +52,16 @@ export default function DailyStats({ isPro }: { isPro: boolean }) {
       <CardBody className="flex items-center justify-center lg:min-h-[60vh] lg:min-w-[50vw]">
         <BarChart ref={chartRef} logs={logs ?? []} />
       </CardBody>
-      <CardFooter>
-        <div className="text-sm mx-auto">
-          <Link underline="always" href="/plans" className="text-sm">
-            Upgrade to Pro
-          </Link>{' '}
-          to see more stats
-        </div>
-      </CardFooter>
+      {!isPro ? (
+        <CardFooter>
+          <div className="text-sm mx-auto">
+            <Link underline="always" href="/plans" className="text-sm">
+              Upgrade to Pro
+            </Link>{' '}
+            to see more stats
+          </div>
+        </CardFooter>
+      ) : null}
     </Card>
   );
 }
