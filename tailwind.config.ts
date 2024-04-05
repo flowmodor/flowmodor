@@ -25,6 +25,7 @@ const config: Config = {
               DEFAULT: '#3F3E55',
               foreground: '#ffffff',
             },
+            midground: '#23223C',
             focus: '#D6B6FF',
           },
         },

@@ -14,7 +14,7 @@ export default function UserDropdown({ user }: { user: any }) {
   return (
     <Dropdown
       classNames={{
-        content: 'bg-[#23223C]',
+        content: 'bg-midground',
       }}
     >
       <DropdownTrigger>

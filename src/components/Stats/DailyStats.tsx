@@ -34,7 +34,7 @@ export default function DailyStats({ isPro }: { isPro: boolean }) {
   };
 
   return (
-    <Card radius="sm" className="bg-[#23223C] p-5">
+    <Card radius="sm" className="bg-midground p-5">
       <CardHeader className="flex flex-col gap-1">
         <div className="flex items-center gap-5 font-semibold">
           <DateButton onPress={goPreviousDay} isDisabled={!isPro}>

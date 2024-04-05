@@ -17,7 +17,7 @@ export default function ShareButton({
       placement="right"
       offset={28}
       classNames={{
-        content: 'bg-[#23223C]',
+        content: 'bg-midground',
       }}
     >
       <DropdownTrigger>

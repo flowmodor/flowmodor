@@ -20,7 +20,7 @@ export default function Subscriptions({ data }: { data: Tables<'plans'> }) {
         color="secondary"
         className="h-full"
         classNames={{
-          wrapper: 'h-full bg-[#23223C]',
+          wrapper: 'h-full bg-midground',
           th: 'bg-secondary',
         }}
         aria-label="Table of each task and time spent on it"

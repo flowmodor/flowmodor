@@ -28,7 +28,7 @@ export default function StarterButton({
         isDisabled={isDisabled}
         color="primary"
         radius="sm"
-        className="font-semibold text-[#23223C]"
+        className="font-semibold text-midground"
         onPress={onOpen}
       >
         {isPro ? 'Downgrade to Starter' : 'Current plan'}
@@ -37,7 +37,7 @@ export default function StarterButton({
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         classNames={{
-          base: 'bg-[#23223C]',
+          base: 'bg-midground',
         }}
       >
         <ModalContent>

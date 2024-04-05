@@ -8,13 +8,13 @@ export default function Tabs({ children }: { children: ReactNode[] }) {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex items-center bg-[#23223C] p-1 rounded-lg gap-3">
+      <div className="flex items-center bg-midground p-1 rounded-lg gap-3">
         <Button
           disableRipple
           radius="sm"
           size="sm"
           className={`flex-1 text-sm ${
-            tab === 0 ? 'bg-secondary' : 'bg-[#23223C] text-opacity-50'
+            tab === 0 ? 'bg-secondary' : 'bg-midground text-opacity-50'
           }`}
           onPress={() => setTab(0)}
         >
@@ -25,7 +25,7 @@ export default function Tabs({ children }: { children: ReactNode[] }) {
           radius="sm"
           size="sm"
           className={`flex-1 text-sm ${
-            tab === 1 ? 'bg-secondary' : 'bg-[#23223C] text-opacity-50'
+            tab === 1 ? 'bg-secondary' : 'bg-midground text-opacity-50'
           }`}
           onPress={() => setTab(1)}
         >

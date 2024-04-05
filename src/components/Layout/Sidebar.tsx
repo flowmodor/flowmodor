@@ -14,7 +14,7 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex h-screen">
-      <div className="py-3 flex flex-col items-center ml-0 w-14 h-full bg-[#23223C]">
+      <div className="py-3 flex flex-col items-center ml-0 w-14 h-full bg-midground">
         <div className="flex flex-col items-center gap-3">
           <Image
             src="/images/logo.png"

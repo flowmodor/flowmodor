@@ -31,7 +31,7 @@ export default function SidebarTab({
       color="secondary"
       content={
         <div className="flex items-center gap-1">
-          {tabName} <Kbd className="bg-[#23223C]">{hotkey}</Kbd>
+          {tabName} <Kbd className="bg-midground">{hotkey}</Kbd>
         </div>
       }
       placement="right"
