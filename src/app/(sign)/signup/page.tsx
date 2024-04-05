@@ -1,10 +1,23 @@
+import { Link } from '@nextui-org/link';
 import { Metadata } from 'next';
-import SignUp from '@/components/Sign/SignUp';
+import { signUp } from '@/actions/auth';
+import SignUpForm from '@/components/Sign/SignUpForm';
 
 export const metadata: Metadata = {
   title: 'Sign Up | Flowmodor',
 };
 
 export default function SignUpPage() {
-  return <SignUp />;
+  return (
+    <form action={signUp} className="flex flex-col gap-5 text-center sm:w-96">
+      <h1 className="text-3xl font-semibold">Get started</h1>
+      <SignUpForm />
+      <div className="mx-auto text-sm">
+        Have an account?{' '}
+        <Link href="/signin" className="text-sm text-white" underline="always">
+          Sign in now
+        </Link>
+      </div>
+    </form>
+  );
 }

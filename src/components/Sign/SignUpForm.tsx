@@ -1,22 +1,19 @@
 'use client';
 
 import { Input } from '@nextui-org/input';
-import { Link } from '@nextui-org/link';
 import { useState } from 'react';
-import { signUp } from '@/actions/auth';
 import { Hide, Show } from '@/components/Icons';
 import { validateEmail, validatePassword } from '@/utils';
 import Submit from '../Submit';
 
-export default function SignUp() {
+export default function SignUpForm() {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   return (
-    <form action={signUp} className="flex flex-col gap-5 text-center sm:w-96">
-      <h1 className="text-3xl font-semibold">Get started</h1>
+    <>
       <Input
         name="email"
         label="Email"
@@ -82,12 +79,6 @@ export default function SignUp() {
       >
         Sign Up
       </Submit>
-      <div className="mx-auto text-sm">
-        Have an account?{' '}
-        <Link href="/signin" className="text-sm text-white" underline="always">
-          Sign in now
-        </Link>
-      </div>
-    </form>
+    </>
   );
 }
