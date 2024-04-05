@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@nextui-org/button';
-import { Kbd } from '@nextui-org/react';
+import { Kbd } from '@nextui-org/kbd';
 import { Tooltip } from '@nextui-org/tooltip';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
