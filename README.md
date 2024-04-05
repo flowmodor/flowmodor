@@ -1,12 +1,10 @@
 ![banner-dark](https://github.com/flowmodor/flowmodor/assets/74842863/93f7892e-2e94-4239-809b-1d76a2666c5e)
 
-Flowmodor is an open-source flowmodoro timer web app based on the Flowtime Technique, an alternative to the Pomodoro Technique.
+Flowmodor is a Flowtime Technique timer web app helping you get into flow state and stay focused.
 
 ## What is the Flowtime Technique?
 
-The Flowtime Technique is a flexible productivity method, focusing on work efficiency. It diverges from fixed intervals like the Pomodoro Technique, allowing users to work uninterrupted until they decide to take a break. Break times are then set to a fraction of the focus period, typically one-fifth.
-
-For a detailed explanation, read more about it on [this blog](https://flowmodor.com/blog/flowtime-technique-the-best-pomodoro-alternative-for-time-management).
+The Flowtime Technique is based on the concept of flow, a state of deep focus and productivity. It encourages you to work when you feel most productive and take breaks when you need them, typically one-fifth of the focus period. Learn more about it [here](https://flowmodor.com/blog/flowtime-technique-the-best-pomodoro-alternative-for-time-management).
 
 ## Features
 
