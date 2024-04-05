@@ -2,6 +2,8 @@
 
 import { Button } from '@nextui-org/button';
 import { TourProvider, useTour } from '@reactour/tour';
+import { ReactNode, useEffect } from 'react';
+import useTick from '@/hooks/useTick';
 import supabase from '@/utils/supabase';
 
 const steps = [
@@ -126,4 +128,15 @@ export function TourCustomProvider({
       {children}
     </TourProvider>
   );
+}
+
+export function HomeProvider({ children }: { children: ReactNode }) {
+  const { setIsOpen } = useTour();
+  useEffect(() => {
+    setIsOpen(true);
+  }, []);
+
+  useTick();
+
+  return children;
 }

@@ -1,3 +1,5 @@
+'use client';
+
 import { CircularProgress } from '@nextui-org/progress';
 import { useTour } from '@reactour/tour';
 import { useEffect } from 'react';

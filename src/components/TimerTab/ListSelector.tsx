@@ -1,3 +1,5 @@
+'use client';
+
 import { Link } from '@nextui-org/link';
 import { Select, SelectItem } from '@nextui-org/select';
 import {

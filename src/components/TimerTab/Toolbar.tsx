@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@nextui-org/button';
 import { useTour } from '@reactour/tour';
 import { useTransition } from 'react';

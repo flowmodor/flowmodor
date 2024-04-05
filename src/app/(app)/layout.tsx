@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import Sidebar from '@/components/Layout/Sidebar';
 import { getServerClient } from '@/utils/supabase';
-import { TourCustomProvider } from './providers';
+import { HomeProvider, TourCustomProvider } from './providers';
 
 export default async function AppLayout({
   children,
@@ -18,10 +18,16 @@ export default async function AppLayout({
   if (isNewUser) {
     return (
       <TourCustomProvider>
-        <Sidebar>{children}</Sidebar>
+        <HomeProvider>
+          <Sidebar>{children}</Sidebar>
+        </HomeProvider>
       </TourCustomProvider>
     );
   }
 
-  return <Sidebar>{children}</Sidebar>;
+  return (
+    <Sidebar>
+      <HomeProvider>{children}</HomeProvider>
+    </Sidebar>
+  );
 }
