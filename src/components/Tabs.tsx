@@ -10,7 +10,7 @@ export default function Tabs({ children }: { children: ReactNode[] }) {
     <div className="flex flex-col gap-3">
       <div className="flex items-center bg-[#23223C] p-1 rounded-lg gap-3">
         <Button
-          disableAnimation
+          disableRipple
           radius="sm"
           size="sm"
           className={`flex-1 text-sm ${
@@ -21,7 +21,7 @@ export default function Tabs({ children }: { children: ReactNode[] }) {
           Timer
         </Button>
         <Button
-          disableAnimation
+          disableRipple
           radius="sm"
           size="sm"
           className={`flex-1 text-sm ${
