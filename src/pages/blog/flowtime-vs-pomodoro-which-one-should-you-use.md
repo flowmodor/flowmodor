@@ -1,8 +1,8 @@
 ---
 title: 'Flowtime vs Pomodoro: which one should you use?'
 date: 2024/03/30
-description: Understand the pros and cons of Flowtime and Pomodoro techniques to choose the best one for you.
-brief: Understand the pros and cons of Flowtime and Pomodoro techniques to choose the best one for you.
+description: Understand the pros and cons of Flowtime Technique and Pomodoro Technique to choose one that works best for you.
+brief: Understand the pros and cons of Flowtime Technique and Pomodoro Technique to choose one that works best for you.
 layout: ../../layouts/BlogLayout.astro
 ---
 
@@ -10,7 +10,9 @@ Finding the right productivity technique can make a significant difference in yo
 
 ## Understand Pomodoro Technique
 
-The Pomodoro Technique, created by Francesco Cirillo, is a structured method that divides work into 25-minute focused sessions followed by 5-minute breaks. After completing four sessions, you take a longer break of 15-30 minutes.
+The Pomodoro Technique is a structured method that divides work into 25-minute focused sessions followed by 5-minute breaks. After completing four sessions, you take a longer break of 15-30 minutes.
+
+![The Pomodoro Technique](/pomodoro.png)
 
 The Pomodoro Technique is known for its simplicity. It helps you break down tasks into manageable intervals and avoid burnout by incorporating regular breaks.
 
@@ -18,16 +20,20 @@ The Pomodoro Technique is known for its simplicity. It helps you break down task
 
 In contrast, the Flowtime Technique offers a more flexible approach, allowing you to work for as long as you feel productive before taking a break. When you start feeling distracted or tired, you take a break with the one-fifth of the time you worked.
 
+![The Flowtime Technique](/flowtime.png)
+
 The Flowtime Technique is based on the concept of flow, a state of deep focus and productivity. It encourages you to work when you feel most productive and take breaks when you need them.
 
-## Comparing Pomodoro and Flowtime
+## Pomodoro vs Flowtime
+
+Now let's compare the Pomodoro Technique and the Flowtime Technique based on several aspects:
 
 ### Implementation
 
-Both techniques are easy to implement. You can use a timer or a productivity app to track your work sessions and breaks. Here are the most popular web apps for each technique:
+Both techniques are easy to implement. You can use a timer or a productivity app to track your work sessions and breaks. Here are the best web apps for each technique:
 
 - the Pomodoro Technique: [Pomofocus](https://pomofocus.io)
-- the Flowtime Technique: [Flowmodor](https://flowmodor.com)
+- the Flowtime Technique: [Flowmodor](/)
 
 ### Burnout prevention
 
@@ -38,6 +44,8 @@ On the other hand, the Flowtime Technique allows you to work for as long as you 
 ### Flexibility
 
 The Flowtime Technique offers more flexibility in terms of work intervals and breaks. Not only you can work as long as you feel productive, but you can also customize the ratio of work and break time based on your preferences.
+
+For example, when you feels most productive in the morning, your focus-break ratio could be 6:1. And when you got tired in the afternoon, you could change it to 4:1.
 
 The Pomodoro Technique, with its fixed 25-minute work sessions, may feel restrictive for some people.
 
