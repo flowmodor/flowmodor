@@ -125,16 +125,23 @@ export const useTasksStore = create<Store>((set) => ({
       const todoist = await getClient();
       if (provider === 'Todoist' && todoist) {
         try {
+          const label = useTasksStore.getState().activeLabel;
           const { id } = await todoist.addTask({
             content: name,
             ...(projectId !== 'all' &&
               projectId !== 'today' && { project_id: projectId }),
             ...(projectId === 'today' && { due_string: 'today' }),
+            ...(label && { labels: [label] }),
           });
           set({
             tasks: [
               ...useTasksStore.getState().tasks,
-              { id: parseInt(id, 10), name, completed: false },
+              {
+                id: parseInt(id, 10),
+                name,
+                completed: false,
+                ...(label && { labels: [label] }),
+              },
             ],
           });
         } catch (error) {
