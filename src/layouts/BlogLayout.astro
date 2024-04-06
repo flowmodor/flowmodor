@@ -7,8 +7,10 @@ const { frontmatter } = Astro.props;
 <NavbarLayout
   title={`${frontmatter.title} | Flowmodor`}
   description={frontmatter.description}
+  image={frontmatter.image}
 >
   <article class="prose prose-invert px-3 py-36">
+    <img src={frontmatter.image} alt={frontmatter.title} />
     <h1 class="text-3xl font-extrabold">{frontmatter.title}</h1>
     <div>
       {frontmatter.date} • <a href="https://x.com/m4xshen" class="no-underline"

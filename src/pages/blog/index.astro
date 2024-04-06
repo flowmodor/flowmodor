@@ -13,13 +13,21 @@ blogs.sort((a, b) => {
   <div class="mb-20 mt-32 flex flex-col gap-12 px-5">
     {
       blogs.map((blog) => (
-        <div class="flex max-w-xl flex-col items-start gap-3">
-          <div class="text-sm brightness-75">{blog.frontmatter.date}</div>
-          <a href={blog.url} class="text-2xl font-extrabold hover:underline">
-            {blog.frontmatter.title}
-          </a>
-          <div class="brightness-75">{blog.frontmatter.brief}</div>
-        </div>
+        <a
+          href={blog.url}
+          class="flex max-w-xl flex-col items-start gap-3 rounded-lg border border-secondary"
+        >
+          {blog.frontmatter.image ? (
+            <img
+              src={blog.frontmatter.image}
+              class="h-48 w-full rounded-lg object-cover"
+            />
+          ) : null}
+          <div class={`p-5 ${blog.frontmatter.image ? 'pt-0' : ''}`}>
+            <div class="text-2xl font-extrabold">{blog.frontmatter.title}</div>
+            <div class="brightness-75">{blog.frontmatter.brief}</div>
+          </div>
+        </a>
       ))
     }
   </div>

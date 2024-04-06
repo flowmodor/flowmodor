@@ -2,8 +2,7 @@
 import '@fontsource-variable/inter';
 import Footer from '../components/Layout/Footer.astro';
 
-const { title, description } = Astro.props;
-const image = '/og.png';
+const { title, description, image = 'og.png' } = Astro.props;
 ---
 
 <html lang="en" class="scroll-smooth">
@@ -19,7 +18,7 @@ const image = '/og.png';
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, Astro.url)} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
 
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
