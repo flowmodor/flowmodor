@@ -109,7 +109,7 @@ export function TourCustomProvider({
       styles={{
         badge: (base) => ({
           ...base,
-          backgroundColor: '#D6B6FF',
+          backgroundColor: '#DBBFFF',
           color: '#131221',
         }),
         popover: (base) => ({
@@ -120,7 +120,7 @@ export function TourCustomProvider({
         }),
         dot: (base) => ({
           ...base,
-          backgroundColor: '#D6B6FF',
+          backgroundColor: '#DBBFFF',
         }),
       }}
       prevButton={() => null}

@@ -18,7 +18,7 @@ const config: Config = {
           colors: {
             background: '#131221',
             primary: {
-              DEFAULT: '#D6B6FF',
+              DEFAULT: '#DBBFFF',
               foreground: '#000000',
             },
             secondary: {
@@ -26,7 +26,7 @@ const config: Config = {
               foreground: '#ffffff',
             },
             midground: '#23223C',
-            focus: '#D6B6FF',
+            focus: '#DBBFFF',
           },
         },
       },
