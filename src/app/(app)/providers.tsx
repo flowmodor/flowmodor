@@ -17,7 +17,8 @@ const steps = [
   },
   {
     selector: '#start-stop-button',
-    content: 'Click this button to stop the focus session.',
+    content:
+      'When you want to take a break. Click this button to stop the focus session.',
   },
   {
     selector: '#progress',
