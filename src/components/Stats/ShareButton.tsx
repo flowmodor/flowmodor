@@ -26,6 +26,7 @@ export default function ShareButton({
           color="secondary"
           size="sm"
           className="absolute top-5 right-5 fill-white"
+          aria-label="Share"
         >
           <Share />
         </Button>

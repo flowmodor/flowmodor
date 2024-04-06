@@ -37,12 +37,17 @@ export default function DailyStats({ isPro }: { isPro: boolean }) {
     <Card radius="sm" className="bg-midground p-5">
       <CardHeader className="flex flex-col gap-1">
         <div className="flex items-center gap-5 font-semibold">
-          <DateButton onPress={goPreviousDay} isDisabled={!isPro}>
+          <DateButton
+            onPress={goPreviousDay}
+            ariaLabel="Previous day"
+            isDisabled={!isPro}
+          >
             <Left />
           </DateButton>
           {date.toDateString()}
           <DateButton
             onPress={goNextDay}
+            ariaLabel="Next day"
             isDisabled={new Date().getDate() === date.getDate()}
           >
             <Right />

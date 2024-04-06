@@ -46,6 +46,7 @@ export default function SidebarTab({
         isIconOnly
         color="secondary"
         radius="sm"
+        aria-label={tabName}
         className={`hover:bg-secondary fill-white ${
           pathname === tabPathname ? 'bg-secondary' : 'bg-transparent'
         }`}

@@ -27,6 +27,7 @@ export default function Toolbar() {
         type="button"
         variant="flat"
         isIconOnly
+        aria-label={showTime ? 'Hide time' : 'Show time'}
         className="bg-secondary"
         onPress={toggleShowTime}
       >
@@ -38,6 +39,7 @@ export default function Toolbar() {
           variant="flat"
           isLoading={isLoading}
           isIconOnly
+          aria-label={status === 'running' ? 'Pause' : 'Resume'}
           className="bg-secondary"
           onPress={() => {
             startTransition(async () => {
@@ -58,6 +60,7 @@ export default function Toolbar() {
         variant="flat"
         isLoading={isLoading}
         isIconOnly
+        aria-label={status === 'idle' ? 'Start' : 'Stop'}
         className="bg-secondary"
         onPress={() => {
           startTransition(async () => {

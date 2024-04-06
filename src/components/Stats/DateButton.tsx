@@ -4,10 +4,12 @@ import { ReactNode } from 'react';
 export default function DateButton({
   children,
   onPress,
+  ariaLabel,
   isDisabled = false,
 }: {
   children: ReactNode;
   onPress: () => void;
+  ariaLabel: string;
   isDisabled?: boolean;
 }) {
   return (
@@ -18,6 +20,7 @@ export default function DateButton({
       className="bg-secondary fill-white"
       onPress={onPress}
       isDisabled={isDisabled}
+      aria-label={ariaLabel}
     >
       {children}
     </Button>
