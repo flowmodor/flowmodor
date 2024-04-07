@@ -23,7 +23,7 @@
   <a
     id="get-started"
     href="https://app.flowmodor.com/signin"
-    class="absolute right-5 cursor-pointer rounded-md bg-background p-2 text-sm font-medium text-white transition-all"
+    class="invisible absolute right-5 cursor-pointer rounded-md bg-primary p-2 text-sm font-medium text-[#131221] opacity-0 transition-all"
   >
     Get started
   </a>
@@ -40,10 +40,10 @@
     const windowHeight = window.innerHeight - 30;
     if (window.scrollY > windowHeight) {
       navbar.classList.add('text-white');
-      getStarted.classList.add('bg-primary', '!text-[#131221]');
+      getStarted.classList.add('!opacity-100', '!visible');
     } else {
       navbar.classList.remove('text-white');
-      getStarted.classList.remove('bg-primary', '!text-[#131221]');
+      getStarted.classList.remove('!opacity-100', '!visible');
     }
   }
 
