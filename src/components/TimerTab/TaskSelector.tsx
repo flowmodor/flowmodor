@@ -8,18 +8,21 @@ import {
   useTasks,
   useTasksActions,
 } from '@/stores/useTasksStore';
-import { useStatus } from '@/stores/useTimerStore';
+import { useMode, useStatus } from '@/stores/useTimerStore';
 
 export default function TaskSelector() {
   const status = useStatus();
   const tasks = useTasks();
   const isLoadingTasks = useIsLoadingLists();
   const focusingTask = useFocusingTask();
+  const mode = useMode();
   const { focusTask, unfocusTask } = useTasksActions();
 
   return (
     <Select
-      isDisabled={status === 'running' || tasks.length === 0}
+      isDisabled={
+        (mode === 'focus' && status === 'running') || tasks.length === 0
+      }
       isLoading={isLoadingTasks}
       selectionMode="single"
       selectedKeys={focusingTask ? [focusingTask.id.toString()] : []}

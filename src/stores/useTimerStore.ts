@@ -109,7 +109,7 @@ const useTimerStore = create<Store>((set) => ({
       const { mode } = useTimerStore.getState();
       const { focusingTask } = useTasksStore.getState();
 
-      if (!focusingTask) {
+      if (!focusingTask || mode === 'break') {
         await supabase.from('logs').insert([
           {
             mode,
