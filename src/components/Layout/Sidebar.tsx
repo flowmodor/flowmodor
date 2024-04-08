@@ -13,7 +13,7 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
   } = await supabase.auth.getUser();
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-[100dvh]">
       <div className="py-3 flex flex-col items-center ml-0 w-14 h-full bg-midground">
         <div className="flex flex-col items-center gap-3">
           <Image
