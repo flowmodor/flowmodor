@@ -27,7 +27,7 @@ export default function TaskBox({ task }: { task: Task }) {
         onChange={async () => {
           await completeTask(task);
 
-          toast(`Task ${task.name} completed.`, {
+          toast(`${task.name} completed`, {
             action: {
               label: 'Undo',
               onClick: async () => {
