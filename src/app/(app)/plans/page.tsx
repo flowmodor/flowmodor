@@ -23,7 +23,7 @@ export default async function Plans() {
         <StarterCard isPro={isPro} />
         <ProCard isPro={isPro} />
       </div>
-      {data && data.subscription_id ? <Subscriptions data={data} /> : null}
+      {data && data.status ? <Subscriptions data={data} /> : null}
     </div>
   );
 }

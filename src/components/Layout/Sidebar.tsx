@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import { getServerClient } from '@/utils/supabase';
 import { Chart, Comment, Gear, House, MoneyBill } from '../Icons';
 import SidebarTab from './SidebarTab';
+import TrialBanner from './TrialBanner';
 import UserDropdown from './UserDropdown';
 
 export default async function Sidebar({ children }: { children: ReactNode }) {
@@ -12,9 +13,14 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  const { data } = await supabase
+    .from('plans')
+    .select('status,end_time')
+    .single();
+
   return (
     <div className="flex h-[100dvh]">
-      <div className="py-3 flex flex-col items-center ml-0 w-14 h-full bg-midground">
+      <div className="border-r border-r-secondary pt-2 pb-3 flex flex-col items-center ml-0 w-14 h-full bg-midground z-10">
         <div className="flex flex-col items-center gap-3">
           <Image
             src="/images/logo.png"
@@ -42,7 +48,8 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
         </div>
         <UserDropdown user={user} />
       </div>
-      <div className="w-full flex justify-center scrollbar-hide overflow-y-scroll">
+      <div className="w-full flex flex-col items-center scrollbar-hide overflow-y-scroll">
+        <TrialBanner data={data} />
         {children}
       </div>
     </div>

@@ -9,5 +9,5 @@ export default async function checkIsPro(cookieStore: ReadonlyRequestCookies) {
     return false;
   }
 
-  return new Date(data.end_time!) >= new Date();
+  return new Date(data.end_time) >= new Date();
 }
