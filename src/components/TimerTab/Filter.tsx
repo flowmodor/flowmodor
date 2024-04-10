@@ -18,7 +18,7 @@ export default function Filter() {
   const activeLabel = useActiveLabel();
   const isLoadingLists = useIsLoadingLists();
   const activeList = useActiveList();
-  const { onLabelChange, fetchTasks } = useTasksActions();
+  const { onLabelChange } = useTasksActions();
 
   if (activeList === defaultActiveList) {
     return null;
@@ -37,10 +37,7 @@ export default function Filter() {
         popoverContent: 'bg-background',
       }}
       selectedKeys={activeLabel !== '' ? [activeLabel] : []}
-      onChange={async (e) => {
-        onLabelChange(e);
-        await fetchTasks();
-      }}
+      onChange={onLabelChange}
     >
       {labels.map((label) => (
         <SelectItem

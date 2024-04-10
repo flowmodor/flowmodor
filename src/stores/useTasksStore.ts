@@ -93,12 +93,6 @@ export const useTasksStore = create<Store>((set) => ({
           filter = `#${listName}`;
         }
 
-        if (useTasksStore.getState().activeLabel) {
-          filter += `${filter !== '' ? ' & ' : ''}@${
-            useTasksStore.getState().activeLabel
-          }`;
-        }
-
         const tasks = await api.getTasks({ filter });
 
         const processedTasks = tasks.map((task) => ({
@@ -284,7 +278,6 @@ export const useTasksStore = create<Store>((set) => ({
   },
 }));
 
-export const useTasks = () => useTasksStore(useShallow((state) => state.tasks));
 export const useFocusingTask = () =>
   useTasksStore(useShallow((state) => state.focusingTask));
 export const useIsLoadingTasks = () =>
@@ -296,6 +289,17 @@ export const useIsLoadingLists = () =>
 export const useLabels = () =>
   useTasksStore(useShallow((state) => state.labels));
 export const useActiveLabel = () => useTasksStore((state) => state.activeLabel);
+export const useTasks = () => {
+  const tasks = useTasksStore(useShallow((state) => state.tasks));
+  const activeLabel = useActiveLabel();
+  const activeList = useActiveList();
+
+  if (activeLabel === '' || activeList === defaultActiveList) {
+    return tasks;
+  }
+
+  return tasks.filter((task) => task.labels?.includes(activeLabel));
+};
 export const useTasksActions = () => useTasksStore((state) => state.actions);
 
 useTasksStore.getState().actions.updateLists();
