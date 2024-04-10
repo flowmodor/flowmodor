@@ -8,6 +8,7 @@ import Feature from './Feature';
 const features = [
   'Everything in Starter',
   'Custom Break Ratio',
+  'Todoist Integration',
   'Unlimited Stats',
   'Priority Support',
 ];

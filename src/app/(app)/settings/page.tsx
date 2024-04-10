@@ -1,3 +1,5 @@
+import { Chip } from '@nextui-org/chip';
+import { Link } from '@nextui-org/link';
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import Integrations from '@/components/Settings/Integrations';
@@ -23,9 +25,12 @@ export default async function Settings() {
     <div className="mt-20 w-screen px-10 sm:w-[70vw] md:w-[50vw] lg:w-[40vw]">
       <h1 className="mb-10 flex items-center gap-3 text-3xl font-semibold">
         Settings
+        <Chip as={Link} size="sm" radius="sm" color="primary" href="/plans">
+          Pro
+        </Chip>
       </h1>
       <Options isPro={isPro} defaultBreakRatio={breakRatio} />
-      <Integrations />
+      <Integrations isPro={isPro} />
     </div>
   );
 }

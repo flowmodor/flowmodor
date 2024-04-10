@@ -1,9 +1,8 @@
-import { Chip } from '@nextui-org/chip';
 import { cookies } from 'next/headers';
 import { getServerClient } from '@/utils/supabase';
 import TodoistButton from './TodoistButton';
 
-export default async function Integrations() {
+export default async function Integrations({ isPro }: { isPro: boolean }) {
   const supabase = getServerClient(cookies());
   const { data } = await supabase
     .from('integrations')
@@ -16,14 +15,11 @@ export default async function Integrations() {
     <div className="flex flex-col gap-3 items-start">
       <div className="flex items-center gap-3">
         <h2 className="text-xl font-semibold">Integrations</h2>
-        <Chip color="primary" size="sm" radius="sm">
-          Beta (ends at April 10)
-        </Chip>
       </div>
       <div className="text-sm color-secondary">
         Sync tasks with third-party apps
       </div>
-      <TodoistButton provider={provider} />
+      <TodoistButton provider={provider} isPro={isPro} />
     </div>
   );
 }

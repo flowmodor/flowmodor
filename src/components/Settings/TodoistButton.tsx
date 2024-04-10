@@ -10,8 +10,10 @@ import { Todoist } from '../Icons';
 
 export default function TodoistButton({
   provider,
+  isPro,
 }: {
   provider: Enums<'provider'> | null | undefined;
+  isPro: boolean;
 }) {
   const { updateLists } = useTasksActions();
   const [isPending, startTransition] = useTransition();
@@ -21,6 +23,7 @@ export default function TodoistButton({
       color="secondary"
       radius="sm"
       isLoading={isPending}
+      isDisabled={!isPro}
       onPress={() => {
         startTransition(async () => {
           if (provider === 'todoist') {
