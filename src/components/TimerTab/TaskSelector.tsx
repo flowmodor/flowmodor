@@ -4,7 +4,7 @@ import { Select, SelectItem } from '@nextui-org/select';
 import { Tooltip } from '@nextui-org/tooltip';
 import {
   useFocusingTask,
-  useIsLoadingLists,
+  useIsLoadingTasks,
   useTasks,
   useTasksActions,
 } from '@/stores/useTasksStore';
@@ -13,7 +13,7 @@ import { useMode, useStatus } from '@/stores/useTimerStore';
 export default function TaskSelector() {
   const status = useStatus();
   const tasks = useTasks();
-  const isLoadingTasks = useIsLoadingLists();
+  const isLoadingTasks = useIsLoadingTasks();
   const focusingTask = useFocusingTask();
   const mode = useMode();
   const { focusTask, unfocusTask } = useTasksActions();
