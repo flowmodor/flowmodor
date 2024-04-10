@@ -40,7 +40,7 @@ export async function GET(request: Request) {
 
     if (!error && response.ok) {
       return NextResponse.redirect(
-        `${origin}/settings?success=Todoist connected successfully!`,
+        `${origin}/settings?success=Todoist connected successfully! You can now select tasks from Todoist.`,
       );
     }
   }
