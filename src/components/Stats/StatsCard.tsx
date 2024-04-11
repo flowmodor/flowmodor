@@ -16,6 +16,7 @@ import {
   usePeriod,
   useStatsActions,
 } from '@/stores/useStatsStore';
+import WeeklyBarChart from './WeeklyBarChart';
 
 export default function StatsCard({ isPro }: { isPro: boolean }) {
   const periods: Period[] = ['day', 'week', 'month'];
@@ -79,6 +80,10 @@ export default function StatsCard({ isPro }: { isPro: boolean }) {
       <CardBody className="flex items-center justify-center lg:min-h-[60vh] lg:min-w-[50vw]">
         {period === 'day' ? (
           <DailyBarChart ref={chartRef} logs={logs ?? []} />
+        ) : null}
+        {
+          period === 'week' ? (
+          <WeeklyBarChart ref={chartRef} logs={logs ?? []} />
         ) : null}
       </CardBody>
       {!isPro ? (

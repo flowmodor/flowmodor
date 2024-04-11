@@ -40,24 +40,27 @@ export const useStatsStore = create<Store>((set) => ({
       const endDate = new Date(ed);
       endDate.setHours(23, 59, 59, 999);
 
-      if (period === 'day') {
-        const { data, error } = await supabase
-          .from('logs')
-          .select('*, tasks(name)')
-          .gte('start_time', startDate.toISOString())
-          .lte('start_time', endDate.toISOString());
+      const { data, error } = await supabase
+        .from('logs')
+        .select('*, tasks(name)')
+        .gte('start_time', startDate.toISOString())
+        .lte('start_time', endDate.toISOString());
 
-        if (!error) {
-          set({
-            logs: data,
-            displayTime: startDate.toLocaleDateString(undefined, {
-              month: 'short',
-              day: 'numeric',
-            }),
-          });
-        }
+      if (error) {
+        return;
+      }
+
+      if (period === 'day') {
+        set({
+          logs: data,
+          displayTime: startDate.toLocaleDateString(undefined, {
+            month: 'short',
+            day: 'numeric',
+          }),
+        });
       } else if (period === 'week') {
         set({
+          logs: data,
           displayTime: `${startDate.toLocaleDateString(undefined, {
             month: 'short',
             day: 'numeric',

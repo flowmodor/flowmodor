@@ -21,10 +21,12 @@ export default function TaskTime() {
       color="secondary"
       className="h-full"
       classNames={{
+        base: 'max-h-[26rem] overflow-y-auto',
         wrapper: 'h-full bg-midground',
         th: 'bg-secondary',
       }}
       aria-label="Table of each task and time spent on it"
+      isHeaderSticky
     >
       <TableHeader>
         <TableColumn>Task</TableColumn>

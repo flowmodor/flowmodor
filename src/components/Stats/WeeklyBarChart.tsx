@@ -9,7 +9,7 @@ import {
 } from 'chart.js';
 import { ForwardedRef, forwardRef, memo } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { dailyLogToChartData } from '@/utils';
+import { weeklyLogsToChartData } from '@/utils';
 import { LogsWithTasks } from '@/utils/stats/calculateTaskTime';
 
 ChartJS.register(
@@ -23,15 +23,8 @@ ChartJS.register(
 
 const options = {
   responsive: true,
-  interaction: {
-    mode: 'dataset' as 'dataset',
-  },
   scales: {
     x: {
-      stacked: true,
-      min: 0,
-      max: 23,
-      stepSize: 1,
       grid: {
         color: '#3F3E55',
       },
@@ -40,13 +33,11 @@ const options = {
       },
     },
     y: {
-      min: 0,
-      max: 60,
-      stepSize: 10,
       grid: {
         color: '#3F3E55',
       },
       ticks: {
+        stepSize: 1,
         color: '#FFFFFFA0',
       },
     },
@@ -59,22 +50,6 @@ const options = {
       usePointStyle: true,
       backgroundColor: '#131221',
       callbacks: {
-        title: (xDatapoint: any) => {
-          const datapoints = xDatapoint.filter(
-            (point: any) => point.raw[0] + point.raw[1] > 0,
-          );
-
-          const hourStart = datapoints[0].label;
-          const hourEnd = datapoints[datapoints.length - 1].label;
-
-          const minuteStart = datapoints[0].raw[0].toString().padStart(2, '0');
-          const minuteEnd = datapoints[datapoints.length - 1].raw[1]
-            .toString()
-            .padStart(2, '0');
-
-          return `${hourStart}:${minuteStart} - ${hourEnd}:${minuteEnd}\n${datapoints[0].dataset.label}`;
-        },
-        label: () => '',
         labelColor(ctx: any) {
           return {
             borderColor: ctx.dataset.borderColor,
@@ -94,12 +69,9 @@ interface Props {
   logs: LogsWithTasks[];
 }
 
-function DailyBarChart({ logs }: Props, ref: ForwardedRef<any>) {
-  const hours = Array.from(Array(24).keys());
-
-  const focusDatasets = logs
-    .filter((log) => log.mode === 'focus')
-    .map((log) => dailyLogToChartData(log));
+function WeeklyBarChart({ logs }: Props, ref: ForwardedRef<any>) {
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const chartData = weeklyLogsToChartData(logs);
 
   const setBackground = {
     id: 'setBackground',
@@ -113,28 +85,28 @@ function DailyBarChart({ logs }: Props, ref: ForwardedRef<any>) {
     },
   };
 
-  const datasets = focusDatasets.map((dataset) => ({
-    label: dataset.label,
-    data: dataset.chartData,
-    borderColor: '#DBBFFF',
-    backgroundColor: '#DBBFFF',
-    hoverBackgroundColor: '#DBBFFFC0',
-    hoverBorderColor: '#DBBFFFC0',
-    borderRadius: 3,
-    borderSkipped: false,
-  }));
-
   return (
     <Bar
       ref={ref}
       options={options}
       plugins={[setBackground]}
       data={{
-        labels: hours,
-        datasets,
+        labels: days,
+        datasets: [
+          {
+            label: 'Focus',
+            data: chartData,
+            borderColor: '#DBBFFF',
+            backgroundColor: '#DBBFFF',
+            hoverBackgroundColor: '#DBBFFFC0',
+            hoverBorderColor: '#DBBFFFC0',
+            borderRadius: 3,
+            borderSkipped: false,
+          },
+        ],
       }}
     />
   );
 }
 
-export default memo(forwardRef<any, Props>(DailyBarChart));
+export default memo(forwardRef<any, Props>(WeeklyBarChart));

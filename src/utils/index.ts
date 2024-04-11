@@ -22,7 +22,7 @@ const validateEmail = (email: string) =>
   /^$|^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
 /* eslint-disable no-restricted-syntax */
-function logToChartData(log: LogsWithTasks) {
+function dailyLogToChartData(log: LogsWithTasks) {
   const chartData = Array.from({ length: 24 }, () => [0, 0]);
 
   const startTime = new Date(log.start_time);
@@ -46,6 +46,20 @@ function logToChartData(log: LogsWithTasks) {
   };
 }
 
+function weeklyLogsToChartData(logs: LogsWithTasks[]) {
+  const chartData = Array.from({ length: 7 }, () => 0);
+
+  logs.forEach((log) => {
+    const startTime = new Date(log.start_time);
+    const endTime = new Date(log.end_time);
+
+    chartData[startTime.getDay()] +=
+      (endTime.getTime() - startTime.getTime()) / 1000 / 60 / 60;
+  });
+
+  return chartData;
+}
+
 const base64ToBlob = (base64: string, mimeType: string) => {
   const byteCharacters = atob(base64.split(',')[1]);
   const byteNumbers = new Array(byteCharacters.length);
@@ -61,6 +75,7 @@ export {
   formatTime,
   validatePassword,
   validateEmail,
-  logToChartData,
+  dailyLogToChartData,
+  weeklyLogsToChartData,
   base64ToBlob,
 };
