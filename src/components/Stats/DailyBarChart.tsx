@@ -94,7 +94,7 @@ interface Props {
   logs: LogsWithTasks[];
 }
 
-function BarChart({ logs }: Props, ref: ForwardedRef<any>) {
+function DailyBarChart({ logs }: Props, ref: ForwardedRef<any>) {
   const hours = Array.from(Array(24).keys());
 
   const focusDatasets = logs
@@ -137,4 +137,4 @@ function BarChart({ logs }: Props, ref: ForwardedRef<any>) {
   );
 }
 
-export default memo(forwardRef<any, Props>(BarChart));
+export default memo(forwardRef<any, Props>(DailyBarChart));

@@ -6,7 +6,7 @@ import { Link } from '@nextui-org/link';
 import { Select, SelectItem } from '@nextui-org/select';
 import { useRef } from 'react';
 import { Left, Right } from '@/components/Icons';
-import BarChart from '@/components/Stats/BarChart';
+import DailyBarChart from '@/components/Stats/DailyBarChart';
 import DateButton from '@/components/Stats/DateButton';
 import {
   Period,
@@ -17,7 +17,7 @@ import {
   useStatsActions,
 } from '@/stores/useStatsStore';
 
-export default function DailyStats({ isPro }: { isPro: boolean }) {
+export default function StatsCard({ isPro }: { isPro: boolean }) {
   const periods: Period[] = ['day', 'week', 'month'];
   const logs = useLogs();
   const { goPreviousTime, goNextTime, onPeriodChange } = useStatsActions();
@@ -77,7 +77,9 @@ export default function DailyStats({ isPro }: { isPro: boolean }) {
         </div>
       </CardHeader>
       <CardBody className="flex items-center justify-center lg:min-h-[60vh] lg:min-w-[50vw]">
-        <BarChart ref={chartRef} logs={logs ?? []} />
+        {period === 'day' ? (
+          <DailyBarChart ref={chartRef} logs={logs ?? []} />
+        ) : null}
       </CardBody>
       {!isPro ? (
         <CardFooter>
