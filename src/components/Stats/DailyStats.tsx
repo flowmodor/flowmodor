@@ -7,12 +7,18 @@ import { useRef } from 'react';
 import { Left, Right } from '@/components/Icons';
 import BarChart from '@/components/Stats/BarChart';
 import DateButton from '@/components/Stats/DateButton';
-import { useDate, useLogs, useStatsActions } from '@/stores/useStatsStore';
+import {
+  useDisplayTime,
+  useEndDate,
+  useLogs,
+  useStatsActions,
+} from '@/stores/useStatsStore';
 
 export default function DailyStats({ isPro }: { isPro: boolean }) {
   const logs = useLogs();
-  const { goPreviousDay, goNextDay } = useStatsActions();
-  const date = useDate();
+  const { goPreviousTime, goNextTime } = useStatsActions();
+  const endDate = useEndDate();
+  const displayTime = useDisplayTime();
   const chartRef = useRef<any>(null);
 
   return (
@@ -20,17 +26,17 @@ export default function DailyStats({ isPro }: { isPro: boolean }) {
       <CardHeader className="flex flex-col gap-1">
         <div className="flex items-center gap-5 font-semibold">
           <DateButton
-            onPress={goPreviousDay}
+            onPress={goPreviousTime}
             ariaLabel="Previous day"
             isDisabled={!isPro}
           >
             <Left />
           </DateButton>
-          {date.toDateString()}
+          {displayTime}
           <DateButton
-            onPress={goNextDay}
+            onPress={goNextTime}
             ariaLabel="Next day"
-            isDisabled={new Date().getDate() === date.getDate()}
+            isDisabled={new Date().getDate() === endDate.getDate()}
           >
             <Right />
           </DateButton>

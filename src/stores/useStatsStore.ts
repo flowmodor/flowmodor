@@ -3,14 +3,17 @@ import { LogsWithTasks } from '@/utils/stats/calculateTaskTime';
 import supabase from '@/utils/supabase';
 
 interface State {
-  date: Date;
+  startDate: Date;
+  endDate: Date;
+  period: 'day' | 'week' | 'month';
+  displayTime: string;
   logs: LogsWithTasks[] | null;
 }
 
 interface Action {
   updateLogs: () => Promise<void>;
-  goNextDay: () => void;
-  goPreviousDay: () => void;
+  goNextTime: () => void;
+  goPreviousTime: () => void;
 }
 
 interface Store extends State {
@@ -18,50 +21,71 @@ interface Store extends State {
 }
 
 export const useStatsStore = create<Store>((set) => ({
-  date: new Date(),
+  startDate: new Date(),
+  endDate: new Date(),
+  period: 'day',
+  displayTime: new Date().toDateString(),
   logs: null,
   actions: {
     updateLogs: async () => {
-      const { date } = useStatsStore.getState();
-      const startDate = new Date(date);
-      startDate.setHours(0, 0, 0, 0);
-      const endDate = new Date(date);
-      endDate.setHours(23, 59, 59, 999);
+      const { startDate: sd, endDate: ed, period } = useStatsStore.getState();
 
-      const { data, error } = await supabase
-        .from('logs')
-        .select('*, tasks(name)')
-        .gte('start_time', startDate.toISOString())
-        .lte('start_time', endDate.toISOString());
+      if (period === 'day') {
+        const startDate = new Date(sd);
+        startDate.setHours(0, 0, 0, 0);
+        const endDate = new Date(ed);
+        endDate.setHours(23, 59, 59, 999);
 
-      if (!error) {
-        set({ logs: data });
+        const { data, error } = await supabase
+          .from('logs')
+          .select('*, tasks(name)')
+          .gte('start_time', startDate.toISOString())
+          .lte('start_time', endDate.toISOString());
+
+        if (!error) {
+          set({
+            logs: data,
+            displayTime: startDate.toDateString(),
+          });
+        }
       }
     },
-    goNextDay: () => {
+    goNextTime: () => {
       set((state) => {
-        const tomorrow = new Date(state.date);
-        tomorrow.setDate(state.date.getDate() + 1);
-        return {
-          date: tomorrow,
-        };
+        if (state.period === 'day') {
+          const tomorrow = new Date(state.startDate);
+          tomorrow.setDate(state.startDate.getDate() + 1);
+          return {
+            startDate: tomorrow,
+            endDate: tomorrow,
+          };
+        }
+
+        return {};
       });
       useStatsStore.getState().actions.updateLogs();
     },
-    goPreviousDay: () => {
+    goPreviousTime: () => {
       set((state) => {
-        const yesterday = new Date(state.date);
-        yesterday.setDate(state.date.getDate() - 1);
-        return {
-          date: yesterday,
-        };
+        if (state.period === 'day') {
+          const yesterday = new Date(state.startDate);
+          yesterday.setDate(state.startDate.getDate() - 1);
+          return {
+            startDate: yesterday,
+            endDate: yesterday,
+          };
+        }
+
+        return {};
       });
       useStatsStore.getState().actions.updateLogs();
     },
   },
 }));
 
-export const useDate = () => useStatsStore((state) => state.date);
+export const useStartDate = () => useStatsStore((state) => state.startDate);
+export const useEndDate = () => useStatsStore((state) => state.endDate);
+export const useDisplayTime = () => useStatsStore((state) => state.displayTime);
 export const useLogs = () => useStatsStore((state) => state.logs);
 export const useStatsActions = () => useStatsStore((state) => state.actions);
 
