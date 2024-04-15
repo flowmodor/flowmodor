@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { LogsWithTasks } from '@/utils/stats/calculateTaskTime';
 import supabase from '@/utils/supabase';
 
-export type Period = 'day' | 'week' | 'month';
+export type Period = 'Day' | 'Week' | 'Month';
 
 interface State {
   startDate: Date;
@@ -26,7 +26,7 @@ interface Store extends State {
 export const useStatsStore = create<Store>((set) => ({
   startDate: new Date(),
   endDate: new Date(),
-  period: 'day',
+  period: 'Day',
   displayTime: new Date().toLocaleDateString(undefined, {
     month: 'short',
     day: 'numeric',
@@ -50,7 +50,7 @@ export const useStatsStore = create<Store>((set) => ({
         return;
       }
 
-      if (period === 'day') {
+      if (period === 'Day') {
         set({
           logs: data,
           displayTime: startDate.toLocaleDateString(undefined, {
@@ -58,7 +58,7 @@ export const useStatsStore = create<Store>((set) => ({
             day: 'numeric',
           }),
         });
-      } else if (period === 'week') {
+      } else if (period === 'Week') {
         set({
           logs: data,
           displayTime: `${startDate.toLocaleDateString(undefined, {
@@ -73,7 +73,7 @@ export const useStatsStore = create<Store>((set) => ({
     },
     goNextTime: () => {
       set((state) => {
-        if (state.period === 'day') {
+        if (state.period === 'Day') {
           const tomorrow = new Date(state.startDate);
           tomorrow.setDate(state.startDate.getDate() + 1);
           return {
@@ -82,7 +82,7 @@ export const useStatsStore = create<Store>((set) => ({
           };
         }
 
-        if (state.period === 'week') {
+        if (state.period === 'Week') {
           const startDate = new Date(state.startDate);
           startDate.setDate(startDate.getDate() + 7);
           const endDate = new Date(startDate);
@@ -100,7 +100,7 @@ export const useStatsStore = create<Store>((set) => ({
     },
     goPreviousTime: () => {
       set((state) => {
-        if (state.period === 'day') {
+        if (state.period === 'Day') {
           const yesterday = new Date(state.startDate);
           yesterday.setDate(state.startDate.getDate() - 1);
 
@@ -110,7 +110,7 @@ export const useStatsStore = create<Store>((set) => ({
           };
         }
 
-        if (state.period === 'week') {
+        if (state.period === 'Week') {
           const startDate = new Date(state.startDate);
           startDate.setDate(startDate.getDate() - 7);
           const endDate = new Date(startDate);
@@ -131,10 +131,10 @@ export const useStatsStore = create<Store>((set) => ({
         const startDate = new Date();
         const endDate = new Date();
 
-        if (period === 'day') {
+        if (period === 'Day') {
           startDate.setHours(0, 0, 0, 0);
           endDate.setHours(23, 59, 59, 999);
-        } else if (period === 'week') {
+        } else if (period === 'Week') {
           const day = startDate.getDay();
           startDate.setDate(startDate.getDate() - day);
           startDate.setHours(0, 0, 0, 0);
@@ -165,11 +165,11 @@ export const useIsDisabled = () => {
   const endDate = useEndDate();
   const today = new Date();
 
-  if (period === 'day') {
+  if (period === 'Day') {
     return today.getDate() === endDate.getDate();
   }
 
-  if (period === 'week') {
+  if (period === 'Week') {
     return today >= startDate && today <= endDate;
   }
 
