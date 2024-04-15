@@ -1,8 +1,6 @@
 'use client';
 
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
-import { Chip } from '@nextui-org/chip';
-import { Link } from '@nextui-org/link';
+import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { useRef } from 'react';
 import { Left, Right } from '@/components/Icons';
 import DailyBarChart from '@/components/Stats/DailyBarChart';
@@ -15,6 +13,7 @@ import {
   useStatsActions,
 } from '@/stores/useStatsStore';
 import PeriodSelector from './PeriodSelector';
+import TooltipWrapper from './TooltipWrapper';
 import WeeklyBarChart from './WeeklyBarChart';
 
 export default function StatsCard({ isPro }: { isPro: boolean }) {
@@ -30,13 +29,15 @@ export default function StatsCard({ isPro }: { isPro: boolean }) {
       <CardHeader className="flex flex-col gap-1">
         <div className="flex justify-center w-full items-center gap-5 font-semibold">
           <PeriodSelector isPro={isPro} />
-          <DateButton
-            onPress={goPreviousTime}
-            ariaLabel="Previous day"
-            isDisabled={!isPro}
-          >
-            <Left />
-          </DateButton>
+          <TooltipWrapper isPro={isPro}>
+            <DateButton
+              onPress={goPreviousTime}
+              ariaLabel="Previous day"
+              isDisabled={!isPro}
+            >
+              <Left />
+            </DateButton>
+          </TooltipWrapper>
           {displayTime}
           <DateButton
             onPress={goNextTime}
@@ -55,17 +56,6 @@ export default function StatsCard({ isPro }: { isPro: boolean }) {
           <WeeklyBarChart ref={chartRef} logs={logs ?? []} />
         ) : null}
       </CardBody>
-      {!isPro ? (
-        <CardFooter>
-          <div className="text-sm mx-auto">
-            Upgrade to{' '}
-            <Chip as={Link} size="sm" radius="sm" color="primary" href="/plans">
-              Pro
-            </Chip>{' '}
-            to see more stats
-          </div>
-        </CardFooter>
-      ) : null}
     </Card>
   );
 }
