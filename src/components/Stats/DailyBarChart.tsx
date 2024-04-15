@@ -32,6 +32,12 @@ const options = {
       min: 0,
       max: 23,
       stepSize: 1,
+      title: {
+        display: true,
+        text: 'Hours',
+        color: '#FFFFFFA0',
+        padding: { top: 10, bottom: 0, left: 0, right: 0 },
+      },
       grid: {
         color: '#3F3E55',
       },
@@ -43,6 +49,12 @@ const options = {
       min: 0,
       max: 60,
       stepSize: 10,
+      title: {
+        display: true,
+        text: 'Minutes',
+        color: '#FFFFFFA0',
+        padding: { top: 0, bottom: 10, left: 0, right: 0 },
+      },
       grid: {
         color: '#3F3E55',
       },

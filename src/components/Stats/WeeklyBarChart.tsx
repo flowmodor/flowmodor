@@ -33,6 +33,11 @@ const options = {
       },
     },
     y: {
+      title: {
+        display: true,
+        text: 'Hours',
+        color: '#FFFFFFA0',
+      },
       grid: {
         color: '#3F3E55',
       },

@@ -131,15 +131,10 @@ export const useStatsStore = create<Store>((set) => ({
         const startDate = new Date();
         const endDate = new Date();
 
-        if (period === 'Day') {
-          startDate.setHours(0, 0, 0, 0);
-          endDate.setHours(23, 59, 59, 999);
-        } else if (period === 'Week') {
+        if (period === 'Week') {
           const day = startDate.getDay();
           startDate.setDate(startDate.getDate() - day);
-          startDate.setHours(0, 0, 0, 0);
           endDate.setDate(startDate.getDate() + 6);
-          endDate.setHours(23, 59, 59, 999);
         }
 
         return {
