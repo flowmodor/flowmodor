@@ -30,10 +30,12 @@ export function calculateTaskTime(logs: LogsWithTasks[]) {
     }
   }
 
-  const taskTimeArray = Object.keys(taskTimeMap).map((task) => ({
-    name: task,
-    time: taskTimeMap[task],
-  }));
+  const taskTimeArray = Object.keys(taskTimeMap)
+    .map((task) => ({
+      name: task,
+      time: taskTimeMap[task],
+    }))
+    .sort((a, b) => b.time - a.time);
 
   return taskTimeArray;
 }
