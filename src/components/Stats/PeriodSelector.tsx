@@ -2,17 +2,16 @@ import { Chip } from '@nextui-org/chip';
 import { Select, SelectItem } from '@nextui-org/select';
 import { Period, usePeriod, useStatsActions } from '@/stores/useStatsStore';
 
-export default function PeriodSelector() {
+export default function PeriodSelector({ isPro }: { isPro: boolean }) {
   const { onPeriodChange } = useStatsActions();
   const period = usePeriod();
-  const periods: Period[] = ['Day', 'Week'];
 
   return (
     <Select
       size="sm"
       radius="sm"
       selectionMode="single"
-      label="Select a period"
+      label="Select stats period"
       classNames={{
         trigger: 'bg-secondary data-[hover=true]:bg-secondary',
         popoverContent: 'bg-background',
@@ -25,27 +24,30 @@ export default function PeriodSelector() {
           onPeriodChange(newPeriod as Period);
         }
       }}
+      disabledKeys={isPro ? [] : ['Week']}
     >
-      {periods.map((p) => (
-        <SelectItem
-          key={p}
-          textValue={p}
-          classNames={{
-            base: 'data-[focus=true]:!bg-secondary data-[hover=true]:!bg-secondary',
-          }}
-        >
-          {p === 'Week' ? (
-            <div className="flex gap-2 items-center">
-              {p}
-              <Chip size="sm" radius="sm" color="primary">
-                Pro
-              </Chip>
-            </div>
-          ) : (
-            p
-          )}
-        </SelectItem>
-      ))}
+      <SelectItem
+        key="Day"
+        classNames={{
+          base: 'data-[focus=true]:!bg-secondary data-[hover=true]:!bg-secondary',
+        }}
+      >
+        Day
+      </SelectItem>
+      <SelectItem
+        key="Week"
+        textValue="Week"
+        classNames={{
+          base: 'data-[focus=true]:!bg-secondary data-[hover=true]:!bg-secondary',
+        }}
+      >
+        <div className="flex gap-2 items-center">
+          Week
+          <Chip size="sm" radius="sm" color="primary">
+            Pro
+          </Chip>
+        </div>
+      </SelectItem>
     </Select>
   );
 }

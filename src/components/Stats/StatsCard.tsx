@@ -26,10 +26,10 @@ export default function StatsCard({ isPro }: { isPro: boolean }) {
   const isDisabled = useIsDisabled();
 
   return (
-    <Card radius="sm" className="bg-midground p-5">
+    <Card radius="sm" className="bg-midground p-5 pb-0">
       <CardHeader className="flex flex-col gap-1">
         <div className="flex justify-center w-full items-center gap-5 font-semibold">
-          <PeriodSelector />
+          <PeriodSelector isPro={isPro} />
           <DateButton
             onPress={goPreviousTime}
             ariaLabel="Previous day"
