@@ -57,6 +57,15 @@ const options = {
             borderWidth: 3,
           };
         },
+        label: (ctx: any) => {
+          const { raw: time } = ctx;
+          const hours = Math.floor(time);
+          const minutes = Math.floor((time - hours) * 60);
+
+          return `${hours > 0 ? `${hours} hr ` : ''}${
+            minutes > 0 ? `${minutes} min` : ''
+          }`;
+        },
       },
     },
     legend: {
