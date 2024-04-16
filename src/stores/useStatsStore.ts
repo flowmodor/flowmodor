@@ -138,6 +138,7 @@ export const useStatsStore = create<Store>((set) => ({
         }
 
         return {
+          logs: null,
           startDate,
           endDate,
           period,
