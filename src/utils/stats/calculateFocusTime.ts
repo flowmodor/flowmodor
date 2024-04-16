@@ -9,16 +9,14 @@ export default function calculateFocusTimes(sessions: LogsWithTasks[]): {
   let longestFocusTime = 0; // in minutes
 
   for (const session of sessions) {
-    if (session.mode === 'focus') {
-      const start = new Date(session.start_time);
-      const end = new Date(session.end_time);
-      const duration = (end.getTime() - start.getTime()) / 60000;
+    const start = new Date(session.start_time);
+    const end = new Date(session.end_time);
+    const duration = (end.getTime() - start.getTime()) / 60000;
 
-      totalFocusTime += duration;
+    totalFocusTime += duration;
 
-      if (duration > longestFocusTime) {
-        longestFocusTime = duration;
-      }
+    if (duration > longestFocusTime) {
+      longestFocusTime = duration;
     }
   }
 

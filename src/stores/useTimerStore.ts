@@ -116,7 +116,6 @@ const useTimerStore = create<Store>((set) => ({
       if (!focusingTask) {
         await supabase.from('logs').insert([
           {
-            mode,
             start_time,
             end_time,
           },
@@ -128,7 +127,6 @@ const useTimerStore = create<Store>((set) => ({
         useTasksStore.getState().activeList === 'Flowmodor - default';
       await supabase.from('logs').insert([
         {
-          mode,
           start_time,
           end_time,
           task_id: hasId ? focusingTask.id : null,

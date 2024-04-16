@@ -109,9 +109,7 @@ interface Props {
 function DailyBarChart({ logs }: Props, ref: ForwardedRef<any>) {
   const hours = Array.from(Array(24).keys());
 
-  const focusDatasets = logs
-    .filter((log) => log.mode === 'focus')
-    .map((log) => dailyLogToChartData(log));
+  const focusDatasets = logs.map((log) => dailyLogToChartData(log));
 
   const setBackground = {
     id: 'setBackground',

@@ -71,7 +71,7 @@ export interface Database {
         Row: {
           end_time: string
           id: number
-          mode: string
+          mode: string | null
           start_time: string
           task_id: number | null
           task_name: string | null
@@ -80,7 +80,7 @@ export interface Database {
         Insert: {
           end_time: string
           id?: number
-          mode: string
+          mode?: string | null
           start_time: string
           task_id?: number | null
           task_name?: string | null
@@ -89,7 +89,7 @@ export interface Database {
         Update: {
           end_time?: string
           id?: number
-          mode?: string
+          mode?: string | null
           start_time?: string
           task_id?: number | null
           task_name?: string | null
