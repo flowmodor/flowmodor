@@ -1,8 +1,8 @@
 ---
 title: Flowtime Technique - the best Pomodoro alternative for time management
 date: 2023/12/31
-description: The Flowtime Technique a.k.a. Flowmodoro is the best Pomodoro Technique alternative for time management. Learn the difference between them and how to implement Flowmodoro.
-brief: Understand why Flowmodoro is better than Pomodoro and how to implement it
+description: Flowtime Technique is the best Pomodoro Technique alternative for time management. Learn the difference between them and how to implement Flowtime.
+brief: Understand why Flowtime is better than Pomodoro and how to implement it
 layout: ../../layouts/BlogLayout.astro
 ---
 
@@ -22,17 +22,17 @@ While the Pomodoro Technique is popular, it might not be the best fit for everyo
 
 3. **Context Switching**: Frequent breaks mandated by the Pomodoro Technique can lead to excessive context switching. This is counterproductive for tasks that require sustained concentration and a deep understanding of the problem at hand.
 
-## The better alternative - Flowmodoro
+## The better alternative - Flowtime
 
 The Flowtime Technique a.k.a. Flowmodoro was created by [Zoë Read-Bivens](https://medium.com/@UrgentPigeon/the-flowtime-technique-7685101bd191) as a solution to Pomodoro's main problem.
 
-Unlike the Pomodoro Technique, Flowmodoro counts up instead of counting down. It allows you to focus until you naturally feel the need for a break. Then, when you decide to rest, you simply stop the timer, divide the focus time by 5, and set a countdown timer for your break.
+Unlike the Pomodoro Technique, Flowtime counts up instead of counting down. It allows you to focus until you naturally feel the need for a break. Then, when you decide to rest, you simply stop the timer, divide the focus time by 5, and set a countdown timer for your break.
 
 This method respects your flow state and adapts to different task lengths.
 
-## How to implement Flowmodoro
+## How to implement Flowtime
 
-Implementing Flowmodoro is simple and can start with tools as basic as a stopwatch and timer app. Here's a basic guide:
+Implementing Flowtime is simple and can start with tools as basic as a stopwatch and timer app. Here's a basic guide:
 
 1. **Pick one task**: Begin by selecting a single task to focus on. This ensures that your attention isn't divided across multiple tasks.
 
@@ -46,8 +46,8 @@ You can repeat this cycle again and again.
 
 ## Automate the process
 
-I have been using Flowmodoro and it really help me improve my productivity while coding. However, I noticed one minor drawback: the repetitive process of setting up the timer manually each time.
+I have been using Flowtime and it really helps me improve my productivity while coding. However, I noticed one minor drawback: the repetitive process of setting up the timer manually each time.
 
-To address this, I'm currently working on Flowmodor to integrates with this workflow.
+To address this, I'm currently working on Flowmodor to automate this workflow.
 
 Flowmodor is currently in public beta, and you can [try it out now](https://app.flowmodor.com/signin)!
