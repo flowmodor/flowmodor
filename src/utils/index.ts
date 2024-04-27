@@ -1,6 +1,7 @@
 import { LogsWithTasks } from '@/utils/stats/calculateTaskTime';
 
-const formatTime = (t: number) => {
+const formatTime = (time: number) => {
+  const t = Math.floor(time);
   const hours = Math.floor(t / 3600);
   const minutes = Math.floor((t % 3600) / 60);
   const seconds = t % 60;

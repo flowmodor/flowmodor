@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import { useEffect, useState } from 'react';
 import { create } from 'zustand';
 import supabase from '@/utils/supabase';
 import { useStatsStore } from './useStatsStore';
@@ -168,6 +169,15 @@ const useTimerStore = create<Store>((set) => ({
   },
 }));
 
+export const useBreakRatio = () => {
+  const [breakRatio, setBreakRatio] = useState<number>(5);
+  useEffect(() => {
+    (async () => {
+      setBreakRatio(await getBreakRatio());
+    })();
+  }, []);
+  return breakRatio;
+};
 export const useStartTime = () => useTimerStore((state) => state.startTime);
 export const useEndTime = () => useTimerStore((state) => state.endTime);
 export const useTotalTime = () => useTimerStore((state) => state.totalTime);

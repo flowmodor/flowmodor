@@ -10,6 +10,7 @@ import {
   useStatus,
   useTimerActions,
 } from '@/stores/useTimerStore';
+import TooltipWrapper from './TooltipWrapper';
 
 export default function Toolbar() {
   const showTime = useShowTime();
@@ -54,27 +55,29 @@ export default function Toolbar() {
           {status === 'running' ? <Pause /> : <Play />}
         </Button>
       ) : null}
-      <Button
-        id="start-stop-button"
-        type="button"
-        variant="flat"
-        isLoading={isLoading}
-        isIconOnly
-        aria-label={status === 'idle' ? 'Start' : 'Stop'}
-        className="bg-secondary"
-        onPress={() => {
-          startTransition(async () => {
-            if (status !== 'idle') {
-              await stopTimer();
-            } else {
-              await startTimer();
-            }
-          });
-          setCurrentStep(currentStep + 1);
-        }}
-      >
-        {status === 'idle' ? <Play /> : <Stop />}
-      </Button>
+      <TooltipWrapper>
+        <Button
+          id="start-stop-button"
+          type="button"
+          variant="flat"
+          isLoading={isLoading}
+          isIconOnly
+          aria-label={status === 'idle' ? 'Start' : 'Stop'}
+          className="bg-secondary"
+          onPress={() => {
+            startTransition(async () => {
+              if (status !== 'idle') {
+                await stopTimer();
+              } else {
+                await startTimer();
+              }
+            });
+            setCurrentStep(currentStep + 1);
+          }}
+        >
+          {status === 'idle' ? <Play /> : <Stop />}
+        </Button>
+      </TooltipWrapper>
     </div>
   );
 }
