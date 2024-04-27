@@ -38,8 +38,8 @@ export default function Progress() {
       aria-label="Timer progress"
       valueLabel={
         <div className="flex flex-col items-center gap-2">
-          {showTime ? formatTime(displayTime) : '**:**'}
-          <span className="text-2xl">
+          {showTime ? formatTime(displayTime) : null}
+          <span className={showTime ? 'text-2xl' : 'text-3xl'}>
             {mode === 'focus' ? 'Focus' : 'Break'}
           </span>
         </div>
