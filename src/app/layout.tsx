@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <PlausibleProvider domain="flowmodor.com" />
+        <PlausibleProvider domain="app.flowmodor.com" />
       </head>
       <body
         className={`${inter.className} flex min-h-screen justify-center bg-background text-white scrollbar-hide dark`}
