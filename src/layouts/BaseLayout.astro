@@ -27,9 +27,15 @@ const { title, description, image = 'og.png' } = Astro.props;
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
     <link rel="icon" href="/favicon.ico" />
+    <script
+      defer
+      data-domain="flowmodor.com"
+      src="https://plausible.io/js/script.js"></script>
   </head>
-  <body class="bg-background text-white font-sans flex flex-col justify-between">
-    <div class="min-h-screen mb-auto">
+  <body
+    class="flex flex-col justify-between bg-background font-sans text-white"
+  >
+    <div class="mb-auto min-h-screen">
       <slot />
     </div>
     <Footer />
