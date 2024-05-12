@@ -20,7 +20,7 @@
     "chart.js": "^4.4.1",
     "framer-motion": "^10.16.15",
     "nanoid": "^5.0.6",
-    "next": "14.0.3",
+    "next": "14.1.1",
     "next-plausible": "^3.12.0",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
