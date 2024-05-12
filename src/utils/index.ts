@@ -22,21 +22,23 @@ const validatePassword = (password: string) => /^$|^.{8,}$/.test(password);
 const validateEmail = (email: string) =>
   /^$|^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
-/* eslint-disable no-restricted-syntax */
 function dailyLogToChartData(log: LogsWithTasks) {
   const chartData = Array.from({ length: 24 }, () => [0, 0]);
 
   const startTime = new Date(log.start_time);
   const endTime = new Date(log.end_time);
 
-  if (startTime.getHours() === endTime.getHours()) {
-    chartData[startTime.getHours()] = [
-      startTime.getMinutes(),
-      endTime.getMinutes(),
-    ];
+  const startHour = startTime.getHours();
+  const endHour = endTime.getHours();
+
+  if (startHour === endHour) {
+    chartData[startHour] = [startTime.getMinutes(), endTime.getMinutes()];
   } else {
-    chartData[startTime.getHours()] = [startTime.getMinutes(), 60];
-    chartData[endTime.getHours()] = [0, endTime.getMinutes()];
+    chartData[startHour] = [startTime.getMinutes(), 60];
+    chartData[endHour] = [0, endTime.getMinutes()];
+    for (let hour = startHour + 1; hour < endHour; hour += 1) {
+      chartData[hour] = [0, 60];
+    }
   }
 
   const taskName = log.task_name ?? log.tasks?.name;
