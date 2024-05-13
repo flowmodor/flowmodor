@@ -2,11 +2,12 @@
 import { supabase } from '../../lib/supabase';
 
 let { data: totalFocusHours } = await supabase.rpc('get_total_focus_hours');
-totalFocusHours = Math.round(totalFocusHours);
+totalFocusHours = Math.round(totalFocusHours / 1000) * 1000;
 
-const { data: totalTasksCompleted } = await supabase.rpc(
+let { data: totalTasksCompleted } = await supabase.rpc(
   'get_completed_tasks_count',
 );
+totalTasksCompleted = Math.round(totalTasksCompleted / 100) * 100;
 ---
 
 <div
@@ -21,12 +22,12 @@ const { data: totalTasksCompleted } = await supabase.rpc(
     Our community has already achieved ...
     <div class="flex items-center gap-10 sm:gap-20">
       <div>
-        <div class="text-4xl font-bold">{totalFocusHours}</div>
+        <div class="text-4xl font-bold">{totalFocusHours}+</div>
         <div>hours of focus</div>
       </div>
       <div class="border-r border-[#FFFFFF40] py-14"></div>
       <div>
-        <div class="text-4xl font-bold">{totalTasksCompleted}</div>
+        <div class="text-4xl font-bold">{totalTasksCompleted}+</div>
         <div>completed tasks</div>
       </div>
     </div>
