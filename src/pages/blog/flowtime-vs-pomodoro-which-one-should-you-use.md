@@ -4,7 +4,6 @@ date: 2024/03/30
 description: Understand the pros and cons of Flowtime Technique and Pomodoro Technique to choose one that works best for you.
 brief: Understand the pros and cons of Flowtime Technique and Pomodoro Technique to choose one that works best for you.
 layout: ../../layouts/BlogLayout.astro
-image: /flowtime-vs-pomodoro.png
 ---
 
 Finding the right productivity technique can make a significant difference in your work efficiency. Two popular methods, the Pomodoro Technique and the Flowtime Technique, offer different approaches to managing time and focus. In this post I'll explain these two techniques and compare them to help you decide which one is best for you.

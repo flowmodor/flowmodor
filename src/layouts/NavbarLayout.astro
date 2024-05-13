@@ -2,14 +2,10 @@
 import Navbar from '../components/Layout/Navbar.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const { title, description, image } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
-<BaseLayout
-  title={title}
-  description={description}
-  image={image}
->
+<BaseLayout title={title} description={description}>
   <Navbar />
   <main class="flex flex-col items-center">
     <slot />
