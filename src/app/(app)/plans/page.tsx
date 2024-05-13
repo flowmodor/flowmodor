@@ -21,7 +21,7 @@ export default async function Plans() {
     <div className="flex mx-10 w-full py-10 h-max lg:h-auto lg:w-[80vw] xl:w-[70vw] flex-col gap-5">
       <div className="flex flex-col items-center justify-center gap-10 lg:flex-row lg:items-stretch">
         <StarterCard isPro={isPro} />
-        <ProCard isPro={isPro} />
+        <ProCard isPro={data?.plan === 'Pro' && data?.status === 'active'} />
       </div>
       {data && data.status ? <Subscriptions data={data} /> : null}
     </div>
