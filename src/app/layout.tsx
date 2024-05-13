@@ -10,7 +10,9 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://app.flowmodor.com'),
+  applicationName: 'Flowmodor',
   title: 'Flowmodor',
+  description: 'Flowmodor Web App',
   openGraph: {
     type: 'website',
     url: 'https://app.flowmodor.com',
