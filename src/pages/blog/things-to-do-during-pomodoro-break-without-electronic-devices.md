@@ -6,7 +6,7 @@ brief: Learn 5 activities you can engage in during your Flowmodoro breaks, all w
 layout: ../../layouts/BlogLayout.astro
 ---
 
-When practicing productivity techniques like the Pomodoro or Flowmodoro methods, it's easy to dismiss the importance of breaks.
+When practicing productivity techniques like the Pomodoro or [Flowmodoro](/blog/flowtime-technique-the-best-pomodoro-alternative-for-time-management) methods, it's easy to dismiss the importance of breaks.
 
 During these breaks, it's tempting to immediately reach for your phone and spend the entire time scrolling, rationalizing it as a reward for your prior concentration.
 
