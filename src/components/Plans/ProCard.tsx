@@ -3,6 +3,7 @@
 import { Button } from '@nextui-org/button';
 import { useState } from 'react';
 import usePaddle from '@/hooks/usePaddle';
+import { Enums, Tables } from '@/types/supabase';
 import Feature from './Feature';
 
 const features = [
@@ -13,11 +14,14 @@ const features = [
   'Priority Support',
 ];
 
-export type Cycle = 'Monthly' | 'Yearly';
-
-export default function ProCard({ isPro }: { isPro: boolean }) {
-  // TODO: get billing cycle
-  const [cycle, setCyle] = useState<Cycle>('Yearly');
+export default function ProCard({ data }: { data: Tables<'plans'> | null }) {
+  const [cycle, setCyle] = useState<Enums<'billing_interval'>>(
+    data?.billing_interval ?? 'month',
+  );
+  const isPro =
+    data?.plan === 'Pro' &&
+    data?.status === 'active' &&
+    data?.next_billed_at !== null;
 
   const { openCheckout } = usePaddle();
 
@@ -31,9 +35,9 @@ export default function ProCard({ isPro }: { isPro: boolean }) {
             disabled={isPro}
             className={`flex gap-1 flex-col items-center justify-center p-3
               rounded-lg border-2 w-[49%] transition-colors outline-none ${
-                cycle === 'Monthly' ? 'border-primary' : 'border-secondary'
+                cycle === 'month' ? 'border-primary' : 'border-secondary'
               }`}
-            onClick={() => setCyle('Monthly')}
+            onClick={() => setCyle('month')}
           >
             <div className="flex items-end gap-1">
               <h2 className="text-4xl font-semibold">$5</h2>
@@ -45,9 +49,9 @@ export default function ProCard({ isPro }: { isPro: boolean }) {
             type="button"
             disabled={isPro}
             className={`flex gap-1 flex-col items-center justify-center p-3 rounded-lg border-2 w-[49%] transition-colors outline-none ${
-              cycle === 'Yearly' ? 'border-primary' : 'border-secondary'
+              cycle === 'year' ? 'border-primary' : 'border-secondary'
             }`}
-            onClick={() => setCyle('Yearly')}
+            onClick={() => setCyle('year')}
           >
             <div className="flex items-end gap-1">
               <h2 className="text-4xl font-semibold">$48</h2>
@@ -65,13 +69,15 @@ export default function ProCard({ isPro }: { isPro: boolean }) {
           className="font-semibold text-midground"
           onPress={() => {
             openCheckout(
-              cycle === 'Monthly'
+              cycle === 'month'
                 ? process.env.NEXT_PUBLIC_PADDLE_MONTHLY_PLAN_ID
                 : process.env.NEXT_PUBLIC_PADDLE_YEARLY_PLAN_ID,
             );
           }}
         >
-          {isPro ? 'Current plan' : `Upgrade to Pro ${cycle}`}
+          {isPro
+            ? 'Current plan'
+            : `Upgrade to Pro ${cycle === 'month' ? 'Monthly' : 'Yearly'}`}
         </Button>
       </div>
       <ul>

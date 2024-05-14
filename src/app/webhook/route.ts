@@ -34,6 +34,7 @@ export async function POST(request: Request) {
             plan: parsedBody.data.items[0].price.name,
             end_time: parsedBody.data.current_billing_period?.ends_at ?? null,
             next_billed_at: parsedBody.data.next_billed_at,
+            billing_interval: parsedBody.data.billing_cycle.interval,
           })
           .eq('user_id', parsedBody.data.custom_data.user_id);
 

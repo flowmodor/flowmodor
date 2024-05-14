@@ -71,7 +71,6 @@ export interface Database {
         Row: {
           end_time: string
           id: number
-          mode: string | null
           start_time: string
           task_id: number | null
           task_name: string | null
@@ -80,7 +79,6 @@ export interface Database {
         Insert: {
           end_time: string
           id?: number
-          mode?: string | null
           start_time: string
           task_id?: number | null
           task_name?: string | null
@@ -89,7 +87,6 @@ export interface Database {
         Update: {
           end_time?: string
           id?: number
-          mode?: string | null
           start_time?: string
           task_id?: number | null
           task_name?: string | null
@@ -114,6 +111,9 @@ export interface Database {
       }
       plans: {
         Row: {
+          billing_interval:
+            | Database["public"]["Enums"]["billing_interval"]
+            | null
           end_time: string | null
           id: number
           next_billed_at: string | null
@@ -123,6 +123,9 @@ export interface Database {
           user_id: string
         }
         Insert: {
+          billing_interval?:
+            | Database["public"]["Enums"]["billing_interval"]
+            | null
           end_time?: string | null
           id?: number
           next_billed_at?: string | null
@@ -132,6 +135,9 @@ export interface Database {
           user_id: string
         }
         Update: {
+          billing_interval?:
+            | Database["public"]["Enums"]["billing_interval"]
+            | null
           end_time?: string | null
           id?: number
           next_billed_at?: string | null
@@ -245,6 +251,7 @@ export interface Database {
       }
     }
     Enums: {
+      billing_interval: "month" | "year"
       plan: "Starter" | "Pro"
       provider: "todoist"
       status: "active" | "canceled" | "past_due" | "paused" | "trialing"
