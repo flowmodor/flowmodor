@@ -159,6 +159,12 @@ const useTimerStore = create<Store>((set) => ({
           const audio = new Audio('/alarm.mp3');
           audio.play();
 
+          // eslint-disable-next-line no-new
+          new Notification('Flowmodor', {
+            body: 'Time to focus!',
+            icon: '/images/icons/general_icon_x512.png',
+          });
+
           return {
             status: 'idle',
             displayTime: 0,

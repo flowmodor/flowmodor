@@ -1,10 +1,16 @@
 'use client';
 
 import { Button } from '@nextui-org/button';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
 export default function Tabs({ children }: { children: ReactNode[] }) {
   const [tab, setTab] = useState(0);
+
+  useEffect(() => {
+    if ('Notification' in window && Notification.permission !== 'granted') {
+      Notification.requestPermission();
+    }
+  }, []);
 
   return (
     <div className="flex flex-col gap-3">
