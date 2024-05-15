@@ -28,7 +28,7 @@ While the Pomodoro Technique is popular, it might not be the best fit for everyo
 
 ## The better alternative - Flowtime Technique
 
-The Flowtime Technique a.k.a. Flowmodoro was created by [Zoë Read-Bivens](https://medium.com/@UrgentPigeon/the-flowtime-technique-7685101bd191) as a solution to Pomodoro's main problem.
+The Flowtime Technique a.k.a. Flowmodoro is a flexible alternative to the Pomodoro Technique that addresses the limitations of traditional time management methods.
 
 Unlike the Pomodoro Technique, the Flowtime Technique counts up instead of counting down when you are focusing. It allows you to work until you naturally feel the need for a break. Then, when you decide to rest, you simply stop the timer, divide the focus time by 5, and set a countdown timer for your break.
 
@@ -52,7 +52,7 @@ You can repeat this cycle again and again.
 
 I have been using the Flowtime Technique and it really helps me improve my productivity while coding. However, I noticed one minor drawback: the repetitive process of setting up the timer manually each time.
 
-To address this, I automate this workflow with Flowmodor.
+To address this, I automate this workflow with [Flowmodor](/).
 
 Here's how it works:
 
@@ -78,7 +78,9 @@ Click on the play button to start the break timer. Flowmodor will notify you whe
 
 ![](/timer-tab-break.png)
 
-This automation makes it easier to implement the Flowtime Technique and focus on your work without interruptions. Apart from the timer, Flowmodor also provides detailed stats and insights to help you understand your work patterns better.
+This automation makes it easier to implement the Flowtime Technique and focus on your work without interruptions.
+
+Apart from the timer, Flowmodor also provides detailed stats and insights to help you understand your work patterns better.
 
 ![](/stats-page.png)
 
