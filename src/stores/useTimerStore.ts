@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { usePlausible } from 'next-plausible';
 import { useEffect, useState } from 'react';
 import { create } from 'zustand';
 import supabase from '@/utils/supabase';
@@ -18,7 +17,7 @@ interface State {
 
 interface Action {
   startTimer: () => Promise<void>;
-  stopTimer: (p?: (s: string) => void) => Promise<void>;
+  stopTimer: () => Promise<void>;
   pauseTimer: () => Promise<void>;
   resumeTimer: () => Promise<void>;
   log: (p?: (s: string) => void) => Promise<void>;
@@ -57,7 +56,7 @@ const useTimerStore = create<Store>((set) => ({
         status: 'running',
       }));
     },
-    stopTimer: async (plausible) => {
+    stopTimer: async () => {
       const breakRatio = await getBreakRatio();
 
       if (useTimerStore.getState().status === 'paused') {
@@ -71,7 +70,7 @@ const useTimerStore = create<Store>((set) => ({
         return;
       }
 
-      await useTimerStore.getState().actions.log(plausible);
+      await useTimerStore.getState().actions.log();
       set((state) => {
         const totalTime =
           state.mode === 'focus'
@@ -103,7 +102,7 @@ const useTimerStore = create<Store>((set) => ({
         startTime: Date.now(),
       }));
     },
-    log: async (plausible?) => {
+    log: async () => {
       const start_time = new Date(
         useTimerStore.getState().startTime!,
       ).toISOString();
@@ -113,10 +112,6 @@ const useTimerStore = create<Store>((set) => ({
 
       if (mode === 'break') {
         return;
-      }
-
-      if (plausible) {
-        plausible('Focus');
       }
 
       if (!focusingTask) {
@@ -196,8 +191,4 @@ export const useDisplayTime = () => useTimerStore((state) => state.displayTime);
 export const useMode = () => useTimerStore((state) => state.mode);
 export const useShowTime = () => useTimerStore((state) => state.showTime);
 export const useStatus = () => useTimerStore((state) => state.status);
-export const useStopTimer = () => {
-  const plausible = usePlausible();
-  return () => useTimerStore.getState().actions.stopTimer(plausible);
-};
 export const useTimerActions = () => useTimerStore((state) => state.actions);

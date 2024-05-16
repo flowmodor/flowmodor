@@ -8,7 +8,6 @@ import {
   useMode,
   useShowTime,
   useStatus,
-  useStopTimer,
   useTimerActions,
 } from '@/stores/useTimerStore';
 import TooltipWrapper from './TooltipWrapper';
@@ -18,9 +17,8 @@ export default function Toolbar() {
   const status = useStatus();
   const mode = useMode();
 
-  const { startTimer, pauseTimer, resumeTimer, toggleShowTime } =
+  const { startTimer, stopTimer, pauseTimer, resumeTimer, toggleShowTime } =
     useTimerActions();
-  const stopTimer = useStopTimer();
   const { currentStep, setCurrentStep } = useTour();
   const [isLoading, startTransition] = useTransition();
 
