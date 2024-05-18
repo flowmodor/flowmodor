@@ -1,4 +1,4 @@
-![banner-dark](https://github.com/flowmodor/flowmodor/assets/74842863/93f7892e-2e94-4239-809b-1d76a2666c5e)
+![banner-dark](https://github.com/flowmodor/flowmodor/assets/74842863/012aa76a-78d8-4de2-8c47-90a0f0a08118)
 
 Flowmodor is a Flowmodoro timer web app helping you get into flow state and stay focused with the Flowtime Technique.
 
