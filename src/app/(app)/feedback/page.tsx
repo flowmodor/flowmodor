@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import Feature from '@/components/Feedback/Feature';
-// import Feedback from '@/components/Feedback';
+import SuggestButton from '@/components/Feedback/SuggestButton';
 import { getServerClient } from '@/utils/supabase';
 
 export const metadata: Metadata = {
@@ -17,11 +17,17 @@ export default async function FeedbackPage() {
     .order('created_at', { ascending: false });
 
   return (
-    <div className="mt-20 bg-midground p-3 flex flex-col gap-5">
-      {features &&
-        features.map((feature) => (
-          <Feature key={feature.id} feature={feature} />
-        ))}
+    <div className="flex flex-col gap-5 mt-16">
+      <div className="flex justify-between">
+        <h1 className="text-3xl font-semibold">Feedback</h1>
+        <SuggestButton />
+      </div>
+      <div className="bg-midground p-3 flex flex-col gap-5">
+        {features &&
+          features.map((feature) => (
+            <Feature key={feature.id} feature={feature} />
+          ))}
+      </div>
     </div>
   );
 }
