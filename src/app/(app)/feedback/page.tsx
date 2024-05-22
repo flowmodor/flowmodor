@@ -17,9 +17,15 @@ export default async function FeedbackPage() {
     .order('created_at', { ascending: false });
 
   return (
-    <div className="flex flex-col gap-5 mt-16 mb-5">
-      <div className="flex justify-between">
-        <h1 className="text-3xl font-semibold">Feedback</h1>
+    <div className="flex flex-col gap-10 mt-16 mb-5">
+      <div className="flex justify-between gap-10">
+        <div className="flex flex-col gap-2 flex-wrap">
+          <h1 className="text-3xl font-semibold">Feature Requests</h1>
+          <div>
+            Let us know how we can improve. Vote on existing ideas or suggest
+            new ones.
+          </div>
+        </div>
         <SuggestButton />
       </div>
       <div className="flex flex-col gap-5">
