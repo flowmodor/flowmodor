@@ -11,6 +11,7 @@ const config: Config = {
   ],
   darkMode: 'class',
   plugins: [
+    require('@tailwindcss/typography'),
     require('tailwind-scrollbar-hide'),
     nextui({
       themes: {
