@@ -21,7 +21,7 @@ export default function UpvoteButton({
       isIconOnly
       disableRipple
       isLoading={isPending}
-      className={`bg-midground w-14 h-14 rounded-md flex-shrink-0 fill-white ${
+      className={`bg-secondary w-14 h-14 rounded-md flex-shrink-0 fill-white ${
         upvoted ? 'border-2 border-primary fill-primary text-primary' : ''
       }`}
       onPress={() => {

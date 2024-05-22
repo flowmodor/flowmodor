@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import Markdown from 'react-markdown';
 import { getServerClient } from '@/utils/supabase';
 import UpvoteButton from './UpvoteButton';
 
@@ -16,7 +17,7 @@ export default async function Feature({ feature }: { feature: any }) {
     .single();
 
   return (
-    <div className="bg-secondary rounded-md p-3 flex gap-3">
+    <div className="bg-midground rounded-md p-3 flex gap-3">
       <UpvoteButton
         upvoted={!!vote}
         upvotes={feature.upvotes}
@@ -24,7 +25,9 @@ export default async function Feature({ feature }: { feature: any }) {
       />
       <div>
         <h2 className="text-lg font-semibold">{feature.title}</h2>
-        <div className="prose prose-invert">{feature.description}</div>
+        <div className="prose prose-invert">
+          <Markdown>{feature.description}</Markdown>
+        </div>
       </div>
     </div>
   );

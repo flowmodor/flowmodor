@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import { getServerClient } from '@/utils/supabase';
-import { Chart, Comment, Gear, House, MoneyBill } from '../Icons';
+import { Chart, Comments, Gear, House, MoneyBill } from '../Icons';
 import SidebarTab from './SidebarTab';
 import TrialBanner from './TrialBanner';
 import UserDropdown from './UserDropdown';
@@ -43,7 +43,7 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
             <MoneyBill />
           </SidebarTab>
           <SidebarTab tabPathname="/feedback" tabName="Feedback" hotkey="F">
-            <Comment />
+            <Comments />
           </SidebarTab>
         </div>
         <UserDropdown user={user} />

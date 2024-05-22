@@ -17,12 +17,12 @@ export default async function FeedbackPage() {
     .order('created_at', { ascending: false });
 
   return (
-    <div className="flex flex-col gap-5 mt-16">
+    <div className="flex flex-col gap-5 mt-16 mb-5">
       <div className="flex justify-between">
         <h1 className="text-3xl font-semibold">Feedback</h1>
         <SuggestButton />
       </div>
-      <div className="bg-midground p-3 flex flex-col gap-5">
+      <div className="flex flex-col gap-5">
         {features &&
           features.map((feature) => (
             <Feature key={feature.id} feature={feature} />
