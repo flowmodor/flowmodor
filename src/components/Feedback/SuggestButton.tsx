@@ -10,15 +10,24 @@ import {
   ModalHeader,
 } from '@nextui-org/react';
 import { useDisclosure } from '@nextui-org/use-disclosure';
+import Link from 'next/link';
 import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import supabase from '@/utils/supabase';
 
-export default function SuggestButton() {
+export default function SuggestButton({ user }: { user: any }) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [value, setValue] = useState('');
   const isValid = value.trim().length > 0;
   const [isPending, startTransition] = useTransition();
+
+  if (!user) {
+    return (
+      <Button as={Link} href="/signin" radius="sm" color="secondary">
+        Make a suggestion
+      </Button>
+    );
+  }
 
   const handleSend = async () => {
     if (!isValid) {

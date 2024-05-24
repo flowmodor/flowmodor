@@ -12,7 +12,7 @@ export default async function Feature({ feature }: { feature: any }) {
   const { data: vote } = await supabase
     .from('votes')
     .select('*')
-    .eq('user_id', user!.id)
+    .eq('user_id', user?.id)
     .eq('feature_id', feature.id)
     .single();
 

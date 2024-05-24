@@ -16,6 +16,10 @@ export default async function FeedbackPage() {
     .order('upvotes', { ascending: false })
     .order('created_at', { ascending: false });
 
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <div className="flex flex-col gap-10 mt-16 mb-5">
       <div className="flex justify-between gap-10">
@@ -26,7 +30,7 @@ export default async function FeedbackPage() {
             new ones.
           </div>
         </div>
-        <SuggestButton />
+        <SuggestButton user={user} />
       </div>
       <div className="flex flex-col gap-5">
         {features &&
