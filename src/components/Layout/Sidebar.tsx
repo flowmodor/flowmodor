@@ -13,6 +13,14 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  if (!user) {
+    return (
+      <div className="flex h-[100dvh] w-full flex-col items-center scrollbar-hide overflow-y-scroll">
+        {children}
+      </div>
+    );
+  }
+
   const { data } = await supabase
     .from('plans')
     .select('status,end_time')

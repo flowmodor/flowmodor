@@ -16,7 +16,7 @@ export default function SignInPage() {
       action={signInWithPassword}
       className="flex flex-col gap-5 text-center sm:w-96"
     >
-      <h1 className="mb-5 text-3xl font-semibold">Welcome back</h1>
+      <h1 className="mb-5 text-3xl font-semibold">Sign In Now</h1>
       <OAuthButton />
       <Or />
       <Input
