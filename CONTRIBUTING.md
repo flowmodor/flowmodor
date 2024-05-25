@@ -30,7 +30,7 @@ SUPABASE_AUTH_EXTERNAL_GOOGLE_ID="your google client id"
 
 Bugs or planned enhancement can be found in [Issue tab](https://github.com/flowmodor/flowmodor/issues).
 
-New features need to be discussed with the core team and the community first. If you're tackling a feature, please make sure it has been already discussed in the [Discussions tab](https://github.com/flowmodor/flowmodor/discussions/categories/feature-request). We kindly ask contributors to use the discussion comment section to propose a solution before opening a pull request.
+New features need to be discussed with the core team and the community first. If you're tackling a feature, please make sure it has been already discussed in the [Feedback Page](https://app.flowmodor.com/feedback).
 
 ## Coding Style
 
