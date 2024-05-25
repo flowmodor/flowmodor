@@ -17,15 +17,15 @@ export default async function Feature({ feature }: { feature: any }) {
     .single();
 
   return (
-    <div className="bg-midground rounded-md p-3 flex gap-3">
+    <div className="flex gap-4">
       <UpvoteButton
         upvoted={!!vote}
         upvotes={feature.upvotes}
         featureId={feature.id}
       />
-      <div>
+      <div className="flex flex-col gap-1">
         <h2 className="text-lg font-semibold">{feature.title}</h2>
-        <div className="prose prose-invert">
+        <div className="prose prose-invert prose-sm">
           <Markdown>{feature.description}</Markdown>
         </div>
       </div>

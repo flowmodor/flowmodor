@@ -23,7 +23,13 @@ export default function SuggestButton({ user }: { user: any }) {
 
   if (!user) {
     return (
-      <Button as={Link} href="/signin" radius="sm" color="secondary">
+      <Button
+        as={Link}
+        href="/signin"
+        radius="sm"
+        color="secondary"
+        className="flex-shrink-0"
+      >
         Make a suggestion
       </Button>
     );
@@ -52,7 +58,12 @@ export default function SuggestButton({ user }: { user: any }) {
 
   return (
     <>
-      <Button radius="sm" color="secondary" onPress={onOpen}>
+      <Button
+        radius="sm"
+        color="secondary"
+        onPress={onOpen}
+        className="flex-shrink-0"
+      >
         Make a suggestion
       </Button>
       <Modal
