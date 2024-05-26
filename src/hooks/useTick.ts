@@ -23,5 +23,5 @@ export default function useTick() {
         clearInterval(interval);
       }
     };
-  }, [status]);
+  }, [currentStep, setCurrentStep, status, tickTimer]);
 }

@@ -2,7 +2,7 @@
 
 import { Button } from '@nextui-org/button';
 import { TourProvider, useTour } from '@reactour/tour';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 import useTick from '@/hooks/useTick';
 import supabase from '@/utils/supabase';
 
@@ -133,9 +133,16 @@ export function TourCustomProvider({
 
 export function HomeProvider({ children }: { children: ReactNode }) {
   const { setIsOpen } = useTour();
+  const effectRunRef = useRef(false);
+
   useEffect(() => {
+    if (effectRunRef.current) {
+      return;
+    }
+
+    effectRunRef.current = true;
     setIsOpen(true);
-  }, []);
+  }, [setIsOpen]);
 
   useTick();
 

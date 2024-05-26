@@ -20,7 +20,7 @@ export default function ToasterWrapper() {
       toast.success(success);
       router.replace(pathname);
     }
-  }, [searchParams]);
+  }, [pathname, router, searchParams]);
 
   return (
     <Toaster

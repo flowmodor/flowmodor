@@ -1,19 +1,25 @@
 'use client';
 
 import { Link } from '@nextui-org/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function TrialBanner({ data }: { data: any }) {
   const [daysLeft, setDaysLeft] = useState<number>(0);
+  const effectRunRef = useRef(false);
 
   useEffect(() => {
+    if (effectRunRef.current) {
+      return;
+    }
+    effectRunRef.current = true;
+
     setDaysLeft(
       Math.ceil(
         (new Date(data.end_time).getTime() - Date.now()) /
           (1000 * 60 * 60 * 24),
       ),
     );
-  }, []);
+  }, [data.end_time]);
 
   if (
     data?.status === 'trialing' &&
