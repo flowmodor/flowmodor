@@ -2,6 +2,7 @@
 
 import { Select, SelectItem } from '@nextui-org/select';
 import { Tooltip } from '@nextui-org/tooltip';
+import { useEffect, useState } from 'react';
 import {
   useFocusingTask,
   useIsLoadingTasks,
@@ -17,6 +18,32 @@ export default function TaskSelector() {
   const focusingTask = useFocusingTask();
   const mode = useMode();
   const { focusTask, unfocusTask } = useTasksActions();
+
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return (
+      <Select
+        isDisabled
+        isLoading
+        selectionMode="single"
+        selectedKeys={[]}
+        label="Select a task"
+        size="sm"
+        radius="sm"
+        classNames={{
+          base: 'max-w-xs',
+          trigger: 'bg-secondary',
+          popoverContent: 'bg-background',
+        }}
+      >
+        <SelectItem key="skeleton" textValue="skeleton" />
+      </Select>
+    );
+  }
 
   return (
     <Select
