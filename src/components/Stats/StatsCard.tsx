@@ -1,7 +1,7 @@
 'use client';
 
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Left, Right } from '@/components/Icons';
 import DailyBarChart from '@/components/Stats/DailyBarChart';
 import DateButton from '@/components/Stats/DateButton';
@@ -18,11 +18,20 @@ import WeeklyBarChart from './WeeklyBarChart';
 
 export default function StatsCard({ isPro }: { isPro: boolean }) {
   const logs = useLogs();
-  const { goPreviousTime, goNextTime } = useStatsActions();
+  const { goPreviousTime, goNextTime, updateLogs } = useStatsActions();
   const displayTime = useDisplayTime();
   const chartRef = useRef<any>(null);
+  const effectRunRef = useRef(false);
   const period = usePeriod();
   const isDisabled = useIsDisabled();
+
+  useEffect(() => {
+    if (effectRunRef.current) {
+      return;
+    }
+    effectRunRef.current = true;
+    updateLogs();
+  }, [updateLogs]);
 
   return (
     <Card radius="sm" className="bg-midground p-5 pb-0">

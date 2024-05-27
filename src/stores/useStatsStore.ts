@@ -171,5 +171,3 @@ export const useIsDisabled = () => {
 
   return false;
 };
-
-useStatsStore.getState().actions.updateLogs();
