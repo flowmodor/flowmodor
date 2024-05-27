@@ -23,7 +23,7 @@ export default function Progress() {
     if (displayTime === 10) {
       setCurrentStep(currentStep + 1);
     }
-  }, [currentStep, displayTime, setCurrentStep]);
+  }, [displayTime]);
 
   return (
     <CircularProgress
