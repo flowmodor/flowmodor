@@ -14,7 +14,6 @@
     "@paddle/paddle-js": "^1.0.3",
     "@paddle/paddle-node-sdk": "^1.2.1",
     "@reactour/tour": "^3.6.1",
-    "@sentry/nextjs": "^8",
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.39.3",
     "chart.js": "^4.4.1",
