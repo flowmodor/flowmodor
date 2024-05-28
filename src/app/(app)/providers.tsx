@@ -95,11 +95,7 @@ function NextButton() {
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export function TourCustomProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function TourCustomProvider({ children }: { children: ReactNode }) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {

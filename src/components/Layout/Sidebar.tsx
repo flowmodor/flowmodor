@@ -21,11 +21,6 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
     );
   }
 
-  const { data } = await supabase
-    .from('plans')
-    .select('status,end_time')
-    .single();
-
   return (
     <div className="flex h-[100dvh]">
       <div className="border-r border-r-secondary pt-2 pb-3 flex flex-col items-center ml-0 w-14 h-full bg-midground z-10">
@@ -57,7 +52,7 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
         <UserDropdown user={user} />
       </div>
       <div className="w-full flex flex-col items-center scrollbar-hide overflow-y-scroll">
-        <TrialBanner data={data} />
+        <TrialBanner />
         {children}
       </div>
     </div>
