@@ -31,6 +31,7 @@ export default function Tabs({
           size="sm"
           selectionMode="single"
           selectedKeys={[tabs[tab].key]}
+          aria-label="Select a tab"
           onChange={(e) => {
             if (e.target.value === '') {
               return;
