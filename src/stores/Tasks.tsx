@@ -29,14 +29,13 @@ interface List {
 
 interface Props {
   tasks: Task[];
-  lists: List[];
-  labels: string[];
 }
 
 interface State extends Props {
   focusingTask: Task | null;
   isLoadingTasks: boolean;
   activeList: string;
+  lists: List[];
   isLoadingLists: boolean;
   activeLabel: string;
   labels: string[];
@@ -46,7 +45,7 @@ interface Action {
   addTask: (name: string) => Promise<void>;
   completeTask: (task: Task) => Promise<void>;
   undoCompleteTask: (task: Task) => Promise<void>;
-  updateLists: () => Promise<void>;
+  fetchListsAndLabels: () => Promise<void>;
   focusTask: (task: Task) => void;
   unfocusTask: () => void;
   fetchTasks: () => Promise<void>;
@@ -68,8 +67,16 @@ const createTasksStore = (initProps: Props) =>
     focusingTask: null,
     isLoadingTasks: false,
     activeList: defaultActiveList,
-    isLoadingLists: false,
+    isLoadingLists: true,
+    lists: [
+      {
+        provider: 'Flowmodor',
+        name: 'Default',
+        id: 'default',
+      },
+    ],
     activeLabel: '',
+    labels: [],
     actions: {
       addTask: async (name) => {
         const { tasks, activeList, activeLabel: label } = get();
@@ -183,42 +190,33 @@ const createTasksStore = (initProps: Props) =>
           ],
         }));
       },
-      updateLists: async () => {
-        const { actions } = get();
+      fetchListsAndLabels: async () => {
         const todoist = await getClient(supabase);
-        if (todoist) {
-          const data = await todoist.getProjects();
-          const todoistLists = data.map((list) => ({
-            provider: 'Todoist',
-            name: list.name,
-            id: list.id,
-          }));
-
-          set((state) => ({
-            lists: [
-              ...state.lists,
-              { provider: 'Todoist', name: 'All', id: 'all' },
-              { provider: 'Todoist', name: 'Today', id: 'today' },
-              ...todoistLists,
-            ],
-            activeList: defaultActiveList,
-            isLoadingLists: false,
-          }));
-          actions.fetchTasks();
+        if (!todoist) {
+          set({ isLoadingLists: false });
           return;
         }
 
-        set((state) => {
-          const newLists = state.lists.filter(
-            (list) => list.provider !== 'Todoist',
-          );
-          return {
-            lists: newLists,
-            activeList: defaultActiveList,
-            isLoadingLists: false,
-          };
-        });
-        actions.fetchTasks();
+        const lists = await todoist.getProjects();
+        const todoistLists = lists.map((list) => ({
+          provider: 'Todoist',
+          name: list.name,
+          id: list.id,
+        }));
+
+        set((state) => ({
+          lists: [
+            ...state.lists,
+            { provider: 'Todoist', name: 'All', id: 'all' },
+            { provider: 'Todoist', name: 'Today', id: 'today' },
+            ...todoistLists,
+          ],
+          activeList: defaultActiveList,
+          isLoadingLists: false,
+        }));
+
+        const labels = await todoist.getLabels();
+        set({ labels: labels.map((label) => label.name) });
       },
       focusTask: (task) => set({ focusingTask: task }),
       unfocusTask: () => set({ focusingTask: null }),

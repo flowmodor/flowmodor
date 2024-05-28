@@ -4,6 +4,7 @@ import { Button } from '@nextui-org/button';
 import { TourProvider, useTour } from '@reactour/tour';
 import { ReactNode, useEffect, useRef } from 'react';
 import useTick from '@/hooks/useTick';
+import { useTasksActions } from '@/stores/Tasks';
 import supabase from '@/utils/supabase';
 
 const steps = [
@@ -133,6 +134,7 @@ export function TourCustomProvider({
 
 export function HomeProvider({ children }: { children: ReactNode }) {
   const { setIsOpen } = useTour();
+  const { fetchListsAndLabels } = useTasksActions();
   const effectRunRef = useRef(false);
 
   useEffect(() => {
@@ -141,8 +143,9 @@ export function HomeProvider({ children }: { children: ReactNode }) {
     }
 
     effectRunRef.current = true;
+    fetchListsAndLabels();
     setIsOpen(true);
-  }, [setIsOpen]);
+  }, [setIsOpen, fetchListsAndLabels]);
 
   useTick();
 
