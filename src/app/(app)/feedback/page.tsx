@@ -29,23 +29,19 @@ export default async function FeedbackPage() {
       </div>
       <Tabs user={user}>
         <Features
-          features={
-            features?.toSorted((a, b) =>
-              a.upvotes === b.upvotes
-                ? new Date(b.created_at).getTime() -
-                  new Date(a.created_at).getTime()
-                : b.upvotes - a.upvotes,
-            ) ?? []
-          }
+          features={[...(features ?? [])].sort((a, b) =>
+            a.upvotes === b.upvotes
+              ? new Date(b.created_at).getTime() -
+                new Date(a.created_at).getTime()
+              : b.upvotes - a.upvotes,
+          )}
         />
         <Features
-          features={
-            features?.toSorted(
-              (a, b) =>
-                new Date(b.created_at).getTime() -
-                new Date(a.created_at).getTime(),
-            ) ?? []
-          }
+          features={[...(features ?? [])].sort(
+            (a, b) =>
+              new Date(b.created_at).getTime() -
+              new Date(a.created_at).getTime(),
+          )}
         />
       </Tabs>
     </div>
