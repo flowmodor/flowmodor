@@ -1,6 +1,6 @@
 import { Checkbox } from '@nextui-org/checkbox';
 import { toast } from 'sonner';
-import { Task, useFocusingTask, useTasksActions } from '@/stores/useTasksStore';
+import { Task, useFocusingTask, useTasksActions } from '@/stores/Tasks';
 import { useMode, useStatus } from '@/stores/useTimerStore';
 import { Calendar, Label } from '../Icons';
 

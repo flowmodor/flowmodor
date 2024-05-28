@@ -1,7 +1,6 @@
 import { TodoistApi } from '@doist/todoist-api-typescript';
-import supabase from './supabase';
 
-export default async function getClient() {
+export default async function getClient(supabase: any) {
   const { data: integrationsData } = await supabase
     .from('integrations')
     .select('provider, access_token')

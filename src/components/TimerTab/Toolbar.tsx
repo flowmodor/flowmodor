@@ -4,6 +4,7 @@ import { Button } from '@nextui-org/button';
 import { useTour } from '@reactour/tour';
 import { useTransition } from 'react';
 import { Hide, Pause, Play, Show, Stop } from '@/components/Icons';
+import { useActiveList, useFocusingTask } from '@/stores/Tasks';
 import {
   useMode,
   useShowTime,
@@ -21,6 +22,8 @@ export default function Toolbar() {
     useTimerActions();
   const { currentStep, setCurrentStep } = useTour();
   const [isLoading, startTransition] = useTransition();
+  const focusingTask = useFocusingTask();
+  const activeList = useActiveList();
 
   return (
     <div className="flex items-center justify-center gap-5">
@@ -45,7 +48,7 @@ export default function Toolbar() {
           onPress={() => {
             startTransition(async () => {
               if (status === 'running') {
-                await pauseTimer();
+                await pauseTimer(focusingTask, activeList);
               } else {
                 await resumeTimer();
               }
@@ -67,7 +70,7 @@ export default function Toolbar() {
           onPress={() => {
             startTransition(async () => {
               if (status !== 'idle') {
-                await stopTimer();
+                await stopTimer(focusingTask, activeList);
               } else {
                 await startTimer();
               }

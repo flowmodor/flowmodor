@@ -13,9 +13,11 @@ export default function useTick() {
         return;
       }
 
-      tickTimer(() => {
-        setCurrentStep(currentStep + 1);
-      });
+      tickTimer(
+        () => {
+          setCurrentStep(currentStep + 1);
+        }
+      );
     }, 1000);
 
     return () => {

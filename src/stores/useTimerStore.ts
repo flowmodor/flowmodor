@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react';
 import { create } from 'zustand';
 import supabase from '@/utils/supabase';
+import { Task } from './Tasks';
 import { useStatsStore } from './useStatsStore';
-import { useTasksStore } from './useTasksStore';
 
 interface State {
   startTime: number | null;
@@ -17,10 +17,10 @@ interface State {
 
 interface Action {
   startTimer: () => Promise<void>;
-  stopTimer: () => Promise<void>;
-  pauseTimer: () => Promise<void>;
+  stopTimer: (focusingTask?: Task | null, activeList?: string) => Promise<void>;
+  pauseTimer: (focusingTask: Task | null, activeList: string) => Promise<void>;
   resumeTimer: () => Promise<void>;
-  log: (p?: (s: string) => void) => Promise<void>;
+  log: (focusingTask?: Task | null, activeList?: string) => Promise<void>;
   tickTimer: (nextStep: () => void) => void;
   toggleShowTime: () => void;
 }
@@ -56,7 +56,7 @@ const useTimerStore = create<Store>((set) => ({
         status: 'running',
       }));
     },
-    stopTimer: async () => {
+    stopTimer: async (focusingTask, activeList) => {
       const breakRatio = await getBreakRatio();
 
       if (useTimerStore.getState().status === 'paused') {
@@ -70,7 +70,7 @@ const useTimerStore = create<Store>((set) => ({
         return;
       }
 
-      await useTimerStore.getState().actions.log();
+      await useTimerStore.getState().actions.log(focusingTask, activeList);
       set((state) => {
         const totalTime =
           state.mode === 'focus'
@@ -85,8 +85,8 @@ const useTimerStore = create<Store>((set) => ({
         };
       });
     },
-    pauseTimer: async () => {
-      await useTimerStore.getState().actions.log();
+    pauseTimer: async (focusingTask, activeList) => {
+      await useTimerStore.getState().actions.log(focusingTask, activeList);
 
       set((state) => {
         const totalTime = state.totalTime + Date.now() - state.startTime!;
@@ -102,13 +102,12 @@ const useTimerStore = create<Store>((set) => ({
         startTime: Date.now(),
       }));
     },
-    log: async () => {
+    log: async (focusingTask, activeList) => {
       const start_time = new Date(
         useTimerStore.getState().startTime!,
       ).toISOString();
       const end_time = new Date(Date.now()).toISOString();
       const { mode } = useTimerStore.getState();
-      const { focusingTask } = useTasksStore.getState();
 
       if (mode === 'break') {
         return;
@@ -124,8 +123,7 @@ const useTimerStore = create<Store>((set) => ({
         return;
       }
 
-      const hasId =
-        useTasksStore.getState().activeList === 'Flowmodor - default';
+      const hasId = activeList === 'Flowmodor - default';
       await supabase.from('logs').insert([
         {
           start_time,
@@ -137,7 +135,7 @@ const useTimerStore = create<Store>((set) => ({
 
       await useStatsStore.getState().actions.updateLogs();
     },
-    tickTimer: async (nextStep: () => void) => {
+    tickTimer: async (nextStep) => {
       set((state) => {
         if (state.status !== 'running') {
           return {};
@@ -192,3 +190,5 @@ export const useMode = () => useTimerStore((state) => state.mode);
 export const useShowTime = () => useTimerStore((state) => state.showTime);
 export const useStatus = () => useTimerStore((state) => state.status);
 export const useTimerActions = () => useTimerStore((state) => state.actions);
+
+// TODO: pass focusing task with hook

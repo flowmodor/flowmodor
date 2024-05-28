@@ -1,7 +1,7 @@
 'use client';
 
 import { Spinner } from '@nextui-org/spinner';
-import { useIsLoadingTasks, useTasks } from '@/stores/useTasksStore';
+import { useIsLoadingTasks, useTasks } from '@/stores/Tasks';
 import TaskBox from './TaskBox';
 
 export default function Tasks() {

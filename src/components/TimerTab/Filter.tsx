@@ -8,7 +8,7 @@ import {
   useIsLoadingLists,
   useLabels,
   useTasksActions,
-} from '@/stores/useTasksStore';
+} from '@/stores/Tasks';
 import { useMode, useStatus } from '@/stores/useTimerStore';
 
 export default function Filter() {

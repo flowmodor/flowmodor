@@ -4,7 +4,6 @@ import { Button } from '@nextui-org/button';
 import { useTransition } from 'react';
 import { toast } from 'sonner';
 import { connectTodoist, disconnectTodoist } from '@/actions/settings';
-import { useTasksActions } from '@/stores/useTasksStore';
 import { Enums } from '@/types/supabase';
 import { Todoist } from '../Icons';
 
@@ -15,7 +14,6 @@ export default function TodoistButton({
   provider: Enums<'provider'> | null | undefined;
   isPro: boolean;
 }) {
-  const { updateLists } = useTasksActions();
   const [isPending, startTransition] = useTransition();
 
   return (
@@ -33,7 +31,6 @@ export default function TodoistButton({
             } else {
               toast.success('Todoist disconnected successfully!');
             }
-            await updateLists();
           } else {
             await connectTodoist();
           }

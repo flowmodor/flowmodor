@@ -4,7 +4,7 @@ import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { useState } from 'react';
 import { Plus } from '@/components/Icons';
-import { useTasksActions } from '@/stores/useTasksStore';
+import { useTasksActions } from '@/stores/Tasks';
 
 export default function Toolbar() {
   const [inputValue, setInputValue] = useState<string>('');
