@@ -1,6 +1,6 @@
 'use client';
 
-import { Link } from '@nextui-org/react';
+import { Link } from '@nextui-org/link';
 import { useEffect, useRef, useState } from 'react';
 
 export default function TrialBanner({ data }: { data: any }) {

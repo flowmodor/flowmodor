@@ -8,7 +8,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from '@nextui-org/react';
+} from '@nextui-org/modal';
 import { useDisclosure } from '@nextui-org/use-disclosure';
 import Link from 'next/link';
 import { useState, useTransition } from 'react';

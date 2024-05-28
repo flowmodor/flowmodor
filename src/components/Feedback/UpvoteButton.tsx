@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@nextui-org/react';
+import { Button } from '@nextui-org/button';
 import { useTransition } from 'react';
 import { unVote, vote } from '@/actions/feedback';
 import { Upvote } from '../Icons';
