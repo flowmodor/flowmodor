@@ -1,11 +1,8 @@
 import { Link } from '@nextui-org/link';
 import Image from 'next/image';
+import { ReactNode } from 'react';
 
-export default function SignLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function SignLayout({ children }: { children: ReactNode }) {
   return (
     <div className="h-screen flex items-center justify-center">
       <Link

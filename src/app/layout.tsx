@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import PlausibleProvider from 'next-plausible';
 import { Inter } from 'next/font/google';
-import { Suspense } from 'react';
+import { ReactNode, Suspense } from 'react';
 import ToasterWrapper from '@/components/Layout/ToasterWrapper';
 import './globals.css';
 import { Providers } from './providers';
@@ -22,11 +22,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
