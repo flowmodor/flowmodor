@@ -2,7 +2,7 @@
 
 import { Button } from '@nextui-org/button';
 import { TourProvider, useTour } from '@reactour/tour';
-import { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import useTick from '@/hooks/useTick';
 import { useTasksActions } from '@/stores/Tasks';
 import supabase from '@/utils/supabase';
@@ -100,12 +100,23 @@ export function TourCustomProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return children;
+  }
+
   return (
     <TourProvider
       className="rounded-lg"
       showDots={false}
       showCloseButton={false}
       onClickMask={() => null}
+      defaultOpen
       steps={steps}
       styles={{
         badge: (base) => ({
@@ -133,7 +144,6 @@ export function TourCustomProvider({
 }
 
 export function HomeProvider({ children }: { children: ReactNode }) {
-  const { setIsOpen } = useTour();
   const { fetchListsAndLabels } = useTasksActions();
   const effectRunRef = useRef(false);
 
@@ -144,8 +154,7 @@ export function HomeProvider({ children }: { children: ReactNode }) {
 
     effectRunRef.current = true;
     fetchListsAndLabels();
-    setIsOpen(true);
-  }, [setIsOpen, fetchListsAndLabels]);
+  }, [fetchListsAndLabels]);
 
   useTick();
 
