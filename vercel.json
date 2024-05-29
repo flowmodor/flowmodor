@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/blog/flowtime-technique-the-best-pomodoro-alternative-for-time-management",
+      "destination": "/blog/flowtime-technique",
+      "permanent": true
+    }
+  ]
+}
