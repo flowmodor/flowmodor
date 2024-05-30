@@ -10,7 +10,7 @@ Flowmodor is a Flowmodoro timer web app helping you get into flow state and stay
 
 ## What is the Flowtime Technique?
 
-The Flowtime Technique is based on the concept of flow, a state of deep focus and productivity. It encourages you to work when you feel most productive and take breaks when you need them, typically one-fifth of the focus period. Learn more about it [here](https://flowmodor.com/blog/flowtime-technique-the-best-pomodoro-alternative-for-time-management).
+[The Flowtime Technique](https://flowmodor.com/blog/flowtime-technique) is based on the concept of flow, a state of deep focus and productivity. It encourages you to work when you feel most productive and take breaks when you need them, typically one-fifth of the focus period.
 
 ## Features
 
