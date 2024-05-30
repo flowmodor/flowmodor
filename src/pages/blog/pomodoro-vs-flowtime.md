@@ -1,8 +1,8 @@
 ---
-title: 'Flowtime vs Pomodoro: which one should you use?'
+title: 'Pomodoro vs Flowtime: which one should you use?'
 date: 2024/03/30
-description: Understand the pros and cons of Flowtime Technique and Pomodoro Technique to choose one that works best for you.
-brief: Understand the pros and cons of Flowtime Technique and Pomodoro Technique to choose one that works best for you.
+description: Understand the pros and cons of Pomodoro Technique and Flowtime Technique to choose one that works best for you.
+brief: Understand the pros and cons of Pomodoro Technique and Flowtime Technique to choose one that works best for you.
 layout: ../../layouts/BlogLayout.astro
 ---
 

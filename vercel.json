@@ -4,6 +4,11 @@
       "source": "/blog/flowtime-technique-the-best-pomodoro-alternative-for-time-management",
       "destination": "/blog/flowtime-technique",
       "permanent": true
+    },
+    {
+      "source": "/blog/flowtime-vs-pomodoro-which-one-should-you-use",
+      "destination": "/blog/pomodoro-vs-flowtime",
+      "permanent": true
     }
   ]
 }
