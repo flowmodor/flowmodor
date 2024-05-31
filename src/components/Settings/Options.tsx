@@ -7,10 +7,8 @@ import { toast } from 'sonner';
 import { updateOptions } from '@/actions/settings';
 
 export default function Options({
-  isPro,
   defaultBreakRatio,
 }: {
-  isPro: boolean;
   defaultBreakRatio: number;
 }) {
   const [breakRatio, setBreakRatio] = useState(defaultBreakRatio);
@@ -22,7 +20,6 @@ export default function Options({
         <h2 className="text-xl font-semibold">Options</h2>
       </div>
       <Input
-        isDisabled={!isPro}
         label="Break ratio"
         labelPlacement="outside"
         placeholder="5"
@@ -45,7 +42,7 @@ export default function Options({
           color="primary"
           radius="sm"
           className="ml-auto mt-2"
-          isDisabled={!isPro || breakRatio <= 0}
+          isDisabled={breakRatio <= 0}
           isLoading={isLoading}
           onPress={() => {
             startTransition(async () => {

@@ -1,10 +1,7 @@
-import { Chip } from '@nextui-org/chip';
-import { Link } from '@nextui-org/link';
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import Integrations from '@/components/Settings/Integrations';
 import Options from '@/components/Settings/Options';
-import checkIsPro from '@/utils/checkIsPro';
 import { getServerClient } from '@/utils/supabase';
 
 export const metadata: Metadata = {
@@ -13,7 +10,6 @@ export const metadata: Metadata = {
 
 export default async function Settings() {
   const cookieStore = cookies();
-  const isPro = await checkIsPro(cookieStore);
   const supabase = getServerClient(cookieStore);
   const { data: settingsData } = await supabase
     .from('settings')
@@ -25,12 +21,9 @@ export default async function Settings() {
     <div className="mt-20 w-screen px-10 sm:w-[70vw] md:w-[50vw] lg:w-[40vw]">
       <h1 className="mb-10 flex items-center gap-3 text-3xl font-semibold">
         Settings
-        <Chip as={Link} size="sm" radius="sm" color="primary" href="/plans">
-          Pro
-        </Chip>
       </h1>
-      <Options isPro={isPro} defaultBreakRatio={breakRatio} />
-      <Integrations isPro={isPro} />
+      <Options defaultBreakRatio={breakRatio} />
+      <Integrations />
     </div>
   );
 }

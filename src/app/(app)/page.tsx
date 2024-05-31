@@ -4,7 +4,7 @@ import TasksTab from '@/components/TasksTab';
 import TimerTab from '@/components/TimerTab/index';
 import { TasksProvider } from '@/stores/Tasks';
 import { getServerClient } from '@/utils/supabase';
-import { HomeProvider, TourCustomProvider } from './providers';
+import { HomeProvider } from './providers';
 
 export default async function App() {
   const supabase = getServerClient(cookies());
@@ -13,12 +13,7 @@ export default async function App() {
     .select('*')
     .is('completed', false);
 
-  const { data, error } = await supabase
-    .from('profiles')
-    .select('is_new')
-    .single();
-
-  const children = (
+  return (
     <TasksProvider tasks={tasks ?? []}>
       <HomeProvider>
         <div className="flex h-full flex-col justify-center">
@@ -30,11 +25,4 @@ export default async function App() {
       </HomeProvider>
     </TasksProvider>
   );
-
-  const isNewUser = !error && data.is_new;
-  if (isNewUser) {
-    return <TourCustomProvider>{children}</TourCustomProvider>;
-  }
-
-  return children;
 }

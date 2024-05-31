@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from '@nextui-org/button';
-import { useTour } from '@reactour/tour';
 import { useTransition } from 'react';
 import { Hide, Pause, Play, Show, Stop } from '@/components/Icons';
 import { useActiveList, useFocusingTask } from '@/stores/Tasks';
@@ -20,7 +19,6 @@ export default function Toolbar() {
 
   const { startTimer, stopTimer, pauseTimer, resumeTimer, toggleShowTime } =
     useTimerActions();
-  const { currentStep, setCurrentStep } = useTour();
   const [isLoading, startTransition] = useTransition();
   const focusingTask = useFocusingTask();
   const activeList = useActiveList();
@@ -75,7 +73,6 @@ export default function Toolbar() {
                 await startTimer();
               }
             });
-            setCurrentStep(currentStep + 1);
           }}
         >
           {status === 'idle' ? <Play /> : <Stop />}

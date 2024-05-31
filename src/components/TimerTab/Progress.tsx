@@ -1,8 +1,6 @@
 'use client';
 
 import { CircularProgress } from '@nextui-org/progress';
-import { useTour } from '@reactour/tour';
-import { useEffect } from 'react';
 import {
   useDisplayTime,
   useMode,
@@ -16,14 +14,6 @@ export default function Progress() {
   const displayTime = useDisplayTime();
   const mode = useMode();
   const showTime = useShowTime();
-
-  const { currentStep, setCurrentStep } = useTour();
-
-  useEffect(() => {
-    if (displayTime === 10) {
-      setCurrentStep(currentStep + 1);
-    }
-  }, [displayTime]);
 
   return (
     <CircularProgress

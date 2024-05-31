@@ -2222,42 +2222,6 @@
     "@react-types/overlays" "^3.8.4"
     "@react-types/shared" "^3.22.0"
 
-"@reactour/mask@*":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@reactour/mask/-/mask-1.1.0.tgz#e327306585ee3510e80169a7fa811e9d0b9448bb"
-  integrity sha512-GkJMLuTs3vTsm4Ryq2uXcE4sMzRP1p4xSd6juSOMqbHa7IVD/UiLCLqJWHR9xGSQPbYhpZAZAORUG5cS0U5tBA==
-  dependencies:
-    "@reactour/utils" "*"
-
-"@reactour/popover@*":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@reactour/popover/-/popover-1.1.1.tgz#c9b05ee31b8677d874f1479d724204b936e1128f"
-  integrity sha512-BouulO0sXfmuHSPX8FwCYI0fMeT+VsWqk7UTao3NQcUC5H903ZeKOV2GYpwSJtRUQhsyNEu1Q8cEruGRf1SOXQ==
-  dependencies:
-    "@reactour/utils" "*"
-
-"@reactour/tour@^3.6.1":
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/@reactour/tour/-/tour-3.6.1.tgz#7537c8faa48546fe4e312f125113459b7a19fa13"
-  integrity sha512-vzmgbm4T7n5gh0cjc4Zi4G3K29dXQyEdi/o7ZYLpNcisJ0hwP5jNKH7BgckrHWEGldBxYSWl34tsRmHcyxporQ==
-  dependencies:
-    "@reactour/mask" "*"
-    "@reactour/popover" "*"
-    "@reactour/utils" "*"
-
-"@reactour/utils@*":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@reactour/utils/-/utils-0.5.0.tgz#8886872d78839187fd53399834a1b9688e98d754"
-  integrity sha512-yQs5Nm/Dg1xRM7d/S/UILBV5OInrTgrjGzgc81/RP5khqdO5KnpOaC46yF83kDtCalte8X3RCwp+F2YA509k1w==
-  dependencies:
-    "@rooks/use-mutation-observer" "^4.11.2"
-    resize-observer-polyfill "^1.5.1"
-
-"@rooks/use-mutation-observer@^4.11.2":
-  version "4.11.2"
-  resolved "https://registry.yarnpkg.com/@rooks/use-mutation-observer/-/use-mutation-observer-4.11.2.tgz#a0466c4338e0a4487ea19253c86bcd427c29f4af"
-  integrity sha512-vpsdrZdr6TkB1zZJcHx+fR1YC/pHs2BaqcuYiEGjBVbwY5xcC49+h0hAUtQKHth3oJqXfIX/Ng8S7s5HFHdM/A==
-
 "@rushstack/eslint-patch@^1.3.3":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.6.0.tgz#1898e7a7b943680d757417a47fb10f5fcc230b39"
@@ -5651,11 +5615,6 @@ requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==
-
-resize-observer-polyfill@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
-  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
 
 resolve-from@^4.0.0:
   version "4.0.0"

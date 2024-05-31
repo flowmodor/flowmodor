@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { getServerClient } from '@/utils/supabase';
 import TodoistButton from './TodoistButton';
 
-export default async function Integrations({ isPro }: { isPro: boolean }) {
+export default async function Integrations() {
   const supabase = getServerClient(cookies());
   const { data } = await supabase
     .from('integrations')
@@ -19,7 +19,7 @@ export default async function Integrations({ isPro }: { isPro: boolean }) {
       <div className="text-sm color-secondary">
         Sync tasks with third-party apps
       </div>
-      <TodoistButton provider={provider} isPro={isPro} />
+      <TodoistButton provider={provider} />
     </div>
   );
 }

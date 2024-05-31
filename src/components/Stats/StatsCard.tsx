@@ -13,10 +13,9 @@ import {
   useStatsActions,
 } from '@/stores/useStatsStore';
 import PeriodSelector from './PeriodSelector';
-import TooltipWrapper from './TooltipWrapper';
 import WeeklyBarChart from './WeeklyBarChart';
 
-export default function StatsCard({ isPro }: { isPro: boolean }) {
+export default function StatsCard() {
   const logs = useLogs();
   const { goPreviousTime, goNextTime, updateLogs } = useStatsActions();
   const displayTime = useDisplayTime();
@@ -37,16 +36,13 @@ export default function StatsCard({ isPro }: { isPro: boolean }) {
     <Card radius="sm" className="bg-midground p-5 pb-0">
       <CardHeader className="flex flex-col gap-1">
         <div className="flex justify-center w-full items-center gap-5 font-semibold">
-          <PeriodSelector isPro={isPro} />
-          <TooltipWrapper isPro={isPro}>
+          <PeriodSelector />
             <DateButton
               onPress={goPreviousTime}
               ariaLabel="Previous day"
-              isDisabled={!isPro}
             >
               <Left />
             </DateButton>
-          </TooltipWrapper>
           {displayTime}
           <DateButton
             onPress={goNextTime}

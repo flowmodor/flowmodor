@@ -2,9 +2,8 @@ import { cookies } from 'next/headers';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import { getServerClient } from '@/utils/supabase';
-import { Chart, Comments, Gear, House, MoneyBill } from '../Icons';
+import { Chart, Gear, House } from '../Icons';
 import SidebarTab from './SidebarTab';
-import TrialBanner from './TrialBanner';
 import UserDropdown from './UserDropdown';
 
 export default async function Sidebar({ children }: { children: ReactNode }) {
@@ -42,17 +41,10 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
           <SidebarTab tabPathname="/settings" tabName="Settings" hotkey="S">
             <Gear />
           </SidebarTab>
-          <SidebarTab tabPathname="/plans" tabName="Plans" hotkey="P">
-            <MoneyBill />
-          </SidebarTab>
-          <SidebarTab tabPathname="/feedback" tabName="Feedback" hotkey="F">
-            <Comments />
-          </SidebarTab>
         </div>
         <UserDropdown user={user} />
       </div>
       <div className="w-full flex flex-col items-center scrollbar-hide overflow-y-scroll">
-        <TrialBanner />
         {children}
       </div>
     </div>

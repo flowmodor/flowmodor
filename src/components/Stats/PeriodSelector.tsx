@@ -1,8 +1,7 @@
-import { Chip } from '@nextui-org/chip';
 import { Select, SelectItem } from '@nextui-org/select';
 import { Period, usePeriod, useStatsActions } from '@/stores/useStatsStore';
 
-export default function PeriodSelector({ isPro }: { isPro: boolean }) {
+export default function PeriodSelector() {
   const { onPeriodChange } = useStatsActions();
   const period = usePeriod();
 
@@ -24,7 +23,6 @@ export default function PeriodSelector({ isPro }: { isPro: boolean }) {
           onPeriodChange(newPeriod as Period);
         }
       }}
-      disabledKeys={isPro ? [] : ['Week']}
     >
       <SelectItem
         key="Day"
@@ -41,12 +39,7 @@ export default function PeriodSelector({ isPro }: { isPro: boolean }) {
           base: 'data-[focus=true]:!bg-secondary data-[hover=true]:!bg-secondary',
         }}
       >
-        <div className="flex gap-2 items-center">
-          Week
-          <Chip size="sm" radius="sm" color="primary">
-            Pro
-          </Chip>
-        </div>
+        <div className="flex gap-2 items-center">Week</div>
       </SelectItem>
     </Select>
   );

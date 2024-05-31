@@ -21,7 +21,7 @@ interface Action {
   pauseTimer: (focusingTask: Task | null, activeList: string) => Promise<void>;
   resumeTimer: () => Promise<void>;
   log: (focusingTask?: Task | null, activeList?: string) => Promise<void>;
-  tickTimer: (nextStep: () => void) => void;
+  tickTimer: () => void;
   toggleShowTime: () => void;
 }
 
@@ -135,7 +135,7 @@ const useTimerStore = create<Store>((set) => ({
 
       await useStatsStore.getState().actions.updateLogs();
     },
-    tickTimer: async (nextStep) => {
+    tickTimer: async () => {
       set((state) => {
         if (state.status !== 'running') {
           return {};
@@ -148,7 +148,6 @@ const useTimerStore = create<Store>((set) => ({
 
         if (state.mode === 'break' && time <= 0) {
           state.actions.stopTimer();
-          nextStep();
           const audio = new Audio('/alarm.mp3');
           audio.play();
 
