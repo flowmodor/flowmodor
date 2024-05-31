@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import PlausibleProvider from 'next-plausible';
 import { Inter } from 'next/font/google';
 import { ReactNode, Suspense } from 'react';
 import ToasterWrapper from '@/components/Layout/ToasterWrapper';
@@ -25,9 +24,6 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <PlausibleProvider domain="app.flowmodor.com" />
-      </head>
       <body
         className={`${inter.className} flex min-h-screen justify-center bg-background text-white scrollbar-hide dark`}
       >
