@@ -189,5 +189,3 @@ export const useMode = () => useTimerStore((state) => state.mode);
 export const useShowTime = () => useTimerStore((state) => state.showTime);
 export const useStatus = () => useTimerStore((state) => state.status);
 export const useTimerActions = () => useTimerStore((state) => state.actions);
-
-// TODO: pass focusing task with hook
