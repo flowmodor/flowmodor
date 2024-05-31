@@ -2,8 +2,22 @@
 import NavbarLayout from './NavbarLayout.astro';
 
 const { frontmatter } = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: frontmatter.title,
+  description: frontmatter.description,
+  author: {
+    '@type': 'Person',
+    name: 'Max Shen',
+    url: 'https://x.com/m4xshen',
+  },
+  datePublished: new Date(frontmatter.date).toISOString().substring(0, 10),
+};
 ---
 
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 <NavbarLayout
   title={`${frontmatter.title} | Flowmodor`}
   description={frontmatter.description}
