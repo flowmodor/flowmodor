@@ -11,6 +11,11 @@ export default function Toolbar() {
   const { addTask } = useTasksActions();
   const isDisabled = inputValue.trim() === '';
 
+  const onAddTask = () => {
+    addTask(inputValue.trim());
+    setInputValue('');
+  };
+
   return (
     <>
       <Input
@@ -29,8 +34,7 @@ export default function Toolbar() {
           }
 
           if (e.key === 'Enter') {
-            addTask(inputValue.trim());
-            setInputValue('');
+            onAddTask();
           }
         }}
       />
@@ -38,10 +42,7 @@ export default function Toolbar() {
         type="button"
         variant="flat"
         isIconOnly
-        onPress={() => {
-          addTask(inputValue.trim());
-          setInputValue('');
-        }}
+        onPress={onAddTask}
         isDisabled={isDisabled}
         className="bg-secondary fill-white"
       >

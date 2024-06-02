@@ -10,6 +10,7 @@ import {
 } from 'react';
 import { toast } from 'sonner';
 import { createStore, useStore } from 'zustand';
+import revalidateTasks from '@/actions/task';
 import supabase from '@/utils/supabase';
 import getClient from '@/utils/todoist';
 
@@ -121,6 +122,7 @@ const createTasksStore = (initProps: Props) =>
             tasks: [...state.tasks, data[0]],
           }));
         }
+        revalidateTasks();
       },
       completeTask: async (task) => {
         const { activeList, focusingTask, actions } = get();
@@ -153,6 +155,7 @@ const createTasksStore = (initProps: Props) =>
         set((state) => ({
           tasks: state.tasks.filter((t) => t.id !== task.id),
         }));
+        revalidateTasks();
       },
       undoCompleteTask: async (task) => {
         const { activeList } = get();
@@ -189,6 +192,7 @@ const createTasksStore = (initProps: Props) =>
             ...state.tasks,
           ],
         }));
+        revalidateTasks();
       },
       fetchListsAndLabels: async () => {
         const todoist = await getClient(supabase);
