@@ -10,5 +10,6 @@
       "destination": "/blog/pomodoro-vs-flowtime",
       "permanent": true
     }
-  ]
+  ],
+  "trailingslash": false,
 }
