@@ -36,25 +36,24 @@ export default function TaskBox({ task }: { task: Task }) {
             },
           });
         }}
-      >
-        <div className="flex flex-col">
-          {task.name}
-          <div className="gap-x-2 flex text-[#ffffffa0] fill-[#ffffffa0] text-sm flex-wrap">
-            {task.labels?.map((label) => (
-              <div key={label} className="flex gap-1">
-                <Label />
-                {label}
-              </div>
-            ))}
-            {task.due ? (
-              <div className="flex text-sm text-[#ffffffa0] fill-[#ffffffa0] gap-1">
-                <Calendar />
-                {task.due.toDateString()}
-              </div>
-            ) : null}
-          </div>
+      />
+      <div className="flex flex-col">
+        {task.name}
+        <div className="gap-x-2 flex text-[#ffffffa0] fill-[#ffffffa0] text-sm flex-wrap">
+          {task.labels?.map((label) => (
+            <div key={label} className="flex gap-1">
+              <Label />
+              {label}
+            </div>
+          ))}
+          {task.due ? (
+            <div className="flex text-sm text-[#ffffffa0] fill-[#ffffffa0] gap-1">
+              <Calendar />
+              {task.due.toDateString()}
+            </div>
+          ) : null}
         </div>
-      </Checkbox>
+      </div>
     </div>
   );
 }
