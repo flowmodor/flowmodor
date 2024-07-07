@@ -44,6 +44,7 @@ interface State extends Props {
 
 interface Action {
   addTask: (name: string) => Promise<void>;
+  deleteTask: (task: Task) => Promise<void>;
   completeTask: (task: Task) => Promise<void>;
   undoCompleteTask: (task: Task) => Promise<void>;
   fetchListsAndLabels: () => Promise<void>;
@@ -122,6 +123,36 @@ const createTasksStore = (initProps: Props) =>
             tasks: [...state.tasks, data[0]],
           }));
         }
+        revalidateTasks();
+      },
+      deleteTask: async (task) => {
+        const { activeList } = get();
+        const [provider] = activeList.split(' - ', 2);
+
+        if (provider === 'Todoist') {
+          const todoist = await getClient(supabase);
+          if (todoist) {
+            const isSuccess = await todoist.deleteTask(task.id.toString());
+            if (!isSuccess) {
+              toast.error('Failed to delete task');
+              return;
+            }
+          }
+        } else {
+          const { error } = await supabase
+            .from('tasks')
+            .delete()
+            .eq('id', task.id);
+
+          if (error) {
+            toast.error(error.message);
+            return;
+          }
+        }
+
+        set((state) => ({
+          tasks: state.tasks.filter((t) => t.id !== task.id),
+        }));
         revalidateTasks();
       },
       completeTask: async (task) => {

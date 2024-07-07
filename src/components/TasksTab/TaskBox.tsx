@@ -1,17 +1,23 @@
 import { Checkbox } from '@nextui-org/checkbox';
+import { useTransition } from 'react';
 import { toast } from 'sonner';
 import { Task, useFocusingTask, useTasksActions } from '@/stores/Tasks';
 import { useMode, useStatus } from '@/stores/useTimerStore';
-import { Calendar, Label } from '../Icons';
+import { Calendar, Label, TrashCan } from '../Icons';
 
 export default function TaskBox({ task }: { task: Task }) {
+  const [isLoading, startTransition] = useTransition();
   const status = useStatus();
   const mode = useMode();
   const focusingTask = useFocusingTask();
-  const { completeTask, undoCompleteTask } = useTasksActions();
+  const { deleteTask, completeTask, undoCompleteTask } = useTasksActions();
 
   return (
-    <div className="flex min-h-[4rem] items-center border-b border-b-secondary px-4 py-4 flex-shrink-0">
+    <div
+      className={`relative group flex min-h-[4rem] items-center border-b border-b-secondary px-4 py-4 flex-shrink-0 ${
+        isLoading && 'opacity-50 pointer-events-none'
+      }`}
+    >
       <Checkbox
         isDisabled={
           status === 'running' &&
@@ -54,6 +60,18 @@ export default function TaskBox({ task }: { task: Task }) {
           ) : null}
         </div>
       </div>
+      <button
+        type="button"
+        aria-label="Delete task"
+        className="absolute right-0 fill-primary group-hover:block hidden"
+        onClick={() => {
+          startTransition(async () => {
+            await deleteTask(task);
+          });
+        }}
+      >
+        <TrashCan />
+      </button>
     </div>
   );
 }
