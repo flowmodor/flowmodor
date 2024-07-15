@@ -59,7 +59,6 @@ export default function SignUpForm() {
           <button
             className="focus:outline-none"
             type="button"
-            disabled
             onClick={toggleVisibility}
           >
             {isVisible ? <Hide /> : <Show />}
