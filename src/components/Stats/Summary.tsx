@@ -12,7 +12,7 @@ export default function Summary() {
   return (
     <Card
       radius="sm"
-      className="flex flex-row justify-center w-full gap-10 bg-midground p-5"
+      className="flex flex-row justify-center shrink-0 w-full gap-10 bg-midground p-5"
     >
       <div className="flex flex-col items-center text-sm">
         Total Focus

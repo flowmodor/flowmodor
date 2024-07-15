@@ -21,7 +21,7 @@ export default function TaskTime() {
       color="secondary"
       className="h-full"
       classNames={{
-        base: 'max-h-[26rem] overflow-y-auto',
+        base: 'overflow-y-auto',
         wrapper: 'h-full bg-midground',
         th: 'bg-secondary',
       }}
