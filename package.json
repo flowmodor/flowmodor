@@ -15,6 +15,7 @@
     "@paddle/paddle-node-sdk": "^1.2.1",
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.39.3",
+    "@uiw/react-heat-map": "^2.2.2",
     "chart.js": "^4.4.1",
     "framer-motion": "^10.16.15",
     "nanoid": "^5.0.6",
