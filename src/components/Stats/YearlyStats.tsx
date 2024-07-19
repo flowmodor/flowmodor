@@ -37,7 +37,7 @@ const generatePanelColors = (maxValue: number) => {
   };
 };
 
-export default function MonthlyStats({ data }: { data: any[] }) {
+export default function YearlyStats({ data }: { data: any[] }) {
   const value = calculateFocusTime(data);
   const maxValue = Math.max(...value.map((item) => item.count));
   const panelColors = generatePanelColors(maxValue);

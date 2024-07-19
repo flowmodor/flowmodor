@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
-import MonthlyStats from '@/components/Stats/MonthlyStats';
 import StatsCard from '@/components/Stats/StatsCard';
 import Summary from '@/components/Stats/Summary';
 import TaskTime from '@/components/Stats/TaskTime';
+import YearlyStats from '@/components/Stats/YearlyStats';
 import { getServerClient } from '@/utils/supabase';
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default async function Stats() {
           <TaskTime />
         </div>
       </div>
-      <MonthlyStats data={data ?? []} />
+      <YearlyStats data={data ?? []} />
     </div>
   );
 }
