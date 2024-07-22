@@ -24,7 +24,7 @@ function interpolateColor(value: number, min: number, max: number): string {
 function formatHoursAndMinutes(hours: number): string {
   const intHours = Math.floor(hours);
   const minutes = Math.round((hours - intHours) * 60);
-  return `${intHours}h ${minutes}m`;
+  return `${intHours}hr ${minutes}min`;
 }
 
 export default function Heatmap({ data }: { data: DataPoint[] }) {
@@ -55,18 +55,19 @@ export default function Heatmap({ data }: { data: DataPoint[] }) {
               return (
                 <Tooltip
                   key={dateStr}
-                  showArrow
                   radius="sm"
+                  offset={9}
                   content={`${dateStr}: ${formatHoursAndMinutes(value)}`}
                   className="bg-background"
                   classNames={{
                     base: 'before:bg-background',
                   }}
                   isDisabled={value === 0}
+                  closeDelay={0}
                 >
                   <button
                     type="button"
-                    className="w-4 h-4 rounded-[4px]"
+                    className="w-4 h-4 rounded-[4px] hover:border-2 hover:border-primary"
                     style={{ backgroundColor: getColor(value) }}
                     aria-label={dateStr}
                     onClick={() => {
