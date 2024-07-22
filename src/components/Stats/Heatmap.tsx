@@ -7,7 +7,7 @@ import {
   getDay,
   startOfYear,
 } from 'date-fns';
-import { useStatsActions } from '@/stores/useStatsStore';
+import { usePeriod, useStatsActions } from '@/stores/useStatsStore';
 
 type DataPoint = {
   date: string;
@@ -35,11 +35,12 @@ function formatHoursAndMinutes(hours: number): string {
 }
 
 export default function Heatmap({ data }: { data: DataPoint[] }) {
-  const { setDate } = useStatsActions();
+  const { setDate, setWeek } = useStatsActions();
   const currentYear = new Date().getFullYear();
   const startDate = startOfYear(new Date(currentYear, 0, 1));
   const endDate = endOfYear(new Date(currentYear, 0, 1));
   const dataMap = new Map(data.map((item) => [item.date, item.value]));
+  const currentPeriod = usePeriod();
 
   // Adjust the start date to the previous Sunday if it's not already a Sunday
   const adjustedStartDate =
@@ -62,6 +63,14 @@ export default function Heatmap({ data }: { data: DataPoint[] }) {
   const minValue = Math.min(...data.map((d) => d.value), 0);
   const getColor = (value: number) =>
     interpolateColor(value, minValue, maxValue);
+
+  const handleCellClick = (date: Date) => {
+    if (currentPeriod === 'Week') {
+      setWeek(date);
+    } else {
+      setDate(date);
+    }
+  };
 
   return (
     <div className="flex flex-col items-start">
@@ -97,9 +106,7 @@ export default function Heatmap({ data }: { data: DataPoint[] }) {
                     className="w-4 h-4 rounded-[4px] hover:border-2 hover:border-primary"
                     style={{ backgroundColor: getColor(value) }}
                     aria-label={dateStr}
-                    onClick={() => {
-                      setDate(new Date(dateStr));
-                    }}
+                    onClick={() => handleCellClick(new Date(dateStr))}
                   />
                 </Tooltip>
               );

@@ -18,6 +18,7 @@ interface Action {
   goPreviousTime: () => void;
   onPeriodChange: (period: Period) => void;
   setDate: (date: Date) => void;
+  setWeek: (date: Date) => void;
 }
 
 interface Store extends State {
@@ -128,14 +129,16 @@ export const useStatsStore = create<Store>((set) => ({
       useStatsStore.getState().actions.updateLogs();
     },
     onPeriodChange: (period: Period) => {
-      set(() => {
-        const startDate = new Date();
-        const endDate = new Date();
+      set((state) => {
+        const startDate =
+          period === 'Week' ? new Date(state.startDate) : new Date();
+        const endDate =
+          period === 'Week' ? new Date(state.endDate) : new Date();
 
         if (period === 'Week') {
-          const day = startDate.getDay();
-          startDate.setDate(startDate.getDate() - day);
-          endDate.setDate(startDate.getDate() + 6);
+          const day = state.startDate.getDay();
+          startDate.setDate(state.startDate.getDate() - day);
+          endDate.setDate(state.startDate.getDate() + 6);
         }
 
         return {
@@ -151,6 +154,21 @@ export const useStatsStore = create<Store>((set) => ({
       set({
         startDate: date,
         endDate: date,
+      });
+      useStatsStore.getState().actions.updateLogs();
+    },
+    setWeek: (date: Date) => {
+      const startDate = new Date(date);
+      startDate.setDate(date.getDate() - date.getDay());
+      startDate.setHours(0, 0, 0, 0);
+
+      const endDate = new Date(startDate);
+      endDate.setDate(startDate.getDate() + 6);
+      endDate.setHours(23, 59, 59, 999);
+
+      set({
+        startDate,
+        endDate,
       });
       useStatsStore.getState().actions.updateLogs();
     },
