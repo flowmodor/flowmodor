@@ -1,5 +1,12 @@
 import { Tooltip } from '@nextui-org/react';
-import { eachDayOfInterval, endOfYear, format, startOfYear } from 'date-fns';
+import {
+  addDays,
+  eachDayOfInterval,
+  endOfYear,
+  format,
+  getDay,
+  startOfYear,
+} from 'date-fns';
 import { useStatsActions } from '@/stores/useStatsStore';
 
 type DataPoint = {
@@ -33,12 +40,24 @@ export default function Heatmap({ data }: { data: DataPoint[] }) {
   const startDate = startOfYear(new Date(currentYear, 0, 1));
   const endDate = endOfYear(new Date(currentYear, 0, 1));
   const dataMap = new Map(data.map((item) => [item.date, item.value]));
-  const allDays = eachDayOfInterval({ start: startDate, end: endDate });
+
+  // Adjust the start date to the previous Sunday if it's not already a Sunday
+  const adjustedStartDate =
+    getDay(startDate) === 0
+      ? startDate
+      : addDays(startDate, -getDay(startDate));
+
+  const allDays = eachDayOfInterval({ start: adjustedStartDate, end: endDate });
+
+  // Group days into weeks, starting from Sunday
   const weeks = allDays.reduce((acc: Date[][], date, index) => {
     if (index % 7 === 0) acc.push([]);
-    acc[acc.length - 1].push(date);
+    if (date >= startDate) {
+      acc[acc.length - 1].push(date);
+    }
     return acc;
   }, []);
+
   const maxValue = Math.max(...data.map((d) => d.value), 0.1);
   const minValue = Math.min(...data.map((d) => d.value), 0);
   const getColor = (value: number) =>
@@ -48,16 +67,24 @@ export default function Heatmap({ data }: { data: DataPoint[] }) {
     <div className="flex flex-col items-start">
       <div className="flex gap-1">
         {weeks.map((week, weekIndex) => (
-          <div key={weekIndex} className="flex flex-col gap-1">
+          <div
+            key={weekIndex}
+            className={`flex flex-col gap-1 ${
+              weekIndex === 0 && 'justify-end'
+            }`}
+          >
             {week.map((day) => {
               const dateStr = format(day, 'yyyy-MM-dd');
               const value = dataMap.get(dateStr) || 0;
+              const dayOfWeek = format(day, 'EEE');
               return (
                 <Tooltip
                   key={dateStr}
                   radius="sm"
                   offset={9}
-                  content={`${dateStr}: ${formatHoursAndMinutes(value)}`}
+                  content={`${dayOfWeek}, ${dateStr}: ${formatHoursAndMinutes(
+                    value,
+                  )}`}
                   className="bg-background"
                   classNames={{
                     base: 'before:bg-background',
