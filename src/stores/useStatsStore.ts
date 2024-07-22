@@ -17,6 +17,7 @@ interface Action {
   goNextTime: () => void;
   goPreviousTime: () => void;
   onPeriodChange: (period: Period) => void;
+  setDate: (date: Date) => void;
 }
 
 interface Store extends State {
@@ -143,6 +144,13 @@ export const useStatsStore = create<Store>((set) => ({
           endDate,
           period,
         };
+      });
+      useStatsStore.getState().actions.updateLogs();
+    },
+    setDate: (date: Date) => {
+      set({
+        startDate: date,
+        endDate: date,
       });
       useStatsStore.getState().actions.updateLogs();
     },
