@@ -10,11 +10,10 @@ export default function PeriodSelector() {
       size="sm"
       radius="sm"
       selectionMode="single"
-      label="Select stats period"
       classNames={{
         trigger: 'bg-secondary data-[hover=true]:bg-secondary',
         popoverContent: 'bg-background',
-        base: 'absolute left-5 top-5 max-w-[10rem]',
+        base: 'max-w-[6rem]',
       }}
       selectedKeys={[period]}
       onChange={(e) => {
