@@ -21,6 +21,8 @@ export async function updateOptions(breakRatio: number) {
     .update({ break_ratio: breakRatio })
     .eq('user_id', user.id);
 
+  revalidatePath('/settings');
+
   return { error };
 }
 
