@@ -24,17 +24,19 @@ On average, I get 90 new registered users per week, most of them come from organ
 
 I think that's because I have been refining the landing page SEO for `flowmodoro` keyword. It's not a popular term yet so I successfully ranked the top for it.
 
-I also wrote some blog posts about the Flowtime Technique and Pomodoro Technique. However, the ranking of these posts are not that good. Therefore didn't bring much traffic:
+This is actually a good strategy for a new product. Instead of targeting popular keywords, choosing a niche keyword can help you rank faster and get more targeted users.
+
+In addition to the landing page, I also wrote some blog posts about the Flowtime Technique and Pomodoro Technique. However, the ranking of these posts are not that good. Therefore didn't bring much traffic:
 
 ![entry pages chart](/half-year-reflections/entry-pages.png)
 
 ## Paid users
 
-I switched from PayPal to Paddle for payment processing. It's a good decision because I can now accept more payment methods and the checkout process is smoother (same for the DX). Before that I only had 2 paying users, now I have 11.
+I switched from PayPal to Paddle for payment processing. It's a good decision because I can now accept more payment methods and the checkout process is smoother (same for DX). It also provides a better dashboard to track the revenue and users.
 
 Among the 11 paying users, 3 of them are on the yearly plan, which is actually suggested by one of the users. I didn't expect that people would pay for a yearly plan, but it turns out that some users prefer it.
 
-I also added a 14-day free trial for every new user. Letting users try the full features for free is a good way to convert them to paying users.
+I also added a 14-day free trial for every new registered user. Letting users try the full features for free is a good way to convert them into paid users.
 
 ## Product development
 
@@ -44,10 +46,12 @@ The [3 MVP features](/blog/my-dream-productivity-app#the-plan) are all implement
 
 The completion of the MVP features also means that I'll soon have a public launch. I'm planning to launch it on Product Hunt next week. I hope it can bring more exposure and users. You can [sign up here](https://www.producthunt.com/products/flowmodor) to get notified when it's live!
 
-Another important thing is that I've built a [feedback board](https://app.flowmodor.com/feedback) for users to submit feature requests and vote for them. It's a great way to understand what users really need and prioritize the development.
+Another important thing is that I've built a [feedback board](https://app.flowmodor.com/feedback) for users to submit feature requests and vote for them:
 
-I've already implemented 3 features from the board and I'll start working on the most voted feature: a mobile app, after the public launch.
+![feedback board](/half-year-reflections/feedback-board.png)
+
+It's a great way to understand what users really need and prioritize the development. I've already implemented 3 features from the board and I'll start working on the most voted feature: a mobile app, after the public launch.
 
 ## Conclusion
 
-Building Flowmodor is a challenging but enjoyable journey. This is my first time building a SaaS product and I've learned a lot from it. I'm grateful for all the Flowmodor users providing feedback and support. I'll keep improving the app and looking forward to the [public launch](https://www.producthunt.com/products/flowmodor) next week 💜
+Building Flowmodor is a challenging but enjoyable journey. This is my first time building a SaaS product and I've learned a lot from it. I'm grateful for all the Flowmodor users providing feedback and support. I'll keep improving the app and looking forward to the [PH launch](https://www.producthunt.com/products/flowmodor) next week 💜
