@@ -30,13 +30,13 @@ In addition to the landing page, I also wrote some blog posts about the Flowtime
 
 ![entry pages chart](/half-year-reflections/entry-pages.png)
 
-## Paid users
+## Paying users
 
 I switched from PayPal to Paddle for payment processing. It's a good decision because I can now accept more payment methods and the checkout process is smoother (same for DX). It also provides a better dashboard to track the revenue and users.
 
 Among the 11 paying users, 3 of them are on the yearly plan, which is actually suggested by one of the users. I didn't expect that people would pay for a yearly plan, but it turns out that some users prefer it.
 
-I also added a 14-day free trial for every new registered user. Letting users try the full features for free is a good way to convert them into paid users.
+I also added a 14-day free trial for every new registered user. Letting users try the full features for free is a good way to convert them into paying users.
 
 ## Product development
 
