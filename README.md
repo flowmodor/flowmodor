@@ -6,17 +6,16 @@
 
 </div>
 
-Flowmodor is a Flowmodoro timer web app helping you get into flow state and stay focused with the Flowtime Technique.
+Flowmodor is a flexible focus timer based on the Flowtime Technique, a Pomodoro variant: work x minutes, take x/5 minutes break.
 
-## What is the Flowtime Technique?
-
-[The Flowtime Technique](https://flowmodor.com/blog/flowtime-technique) is based on the concept of flow, a state of deep focus and productivity. It encourages you to work when you feel most productive and take breaks when you need them, typically one-fifth of the focus period.
+Flowmodor automatically calculate and set break timer for you based on your work duration. This way you can stay in flow state but also maintain the 5:1 ratio of work and break.
 
 ## Features
 
-- 🕒 **Flowmodoro Timer:** Counting up during focus and counting down during breaks, based on your focus duration.
-- 📋 **Task List:** Select a task when starting a focus session to stay monotasked. Todoist integration available.
-- 📊 **Stats:** Tracks and summarizes work and break patterns for enhanced productivity insights.
+- 🕒 Flowtime Timer: Work 50 minutes, take 10 minutes break; work 120 minutes, take 24 minutes break.
+- 📋 Task List: Select a task when focus to stay monotasked. Todoist integration available.
+- 📊 Focus Report: Provide daily / weekly / yearly stats for enhanced productivity insights.
+- ⚙️ Customizable Options: Tweak the work and break ratio to fit your needs.
 
 > [!NOTE]
 > To stay up to date with all the latest news and updates, make sure to follow us on X [@Flowmodor](https://twitter.com/flowmodor).
