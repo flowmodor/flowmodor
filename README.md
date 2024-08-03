@@ -4,6 +4,8 @@
 
 [Web App](https://app.flowmodor.com) · [Feedback](https://app.flowmodor.com/feedback) · [Contributing](https://github.com/flowmodor/flowmodor/blob/main/CONTRIBUTING.md)
 
+<a href="https://www.producthunt.com/posts/flowmodor?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-flowmodor" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=435517&theme=neutral" alt="Flowmodor - A&#0032;flexible&#0032;focus&#0032;timer&#0032;helping&#0032;you&#0032;stay&#0032;in&#0032;flow&#0032;state | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+
 </div>
 
 Flowmodor is a flexible focus timer based on the Flowtime Technique, a Pomodoro variant: work x minutes, take x/5 minutes break.
