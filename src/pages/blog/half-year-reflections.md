@@ -44,7 +44,7 @@ Although I care about the traffic and revenue, I think the most important thing 
 
 The [3 MVP features](/blog/my-dream-productivity-app#the-plan) are all implemented and even more polished. For example the task list now supports Todoist integration, and the focus report now has a yearly heatmap view.
 
-The completion of the MVP features also means that I'll soon have a public launch. I'm planning to launch it on Product Hunt next week. I hope it can bring more exposure and users. You can [sign up here](https://www.producthunt.com/products/flowmodor) to get notified when it's live!
+The completion of the MVP features also means that I'll soon have a public launch. I'm planning to launch it on Product Hunt next week. I hope it can bring more exposure and users.
 
 Another important thing is that I've built a [feedback board](https://app.flowmodor.com/feedback) for users to submit feature requests and vote for them:
 
@@ -54,4 +54,4 @@ It's a great way to understand what users really need and prioritize the develop
 
 ## Conclusion
 
-Building Flowmodor is a challenging but enjoyable journey. This is my first time building a SaaS product and I've learned a lot from it. I'm grateful for all the Flowmodor users providing feedback and support. I'll keep improving the app and looking forward to the [PH launch](https://www.producthunt.com/products/flowmodor) next week 💜
+Building Flowmodor is a challenging but enjoyable journey. This is my first time building a SaaS product and I've learned a lot from it. I'm grateful for all the Flowmodor users providing feedback and support. I'll keep improving the app and looking forward to the [PH launch](https://www.producthunt.com/posts/flowmodor) next week 💜
