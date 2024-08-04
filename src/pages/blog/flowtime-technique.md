@@ -84,7 +84,7 @@ Apart from the timer, Flowmodor also provides detailed stats and insights to hel
 
 ![](/stats-page.png)
 
-[Click here to try Flowmodor now!](https://app.flowmodor.com/signin)
+[Click here to try Flowmodor now!](https://app.flowmodor.com)
 
 ## Conclusion
 
