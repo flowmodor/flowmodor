@@ -8,6 +8,7 @@ import { useTasksActions } from '@/stores/Tasks';
 
 export default function Toolbar() {
   const [inputValue, setInputValue] = useState<string>('');
+  const [isComposing, setIsComposing] = useState(false);
   const { addTask } = useTasksActions();
   const isDisabled = inputValue.trim() === '';
 
@@ -27,9 +28,11 @@ export default function Toolbar() {
             'h-full bg-transparent data-[hover=true]:bg-transparent data-[focus=true]:!bg-transparent',
           input: 'text-[16px]',
         }}
+        onCompositionStart={() => setIsComposing(true)}
+        onCompositionEnd={() => setIsComposing(false)}
         onValueChange={setInputValue}
         onKeyDown={(e) => {
-          if (isDisabled) {
+          if (isDisabled || isComposing) {
             return;
           }
 
