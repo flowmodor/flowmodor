@@ -1,5 +1,6 @@
 import { Checkbox } from '@nextui-org/checkbox';
 import { useTransition } from 'react';
+import Markdown from 'react-markdown';
 import { toast } from 'sonner';
 import { Task, useFocusingTask, useTasksActions } from '@/stores/Tasks';
 import { useMode, useStatus } from '@/stores/useTimerStore';
@@ -44,7 +45,9 @@ export default function TaskBox({ task }: { task: Task }) {
         }}
       />
       <div className="flex flex-col">
-        {task.name}
+        <Markdown className="prose prose-invert prose-p:text-white prose-li:text-white">
+          {task.name}
+        </Markdown>
         <div className="gap-x-2 flex text-[#ffffffa0] fill-[#ffffffa0] text-sm flex-wrap">
           {task.labels?.map((label) => (
             <div key={label} className="flex gap-1">
