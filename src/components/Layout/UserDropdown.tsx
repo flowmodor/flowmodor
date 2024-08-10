@@ -1,6 +1,7 @@
 'use client';
 
 import { Avatar } from '@nextui-org/avatar';
+import { Divider } from '@nextui-org/divider';
 import {
   Dropdown,
   DropdownItem,
@@ -35,8 +36,9 @@ export default function UserDropdown({ user }: { user: any }) {
           textValue="info"
           className="data-[focus=true]:outline-none data-[focus=true]:bg-transparent data-[hover=true]:bg-transparent pointer-events-none"
         >
-          <div>Signed in as</div>
-          <div className="font-semibold">{user.email}</div>
+          <div className="text-foreground-500 text-xs">Signed in as</div>
+          <div>{user.email}</div>
+          <Divider className="mt-3" />
         </DropdownItem>
         <DropdownItem
           key="signout"
