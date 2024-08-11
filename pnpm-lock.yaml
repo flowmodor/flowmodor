@@ -29,12 +29,6 @@ importers:
       '@fontsource-variable/inter':
         specifier: ^5.0.16
         version: 5.0.20
-      '@types/react':
-        specifier: ^18.2.37
-        version: 18.2.42
-      '@types/react-dom':
-        specifier: ^18.2.15
-        version: 18.2.17
       astro:
         specifier: ^4.12.2
         version: 4.13.3(@types/node@20.11.0)(typescript@5.3.3)
@@ -44,16 +38,16 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      tailwindcss:
-        specifier: ^3.0.24
-        version: 3.3.6
-      typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
     devDependencies:
       '@tailwindcss/typography':
-        specifier: ^0.5.10
+        specifier: ^0.5.13
         version: 0.5.13(tailwindcss@3.3.6)
+      '@types/react':
+        specifier: ^18.2.37
+        version: 18.2.42
+      '@types/react-dom':
+        specifier: ^18.2.15
+        version: 18.2.17
       prettier:
         specifier: ^3.2.5
         version: 3.3.3
@@ -63,6 +57,12 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: ^0.5.13
         version: 0.5.14(@trivago/prettier-plugin-sort-imports@4.3.0(prettier@3.3.3))(prettier-plugin-astro@0.13.0)(prettier@3.3.3)
+      tailwindcss:
+        specifier: ^3.3.0
+        version: 3.3.6
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
 
   apps/web:
     dependencies:
@@ -94,13 +94,13 @@ importers:
         specifier: 14.2.3
         version: 14.2.3(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react:
-        specifier: ^18
+        specifier: ^18.2.0
         version: 18.2.0
       react-chartjs-2:
         specifier: ^5.2.0
         version: 5.2.0(chart.js@4.4.1)(react@18.2.0)
       react-dom:
-        specifier: ^18
+        specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       react-hotkeys-hook:
         specifier: ^4.5.0
@@ -129,15 +129,15 @@ importers:
         version: 0.5.13(tailwindcss@3.3.6)
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^4.3.0
-        version: 4.3.0(prettier@3.1.0)
+        version: 4.3.0(prettier@3.3.3)
       '@types/node':
         specifier: ^20
         version: 20.11.0
       '@types/react':
-        specifier: ^18
+        specifier: ^18.2.37
         version: 18.2.42
       '@types/react-dom':
-        specifier: ^18
+        specifier: ^18.2.15
         version: 18.2.17
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.0.0
@@ -185,16 +185,16 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2(postcss@8.4.32)
       prettier:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.2.5
+        version: 3.3.3
       prettier-plugin-tailwindcss:
-        specifier: ^0.5.9
-        version: 0.5.9(@trivago/prettier-plugin-sort-imports@4.3.0(prettier@3.1.0))(prettier-plugin-astro@0.13.0)(prettier@3.1.0)
+        specifier: ^0.5.13
+        version: 0.5.14(@trivago/prettier-plugin-sort-imports@4.3.0(prettier@3.3.3))(prettier-plugin-astro@0.13.0)(prettier@3.3.3)
       tailwindcss:
         specifier: ^3.3.0
         version: 3.3.6
       typescript:
-        specifier: ^5
+        specifier: ^5.3.3
         version: 5.3.3
 
 packages:
@@ -3994,60 +3994,6 @@ packages:
       prettier-plugin-svelte:
         optional: true
 
-  prettier-plugin-tailwindcss@0.5.9:
-    resolution: {integrity: sha512-9x3t1s2Cjbut2QiP+O0mDqV3gLXTe2CgRlQDgucopVkUdw26sQi53p/q4qvGxMLBDfk/dcTV57Aa/zYwz9l8Ew==}
-    engines: {node: '>=14.21.3'}
-    peerDependencies:
-      '@ianvs/prettier-plugin-sort-imports': '*'
-      '@prettier/plugin-pug': '*'
-      '@shopify/prettier-plugin-liquid': '*'
-      '@trivago/prettier-plugin-sort-imports': '*'
-      prettier: ^3.0
-      prettier-plugin-astro: '*'
-      prettier-plugin-css-order: '*'
-      prettier-plugin-import-sort: '*'
-      prettier-plugin-jsdoc: '*'
-      prettier-plugin-marko: '*'
-      prettier-plugin-organize-attributes: '*'
-      prettier-plugin-organize-imports: '*'
-      prettier-plugin-style-order: '*'
-      prettier-plugin-svelte: '*'
-      prettier-plugin-twig-melody: '*'
-    peerDependenciesMeta:
-      '@ianvs/prettier-plugin-sort-imports':
-        optional: true
-      '@prettier/plugin-pug':
-        optional: true
-      '@shopify/prettier-plugin-liquid':
-        optional: true
-      '@trivago/prettier-plugin-sort-imports':
-        optional: true
-      prettier-plugin-astro:
-        optional: true
-      prettier-plugin-css-order:
-        optional: true
-      prettier-plugin-import-sort:
-        optional: true
-      prettier-plugin-jsdoc:
-        optional: true
-      prettier-plugin-marko:
-        optional: true
-      prettier-plugin-organize-attributes:
-        optional: true
-      prettier-plugin-organize-imports:
-        optional: true
-      prettier-plugin-style-order:
-        optional: true
-      prettier-plugin-svelte:
-        optional: true
-      prettier-plugin-twig-melody:
-        optional: true
-
-  prettier@3.1.0:
-    resolution: {integrity: sha512-TQLvXjq5IAibjh8EpBIkNKxO749UEWABoiIZehEPiY4GNpVdhaFKqSTu+QrlU6D2dPAfubRmtJTi4K4YkQ5eXw==}
-    engines: {node: '>=14'}
-    hasBin: true
-
   prettier@3.3.3:
     resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
     engines: {node: '>=14'}
@@ -7460,18 +7406,6 @@ snapshots:
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.3.6
 
-  '@trivago/prettier-plugin-sort-imports@4.3.0(prettier@3.1.0)':
-    dependencies:
-      '@babel/generator': 7.17.7
-      '@babel/parser': 7.23.9
-      '@babel/traverse': 7.23.2
-      '@babel/types': 7.17.0
-      javascript-natural-sort: 0.7.1
-      lodash: 4.17.21
-      prettier: 3.1.0
-    transitivePeerDependencies:
-      - supports-color
-
   '@trivago/prettier-plugin-sort-imports@4.3.0(prettier@3.3.3)':
     dependencies:
       '@babel/generator': 7.17.7
@@ -7483,7 +7417,6 @@ snapshots:
       prettier: 3.3.3
     transitivePeerDependencies:
       - supports-color
-    optional: true
 
   '@types/babel__core@7.20.5':
     dependencies:
@@ -10145,15 +10078,6 @@ snapshots:
     optionalDependencies:
       '@trivago/prettier-plugin-sort-imports': 4.3.0(prettier@3.3.3)
       prettier-plugin-astro: 0.13.0
-
-  prettier-plugin-tailwindcss@0.5.9(@trivago/prettier-plugin-sort-imports@4.3.0(prettier@3.1.0))(prettier-plugin-astro@0.13.0)(prettier@3.1.0):
-    dependencies:
-      prettier: 3.1.0
-    optionalDependencies:
-      '@trivago/prettier-plugin-sort-imports': 4.3.0(prettier@3.1.0)
-      prettier-plugin-astro: 0.13.0
-
-  prettier@3.1.0: {}
 
   prettier@3.3.3: {}
 

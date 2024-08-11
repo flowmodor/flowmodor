@@ -16,18 +16,18 @@
     "@astrojs/sitemap": "^3.1.6",
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource-variable/inter": "^5.0.16",
-    "@types/react": "^18.2.37",
-    "@types/react-dom": "^18.2.15",
     "astro": "^4.12.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tailwindcss": "^3.0.24",
-    "typescript": "^5.3.3"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.13",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0",
-    "prettier-plugin-tailwindcss": "^0.5.13"
+    "prettier-plugin-tailwindcss": "^0.5.13",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5.3.3"
   }
 }
