@@ -6,9 +6,7 @@ settings:
 
 importers:
 
-  .: {}
-
-  apps/landing:
+  .:
     dependencies:
       '@astrojs/check':
         specifier: ^0.8.2
