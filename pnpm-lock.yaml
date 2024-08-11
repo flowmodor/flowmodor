@@ -64,6 +64,12 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
+  apps/server:
+    dependencies:
+      supabase:
+        specifier: ^1.134.8
+        version: 1.134.8
+
   apps/web:
     dependencies:
       '@doist/todoist-api-typescript':
@@ -114,9 +120,6 @@ importers:
       sonner:
         specifier: ^1.4.41
         version: 1.4.41(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      supabase:
-        specifier: ^1.134.8
-        version: 1.134.8
       tailwind-scrollbar-hide:
         specifier: ^1.1.7
         version: 1.1.7

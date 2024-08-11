@@ -105,8 +105,6 @@ ALTER TABLE ONLY "public"."logs"
 ALTER TABLE ONLY "public"."tasks"
     ADD CONSTRAINT "tasks_pkey" PRIMARY KEY ("id");
 
-ALTER PUBLICATION supabase_realtime ADD TABLE "public"."tasks";
-
 ALTER TABLE ONLY "supabase_migrations"."schema_migrations"
     ADD CONSTRAINT "schema_migrations_pkey" PRIMARY KEY ("version");
 
