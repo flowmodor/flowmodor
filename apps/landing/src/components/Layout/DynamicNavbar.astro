@@ -1,0 +1,51 @@
+<nav
+  id="navbar"
+  class="sticky top-0 z-10 -mb-16 flex h-16 items-center justify-center border-b border-[#FFFFFF20] text-background backdrop-blur transition-all"
+>
+  <a
+    href="/"
+    class="absolute left-5 flex cursor-pointer items-center gap-2 text-2xl font-bold"
+  >
+    <img
+      src="/logo.png"
+      alt="Logo of Flowmodor"
+      width={32}
+      height={32}
+      class="rounded-md bg-background"
+      draggable={false}
+    />
+    <div>Flowmodor</div>
+  </a>
+  <div class="hidden gap-10 text-lg font-medium sm:flex">
+    <a href="/blog">Blog</a>
+    <a href="/pricing">Pricing</a>
+  </div>
+  <a
+    id="get-started"
+    href="https://app.flowmodor.com"
+    class="invisible absolute right-5 cursor-pointer rounded-full bg-primary px-3 py-2 text-sm font-medium text-[#131221] opacity-0 transition-all"
+  >
+    Get started
+  </a>
+</nav>
+<script>
+  const navbar = document.getElementById('navbar');
+  const getStarted = document.getElementById('get-started');
+
+  function handleScroll() {
+    if (navbar === null || getStarted === null) {
+      return;
+    }
+
+    const windowHeight = window.innerHeight - 30;
+    if (window.scrollY > windowHeight) {
+      navbar.classList.add('text-white');
+      getStarted.classList.add('!opacity-100', '!visible');
+    } else {
+      navbar.classList.remove('text-white');
+      getStarted.classList.remove('!opacity-100', '!visible');
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll);
+</script>

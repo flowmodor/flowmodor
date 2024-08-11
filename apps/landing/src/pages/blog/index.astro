@@ -1,0 +1,24 @@
+---
+import NavbarLayout from '../../layouts/NavbarLayout.astro';
+
+const blogs = await Astro.glob('./*.md');
+blogs.sort((a, b) => {
+  const aDate = new Date(a.frontmatter.date).getTime();
+  const bDate = new Date(b.frontmatter.date).getTime();
+  return bDate - aDate;
+});
+---
+
+<NavbarLayout title="Blog | Flowmodor" description="Flowmodor's blog">
+  <div class="mb-20 mt-28 flex flex-col gap-14 px-5">
+    {
+      blogs.map((blog) => (
+        <a href={blog.url} class="flex max-w-xl flex-col items-start gap-3">
+          <h1 class="text-2xl font-extrabold">{blog.frontmatter.title}</h1>
+          <div class="text-sm brightness-75">{blog.frontmatter.date}</div>
+          <div class="brightness-75">{blog.frontmatter.brief}</div>
+        </a>
+      ))
+    }
+  </div>
+</NavbarLayout>

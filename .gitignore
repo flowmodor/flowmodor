@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 node_modules
 /.pnp
@@ -24,6 +22,7 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
 # local env files
 .env*.local
@@ -37,3 +36,9 @@ yarn-error.log*
 next-env.d.ts
 
 .turbo
+
+# build output
+dist/
+
+# generated types
+.astro/

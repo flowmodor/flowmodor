@@ -1,0 +1,48 @@
+---
+import '@fontsource-variable/inter';
+import Footer from '../components/Layout/Footer.astro';
+
+const { title, description } = Astro.props;
+
+const ogImageURL = new URL('og.png', Astro.site);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImageURL} />
+
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <script
+      defer
+      data-domain="flowmodor.com"
+      src="https://plausible.io/js/script.tagged-events.js"></script>
+  </head>
+  <body
+    class="flex flex-col justify-between bg-background font-sans text-white"
+  >
+    <div class="mb-auto min-h-screen">
+      <slot />
+    </div>
+    <Footer />
+  </body>
+</html>

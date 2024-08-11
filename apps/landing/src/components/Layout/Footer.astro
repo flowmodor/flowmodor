@@ -1,0 +1,90 @@
+---
+import { X, GitHub, Mail } from '../Icons';
+---
+
+<div
+  class="flex w-full flex-col items-center justify-between gap-10 border-t border-[#ffffff20] py-20 lg:flex-row"
+>
+  <div class="flex flex-col items-center lg:ml-32 lg:items-start">
+    <div class="flex items-center gap-2 text-xl font-bold">
+      <img
+        src="/logo.png"
+        alt="Logo of Flowmodor"
+        width={48}
+        height={48}
+        draggable={false}
+      />Flowmodor
+    </div>
+    <span class="text-xs text-[#ffffff70]">
+      Copyright © {new Date().getFullYear()} Flowmodor
+    </span>
+    <div class="mt-5 flex items-center justify-center gap-3">
+      <a
+        href="https://twitter.com/flowmodor"
+        class="cursor-pointer fill-[#ffffff70] transition-all hover:fill-[#ffffff]"
+        aria-label="X"
+      >
+        <X />
+      </a>
+      <a
+        href="https://github.com/flowmodor/flowmodor"
+        class="cursor-pointer fill-[#ffffff70] transition-all hover:fill-[#ffffff]"
+        aria-label="GitHub"
+      >
+        <GitHub />
+      </a>
+      <a
+        href="mailto:m4xshen@flowmodor.com"
+        class="ml-1 cursor-pointer fill-[#ffffff70] transition-all hover:fill-[#ffffff]"
+        aria-label="Mail"
+      >
+        <Mail />
+      </a>
+    </div>
+  </div>
+  <div class="grid grid-cols-2 gap-20 sm:grid-cols-3 lg:mr-64">
+    <div class="flex flex-col gap-2">
+      <div class="font-medium">COMMUNITY</div>
+      <a
+        href="/blog"
+        class="text-sm text-[#ffffff70] transition-all hover:text-white">Blog</a
+      >
+      <a
+        href="https://app.flowmodor.com/feedback"
+        class="text-sm text-[#ffffff70] transition-all hover:text-white"
+        >Feedback</a
+      >
+    </div>
+    <div class="flex flex-col gap-2">
+      <div class="font-medium">PRODUCT</div>
+      <a
+        href="/#features"
+        class="text-sm text-[#ffffff70] transition-all hover:text-white"
+        >Features</a
+      >
+      <a
+        href="/pricing"
+        class="text-sm text-[#ffffff70] transition-all hover:text-white"
+        >Pricing</a
+      >
+    </div>
+    <div class="flex flex-col gap-2">
+      <div class="font-medium">COMPANY</div>
+      <a
+        href="/privacy"
+        class="text-sm text-[#ffffff70] transition-all hover:text-white"
+        >Privacy</a
+      >
+      <a
+        href="/terms"
+        class="text-sm text-[#ffffff70] transition-all hover:text-white"
+        >Terms</a
+      >
+      <a
+        href="https://github.com/flowmodor/flowmodor/blob/main/LICENSE"
+        class="text-sm text-[#ffffff70] transition-all hover:text-white"
+        >License</a
+      >
+    </div>
+  </div>
+</div>

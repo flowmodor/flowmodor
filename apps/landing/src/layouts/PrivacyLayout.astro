@@ -1,0 +1,16 @@
+---
+import NavbarLayout from './NavbarLayout.astro';
+
+const { frontmatter } = Astro.props;
+---
+
+<NavbarLayout
+  title={`${frontmatter.title} | Flowmodor`}
+  description={frontmatter.description}
+>
+  <article class="prose prose-invert py-36 px-3">
+    <h1 class="text-3xl font-extrabold">{frontmatter.title}</h1>
+    <div>Last updated: {frontmatter.date}</div>
+    <slot />
+  </article>
+</NavbarLayout>

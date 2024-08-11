@@ -1,0 +1,57 @@
+---
+import NavbarLayout from '../../layouts/NavbarLayout.astro';
+import Features from '../../components/Features';
+
+const starter = ['Flowmodoro Timer', 'Task List', 'Stats of Today'];
+const pro = [
+  'Everything in Starter',
+  'Custom Break Ratio',
+  'Todoist Integration',
+  'Daily / Weekly / Yearly Stats',
+  'Priority Support',
+];
+---
+
+<NavbarLayout title="Pricing | Flowmodor" description="Pricing for Flowmodor">
+  <div
+    class="mt-32 flex w-full flex-col items-center justify-center gap-10 sm:flex-row sm:items-stretch"
+  >
+    <div
+      class="flex w-[90%] flex-col gap-10 rounded-xl bg-secondary p-10 sm:w-2/5 lg:w-1/3"
+    >
+      <div class="flex flex-col gap-2">
+        <h2 class="text-2xl">Starter</h2>
+        <div class="flex items-end gap-1">
+          <h2 class="text-4xl font-semibold">$0</h2>
+          <div class="text-sm opacity-50">/ forever</div>
+        </div>
+      </div>
+      <a
+        href="https://app.flowmodor.com"
+        class="cursor-pointer rounded-md border border-primary p-2
+        text-center font-semibold text-white"
+      >
+        Get started
+      </a>
+      <Features names={starter} />
+    </div>
+    <div
+      class="flex w-[90%] flex-col gap-10 rounded-xl bg-secondary p-10 sm:w-2/5 lg:w-1/3"
+    >
+      <div class="flex flex-col gap-2">
+        <h2 class="text-2xl">Pro</h2>
+        <div class="flex items-end gap-1">
+          <h2 class="text-4xl font-semibold">$5</h2>
+          <div class="text-sm opacity-50">/ month</div>
+        </div>
+      </div>
+      <a
+        href="https://app.flowmodor.com/plans"
+        class="rounded-md bg-primary p-2 text-center font-semibold text-secondary"
+      >
+        Get started
+      </a>
+      <Features names={pro} />
+    </div>
+  </div>
+</NavbarLayout>
