@@ -2,7 +2,8 @@
   "name": "flowmodor",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-		"dev:web": "pnpm --filter web dev"
-  }
+  "devDependencies": {
+    "turbo": "^2.0.12"
+  },
+  "packageManager": "pnpm@9.7.0"
 }
