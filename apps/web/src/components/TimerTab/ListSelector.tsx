@@ -1,7 +1,7 @@
 'use client';
 
-import { Link } from '@nextui-org/link';
 import { Select, SelectItem } from '@nextui-org/select';
+import Link from 'next/link';
 import {
   useActiveList,
   useIsLoadingLists,
@@ -18,6 +18,32 @@ export default function ListSelector() {
   const isLoadingLists = useIsLoadingLists();
   const { onListChange, fetchTasks } = useTasksActions();
 
+  const selectItems = lists.map((list) => (
+    <SelectItem
+      key={`${list.provider} - ${list.id}`}
+      classNames={{
+        base: 'data-[focus=true]:!bg-secondary data-[hover=true]:!bg-secondary',
+      }}
+    >
+      {`${list.provider} - ${list.name}`}
+    </SelectItem>
+  ));
+
+  if (lists.length === 1) {
+    selectItems.push(
+      <SelectItem
+        as={Link}
+        key="hint"
+        href="/settings"
+        classNames={{
+          base: 'data-[focus=true]:!bg-secondary data-[hover=true]:!bg-secondary',
+        }}
+      >
+        Connect Todoist to access multiple lists
+      </SelectItem>,
+    );
+  }
+
   return (
     <Select
       size="sm"
@@ -26,21 +52,6 @@ export default function ListSelector() {
       label="Select a list"
       isLoading={isLoadingLists}
       isDisabled={status === 'running' && mode === 'focus'}
-      description={
-        lists.length === 1 ? (
-          <span>
-            Connect Todoist in{' '}
-            <Link
-              href="/settings"
-              underline="always"
-              className="text-inherit text-xs underline-offset-2"
-            >
-              settings
-            </Link>{' '}
-            to access multiple lists
-          </span>
-        ) : null
-      }
       classNames={{
         trigger: 'bg-secondary data-[hover=true]:bg-secondary',
         popoverContent: 'bg-background',
@@ -54,16 +65,7 @@ export default function ListSelector() {
         await fetchTasks();
       }}
     >
-      {lists.map((list) => (
-        <SelectItem
-          key={`${list.provider} - ${list.id}`}
-          classNames={{
-            base: 'data-[focus=true]:!bg-secondary data-[hover=true]:!bg-secondary',
-          }}
-        >
-          {`${list.provider} - ${list.name}`}
-        </SelectItem>
-      ))}
+      {selectItems}
     </Select>
   );
 }
