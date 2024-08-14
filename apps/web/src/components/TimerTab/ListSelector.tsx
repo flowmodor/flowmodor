@@ -29,14 +29,15 @@ export default function ListSelector() {
     </SelectItem>
   ));
 
-  if (lists.length === 1) {
+  if (lists.length === 1 && !isLoadingLists) {
     selectItems.push(
       <SelectItem
         as={Link}
         key="hint"
         href="/settings"
         classNames={{
-          base: 'data-[focus=true]:!bg-secondary data-[hover=true]:!bg-secondary',
+          base: 'mt-1 border-2 border-secondary border-dashed data-[focus=true]:!bg-background data-[hover=true]:!bg-background',
+          title: 'items-center flex gap-2 ',
         }}
       >
         Connect Todoist to access multiple lists
