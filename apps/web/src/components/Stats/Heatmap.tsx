@@ -59,10 +59,8 @@ export default function Heatmap({ data }: { data: DataPoint[] }) {
     return acc;
   }, []);
 
-  const maxValue = Math.max(...data.map((d) => d.value), 0.1);
-  const minValue = Math.min(...data.map((d) => d.value), 0);
-  const getColor = (value: number) =>
-    interpolateColor(value, minValue, maxValue);
+  const maxValue = Math.max(...data.map((d) => d.value), 0);
+  const getColor = (value: number) => interpolateColor(value, 0, maxValue);
 
   const handleCellClick = (date: Date) => {
     if (currentPeriod === 'Week') {
