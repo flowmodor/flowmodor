@@ -22,6 +22,7 @@ export default function PeriodSelector() {
           onPeriodChange(newPeriod as Period);
         }
       }}
+      aria-label="Select period"
     >
       <SelectItem
         key="Day"

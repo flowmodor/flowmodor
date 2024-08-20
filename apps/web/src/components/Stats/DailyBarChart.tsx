@@ -112,8 +112,6 @@ function DailyBarChart({ logs }: Props, ref: ForwardedRef<any>) {
   const date = useStartDate();
   const focusDatasets = logs.map((log) => dailyLogToChartData(log, date));
 
-  console.log('focusDatasets', focusDatasets);
-
   const setBackground = {
     id: 'setBackground',
     beforeDraw: (chart: any) => {
