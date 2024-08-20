@@ -9,6 +9,7 @@ import {
 } from 'chart.js';
 import { ForwardedRef, forwardRef, memo } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { useStartDate } from '@/stores/useStatsStore';
 import { dailyLogToChartData } from '@/utils';
 import { LogsWithTasks } from '@/utils/stats/calculateTaskTime';
 
@@ -108,8 +109,10 @@ interface Props {
 
 function DailyBarChart({ logs }: Props, ref: ForwardedRef<any>) {
   const hours = Array.from(Array(24).keys());
+  const date = useStartDate();
+  const focusDatasets = logs.map((log) => dailyLogToChartData(log, date));
 
-  const focusDatasets = logs.map((log) => dailyLogToChartData(log));
+  console.log('focusDatasets', focusDatasets);
 
   const setBackground = {
     id: 'setBackground',

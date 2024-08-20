@@ -45,7 +45,7 @@ export const useStatsStore = create<Store>((set) => ({
       const { data, error } = await supabase
         .from('logs')
         .select('*, tasks(name)')
-        .gte('start_time', startDate.toISOString())
+        .gte('end_time', startDate.toISOString())
         .lte('start_time', endDate.toISOString());
 
       if (error) {
