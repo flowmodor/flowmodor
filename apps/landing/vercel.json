@@ -7,7 +7,12 @@
     },
     {
       "source": "/blog/flowtime-vs-pomodoro-which-one-should-you-use",
-      "destination": "/blog/pomodoro-vs-flowtime",
+      "destination": "/blog/flowtime-technique",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pomodoro-vs-flowtime",
+      "destination": "/blog/flowtime-technique",
       "permanent": true
     }
   ],

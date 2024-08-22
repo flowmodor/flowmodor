@@ -1,6 +1,6 @@
 ---
 title: 'Flowtime Technique: the best Pomodoro alternative for flow'
-date: 2023/12/31
+date: 2024/08/22
 description: Flowtime Technique is the best Pomodoro Technique alternative for time management. Learn the difference between them and how to implement it.
 brief: Understand why the Flowtime Technique is better than Pomodoro and how to implement it
 layout: ../../layouts/BlogLayout.astro
@@ -8,29 +8,33 @@ layout: ../../layouts/BlogLayout.astro
 
 Do you keep finding the Pomodoro Technique ineffective for your work? If so, you're not alone. The Pomodoro Technique is a popular time management method, but it might not be the best fit for everyone.
 
-The good news is that there's an alternative that might work better for you - the Flowtime Technique. Before we dive into it, let's first understand what Pomodoro is and why it might not work for you.
+The good news is that there's an alternative that might work better for you -- the Flowtime Technique. Before we dive into it, let's first understand what Pomodoro is and why it might not work for you.
 
 ## What's Pomodoro Technique?
 
-The Pomodoro Technique, developed by Francesco Cirillo, is a time management method that uses a timer to break work into intervals, traditionally 25 minutes in length, separated by 5-minutes short breaks.
+The Pomodoro Technique is a time management method that divides work into 25-minute focused sessions followed by 5-minute breaks. After completing four sessions, you take a longer break of 15-30 minutes.
 
-These intervals are known as "pomodoros", named after the tomato-shaped kitchen timer that Cirillo used as a university student.
+![The Pomodoro Technique](/pomodoro.png)
+
+The Pomodoro Technique is known for its simplicity. It helps you break down tasks into manageable intervals and avoid burnout by incorporating regular breaks.
 
 ## Why Pomodoro might not work for you
 
 While the Pomodoro Technique is popular, it might not be the best fit for everyone. Here’s why:
 
-1. **Interruption of Flow State**: The rigid timing can disrupt the deep "flow state". When you're deeply engrossed in a complex problem, stopping because a timer goes off can break your train of thought.
+1. **Interruption of Flow State**: Flow state is a mental state where you're fully immersed in a task, feeling focused and productive. However, the Pomodoro Technique's rigid rules can interrupt your flow state by forcing you to take breaks.
 
-2. **Variable Task Length**: Tasks vary in complexity and often don't neatly fit into 25-minute intervals. Some tasks might require prolonged uninterrupted focus, while others are shorter and more straightforward.
+2. **Variable Task Length**: Tasks vary in complexity and often don't neatly fit into 25-minute intervals. Some tasks might require longer periods of focused work, while others might be completed in shorter bursts.
 
-3. **Context Switching**: Frequent breaks mandated by the Pomodoro Technique can lead to excessive context switching. This is counterproductive for tasks that require sustained concentration and a deep understanding of the problem at hand.
+3. **Context Switching**: Frequent breaks can lead to context switching and reduce your overall productivity. 
 
-## The better alternative - Flowtime Technique
+## The alternative - Flowtime Technique
 
-The Flowtime Technique a.k.a. Flowmodoro is a flexible alternative to the Pomodoro Technique that addresses the limitations of traditional time management methods.
+The Flowtime Technique a.k.a. Flowmodoro is a flexible alternative to the Pomodoro Technique.
 
 Unlike the Pomodoro Technique, the Flowtime Technique counts up instead of counting down when you are focusing. It allows you to work until you naturally feel the need for a break. Then, when you decide to rest, you simply stop the timer, divide the focus time by 5, and set a countdown timer for your break.
+
+![The Flowtime Technique](/flowtime.png)
 
 This method respects your flow state and adapts to different task lengths.
 
@@ -44,13 +48,15 @@ Implementing the Flowtime Technique is simple and can start with tools as basic 
 
 3. **Stop the work**: Keep working until you naturally feel the need for a break. This could be when you feel your concentration waning or you've reached a logical stopping point in your task. Then, stop the stopwatch. This time recorded is your focused work duration.
 
-4. **Take a break**: Calculate your break time as one-fifth of your focused work duration. For instance, if you worked for 50 minutes, take a 10-minute break. Set a countdown timer for this break period. This ratio ensures that you get adequate rest without losing the momentum of your work.
+4. **Take a break**: Divide the focused work duration by 5 to determine the length of your break. Set a countdown timer for this duration and take a break. This ensures that you rest and prepare for the next focused work session.
 
 You can repeat this cycle again and again.
 
 ## Automate the process
 
-I have been using the Flowtime Technique and it really helps me improve my productivity while coding. However, I noticed one minor drawback: the repetitive process of setting up the timer manually each time.
+I have been using the Flowtime Technique and it really helps me improve my productivity when coding and studying.
+
+While I can use a stopwatch and timer to implement the Flowtime Technique, it can be cumbersome to do this manually every time. Also, I want to track my work time on different tasks and analyze my productivity patterns.
 
 To address this, I automate this workflow with [Flowmodor](/).
 
