@@ -1,13 +1,7 @@
 import { useState } from 'react';
-import {
-  Alert,
-  AppState,
-  Button,
-  StyleSheet,
-  TextInput,
-  View,
-} from 'react-native';
+import { Alert, AppState, Button, StyleSheet, View } from 'react-native';
 import { supabase } from '../utils/supabase';
+import { Text, TextInput } from './Themed';
 
 AppState.addEventListener('change', (state) => {
   if (state === 'active') {
@@ -55,31 +49,32 @@ export default function Auth() {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
+      <Text style={styles.title}>Sign In Now</Text>
+      <View>
         <TextInput
           onChangeText={(text) => setEmail(text)}
           value={email}
-          placeholder="email@address.com"
+          placeholder="you@example.com"
           autoCapitalize={'none'}
         />
       </View>
-      <View style={styles.verticallySpaced}>
+      <View>
         <TextInput
           onChangeText={(text) => setPassword(text)}
           value={password}
           secureTextEntry={true}
-          placeholder="Password"
+          placeholder="••••••••"
           autoCapitalize={'none'}
         />
       </View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
+      <View>
         <Button
           title="Sign in"
           disabled={loading}
           onPress={() => signInWithEmail()}
         />
       </View>
-      <View style={styles.verticallySpaced}>
+      <View>
         <Button
           title="Sign up"
           disabled={loading}
@@ -91,16 +86,19 @@ export default function Auth() {
 }
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    alignSelf: 'center',
+  },
   container: {
-    marginTop: 40,
-    padding: 12,
-  },
-  verticallySpaced: {
-    paddingTop: 4,
-    paddingBottom: 4,
-    alignSelf: 'stretch',
-  },
-  mt20: {
-    marginTop: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    backgroundColor: '#131221',
+    height: '100%',
+    gap: 10,
   },
 });
