@@ -1,9 +1,29 @@
 import {
+  Pressable as DefaultPressable,
   Text as DefaultText,
   TextInput as DefaultTextInput,
+  PressableProps,
   TextInputProps,
   TextProps,
 } from 'react-native';
+
+export function Pressable({ children, style, ...props }: PressableProps) {
+  return (
+    <DefaultPressable
+      {...props}
+      style={[
+        {
+          borderRadius: 8,
+          backgroundColor: '#DBBFFF',
+          padding: 10,
+        },
+        style,
+      ]}
+    >
+      {children}
+    </DefaultPressable>
+  );
+}
 
 export function Text({ style, ...props }: TextProps) {
   return <DefaultText {...props} style={[{ color: '#ffffff' }, style]} />;

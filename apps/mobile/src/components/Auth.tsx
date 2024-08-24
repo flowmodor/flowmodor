@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Alert, AppState, Button, StyleSheet, View } from 'react-native';
+import { Alert, AppState, StyleSheet, View } from 'react-native';
 import { supabase } from '../utils/supabase';
-import { Text, TextInput } from './Themed';
+import { Pressable, Text, TextInput } from './Themed';
 
 AppState.addEventListener('change', (state) => {
   if (state === 'active') {
@@ -68,18 +68,22 @@ export default function Auth() {
         />
       </View>
       <View>
-        <Button
-          title="Sign in"
+        <Pressable
           disabled={loading}
           onPress={() => signInWithEmail()}
-        />
-      </View>
-      <View>
-        <Button
-          title="Sign up"
-          disabled={loading}
-          onPress={() => signUpWithEmail()}
-        />
+          style={{
+            marginTop: 20,
+          }}
+        >
+          <Text
+            style={{
+              color: '#000000',
+              alignSelf: 'center',
+            }}
+          >
+            Sign In
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
