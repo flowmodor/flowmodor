@@ -50,7 +50,8 @@ export default function Auth() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sign In Now</Text>
-      <View>
+      <View style={styles.input}>
+        <Text>Email</Text>
         <TextInput
           onChangeText={(text) => setEmail(text)}
           value={email}
@@ -58,7 +59,8 @@ export default function Auth() {
           autoCapitalize={'none'}
         />
       </View>
-      <View>
+      <View style={styles.input}>
+        <Text>Password</Text>
         <TextInput
           onChangeText={(text) => setPassword(text)}
           value={password}
@@ -95,6 +97,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     alignSelf: 'center',
+  },
+  input: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
   },
   container: {
     display: 'flex',
