@@ -30,6 +30,9 @@ export default function TabLayout() {
       <Tabs
         screenOptions={{
           headerShown: false,
+          tabBarStyle: {
+            backgroundColor: '#23223C',
+          },
         }}
       >
         <Tabs.Screen
