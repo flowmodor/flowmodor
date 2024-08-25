@@ -2,8 +2,8 @@
 
 import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
-import { Tooltip } from '@nextui-org/react';
-import { useEffect, useRef } from 'react';
+import { Tooltip } from '@nextui-org/tooltip';
+import { useEffect, useRef, useTransition } from 'react';
 import { Download, Left, Right } from '@/components/Icons';
 import DailyBarChart from '@/components/Stats/DailyBarChart';
 import DateButton from '@/components/Stats/DateButton';
@@ -32,6 +32,7 @@ export default function StatsCard() {
   const effectRunRef = useRef(false);
   const period = usePeriod();
   const isDisabled = useIsDisabled();
+  const [isLoading, startTransition] = useTransition();
 
   const dateText =
     startDate === endDate
@@ -78,8 +79,11 @@ export default function StatsCard() {
               radius="sm"
               color="secondary"
               onClick={() => {
-                downloadImage(chartRef, totalFocusTime, dateText);
+                startTransition(async () => {
+                  await downloadImage(chartRef, totalFocusTime, dateText);
+                });
               }}
+              isLoading={isLoading}
               isIconOnly
             >
               <Download />
