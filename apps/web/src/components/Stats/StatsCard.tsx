@@ -2,28 +2,41 @@
 
 import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
+import { Tooltip } from '@nextui-org/react';
 import { useEffect, useRef } from 'react';
-import { Left, Right } from '@/components/Icons';
+import { Download, Left, Right } from '@/components/Icons';
 import DailyBarChart from '@/components/Stats/DailyBarChart';
 import DateButton from '@/components/Stats/DateButton';
 import {
   useDisplayTime,
+  useEndDate,
   useIsDisabled,
   useLogs,
   usePeriod,
+  useStartDate,
   useStatsActions,
 } from '@/stores/useStatsStore';
+import calculateFocusTimes from '@/utils/stats/calculateFocusTime';
+import downloadImage from '@/utils/stats/downloadImage';
 import PeriodSelector from './PeriodSelector';
 import WeeklyBarChart from './WeeklyBarChart';
 
 export default function StatsCard() {
   const logs = useLogs();
+  const startDate = useStartDate();
+  const endDate = useEndDate();
+  const { totalFocusTime } = calculateFocusTimes(logs ?? []);
   const { goPreviousTime, goNextTime, updateLogs, setDate } = useStatsActions();
   const displayTime = useDisplayTime();
   const chartRef = useRef<any>(null);
   const effectRunRef = useRef(false);
   const period = usePeriod();
   const isDisabled = useIsDisabled();
+
+  const dateText =
+    startDate === endDate
+      ? startDate.toDateString()
+      : `${startDate.toDateString()} - ${endDate.toDateString()}`;
 
   useEffect(() => {
     if (effectRunRef.current) {
@@ -60,6 +73,18 @@ export default function StatsCard() {
           >
             Today
           </Button>
+          <Tooltip showArrow color="primary" content="Share your stats!">
+            <Button
+              radius="sm"
+              color="secondary"
+              onClick={() => {
+                downloadImage(chartRef, totalFocusTime, dateText);
+              }}
+              isIconOnly
+            >
+              <Download />
+            </Button>
+          </Tooltip>
         </div>
       </CardHeader>
       <CardBody className="flex items-center justify-center lg:min-h-[60vh] lg:min-w-[50vw]">

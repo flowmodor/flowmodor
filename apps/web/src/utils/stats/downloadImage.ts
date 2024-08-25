@@ -4,7 +4,7 @@ import { base64ToBlob } from '..';
 export default async function downloadImage(
   chartRef: MutableRefObject<any>,
   totalFocusTime: number,
-  date: Date,
+  dateText: string,
 ) {
   if (!chartRef.current) {
     return false;
@@ -16,7 +16,7 @@ export default async function downloadImage(
     body: JSON.stringify({
       image: base64Image,
       totalFocusTime: Math.round(totalFocusTime),
-      date: date.toDateString(),
+      dateText,
     }),
   });
 
@@ -27,7 +27,7 @@ export default async function downloadImage(
     const downloadUrl = URL.createObjectURL(modifiedImageBlob);
     const link = document.createElement('a');
     link.href = downloadUrl;
-    link.download = `stats_${date.toISOString()}.png`;
+    link.download = `Flowmodor Stats ${dateText}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

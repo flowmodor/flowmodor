@@ -104,7 +104,7 @@ export function Share() {
 
 export function Download() {
   return (
-    <svg width="16">
+    <svg width="16" fill="white">
       <use href="/icons.svg#download" />
     </svg>
   );

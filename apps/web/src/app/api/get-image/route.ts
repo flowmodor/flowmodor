@@ -3,7 +3,7 @@ import sharp from 'sharp';
 // eslint-disable-next-line import/prefer-default-export
 export async function POST(req: Request) {
   try {
-    const { image, totalFocusTime, date } = await req.json();
+    const { image, totalFocusTime, dateText } = await req.json();
 
     const hours = Math.floor(totalFocusTime / 60);
     const leftMinutes = totalFocusTime % 60;
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
         ${hours > 0 ? `${hours} hr` : ''} ${leftMinutes} min
       </text>
       <text x="50%" y="90%" dominant-baseline="middle" text-anchor="middle" font-size="16" fill="#FFFFFFA0" font-weight="medium" font-family="Inter">
-        ${date}
+        ${dateText}
       </text>
     </svg>`;
     const textBuffer = Buffer.from(textSvg);
