@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, AppState, StyleSheet, View } from 'react-native';
+import { Alert, AppState, ScrollView, StyleSheet, View } from 'react-native';
 import { supabase } from '../utils/supabase';
 import { Pressable, Text, TextInput } from './Themed';
 
@@ -48,7 +48,7 @@ export default function Auth() {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Sign In Now</Text>
       <View style={styles.input}>
         <Text>Email</Text>
@@ -87,7 +87,7 @@ export default function Auth() {
           </Text>
         </Pressable>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
