@@ -18,7 +18,7 @@ export default function Toolbar() {
   };
 
   return (
-    <>
+    <div className="flex mt-auto">
       <Input
         className="w-full bg-transparent pr-5 text-[16px] outline-none"
         placeholder="Enter task name"
@@ -51,6 +51,6 @@ export default function Toolbar() {
       >
         <Plus />
       </Button>
-    </>
+    </div>
   );
 }

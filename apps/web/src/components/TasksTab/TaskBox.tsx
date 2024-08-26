@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Checkbox } from '@nextui-org/checkbox';
 import { useTransition } from 'react';
 import Markdown from 'react-markdown';
@@ -12,12 +15,21 @@ export default function TaskBox({ task }: { task: Task }) {
   const mode = useMode();
   const focusingTask = useFocusingTask();
   const { deleteTask, completeTask, undoCompleteTask } = useTasksActions();
+  const { focusTask, unfocusTask } = useTasksActions();
+  const isFocusing = task.id === focusingTask?.id;
 
   return (
     <div
-      className={`relative group flex min-h-[4rem] items-center border-b border-b-secondary px-4 py-4 flex-shrink-0 ${
+      className={`relative group flex min-h-[4rem] items-center border-b border-b-secondary px-4 py-4 flex-shrink-0 cursor-pointer ${
         isLoading && 'opacity-50 pointer-events-none'
-      }`}
+      } ${isFocusing && 'rounded-md !border-primary !border-2'}`}
+      onClick={() => {
+        if (isFocusing) {
+          unfocusTask();
+        } else {
+          focusTask(task);
+        }
+      }}
     >
       <Checkbox
         isDisabled={

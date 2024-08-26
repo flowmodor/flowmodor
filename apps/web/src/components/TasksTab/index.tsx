@@ -1,5 +1,3 @@
-import { Card, CardBody } from '@nextui-org/card';
-import TabWrapper from '../TabWrapper';
 import Filter from '../TimerTab/Filter';
 import ListSelector from '../TimerTab/ListSelector';
 import Tasks from './Tasks';
@@ -7,21 +5,13 @@ import Toolbar from './Toolbar';
 
 export default function TasksTab() {
   return (
-    <TabWrapper>
-      <Card className="h-[55vh] w-[90vw] bg-midground sm:h-[30rem] sm:w-[30rem]">
-        <CardBody className="flex h-full flex-col gap-3">
-          <div className="flex gap-3">
-            <ListSelector />
-            <Filter />
-          </div>
-          <Tasks />
-        </CardBody>
-      </Card>
-      <Card className="bg-midground">
-        <CardBody className="flex flex-row items-center justify-between px-4">
-          <Toolbar />
-        </CardBody>
-      </Card>
-    </TabWrapper>
+    <div className="flex flex-col h-[55vh] w-[90vw] bg-midground sm:h-[30rem] sm:w-[30rem]">
+      <div className="flex gap-3">
+        <ListSelector />
+        <Filter />
+      </div>
+      <Tasks />
+      <Toolbar />
+    </div>
   );
 }
