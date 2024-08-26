@@ -7,8 +7,8 @@ export default function TabOneScreen() {
   return (
     <View style={styles.container}>
       <AnimatedCircularProgress
-        size={280}
-        width={32}
+        size={320}
+        width={40}
         fill={10}
         rotation={0}
         tintColor="#DBBFFF"
@@ -58,11 +58,11 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   time: {
-    fontSize: 44,
+    fontSize: 52,
     fontWeight: 'bold',
   },
   mode: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
   },
 });
