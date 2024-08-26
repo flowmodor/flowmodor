@@ -23,9 +23,13 @@ export default function TabLayout() {
       <Tabs
         screenOptions={{
           headerShown: false,
-          tabBarShowLabel: false,
           tabBarStyle: {
             backgroundColor: '#23223C',
+            borderTopWidth: 0,
+            height: 60,
+          },
+          tabBarItemStyle: {
+            paddingVertical: 10,
           },
           tabBarActiveTintColor: '#FFFFFF',
           tabBarInactiveTintColor: '#FFFFFF70',
@@ -34,6 +38,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="index"
           options={{
+            title: 'Timer',
             tabBarIcon: ({ color }) => (
               <MaterialIcons name="timer" size={28} color={color} />
             ),
@@ -42,6 +47,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="two"
           options={{
+            title: 'Tasks',
             tabBarIcon: ({ color }) => (
               <MaterialIcons
                 name="format-list-numbered"
