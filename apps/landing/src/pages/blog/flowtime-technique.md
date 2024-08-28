@@ -1,8 +1,8 @@
 ---
-title: 'Flowtime Technique: the best Pomodoro alternative for flow'
+title: 'Flowtime Technique: Pomodoro alternative for flow state'
 date: 2024/08/22
-description: Flowtime Technique is the best Pomodoro Technique alternative for time management. Learn the difference between them and how to implement it.
-brief: Understand why the Flowtime Technique is better than Pomodoro and how to implement it
+description: The Flowtime Technique is a flexible Pomodoro alternative that respects your flow state. Learn how to implement it and improve your productivity.
+brief: Understand the Flowtime Technique, a flexible Pomodoro alternative that respects your flow state.
 layout: ../../layouts/BlogLayout.astro
 ---
 
