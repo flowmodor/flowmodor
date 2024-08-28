@@ -18,14 +18,15 @@ export default function Toolbar() {
   };
 
   return (
-    <div className="flex mt-auto">
+    <div className="flex mt-auto gap-3 items-center">
       <Input
-        className="w-full bg-transparent pr-5 text-[16px] outline-none"
+        radius="sm"
+        className="w-full bg-transparent text-[16px] outline-none"
         placeholder="Enter task name"
         value={inputValue}
         classNames={{
           inputWrapper:
-            'h-full bg-transparent data-[hover=true]:bg-transparent data-[focus=true]:!bg-transparent',
+            'h-full bg-secondary data-[hover=true]:bg-secondary data-[focus=true]:!bg-secondary',
           input: 'text-[16px]',
         }}
         onCompositionStart={() => setIsComposing(true)}
@@ -44,6 +45,7 @@ export default function Toolbar() {
       <Button
         type="button"
         variant="flat"
+        radius="sm"
         isIconOnly
         onPress={onAddTask}
         isDisabled={isDisabled}

@@ -22,7 +22,7 @@ export default function TaskBox({ task }: { task: Task }) {
     <div
       className={`relative group flex min-h-[4rem] items-center border-b border-b-secondary px-4 py-4 flex-shrink-0 cursor-pointer ${
         isLoading && 'opacity-50 pointer-events-none'
-      } ${isFocusing && 'rounded-md !border-primary !border-2'}`}
+      } ${isFocusing && 'rounded-md bg-secondary'}`}
       onClick={() => {
         if (isFocusing) {
           unfocusTask();
@@ -78,7 +78,7 @@ export default function TaskBox({ task }: { task: Task }) {
       <button
         type="button"
         aria-label="Delete task"
-        className="absolute right-0 fill-primary group-hover:block hidden"
+        className="absolute right-1 fill-primary group-hover:block hidden"
         onClick={() => {
           startTransition(async () => {
             await deleteTask(task);
