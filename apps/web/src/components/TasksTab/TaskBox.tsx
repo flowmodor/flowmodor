@@ -24,6 +24,10 @@ export default function TaskBox({ task }: { task: Task }) {
         isLoading && 'opacity-50 pointer-events-none'
       } ${isFocusing && 'rounded-md bg-secondary'}`}
       onClick={() => {
+        if (mode === 'focus' && status === 'running') {
+          return;
+        }
+
         if (isFocusing) {
           unfocusTask();
         } else {
@@ -56,8 +60,8 @@ export default function TaskBox({ task }: { task: Task }) {
           });
         }}
       />
-      <div className="flex flex-col">
-        <Markdown className="prose prose-invert prose-p:text-white prose-li:text-white">
+      <div className="flex flex-col select-none ">
+        <Markdown className="pointer-events-none prose-a:font-normal prose-a:no-underline prose prose-invert prose-p:text-white prose-li:text-white">
           {task.name}
         </Markdown>
         <div className="gap-x-2 flex text-[#ffffffa0] fill-[#ffffffa0] text-sm flex-wrap">

@@ -6,7 +6,9 @@ export default function FocusingTask() {
   const focusingTask = useFocusingTask();
 
   if (focusingTask) {
-    return <div>Focusing on: {focusingTask.name}</div>;
+    return (
+      <div className="max-w-xs truncate">Focusing on: {focusingTask.name}</div>
+    );
   }
 
   return <div>Click on task to focus on it</div>;
