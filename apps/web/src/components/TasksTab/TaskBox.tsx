@@ -83,10 +83,11 @@ export default function TaskBox({ task }: { task: Task }) {
         type="button"
         aria-label="Delete task"
         className="absolute right-1 fill-primary group-hover:block hidden"
-        onClick={() => {
+        onClick={(e) => {
           startTransition(async () => {
             await deleteTask(task);
           });
+          e.stopPropagation();
         }}
       >
         <TrashCan />

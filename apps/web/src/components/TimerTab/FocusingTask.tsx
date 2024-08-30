@@ -11,5 +11,5 @@ export default function FocusingTask() {
     );
   }
 
-  return <div>Click on task to focus on it</div>;
+  return <div className="text-[#FFFFFFA0]">Click on task to focus on it</div>;
 }
