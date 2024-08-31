@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Checkbox } from '@nextui-org/checkbox';
 import { useTransition } from 'react';
 import Markdown from 'react-markdown';
@@ -12,12 +15,23 @@ export default function TaskBox({ task }: { task: Task }) {
   const mode = useMode();
   const focusingTask = useFocusingTask();
   const { deleteTask, completeTask, undoCompleteTask } = useTasksActions();
+  const { focusTask, unfocusTask } = useTasksActions();
+  const isFocusing = task.id === focusingTask?.id;
 
   return (
     <div
-      className={`relative group flex min-h-[4rem] items-center border-b border-b-secondary px-4 py-4 flex-shrink-0 ${
-        isLoading && 'opacity-50 pointer-events-none'
-      }`}
+      className={`relative group flex min-h-[4rem] items-center border-b border-b-secondary px-4 py-4 flex-shrink-0 cursor-pointer transition-background ${isLoading && 'opacity-50 pointer-events-none'} ${isFocusing && 'rounded-md bg-secondary'}`}
+      onClick={() => {
+        if (mode === 'focus' && status === 'running') {
+          return;
+        }
+
+        if (isFocusing) {
+          unfocusTask();
+        } else {
+          focusTask(task);
+        }
+      }}
     >
       <Checkbox
         isDisabled={
@@ -44,8 +58,8 @@ export default function TaskBox({ task }: { task: Task }) {
           });
         }}
       />
-      <div className="flex flex-col">
-        <Markdown className="prose prose-invert prose-p:text-white prose-li:text-white">
+      <div className="flex flex-col select-none ">
+        <Markdown className="pointer-events-none prose-a:font-normal prose-a:no-underline prose prose-invert prose-p:text-white prose-li:text-white">
           {task.name}
         </Markdown>
         <div className="gap-x-2 flex text-[#ffffffa0] fill-[#ffffffa0] text-sm flex-wrap">
@@ -66,11 +80,12 @@ export default function TaskBox({ task }: { task: Task }) {
       <button
         type="button"
         aria-label="Delete task"
-        className="absolute right-0 fill-primary group-hover:block hidden"
-        onClick={() => {
+        className="absolute right-1 fill-primary group-hover:block hidden"
+        onClick={(e) => {
           startTransition(async () => {
             await deleteTask(task);
           });
+          e.stopPropagation();
         }}
       >
         <TrashCan />
