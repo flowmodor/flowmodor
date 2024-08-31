@@ -10,6 +10,7 @@ import {
   useTotalTime,
 } from '@/stores/useTimerStore';
 import { formatTime } from '@/utils';
+import FocusingTask from './FocusingTask';
 
 export default function Progress() {
   const totalTime = useTotalTime();
@@ -37,9 +38,12 @@ export default function Progress() {
         aria-label="Timer progress"
         valueLabel={
           <div className="flex flex-col items-center gap-2">
-            {showTime ? formatTime(displayTime) : null}
             <span className={showTime ? 'text-2xl' : 'text-3xl'}>
               {mode === 'focus' ? 'Focus' : 'Break'}
+            </span>
+            {showTime && formatTime(displayTime)}
+            <span className="text-sm font-normal">
+              <FocusingTask />
             </span>
           </div>
         }
