@@ -20,9 +20,7 @@ export default function TaskBox({ task }: { task: Task }) {
 
   return (
     <div
-      className={`relative group flex min-h-[4rem] items-center border-b border-b-secondary px-4 py-4 flex-shrink-0 cursor-pointer ${
-        isLoading && 'opacity-50 pointer-events-none'
-      } ${isFocusing && 'rounded-md bg-secondary'}`}
+      className={`relative group flex min-h-[4rem] items-center border-b border-b-secondary px-4 py-4 flex-shrink-0 cursor-pointer transition-background ${isLoading && 'opacity-50 pointer-events-none'} ${isFocusing && 'rounded-md bg-secondary'}`}
       onClick={() => {
         if (mode === 'focus' && status === 'running') {
           return;
