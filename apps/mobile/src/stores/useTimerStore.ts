@@ -190,6 +190,7 @@ const useTimerStore = create<Store>((set) => ({
             content: {
               title: "Time's up!",
               body: 'Time to focus!',
+              sound: 'default',
             },
             trigger: null,
           });
