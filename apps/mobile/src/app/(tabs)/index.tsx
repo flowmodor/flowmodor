@@ -1,3 +1,5 @@
+import * as Notifications from 'expo-notifications';
+import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Hide, Pause, Play, Show, Stop } from '@/src/components/Icons';
@@ -24,6 +26,17 @@ export default function TabOneScreen() {
     useTimerActions();
 
   useTick();
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Notifications.requestPermissionsAsync();
+      if (status !== 'granted') {
+        alert(
+          'You need to enable notifications for this app to work properly.',
+        );
+      }
+    })();
+  }, []);
 
   return (
     <View style={styles.container}>

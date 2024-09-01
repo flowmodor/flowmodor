@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import * as Notifications from 'expo-notifications';
 import { useEffect, useState } from 'react';
 import { create } from 'zustand';
 import { supabase } from '../utils/supabase';
@@ -40,6 +41,14 @@ interface Action {
 interface Store extends State {
   actions: Action;
 }
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 
 async function getBreakRatio() {
   const {
@@ -176,13 +185,13 @@ const useTimerStore = create<Store>((set) => ({
 
         if (state.mode === 'break' && time <= 0) {
           state.actions.stopTimer();
-          const audio = new Audio('/alarm.mp3');
-          audio.play();
 
-          // eslint-disable-next-line no-new
-          new Notification('Flowmodor', {
-            body: 'Time to focus!',
-            icon: '/images/icons/general_icon_x512.png',
+          Notifications.scheduleNotificationAsync({
+            content: {
+              title: "Time's up!",
+              body: 'Time to focus!',
+            },
+            trigger: null,
           });
 
           return {
