@@ -2,35 +2,39 @@
 
 We welcome everyone to contribute to Flowmodor. This document is to help you understand the process of contributing and ensure a smooth experience. Whether you're fixing a bug, adding a new feature, or improving the documentation, your help is appreciated.
 
-## Development
+## Web App Development
 
-1. Clone the repository: `git clone https://github.com/flowmodor/flowmodor`
-2. Navigate to the project directory: `cd flowmodor`
-3. Install dependencies: `yarn`
-4. Install and run a containerization tool, such as Docker Desktop, OrbStack, podman desktop, or another alternative.
-5. Run Supabase: `npx supabase start`
-6. Create `.env.local` file with following content (replace `API URL` and `anon key` with the output string from step 5.):
-
+1. Clone the repository
+```
+git clone https://github.com/flowmodor/flowmodor
+```
+2. Navigate to the project directory
+```
+cd flowmodor
+```
+3. Install dependencies
+```
+pnpm i
+```
+4. Run Supabase
+```
+pnpm --filter server start
+```
+5. Create `apps/web/.env.local` file with following content (replace `API URL` and `anon key` with the output string from step 5.):
 ```text
 NEXT_PUBLIC_SUPABASE_URL="API URL"
 NEXT_PUBLIC_SUPABASE_ANON_KEY="anon key"
 ```
-
-7. If you need Google OAuth feature, create `.env` file with the following content and set `[auth.external.google]` inside `supabase/config.toml` to `enabled = true`.
-
-```text
-SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET="your google client secret"
-SUPABASE_AUTH_EXTERNAL_GOOGLE_ID="your google client id"
+6. Run the web app and you should be able to see the app running on http://localhost:3000.
 ```
-
-8. Run the web app: `yarn run dev`
-9. Create a user at [Authentication tab](http://127.0.0.1:54323/project/default/auth/users) and then you can login with it.
+pnpm --filter web dev
+```
 
 ## Finding a task
 
-Bugs or planned enhancement can be found in [Issue tab](https://github.com/flowmodor/flowmodor/issues).
+You can work on features that is on our [feedback board](https://app.flowmodor.com/feedback).
 
-New features need to be discussed with the core team and the community first. If you're tackling a feature, please make sure it has been already discussed in the [Feedback Page](https://app.flowmodor.com/feedback).
+Please make sure to create an issue for the task you are working on. This will help us to track the progress and avoid duplication of work.
 
 ## Coding Style
 
