@@ -79,11 +79,22 @@ const useTimerStore = create<Store>((set) => ({
       set((state) => ({
         startTime: Date.now(),
         endTime:
-          state.mode === 'break'
-            ? Math.floor(Date.now() + state.totalTime)
-            : state.endTime,
+          state.mode === 'break' ? Date.now() + state.totalTime : state.endTime,
         status: 'running',
       }));
+
+      if (useTimerStore.getState().mode === 'break') {
+        await Notifications.scheduleNotificationAsync({
+          content: {
+            title: "Time's up!",
+            body: 'Time to focus!',
+            sound: 'default',
+          },
+          trigger: {
+            seconds: useTimerStore.getState().totalTime / 1000,
+          },
+        });
+      }
     },
     stopTimer: async (focusingTask, activeList) => {
       const breakRatio = await getBreakRatio();
@@ -97,6 +108,10 @@ const useTimerStore = create<Store>((set) => ({
           status: 'idle',
         }));
         return;
+      }
+
+      if (useTimerStore.getState().mode === 'break') {
+        await Notifications.cancelAllScheduledNotificationsAsync();
       }
 
       await useTimerStore.getState().actions.log(focusingTask, activeList);
@@ -185,15 +200,6 @@ const useTimerStore = create<Store>((set) => ({
 
         if (state.mode === 'break' && time <= 0) {
           state.actions.stopTimer();
-
-          Notifications.scheduleNotificationAsync({
-            content: {
-              title: "Time's up!",
-              body: 'Time to focus!',
-              sound: 'default',
-            },
-            trigger: null,
-          });
 
           return {
             status: 'idle',
