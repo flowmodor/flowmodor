@@ -1,3 +1,4 @@
+import * as Haptics from 'expo-haptics';
 import {
   Pressable as DefaultPressable,
   Text as DefaultText,
@@ -19,6 +20,9 @@ export function Pressable({ children, style, ...props }: PressableProps) {
         },
         style,
       ]}
+      onPressOut={() => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      }}
     >
       {children}
     </DefaultPressable>

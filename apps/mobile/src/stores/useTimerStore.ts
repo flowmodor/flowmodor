@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import * as Haptics from 'expo-haptics';
 import * as Notifications from 'expo-notifications';
 import { useEffect, useState } from 'react';
 import { create } from 'zustand';
@@ -91,7 +92,7 @@ const useTimerStore = create<Store>((set) => ({
             sound: 'default',
           },
           trigger: {
-            seconds: useTimerStore.getState().totalTime / 1000,
+            seconds: useTimerStore.getState().totalTime / 1000 + 1,
           },
         });
       }
