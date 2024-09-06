@@ -1,5 +1,7 @@
 import * as Haptics from 'expo-haptics';
+import { useRef } from 'react';
 import {
+  Animated,
   Pressable as DefaultPressable,
   Text as DefaultText,
   TextInput as DefaultTextInput,
@@ -9,23 +11,41 @@ import {
 } from 'react-native';
 
 export function Pressable({ children, style, ...props }: PressableProps) {
+  const scaleAnim = useRef(new Animated.Value(1)).current;
+
+  const onPressIn = () => {
+    Animated.spring(scaleAnim, {
+      toValue: 0.9,
+      useNativeDriver: true,
+    }).start();
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+  };
+
+  const onPressOut = () => {
+    Animated.spring(scaleAnim, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  };
+
   return (
-    <DefaultPressable
-      {...props}
-      style={[
-        {
-          borderRadius: 8,
-          backgroundColor: '#DBBFFF',
-          padding: 10,
-        },
-        style,
-      ]}
-      onPressOut={() => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-      }}
-    >
-      {children}
-    </DefaultPressable>
+    <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
+      <DefaultPressable
+        {...props}
+        style={[
+          {
+            borderRadius: 8,
+            backgroundColor: '#DBBFFF',
+            padding: 10,
+          },
+          style,
+        ]}
+        onPressIn={onPressIn}
+        onPressOut={onPressOut}
+      >
+        {children}
+      </DefaultPressable>
+    </Animated.View>
   );
 }
 

@@ -2,13 +2,12 @@ import * as Notifications from 'expo-notifications';
 import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import { Hide, Pause, Play, Show, Stop } from '@/src/components/Icons';
+import { Pause, Play, Stop } from '@/src/components/Icons';
 import { Pressable, Text } from '@/src/components/Themed';
 import useTick from '@/src/hooks/useTick';
 import {
   useDisplayTime,
   useMode,
-  useShowTime,
   useStatus,
   useTimerActions,
   useTotalTime,
@@ -20,10 +19,8 @@ export default function TabOneScreen() {
   const displayTime = useDisplayTime();
   const mode = useMode();
   const status = useStatus();
-  const showTime = useShowTime();
 
-  const { startTimer, stopTimer, pauseTimer, resumeTimer, toggleShowTime } =
-    useTimerActions();
+  const { startTimer, stopTimer, pauseTimer, resumeTimer } = useTimerActions();
 
   useTick();
 
@@ -62,9 +59,7 @@ export default function TabOneScreen() {
               justifyContent: 'center',
             }}
           >
-            <Text style={styles.time}>
-              {showTime && formatTime(displayTime)}
-            </Text>
+            <Text style={styles.time}>{formatTime(displayTime)}</Text>
             <Text style={styles.mode}>
               {mode === 'focus' ? 'Focus' : 'Break'}
             </Text>
@@ -75,12 +70,9 @@ export default function TabOneScreen() {
         style={{
           display: 'flex',
           flexDirection: 'row',
-          gap: 20,
+          gap: 40,
         }}
       >
-        <Pressable style={styles.button} onPress={toggleShowTime}>
-          {showTime ? <Hide /> : <Show />}
-        </Pressable>
         {mode === 'focus' && (status === 'running' || status === 'paused') && (
           <Pressable
             style={styles.button}
@@ -118,7 +110,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#131221',
-    gap: 20,
+    gap: 40,
   },
   time: {
     fontSize: 52,
@@ -130,8 +122,9 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#3F3E55',
-    width: 42,
-    height: 42,
+    width: 62,
+    height: 62,
+    borderRadius: 24,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
