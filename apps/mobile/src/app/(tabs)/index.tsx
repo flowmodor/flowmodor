@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#131221',
     gap: 40,
+    paddingTop: 40,
   },
   time: {
     fontSize: 52,
