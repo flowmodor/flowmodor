@@ -14,7 +14,7 @@ import {
 } from '@/src/stores/useTimerStore';
 import { formatTime } from '@/src/utils';
 
-export default function TabOneScreen() {
+export default function App() {
   const totalTime = useTotalTime();
   const displayTime = useDisplayTime();
   const mode = useMode();

@@ -1,12 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import * as Haptics from 'expo-haptics';
 import * as Notifications from 'expo-notifications';
 import { useEffect, useState } from 'react';
 import { create } from 'zustand';
 import { supabase } from '../utils/supabase';
-
-// import { Task } from './Tasks';
-// import { useStatsStore } from './useStatsStore';
 
 interface Task {
   id: number;
@@ -22,7 +17,6 @@ interface State {
   totalTime: number;
   displayTime: number;
   mode: 'focus' | 'break';
-  showTime: boolean;
   status: 'idle' | 'running' | 'paused';
 }
 
@@ -36,7 +30,6 @@ interface Action {
   resumeTimer: () => Promise<void>;
   log: (focusingTask?: Task | null, activeList?: string) => Promise<void>;
   tickTimer: () => void;
-  toggleShowTime: () => void;
 }
 
 interface Store extends State {
@@ -73,7 +66,6 @@ const useTimerStore = create<Store>((set) => ({
   totalTime: 0,
   displayTime: 0,
   mode: 'focus',
-  showTime: true,
   status: 'idle',
   actions: {
     startTimer: async () => {
@@ -213,7 +205,6 @@ const useTimerStore = create<Store>((set) => ({
         };
       });
     },
-    toggleShowTime: () => set((state) => ({ showTime: !state.showTime })),
   },
 }));
 
@@ -231,6 +222,5 @@ export const useEndTime = () => useTimerStore((state) => state.endTime);
 export const useTotalTime = () => useTimerStore((state) => state.totalTime);
 export const useDisplayTime = () => useTimerStore((state) => state.displayTime);
 export const useMode = () => useTimerStore((state) => state.mode);
-export const useShowTime = () => useTimerStore((state) => state.showTime);
 export const useStatus = () => useTimerStore((state) => state.status);
 export const useTimerActions = () => useTimerStore((state) => state.actions);
