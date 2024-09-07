@@ -11,10 +11,12 @@ import { supabase } from './utils/supabase';
 const AuthContext = createContext<{
   signIn: (email: string, password: string) => Promise<AuthError | null>;
   signOut: () => Promise<AuthError | null>;
+  signUp: (email: string, password: string) => Promise<AuthError | null>;
   session: Session | null;
 }>({
   signIn: () => new Promise(() => null),
   signOut: () => new Promise(() => null),
+  signUp: () => new Promise(() => null),
   session: null,
 });
 
@@ -55,6 +57,18 @@ export function SessionProvider({ children }: PropsWithChildren) {
         },
         signOut: async () => {
           const { error } = await supabase.auth.signOut();
+          return error;
+        },
+        signUp: async (email, password) => {
+          const { error } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+              data: {
+                mobile: true,
+              },
+            },
+          });
           return error;
         },
         session,

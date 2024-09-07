@@ -12,7 +12,8 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname !== '/signin' &&
     request.nextUrl.pathname !== '/signup' &&
     request.nextUrl.pathname !== '/forgot-password' &&
-    request.nextUrl.pathname !== '/feedback'
+    request.nextUrl.pathname !== '/feedback' &&
+    request.nextUrl.pathname !== '/mobile-verified'
   ) {
     return NextResponse.redirect(new URL('/signin', request.url));
   }

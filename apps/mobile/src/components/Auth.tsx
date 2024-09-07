@@ -7,8 +7,9 @@ export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [mode, setMode] = useState<'signin' | 'signup'>('signin');
 
-  const { signIn } = useSession();
+  const { signIn, signUp } = useSession();
 
   return (
     <ScrollView
@@ -26,12 +27,12 @@ export default function Auth() {
     >
       <Text
         style={{
-          fontSize: 22,
+          fontSize: 26,
           fontWeight: 'bold',
           textAlign: 'center',
         }}
       >
-        Sign in to save your focus sessions!
+        {mode === 'signin' ? 'Sign In Now' : 'Get started'}
       </Text>
       <View
         style={{
@@ -81,7 +82,17 @@ export default function Auth() {
         }}
         onPress={async () => {
           setIsLoading(true);
-          const error = await signIn(email, password);
+          let error: Error | null = null;
+
+          if (mode === 'signup') {
+            error = await signUp(email, password);
+            if (!error) {
+              Alert.alert('Verification email sent. Please verify your email.');
+              setMode('signin');
+            }
+          } else {
+            error = await signIn(email, password);
+          }
 
           if (error) {
             Alert.alert(error.message);
@@ -99,7 +110,7 @@ export default function Auth() {
             color: '#000000',
           }}
         >
-          Sign in
+          {mode === 'signin' ? 'Sign In' : 'Sign Up'}
         </Text>
       </Pressable>
       <Text
@@ -107,8 +118,27 @@ export default function Auth() {
           textAlign: 'center',
         }}
       >
-        Don't have an account?{' '}
-        <Text style={{ fontWeight: 'bold' }}>Sign up here</Text>
+        {mode === 'signin' ? (
+          <>
+            Don't have an account?{' '}
+            <Text
+              style={{ fontWeight: 'bold' }}
+              onPress={() => setMode('signup')}
+            >
+              Sign up here
+            </Text>
+          </>
+        ) : (
+          <>
+            Already have an account?{' '}
+            <Text
+              style={{ fontWeight: 'bold' }}
+              onPress={() => setMode('signin')}
+            >
+              Sign in now
+            </Text>
+          </>
+        )}
       </Text>
     </ScrollView>
   );
