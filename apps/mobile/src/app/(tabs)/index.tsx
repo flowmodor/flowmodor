@@ -4,7 +4,6 @@ import { StyleSheet, View } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Pause, Play, Stop } from '@/src/components/Icons';
 import { Pressable, Text } from '@/src/components/Themed';
-import useTick from '@/src/hooks/useTick';
 import {
   useDisplayTime,
   useMode,
@@ -21,8 +20,6 @@ export default function App() {
   const status = useStatus();
 
   const { startTimer, stopTimer, pauseTimer, resumeTimer } = useTimerActions();
-
-  useTick();
 
   useEffect(() => {
     (async () => {

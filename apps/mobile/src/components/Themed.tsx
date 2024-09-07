@@ -58,6 +58,7 @@ export function TextInput({ ...props }: TextInputProps) {
     <DefaultTextInput
       {...props}
       placeholderTextColor="#ffffff70"
+      autoCapitalize="none"
       style={{
         padding: 10,
         borderRadius: 8,
