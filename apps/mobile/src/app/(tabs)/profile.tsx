@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Bars } from '@/src/components/Icons';
 import { Pressable, Text, TextInput } from '@/src/components/Themed';
 import { useSession } from '@/src/ctx';
 
@@ -8,28 +10,76 @@ export default function Profile() {
   const [password, setPassword] = useState('');
   const { session, signIn, signOut } = useSession();
 
+  const insets = useSafeAreaInsets();
+
   if (session) {
     return (
       <View
         style={{
           flex: 1,
-          justifyContent: 'center',
           height: '100%',
           backgroundColor: '#131221',
           alignItems: 'center',
+          paddingTop: insets.top,
+          paddingHorizontal: 20,
           gap: 20,
         }}
       >
-        <Text>Signed in as: {session.user?.email}</Text>
-        <Pressable onPress={signOut}>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            width: '100%',
+            alignItems: 'center',
+          }}
+        >
           <Text
             style={{
-              color: '#000000',
+              fontWeight: 'semibold',
             }}
           >
-            Sign out
+            Hi, {session.user?.email}
           </Text>
-        </Pressable>
+          <Pressable
+            style={{
+              backgroundColor: '#00000000',
+            }}
+            onPress={async () => {
+              const error = await signOut();
+
+              if (error) {
+                Alert.alert(error.message);
+              }
+            }}
+          >
+            <Text
+              style={{
+                color: '#DBBFFF',
+              }}
+            >
+              Sign out
+            </Text>
+          </Pressable>
+        </View>
+        <View
+          style={{
+            marginVertical: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 20,
+          }}
+        >
+          <Bars />
+          <Text
+            style={{
+              fontWeight: 'bold',
+            }}
+          >
+            Stats coming soon!
+          </Text>
+        </View>
       </View>
     );
   }
@@ -68,6 +118,7 @@ export default function Profile() {
           placeholder="you@example.com"
           value={email}
           onChangeText={setEmail}
+          inputMode="email"
         />
         <TextInput
           placeholder="••••••••"
@@ -80,8 +131,16 @@ export default function Profile() {
         style={{
           alignItems: 'center',
         }}
-        onPress={() => {
-          signIn(email, password);
+        onPress={async () => {
+          const error = await signIn(email, password);
+
+          if (error) {
+            Alert.alert(error.message);
+            return;
+          }
+
+          setEmail('');
+          setPassword('');
         }}
       >
         <Text

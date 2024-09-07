@@ -1,4 +1,4 @@
-import { Session } from '@supabase/supabase-js';
+import { AuthError, Session } from '@supabase/supabase-js';
 import {
   type PropsWithChildren,
   createContext,
@@ -9,12 +9,12 @@ import {
 import { supabase } from './utils/supabase';
 
 const AuthContext = createContext<{
-  signIn: (email: string, password: string) => void;
-  signOut: () => void;
+  signIn: (email: string, password: string) => Promise<AuthError | null>;
+  signOut: () => Promise<AuthError | null>;
   session: Session | null;
 }>({
-  signIn: () => null,
-  signOut: () => null,
+  signIn: () => new Promise(() => null),
+  signOut: () => new Promise(() => null),
   session: null,
 });
 
@@ -47,17 +47,15 @@ export function SessionProvider({ children }: PropsWithChildren) {
     <AuthContext.Provider
       value={{
         signIn: async (email, password) => {
-          const { data, error } = await supabase.auth.signInWithPassword({
+          const { error } = await supabase.auth.signInWithPassword({
             email,
             password,
           });
-          console.log(data, error);
-          // TODO: Handle error
+          return error;
         },
         signOut: async () => {
           const { error } = await supabase.auth.signOut();
-          console.log(error);
-          // TODO: Handle error
+          return error;
         },
         session,
       }}
