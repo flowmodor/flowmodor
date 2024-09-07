@@ -42,7 +42,7 @@ export function Profile({ fill }: { fill: string }) {
 
 export function Bars() {
   return (
-    <Svg height="26" width="22" fill="#DBBFFF" viewBox="0 0 448 512">
+    <Svg height="46" width="42" fill="#DBBFFF" viewBox="0 0 448 512">
       <Path d="M160 80c0-26.5 21.5-48 48-48l32 0c26.5 0 48 21.5 48 48l0 352c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48l0-352zM0 272c0-26.5 21.5-48 48-48l32 0c26.5 0 48 21.5 48 48l0 160c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48L0 272zM368 96l32 0c26.5 0 48 21.5 48 48l0 288c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48l0-288c0-26.5 21.5-48 48-48z" />
     </Svg>
   );

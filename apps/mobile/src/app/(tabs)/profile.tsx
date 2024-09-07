@@ -30,23 +30,16 @@ export default function Profile() {
           style={{
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'space-between',
             width: '100%',
             alignItems: 'center',
+            justifyContent: 'flex-end',
           }}
         >
-          <Text
-            style={{
-              fontWeight: 'semibold',
-            }}
-          >
-            Hi, {session.user?.email}
-          </Text>
           <Pressable
             isLoading={isLoading}
             color="#DBBFFF"
             style={{
-              backgroundColor: '#00000000',
+              backgroundColor: '#3F3E55',
             }}
             onPress={async () => {
               setIsLoading(true);
@@ -58,13 +51,7 @@ export default function Profile() {
               setIsLoading(false);
             }}
           >
-            <Text
-              style={{
-                color: '#DBBFFF',
-              }}
-            >
-              Sign out
-            </Text>
+            <Text style={{}}>Sign out</Text>
           </Pressable>
         </View>
         <View
@@ -80,9 +67,12 @@ export default function Profile() {
           <Text
             style={{
               fontWeight: 'bold',
+              fontSize: 18,
+              maxWidth: 200,
+              textAlign: 'center',
             }}
           >
-            Stats coming soon!
+            Focus report will be available soon!
           </Text>
         </View>
       </View>
@@ -105,12 +95,12 @@ export default function Profile() {
     >
       <Text
         style={{
-          fontSize: 32,
+          fontSize: 22,
           fontWeight: 'bold',
-          alignSelf: 'center',
+          textAlign: 'center',
         }}
       >
-        Sign In Now
+        Sign in to save your focus sessions!
       </Text>
       <View
         style={{
@@ -119,18 +109,36 @@ export default function Profile() {
           gap: 10,
         }}
       >
-        <TextInput
-          placeholder="you@example.com"
-          value={email}
-          onChangeText={setEmail}
-          inputMode="email"
-        />
-        <TextInput
-          placeholder="••••••••"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 5,
+          }}
+        >
+          <Text>Email</Text>
+          <TextInput
+            placeholder="you@example.com"
+            value={email}
+            onChangeText={setEmail}
+            inputMode="email"
+          />
+        </View>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 5,
+          }}
+        >
+          <Text>Password</Text>
+          <TextInput
+            placeholder="••••••••"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+          />
+        </View>
       </View>
       <Pressable
         scaleValue={0.98}
