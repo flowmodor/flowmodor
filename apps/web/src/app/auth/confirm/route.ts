@@ -16,11 +16,15 @@ export async function GET(request: NextRequest) {
     const cookieStore = cookies();
     const supabase = getRouteClient(cookieStore);
 
-    const { error } = await supabase.auth.verifyOtp({
+    const { error, data } = await supabase.auth.verifyOtp({
       type,
       token_hash: tokenHash,
     });
     if (!error) {
+      if (data.user?.user_metadata?.mobile) {
+        redirectTo.pathname = '/mobile-verified';
+      }
+
       return NextResponse.redirect(redirectTo);
     }
   }
