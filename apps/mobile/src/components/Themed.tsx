@@ -1,6 +1,7 @@
 import * as Haptics from 'expo-haptics';
 import { useRef } from 'react';
 import {
+  ActivityIndicator,
   Animated,
   Pressable as DefaultPressable,
   Text as DefaultText,
@@ -10,12 +11,23 @@ import {
   TextProps,
 } from 'react-native';
 
-export function Pressable({ children, style, ...props }: PressableProps) {
+export function Pressable({
+  children,
+  style,
+  scaleValue = 1,
+  isLoading = false,
+  color = '#000000',
+  ...props
+}: PressableProps & {
+  scaleValue?: number;
+  isLoading?: boolean;
+  color?: string;
+}) {
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const onPressIn = () => {
     Animated.spring(scaleAnim, {
-      toValue: 0.9,
+      toValue: scaleValue,
       useNativeDriver: true,
     }).start();
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -40,10 +52,11 @@ export function Pressable({ children, style, ...props }: PressableProps) {
           },
           style,
         ]}
+        disabled={isLoading}
         onPressIn={onPressIn}
         onPressOut={onPressOut}
       >
-        {children}
+        {isLoading ? <ActivityIndicator color={color} /> : children}
       </DefaultPressable>
     </Animated.View>
   );

@@ -1,5 +1,5 @@
 import * as Notifications from 'expo-notifications';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Pause, Play, Stop } from '@/src/components/Icons';
@@ -18,6 +18,7 @@ export default function App() {
   const displayTime = useDisplayTime();
   const mode = useMode();
   const status = useStatus();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { startTimer, stopTimer, pauseTimer, resumeTimer } = useTimerActions();
 
@@ -72,26 +73,36 @@ export default function App() {
       >
         {mode === 'focus' && (status === 'running' || status === 'paused') && (
           <Pressable
+            scaleValue={0.9}
+            isLoading={isLoading}
+            color="#FFFFFF"
             style={styles.button}
             onPress={async () => {
+              setIsLoading(true);
               if (status === 'running') {
                 await pauseTimer();
               } else {
                 await resumeTimer();
               }
+              setIsLoading(false);
             }}
           >
             {status === 'running' ? <Pause /> : <Play />}
           </Pressable>
         )}
         <Pressable
+          scaleValue={0.9}
+          isLoading={isLoading}
+          color="#FFFFFF"
           style={styles.button}
           onPress={async () => {
+            setIsLoading(true);
             if (status !== 'idle') {
               await stopTimer();
             } else {
               await startTimer();
             }
+            setIsLoading(false);
           }}
         >
           {status === 'idle' ? <Play /> : <Stop />}

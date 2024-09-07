@@ -9,6 +9,7 @@ export default function Profile() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { session, signIn, signOut } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
 
   const insets = useSafeAreaInsets();
 
@@ -42,15 +43,19 @@ export default function Profile() {
             Hi, {session.user?.email}
           </Text>
           <Pressable
+            isLoading={isLoading}
+            color="#DBBFFF"
             style={{
               backgroundColor: '#00000000',
             }}
             onPress={async () => {
+              setIsLoading(true);
               const error = await signOut();
 
               if (error) {
                 Alert.alert(error.message);
               }
+              setIsLoading(false);
             }}
           >
             <Text
@@ -128,19 +133,26 @@ export default function Profile() {
         />
       </View>
       <Pressable
+        scaleValue={0.98}
+        isLoading={isLoading}
         style={{
           alignItems: 'center',
+          justifyContent: 'center',
+          height: 40,
         }}
         onPress={async () => {
+          setIsLoading(true);
           const error = await signIn(email, password);
 
           if (error) {
             Alert.alert(error.message);
+            setIsLoading(false);
             return;
           }
 
           setEmail('');
           setPassword('');
+          setIsLoading(false);
         }}
       >
         <Text
