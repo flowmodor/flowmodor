@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Alert, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Auth from '@/src/components/Auth';
-import { Bars } from '@/src/components/Icons';
 import { Pressable, Text } from '@/src/components/Themed';
 import { useSession } from '@/src/ctx';
 
@@ -31,17 +30,22 @@ export default function Profile() {
       <View
         style={{
           display: 'flex',
-          flexDirection: 'row',
-          width: '100%',
-          alignItems: 'center',
-          justifyContent: 'flex-end',
+          flexDirection: 'column',
+          gap: 20,
         }}
       >
+        <Text style={styles.sectionTitle}>Profile</Text>
+        <View style={styles.sectionItem}>
+          <Text style={styles.text}>Email</Text>
+          <Text style={styles.text}>{session.user.email}</Text>
+        </View>
         <Pressable
           isLoading={isLoading}
-          color="#DBBFFF"
+          color="#131221"
           style={{
-            backgroundColor: '#3F3E55',
+            backgroundColor: '#DBBFFF',
+            borderColor: '#DBBFFF',
+            borderWidth: 2,
           }}
           onPress={async () => {
             setIsLoading(true);
@@ -53,30 +57,39 @@ export default function Profile() {
             setIsLoading(false);
           }}
         >
-          <Text style={{}}>Sign out</Text>
+          <Text
+            style={[
+              styles.text,
+              {
+                textAlign: 'center',
+                color: '#131221',
+              },
+            ]}
+          >
+            Sign out
+          </Text>
         </Pressable>
-      </View>
-      <View
-        style={{
-          marginVertical: 'auto',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 20,
-        }}
-      >
-        <Bars />
-        <Text
-          style={{
-            fontWeight: 'bold',
-            fontSize: 18,
-            maxWidth: 200,
-            textAlign: 'center',
-          }}
-        >
-          Focus report will be available soon!
-        </Text>
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  sectionItem: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    backgroundColor: '#23223C',
+    padding: 20,
+    borderRadius: 10,
+  },
+  text: {
+    fontSize: 16,
+  },
+});
