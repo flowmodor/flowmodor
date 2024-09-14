@@ -16,8 +16,8 @@ export default async function Integrations() {
       <div className="flex items-center gap-3">
         <h2 className="text-xl font-semibold">Integrations</h2>
       </div>
-      <div className="text-sm color-secondary">
-        Sync tasks with third-party apps
+      <div className="text-xs text-foreground-400">
+        Sync todo lists with third-party apps.
       </div>
       <TodoistButton provider={provider} />
     </div>

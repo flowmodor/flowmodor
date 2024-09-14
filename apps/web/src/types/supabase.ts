@@ -9,6 +9,33 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      features: {
+        Row: {
+          created_at: string
+          description: string
+          id: number
+          status: Database["public"]["Enums"]["feature_status"]
+          title: string
+          upvotes: number
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: number
+          status?: Database["public"]["Enums"]["feature_status"]
+          title: string
+          upvotes?: number
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: number
+          status?: Database["public"]["Enums"]["feature_status"]
+          title?: string
+          upvotes?: number
+        }
+        Relationships: []
+      }
       feedback: {
         Row: {
           content: string
@@ -240,11 +267,63 @@ export interface Database {
           }
         ]
       }
+      votes: {
+        Row: {
+          created_at: string
+          feature_id: number
+          id: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          feature_id: number
+          id?: number
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          feature_id?: number
+          id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "votes_feature_id_fkey"
+            columns: ["feature_id"]
+            isOneToOne: false
+            referencedRelation: "features"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "votes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      decrement_upvotes: {
+        Args: {
+          feature_id: number
+        }
+        Returns: undefined
+      }
+      delete_account: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      increment_upvotes: {
+        Args: {
+          feature_id: number
+        }
+        Returns: undefined
+      }
       update_expired_integrations: {
         Args: Record<PropertyKey, never>
         Returns: undefined
@@ -252,6 +331,7 @@ export interface Database {
     }
     Enums: {
       billing_interval: "month" | "year"
+      feature_status: "completed" | "in_progress" | "approved"
       plan: "Starter" | "Pro"
       provider: "todoist"
       status: "active" | "canceled" | "past_due" | "paused" | "trialing"
