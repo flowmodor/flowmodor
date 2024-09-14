@@ -1,21 +1,37 @@
 import { Link } from 'expo-router';
 import { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { Alert, Modal, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Auth from '@/src/components/Auth';
 import { External } from '@/src/components/Icons';
 import { Pressable, Text } from '@/src/components/Themed';
 import { useSession } from '@/src/ctx';
+import { supabase } from '@/src/utils/supabase';
 
 export default function Profile() {
   const { session, signOut } = useSession();
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
   const insets = useSafeAreaInsets();
 
   if (!session) {
     return <Auth />;
   }
+
+  const handleDeleteAccount = async () => {
+    const { error } = await supabase.rpc('delete_account');
+    if (error) {
+      Alert.alert('Error', error.message);
+      return;
+    }
+    const signOutError = await signOut();
+    if (signOutError) {
+      Alert.alert('Error', signOutError.message);
+      return;
+    }
+    setIsDeleteModalVisible(false);
+  };
 
   return (
     <View
@@ -43,17 +59,17 @@ export default function Profile() {
             <External />
           </View>
         </Link>
-        <Text style={styles.sectionTitle}>Profile</Text>
+        <Text style={styles.sectionTitle}>Account</Text>
         <View style={styles.sectionItem}>
           <Text style={styles.text}>Email</Text>
           <Text style={styles.text}>{session.user.email}</Text>
         </View>
         <Pressable
           isLoading={isLoading}
-          color="#131221"
+          color="#FFFFFF"
           style={{
-            backgroundColor: '#DBBFFF',
-            borderColor: '#DBBFFF',
+            backgroundColor: '#23223C',
+            borderColor: '#23223C',
             borderWidth: 2,
           }}
           onPress={async () => {
@@ -71,14 +87,68 @@ export default function Profile() {
               styles.text,
               {
                 textAlign: 'center',
-                color: '#131221',
+                color: '#FFFFFF',
               },
             ]}
           >
             Sign out
           </Text>
         </Pressable>
+        <Pressable
+          color="#FF4F4F"
+          style={{
+            backgroundColor: '#23223C',
+            borderColor: '#23223C',
+            borderWidth: 2,
+          }}
+          onPress={() => setIsDeleteModalVisible(true)}
+        >
+          <Text
+            style={[
+              styles.text,
+              {
+                textAlign: 'center',
+                color: '#FF4F4F',
+              },
+            ]}
+          >
+            Delete account
+          </Text>
+        </Pressable>
       </View>
+      <Modal
+        animationType="fade"
+        transparent
+        visible={isDeleteModalVisible}
+        onRequestClose={() => setIsDeleteModalVisible(false)}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>
+              Are you sure you want to delete your account?
+            </Text>
+            <Text style={styles.modalSubText}>
+              All your data will be permanently deleted.
+            </Text>
+            <View style={styles.modalButtonsContainer}>
+              <Pressable
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={() => setIsDeleteModalVisible(false)}
+              >
+                <Text style={styles.modalButtonText}>Cancel</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.modalButton, styles.deleteButton]}
+                onPress={handleDeleteAccount}
+              >
+                <Text style={[styles.modalButtonText, { color: '#FF4F4F' }]}>
+                  Delete
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -100,5 +170,54 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#000000AA',
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: '#23223C',
+    borderRadius: 16,
+    padding: 35,
+    alignItems: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+  modalSubText: {
+    marginBottom: 20,
+    textAlign: 'center',
+    fontSize: 14,
+    color: '#FFFFFF',
+  },
+  modalButtonsContainer: {
+    flexDirection: 'row',
+    gap: 20,
+  },
+  modalButton: {
+    width: 80,
+    height: 40,
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+  cancelButton: {
+    backgroundColor: '#3E3D56',
+  },
+  deleteButton: {
+    backgroundColor: '#23223C',
+    borderColor: '#FF4F4F',
+    borderWidth: 2,
+  },
+  modalButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
