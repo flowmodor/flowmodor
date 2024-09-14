@@ -6,10 +6,9 @@ import Auth from '@/src/components/Auth';
 import { External } from '@/src/components/Icons';
 import { Pressable, Text } from '@/src/components/Themed';
 import { useSession } from '@/src/ctx';
-import { supabase } from '@/src/utils/supabase';
 
 export default function Profile() {
-  const { session, signOut } = useSession();
+  const { session, signOut, deleteAccount } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
@@ -20,14 +19,9 @@ export default function Profile() {
   }
 
   const handleDeleteAccount = async () => {
-    const { error } = await supabase.rpc('delete_account');
+    const error = await deleteAccount();
     if (error) {
       Alert.alert('Error', error.message);
-      return;
-    }
-    const signOutError = await signOut();
-    if (signOutError) {
-      Alert.alert('Error', signOutError.message);
       return;
     }
     setIsDeleteModalVisible(false);

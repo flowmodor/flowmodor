@@ -1,4 +1,4 @@
-import { AuthError, Session } from '@supabase/supabase-js';
+import { AuthError, PostgrestError, Session } from '@supabase/supabase-js';
 import {
   type PropsWithChildren,
   createContext,
@@ -12,11 +12,13 @@ const AuthContext = createContext<{
   signIn: (email: string, password: string) => Promise<AuthError | null>;
   signOut: () => Promise<AuthError | null>;
   signUp: (email: string, password: string) => Promise<AuthError | null>;
+  deleteAccount: () => Promise<PostgrestError | null>;
   session: Session | null;
 }>({
   signIn: () => new Promise(() => null),
   signOut: () => new Promise(() => null),
   signUp: () => new Promise(() => null),
+  deleteAccount: () => new Promise(() => null),
   session: null,
 });
 
@@ -69,6 +71,15 @@ export function SessionProvider({ children }: PropsWithChildren) {
               },
             },
           });
+          return error;
+        },
+        deleteAccount: async () => {
+          const { error } = await supabase.rpc('delete_account');
+
+          if (!error) {
+            setSession(null);
+          }
+
           return error;
         },
         session,
