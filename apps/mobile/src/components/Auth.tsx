@@ -23,6 +23,9 @@ export default function Auth() {
         backgroundColor: '#131221',
         paddingHorizontal: 50,
         gap: 30,
+        width: '100%',
+        maxWidth: 500,
+        alignSelf: 'center',
       }}
     >
       <Text

@@ -1,6 +1,6 @@
 import * as Notifications from 'expo-notifications';
 import { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { PixelRatio, StyleSheet, View } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Pause, Play, Stop } from '@/src/components/Icons';
 import { Pressable, Text } from '@/src/components/Themed';
@@ -12,6 +12,8 @@ import {
   useTotalTime,
 } from '@/src/stores/useTimerStore';
 import { formatTime } from '@/src/utils';
+
+const REM = PixelRatio.get() > 2 ? 12 : 18;
 
 export default function App() {
   const totalTime = useTotalTime();
@@ -36,8 +38,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <AnimatedCircularProgress
-        size={320}
-        width={40}
+        size={28 * REM}
+        width={3 * REM}
         fill={
           mode === 'focus'
             ? 0
@@ -122,11 +124,11 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   time: {
-    fontSize: 52,
+    fontSize: REM * 4,
     fontWeight: 'bold',
   },
   mode: {
-    fontSize: 28,
+    fontSize: REM * 2.5,
     fontWeight: 'bold',
   },
   button: {

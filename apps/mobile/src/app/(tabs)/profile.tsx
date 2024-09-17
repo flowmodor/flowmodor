@@ -44,6 +44,7 @@ export default function Profile() {
           display: 'flex',
           flexDirection: 'column',
           gap: 20,
+          maxWidth: 500,
         }}
       >
         <Text style={styles.sectionTitle}>General</Text>
