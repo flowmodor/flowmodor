@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "preinstall": "npx only-allow pnpm", 
+    "preinstall": "npx only-allow pnpm",
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
@@ -18,7 +18,7 @@
     "date-fns": "^3.6.0",
     "framer-motion": "^10.16.15",
     "nanoid": "^5.0.6",
-    "next": "14.2.3",
+    "next": "14.2.13",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
