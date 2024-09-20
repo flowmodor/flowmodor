@@ -3,6 +3,7 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import { AuthError, PostgrestError, Session } from '@supabase/supabase-js';
+import * as AppleAuthentication from 'expo-apple-authentication';
 import {
   type PropsWithChildren,
   createContext,
@@ -16,6 +17,7 @@ import { supabase } from './utils/supabase';
 const AuthContext = createContext<{
   signIn: (email: string, password: string) => Promise<AuthError | null>;
   signInWithGoogle: () => Promise<void>;
+  signInWithApple: () => Promise<void>;
   signOut: () => Promise<AuthError | null>;
   signUp: (email: string, password: string) => Promise<AuthError | null>;
   deleteAccount: () => Promise<PostgrestError | null>;
@@ -23,6 +25,7 @@ const AuthContext = createContext<{
 }>({
   signIn: () => new Promise(() => null),
   signInWithGoogle: () => new Promise(() => null),
+  signInWithApple: () => new Promise(() => null),
   signOut: () => new Promise(() => null),
   signUp: () => new Promise(() => null),
   deleteAccount: () => new Promise(() => null),
@@ -83,9 +86,32 @@ export function SessionProvider({ children }: PropsWithChildren) {
                 Alert.alert(error.message);
               }
             }
-          } catch (error: any) {
-            Alert.alert('Please try signing in again.');
-          }
+          } catch (error: any) {}
+        },
+        signInWithApple: async () => {
+          try {
+            const credential = await AppleAuthentication.signInAsync({
+              requestedScopes: [
+                AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                AppleAuthentication.AppleAuthenticationScope.EMAIL,
+              ],
+            });
+
+            if (credential.identityToken) {
+              const {
+                error,
+                data: { user },
+              } = await supabase.auth.signInWithIdToken({
+                provider: 'apple',
+                token: credential.identityToken,
+              });
+              if (error) {
+                Alert.alert(error.message);
+              }
+            } else {
+              throw new Error('No identityToken.');
+            }
+          } catch (error) {}
         },
         signOut: async () => {
           const { error } = await supabase.auth.signOut();

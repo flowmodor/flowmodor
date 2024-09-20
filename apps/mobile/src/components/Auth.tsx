@@ -1,7 +1,10 @@
+import * as AppleAuthentication from 'expo-apple-authentication';
 import { useState } from 'react';
+import { Platform } from 'react-native';
 import { Alert, ScrollView, View } from 'react-native';
 import { Pressable, Text, TextInput } from '@/src/components/Themed';
 import { useSession } from '@/src/ctx';
+import { supabase } from '../utils/supabase';
 import { Google } from './Icons';
 
 export default function Auth() {
@@ -11,7 +14,7 @@ export default function Auth() {
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
 
-  const { signIn, signInWithGoogle, signUp } = useSession();
+  const { signIn, signInWithApple, signInWithGoogle, signUp } = useSession();
 
   return (
     <ScrollView
@@ -39,28 +42,53 @@ export default function Auth() {
       >
         {mode === 'signin' ? 'Sign In Now' : 'Get started'}
       </Text>
-      <Pressable
-        color="#FFFFFF"
-        scaleValue={0.98}
-        style={{
-          backgroundColor: '#3F3E55',
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: 40,
-          gap: 6,
-        }}
-        isLoading={isGoogleLoading}
-        onPress={async () => {
-          setIsGoogleLoading(true);
-          await signInWithGoogle();
-          setIsGoogleLoading(false);
-        }}
-      >
-        <Google />
-        <Text style={{ fontWeight: 'medium' }}>Continue with Google</Text>
-      </Pressable>
+      {mode === 'signin' && (
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 10,
+          }}
+        >
+          {Platform.OS === 'ios' && (
+            <AppleAuthentication.AppleAuthenticationButton
+              buttonType={
+                AppleAuthentication.AppleAuthenticationButtonType.CONTINUE
+              }
+              buttonStyle={
+                AppleAuthentication.AppleAuthenticationButtonStyle.WHITE
+              }
+              cornerRadius={8}
+              style={{ height: 40 }}
+              onPress={async () => {
+                await signInWithApple();
+              }}
+            />
+          )}
+          <Pressable
+            color="#FFFFFF"
+            scaleValue={0.98}
+            style={{
+              backgroundColor: '#3F3E55',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: 40,
+              gap: 6,
+            }}
+            isLoading={isGoogleLoading}
+            onPress={async () => {
+              setIsGoogleLoading(true);
+              await signInWithGoogle();
+              setIsGoogleLoading(false);
+            }}
+          >
+            <Google />
+            <Text style={{ fontWeight: '600' }}>Continue with Google</Text>
+          </Pressable>
+        </View>
+      )}
       <View
         style={{
           display: 'flex',
