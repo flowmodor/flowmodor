@@ -8,6 +8,6 @@
     "status": "supabase status"
   },
   "dependencies": {
-    "supabase": "^1.134.8"
+    "supabase": "^1.192.5"
   }
 }
