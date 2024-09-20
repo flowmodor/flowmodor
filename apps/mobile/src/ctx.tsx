@@ -1,3 +1,7 @@
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 import { AuthError, PostgrestError, Session } from '@supabase/supabase-js';
 import {
   type PropsWithChildren,
@@ -6,16 +10,19 @@ import {
   useEffect,
   useState,
 } from 'react';
+import { Alert } from 'react-native';
 import { supabase } from './utils/supabase';
 
 const AuthContext = createContext<{
   signIn: (email: string, password: string) => Promise<AuthError | null>;
+  signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<AuthError | null>;
   signUp: (email: string, password: string) => Promise<AuthError | null>;
   deleteAccount: () => Promise<PostgrestError | null>;
   session: Session | null;
 }>({
   signIn: () => new Promise(() => null),
+  signInWithGoogle: () => new Promise(() => null),
   signOut: () => new Promise(() => null),
   signUp: () => new Promise(() => null),
   deleteAccount: () => new Promise(() => null),
@@ -45,6 +52,11 @@ export function SessionProvider({ children }: PropsWithChildren) {
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
+
+    GoogleSignin.configure({
+      webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
+      iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
+    });
   }, []);
 
   return (
@@ -56,6 +68,24 @@ export function SessionProvider({ children }: PropsWithChildren) {
             password,
           });
           return error;
+        },
+        signInWithGoogle: async () => {
+          try {
+            await GoogleSignin.hasPlayServices();
+            const { data: userInfo } = await GoogleSignin.signIn();
+
+            if (userInfo?.idToken) {
+              const { data, error } = await supabase.auth.signInWithIdToken({
+                provider: 'google',
+                token: userInfo.idToken,
+              });
+              if (error) {
+                Alert.alert(error.message);
+              }
+            }
+          } catch (error: any) {
+            Alert.alert('Please try signing in again.');
+          }
         },
         signOut: async () => {
           const { error } = await supabase.auth.signOut();

@@ -2,14 +2,16 @@ import { useState } from 'react';
 import { Alert, ScrollView, View } from 'react-native';
 import { Pressable, Text, TextInput } from '@/src/components/Themed';
 import { useSession } from '@/src/ctx';
+import { Google } from './Icons';
 
 export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
 
-  const { signIn, signUp } = useSession();
+  const { signIn, signInWithGoogle, signUp } = useSession();
 
   return (
     <ScrollView
@@ -37,6 +39,28 @@ export default function Auth() {
       >
         {mode === 'signin' ? 'Sign In Now' : 'Get started'}
       </Text>
+      <Pressable
+        color="#FFFFFF"
+        scaleValue={0.98}
+        style={{
+          backgroundColor: '#3F3E55',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 40,
+          gap: 6,
+        }}
+        isLoading={isGoogleLoading}
+        onPress={async () => {
+          setIsGoogleLoading(true);
+          await signInWithGoogle();
+          setIsGoogleLoading(false);
+        }}
+      >
+        <Google />
+        <Text style={{ fontWeight: 'medium' }}>Continue with Google</Text>
+      </Pressable>
       <View
         style={{
           display: 'flex',

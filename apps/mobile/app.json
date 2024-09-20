@@ -14,7 +14,8 @@
       "backgroundColor": "#131221"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.m4xshen.mobile"
     },
     "android": {
       "adaptiveIcon": {
@@ -23,7 +24,13 @@
       }
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.455646946782-c5csgm9elmh44c7kb3i3v4ui1m6ijg3m"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
