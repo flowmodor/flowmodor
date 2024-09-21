@@ -2,6 +2,7 @@ import * as Notifications from 'expo-notifications';
 import { useEffect, useState } from 'react';
 import { create } from 'zustand';
 import { supabase } from '../utils/supabase';
+import { useStatsStore } from './useStatsStore';
 
 interface Task {
   id: number;
@@ -165,6 +166,7 @@ const useTimerStore = create<Store>((set) => ({
             end_time,
           },
         ]);
+        await useStatsStore.getState().actions.updateLogs();
         return;
       }
 
@@ -178,7 +180,7 @@ const useTimerStore = create<Store>((set) => ({
         },
       ]);
 
-      // await useStatsStore.getState().actions.updateLogs();
+      await useStatsStore.getState().actions.updateLogs();
     },
     tickTimer: async () => {
       set((state) => {

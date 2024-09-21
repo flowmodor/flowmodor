@@ -12,6 +12,7 @@ import {
   useState,
 } from 'react';
 import { Alert } from 'react-native';
+import { useStatsActions } from './stores/useStatsStore';
 import { supabase } from './utils/supabase';
 
 const AuthContext = createContext<{
@@ -46,6 +47,7 @@ export function useSession() {
 
 export function SessionProvider({ children }: PropsWithChildren) {
   const [session, setSession] = useState<Session | null>(null);
+  const { updateLogs } = useStatsActions();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -54,12 +56,15 @@ export function SessionProvider({ children }: PropsWithChildren) {
 
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
+      updateLogs();
     });
 
     GoogleSignin.configure({
       webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
       iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
     });
+
+    updateLogs();
   }, []);
 
   return (

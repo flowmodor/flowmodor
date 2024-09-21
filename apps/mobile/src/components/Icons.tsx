@@ -32,6 +32,14 @@ export function Timer({ fill }: { fill: string }) {
   );
 }
 
+export function Stats({ fill }: { fill: string }) {
+  return (
+    <Svg viewBox="0 0 448 512" height="26" width="22" fill={fill}>
+      <Path d="M160 80c0-26.5 21.5-48 48-48l32 0c26.5 0 48 21.5 48 48l0 352c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48l0-352zM0 272c0-26.5 21.5-48 48-48l32 0c26.5 0 48 21.5 48 48l0 160c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48L0 272zM368 96l32 0c26.5 0 48 21.5 48 48l0 288c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48l0-288c0-26.5 21.5-48 48-48z" />
+    </Svg>
+  );
+}
+
 export function Profile({ fill }: { fill: string }) {
   return (
     <Svg viewBox="0 0 512 512" height="26" width="22" fill={fill}>
