@@ -18,7 +18,7 @@ export default async function App() {
       <HomeProvider>
         <div className="flex h-full items-center justify-center">
           <Card className="bg-midground">
-            <CardBody className="flex flex-row gap-2">
+            <CardBody className="flex flex-col lg:flex-row gap-2">
               <TimerTab />
               <TasksTab />
             </CardBody>
