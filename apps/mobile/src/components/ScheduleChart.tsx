@@ -1,11 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useSession } from '../ctx';
-import {
-  LogsWithTasks,
-  useDisplayTime,
-  useLogs,
-} from '../stores/useStatsStore';
+import { LogsWithTasks, useLogs } from '../stores/useStatsStore';
 
 const HOUR_HEIGHT = 120;
 
@@ -23,55 +18,42 @@ const getLogPosition = (log: LogsWithTasks) => {
 };
 
 export default function ScheduleChart() {
-  const { session } = useSession();
   const logs = useLogs() ?? [];
-  const displayTime = useDisplayTime();
   const hours = Array.from({ length: 25 }, (_, i) => i);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.displayTime}>
-          {session ? displayTime : 'Sign in to save focus history'}
-        </Text>
+    <ScrollView
+      style={styles.scrollView}
+      showsVerticalScrollIndicator={false}
+      contentOffset={{ y: (24 * HOUR_HEIGHT) / 3 }}
+    >
+      <View style={styles.chart}>
+        {hours.map((hour) => (
+          <View key={hour} style={styles.hourRow}>
+            <Text
+              style={styles.hourText}
+            >{`${hour.toString().padStart(2, '0')}:00`}</Text>
+            <View style={styles.hourLine} />
+          </View>
+        ))}
+        {logs.map((log) => (
+          <View
+            key={log.id}
+            style={[
+              styles.logItem,
+              {
+                top: getLogPosition(log).start,
+                height: getLogPosition(log).height,
+              },
+            ]}
+          ></View>
+        ))}
       </View>
-      <ScrollView
-        style={styles.scrollView}
-        showsVerticalScrollIndicator={false}
-        contentOffset={{ y: (24 * HOUR_HEIGHT) / 3 }}
-      >
-        <View style={styles.chart}>
-          {hours.map((hour) => (
-            <View key={hour} style={styles.hourRow}>
-              <Text
-                style={styles.hourText}
-              >{`${hour.toString().padStart(2, '0')}:00`}</Text>
-              <View style={styles.hourLine} />
-            </View>
-          ))}
-          {logs.map((log) => (
-            <View
-              key={log.id}
-              style={[
-                styles.logItem,
-                {
-                  top: getLogPosition(log).start,
-                  height: getLogPosition(log).height,
-                },
-              ]}
-            ></View>
-          ))}
-        </View>
-      </ScrollView>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    gap: 10,
-  },
   header: {
     display: 'flex',
     flexDirection: 'row',
