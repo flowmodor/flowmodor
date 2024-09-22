@@ -22,7 +22,7 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex flex-col-reverse sm:flex-row h-[100dvh]">
-      <div className="border-r border-r-secondary py-3 flex flex-row justify-center sm:flex-col items-center ml-0 w-full sm:w-14 sm:h-full bg-midground z-10">
+      <div className="border-t border-t-secondary sm:border-t-0 sm:border-r sm:border-r-secondary py-3 flex flex-row justify-center sm:flex-col items-center ml-0 w-full sm:w-14 sm:h-full bg-midground z-10">
         <div className="flex flex-row sm:flex-col justify-center items-center gap-3">
           <Image
             src="/images/logo.png"

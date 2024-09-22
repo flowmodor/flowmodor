@@ -68,6 +68,7 @@ export default function StatsCard() {
           <Button
             radius="sm"
             color="secondary"
+            className="hidden sm:block"
             onClick={() => {
               setDate(new Date());
             }}
@@ -78,6 +79,7 @@ export default function StatsCard() {
             <Button
               radius="sm"
               color="secondary"
+              className="hidden sm:block"
               onClick={() => {
                 startTransition(async () => {
                   await downloadImage(chartRef, totalFocusTime, dateText);
