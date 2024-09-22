@@ -79,7 +79,7 @@ export default function StatsCard() {
             <Button
               radius="sm"
               color="secondary"
-              className="hidden sm:block"
+              className="hidden sm:flex"
               onClick={() => {
                 startTransition(async () => {
                   await downloadImage(chartRef, totalFocusTime, dateText);
