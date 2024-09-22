@@ -21,9 +21,9 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="flex h-[100dvh]">
-      <div className="border-r border-r-secondary pt-2 pb-3 flex flex-col items-center ml-0 w-14 h-full bg-midground z-10">
-        <div className="flex flex-col items-center gap-3">
+    <div className="flex flex-col-reverse sm:flex-row h-[100dvh]">
+      <div className="border-r border-r-secondary py-3 flex flex-row justify-center sm:flex-col items-center ml-0 w-full sm:w-14 sm:h-full bg-midground z-10">
+        <div className="flex flex-row sm:flex-col justify-center items-center gap-3">
           <Image
             src="/images/logo.png"
             alt="logo"
@@ -31,6 +31,7 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
             width={36}
             height={36}
             priority
+            className="hidden sm:block"
           />
           <SidebarTab tabPathname="/" tabName="Home" hotkey="H">
             <House />
@@ -42,9 +43,11 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
             <Gear />
           </SidebarTab>
         </div>
-        <UserDropdown user={user} />
+        <div className="absolute top-5 right-5 sm:static mt-auto">
+          <UserDropdown user={user} />
+        </div>
       </div>
-      <div className="w-full flex flex-col items-center scrollbar-hide overflow-y-scroll">
+      <div className="h-full sm:w-full flex flex-col items-center scrollbar-hide overflow-y-scroll">
         {children}
       </div>
     </div>

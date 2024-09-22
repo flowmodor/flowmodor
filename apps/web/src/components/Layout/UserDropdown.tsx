@@ -27,7 +27,6 @@ export default function UserDropdown({ user }: { user: any }) {
           showFallback
           src={user.user_metadata?.avatar_url}
           fallback={<User />}
-          className="mt-auto"
         />
       </DropdownTrigger>
       <DropdownMenu aria-label="user info menu">
