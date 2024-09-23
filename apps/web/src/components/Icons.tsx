@@ -54,6 +54,14 @@ export function Google() {
   );
 }
 
+export function Apple() {
+  return (
+    <svg fill="white" height="18" width="16">
+      <use href="/icons.svg#apple" />
+    </svg>
+  );
+}
+
 export function Todoist() {
   return (
     <svg fill="white" width="20" height="20">
