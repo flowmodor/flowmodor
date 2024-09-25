@@ -28,6 +28,7 @@ export default function Toolbar() {
       {status !== 'idle' && (
         <Button
           type="button"
+          size="lg"
           variant="flat"
           isIconOnly
           aria-label={showTime ? 'Hide time' : 'Show time'}
@@ -37,31 +38,11 @@ export default function Toolbar() {
           {showTime ? <Hide /> : <Show />}
         </Button>
       )}
-      {mode === 'focus' && (status === 'running' || status === 'paused') ? (
-        <Button
-          type="button"
-          variant="flat"
-          isLoading={isLoading}
-          isIconOnly
-          aria-label={status === 'running' ? 'Pause' : 'Resume'}
-          className="bg-secondary"
-          onPress={() => {
-            startTransition(async () => {
-              if (status === 'running') {
-                await pauseTimer(focusingTask, activeList);
-              } else {
-                await resumeTimer();
-              }
-            });
-          }}
-        >
-          {status === 'running' ? <Pause /> : <Play />}
-        </Button>
-      ) : null}
       <TooltipWrapper>
         <Button
           id="start-stop-button"
           type="button"
+          size="lg"
           variant="flat"
           isLoading={isLoading}
           isIconOnly
@@ -80,6 +61,28 @@ export default function Toolbar() {
           {status === 'idle' ? <Play /> : <Stop />}
         </Button>
       </TooltipWrapper>
+      {mode === 'focus' && (status === 'running' || status === 'paused') ? (
+        <Button
+          type="button"
+          size="lg"
+          variant="flat"
+          isLoading={isLoading}
+          isIconOnly
+          aria-label={status === 'running' ? 'Pause' : 'Resume'}
+          className="bg-secondary"
+          onPress={() => {
+            startTransition(async () => {
+              if (status === 'running') {
+                await pauseTimer(focusingTask, activeList);
+              } else {
+                await resumeTimer();
+              }
+            });
+          }}
+        >
+          {status === 'running' ? <Pause /> : <Play />}
+        </Button>
+      ) : null}
     </div>
   );
 }

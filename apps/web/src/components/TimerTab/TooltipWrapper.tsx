@@ -20,9 +20,9 @@ export default function TooltipWrapper({ children }: { children: ReactNode }) {
 
   return (
     <Tooltip
-      placement="top"
-      showArrow
+      placement="bottom"
       color="primary"
+      offset={12}
       content={`Break Time: ${formatTime(
         displayTime,
       )} ÷ ${breakRatio} = ${formatTime(displayTime / breakRatio)}`}
