@@ -1,9 +1,7 @@
-import { Link } from 'expo-router';
 import { useState } from 'react';
 import { Alert, Modal, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Auth from '@/src/components/Auth';
-import { External } from '@/src/components/Icons';
 import { Pressable, Text } from '@/src/components/Themed';
 import { useSession } from '@/src/ctx';
 
@@ -47,13 +45,6 @@ export default function Profile() {
           maxWidth: 500,
         }}
       >
-        <Text style={styles.sectionTitle}>General</Text>
-        <Link href="https://app.flowmodor.com/stats">
-          <View style={[styles.sectionItem, { width: '100%' }]}>
-            <Text style={styles.text}>View your focus stats on the web</Text>
-            <External />
-          </View>
-        </Link>
         <Text style={styles.sectionTitle}>Account</Text>
         <View style={styles.sectionItem}>
           <Text style={styles.text}>Email</Text>
