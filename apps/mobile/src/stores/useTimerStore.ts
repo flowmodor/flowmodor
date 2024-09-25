@@ -80,8 +80,8 @@ const useTimerStore = create<Store>((set) => ({
       if (useTimerStore.getState().mode === 'break') {
         await Notifications.scheduleNotificationAsync({
           content: {
-            title: "Time's up!",
-            body: 'Time to focus!',
+            title: 'Flowmodor',
+            body: 'Time to get back to work!',
             sound: 'alarm.wav',
           },
           trigger: {
