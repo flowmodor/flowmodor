@@ -13,8 +13,6 @@ import {
 } from '@/src/stores/useTimerStore';
 import { formatTime } from '@/src/utils';
 
-const REM = PixelRatio.get() > 2 ? 12 : 18;
-
 export default function App() {
   const totalTime = useTotalTime();
   const displayTime = useDisplayTime();
@@ -38,8 +36,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <AnimatedCircularProgress
-        size={28 * REM}
-        width={3 * REM}
+        size={336}
+        width={36}
         fill={
           mode === 'focus'
             ? 0
@@ -124,11 +122,11 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   time: {
-    fontSize: REM * 4,
+    fontSize: 48,
     fontWeight: 'bold',
   },
   mode: {
-    fontSize: REM * 2.5,
+    fontSize: 30,
     fontWeight: 'bold',
   },
   button: {
