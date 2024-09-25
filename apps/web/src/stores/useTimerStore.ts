@@ -186,6 +186,7 @@ export const useEndTime = () => useTimerStore((state) => state.endTime);
 export const useTotalTime = () => useTimerStore((state) => state.totalTime);
 export const useDisplayTime = () => useTimerStore((state) => state.displayTime);
 export const useMode = () => useTimerStore((state) => state.mode);
-export const useShowTime = () => useTimerStore((state) => state.showTime);
+export const useShowTime = () =>
+  useTimerStore((state) => state.showTime || state.status === 'idle');
 export const useStatus = () => useTimerStore((state) => state.status);
 export const useTimerActions = () => useTimerStore((state) => state.actions);

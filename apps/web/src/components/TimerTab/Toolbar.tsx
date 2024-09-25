@@ -25,16 +25,18 @@ export default function Toolbar() {
 
   return (
     <div className="flex items-center justify-center gap-5">
-      <Button
-        type="button"
-        variant="flat"
-        isIconOnly
-        aria-label={showTime ? 'Hide time' : 'Show time'}
-        className="bg-secondary"
-        onPress={toggleShowTime}
-      >
-        {showTime ? <Hide /> : <Show />}
-      </Button>
+      {status !== 'idle' && (
+        <Button
+          type="button"
+          variant="flat"
+          isIconOnly
+          aria-label={showTime ? 'Hide time' : 'Show time'}
+          className="bg-secondary"
+          onPress={toggleShowTime}
+        >
+          {showTime ? <Hide /> : <Show />}
+        </Button>
+      )}
       {mode === 'focus' && (status === 'running' || status === 'paused') ? (
         <Button
           type="button"
