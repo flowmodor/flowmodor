@@ -82,7 +82,7 @@ const useTimerStore = create<Store>((set) => ({
           content: {
             title: "Time's up!",
             body: 'Time to focus!',
-            sound: 'default',
+            sound: 'alarm.wav',
           },
           trigger: {
             seconds: useTimerStore.getState().totalTime / 1000 + 1,

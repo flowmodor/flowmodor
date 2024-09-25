@@ -32,6 +32,12 @@
         {
           "iosUrlScheme": "com.googleusercontent.apps.455646946782-c5csgm9elmh44c7kb3i3v4ui1m6ijg3m"
         }
+      ],
+      [
+        "expo-notifications",
+        {
+          "sounds": ["./assets/alarm.wav"]
+        }
       ]
     ],
     "experiments": {
