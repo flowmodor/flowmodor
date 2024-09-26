@@ -22,7 +22,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#131221"
-      }
+      },
+      "package": "com.m4xshen.mobile"
     },
     "plugins": [
       "expo-router",
@@ -36,7 +37,9 @@
       [
         "expo-notifications",
         {
-          "sounds": ["./assets/alarm.wav"]
+          "sounds": [
+            "./assets/alarm.wav"
+          ]
         }
       ]
     ],
