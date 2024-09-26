@@ -1,7 +1,3 @@
-alter table "public"."feedback" alter column "user_id" set default auth.uid();
-
-alter table "public"."feedback" enable row level security;
-
 alter table "public"."logs" alter column "user_id" set default auth.uid();
 
 alter table "public"."logs" enable row level security;
@@ -9,14 +5,6 @@ alter table "public"."logs" enable row level security;
 alter table "public"."tasks" alter column "user_id" set default auth.uid();
 
 alter table "public"."tasks" enable row level security;
-
-create policy "Enable insert for authenticated users only"
-on "public"."feedback"
-as permissive
-for insert
-to authenticated
-with check (true);
-
 
 create policy "Enable insert for authenticated users only"
 on "public"."logs"

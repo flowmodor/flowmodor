@@ -30,9 +30,6 @@ begin
   insert into public.settings (user_id, break_ratio)
   values (new.id, 5);
 
-  insert into public.plans (user_id, subscription_id)
-  values (new.id, NULL);
-
   insert into public.integration (user_id, provider, access_token)
   values (new.id, NULL, NULL);
 
