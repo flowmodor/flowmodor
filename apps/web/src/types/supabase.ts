@@ -6,65 +6,9 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
-      features: {
-        Row: {
-          created_at: string
-          description: string
-          id: number
-          status: Database["public"]["Enums"]["feature_status"]
-          title: string
-          upvotes: number
-        }
-        Insert: {
-          created_at?: string
-          description: string
-          id?: number
-          status?: Database["public"]["Enums"]["feature_status"]
-          title: string
-          upvotes?: number
-        }
-        Update: {
-          created_at?: string
-          description?: string
-          id?: number
-          status?: Database["public"]["Enums"]["feature_status"]
-          title?: string
-          upvotes?: number
-        }
-        Relationships: []
-      }
-      feedback: {
-        Row: {
-          content: string
-          created_at: string
-          id: number
-          user_id: string | null
-        }
-        Insert: {
-          content: string
-          created_at?: string
-          id?: number
-          user_id?: string | null
-        }
-        Update: {
-          content?: string
-          created_at?: string
-          id?: number
-          user_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "feedback_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
       integrations: {
         Row: {
           access_token: string | null
@@ -91,7 +35,7 @@ export interface Database {
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
       logs: {
@@ -133,80 +77,7 @@ export interface Database {
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
-          }
-        ]
-      }
-      plans: {
-        Row: {
-          billing_interval:
-            | Database["public"]["Enums"]["billing_interval"]
-            | null
-          end_time: string | null
-          id: number
-          next_billed_at: string | null
-          plan: Database["public"]["Enums"]["plan"]
-          status: Database["public"]["Enums"]["status"] | null
-          subscription_id: string | null
-          user_id: string
-        }
-        Insert: {
-          billing_interval?:
-            | Database["public"]["Enums"]["billing_interval"]
-            | null
-          end_time?: string | null
-          id?: number
-          next_billed_at?: string | null
-          plan?: Database["public"]["Enums"]["plan"]
-          status?: Database["public"]["Enums"]["status"] | null
-          subscription_id?: string | null
-          user_id: string
-        }
-        Update: {
-          billing_interval?:
-            | Database["public"]["Enums"]["billing_interval"]
-            | null
-          end_time?: string | null
-          id?: number
-          next_billed_at?: string | null
-          plan?: Database["public"]["Enums"]["plan"]
-          status?: Database["public"]["Enums"]["status"] | null
-          subscription_id?: string | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "plans_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
-      profiles: {
-        Row: {
-          id: number
-          is_new: boolean
-          user_id: string
-        }
-        Insert: {
-          id?: number
-          is_new: boolean
-          user_id: string
-        }
-        Update: {
-          id?: number
-          is_new?: boolean
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "profiles_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
+          },
         ]
       }
       settings: {
@@ -232,7 +103,7 @@ export interface Database {
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
       tasks: {
@@ -264,43 +135,7 @@ export interface Database {
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
-          }
-        ]
-      }
-      votes: {
-        Row: {
-          created_at: string
-          feature_id: number
-          id: number
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          feature_id: number
-          id?: number
-          user_id?: string
-        }
-        Update: {
-          created_at?: string
-          feature_id?: number
-          id?: number
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "votes_feature_id_fkey"
-            columns: ["feature_id"]
-            isOneToOne: false
-            referencedRelation: "features"
-            referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "votes_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
         ]
       }
     }
@@ -308,33 +143,13 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      decrement_upvotes: {
-        Args: {
-          feature_id: number
-        }
-        Returns: undefined
-      }
       delete_account: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      increment_upvotes: {
-        Args: {
-          feature_id: number
-        }
-        Returns: undefined
-      }
-      update_expired_integrations: {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }
     }
     Enums: {
-      billing_interval: "month" | "year"
-      feature_status: "completed" | "in_progress" | "approved"
-      plan: "Starter" | "Pro"
       provider: "todoist"
-      status: "active" | "canceled" | "past_due" | "paused" | "trialing"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -344,42 +159,35 @@ export interface Database {
     Tables: {
       buckets: {
         Row: {
-          allowed_mime_types: string[] | null
-          avif_autodetection: boolean | null
           created_at: string | null
-          file_size_limit: number | null
           id: string
           name: string
           owner: string | null
-          owner_id: string | null
-          public: boolean | null
           updated_at: string | null
         }
         Insert: {
-          allowed_mime_types?: string[] | null
-          avif_autodetection?: boolean | null
           created_at?: string | null
-          file_size_limit?: number | null
           id: string
           name: string
           owner?: string | null
-          owner_id?: string | null
-          public?: boolean | null
           updated_at?: string | null
         }
         Update: {
-          allowed_mime_types?: string[] | null
-          avif_autodetection?: boolean | null
           created_at?: string | null
-          file_size_limit?: number | null
           id?: string
           name?: string
           owner?: string | null
-          owner_id?: string | null
-          public?: boolean | null
           updated_at?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "buckets_owner_fkey"
+            columns: ["owner"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       migrations: {
         Row: {
@@ -411,10 +219,7 @@ export interface Database {
           metadata: Json | null
           name: string | null
           owner: string | null
-          owner_id: string | null
-          path_tokens: string[] | null
           updated_at: string | null
-          version: string | null
         }
         Insert: {
           bucket_id?: string | null
@@ -424,10 +229,7 @@ export interface Database {
           metadata?: Json | null
           name?: string | null
           owner?: string | null
-          owner_id?: string | null
-          path_tokens?: string[] | null
           updated_at?: string | null
-          version?: string | null
         }
         Update: {
           bucket_id?: string | null
@@ -437,10 +239,7 @@ export interface Database {
           metadata?: Json | null
           name?: string | null
           owner?: string | null
-          owner_id?: string | null
-          path_tokens?: string[] | null
           updated_at?: string | null
-          version?: string | null
         }
         Relationships: [
           {
@@ -449,7 +248,14 @@ export interface Database {
             isOneToOne: false
             referencedRelation: "buckets"
             referencedColumns: ["id"]
-          }
+          },
+          {
+            foreignKeyName: "objects_owner_fkey"
+            columns: ["owner"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
         ]
       }
     }
@@ -457,15 +263,6 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      can_insert_object: {
-        Args: {
-          bucketid: string
-          name: string
-          owner: string
-          metadata: Json
-        }
-        Returns: undefined
-      }
       extension: {
         Args: {
           name: string
@@ -482,14 +279,7 @@ export interface Database {
         Args: {
           name: string
         }
-        Returns: unknown
-      }
-      get_size_by_bucket: {
-        Args: Record<PropertyKey, never>
-        Returns: {
-          size: number
-          bucket_id: string
-        }[]
+        Returns: string[]
       }
       search: {
         Args: {
@@ -498,9 +288,6 @@ export interface Database {
           limits?: number
           levels?: number
           offsets?: number
-          search?: string
-          sortcolumn?: string
-          sortorder?: string
         }
         Returns: {
           name: string
@@ -521,14 +308,16 @@ export interface Database {
   }
 }
 
+type PublicSchema = Database[Extract<keyof Database, "public">]
+
 export type Tables<
   PublicTableNameOrOptions extends
-    | keyof (Database["public"]["Tables"] & Database["public"]["Views"])
+    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
         Database[PublicTableNameOrOptions["schema"]]["Views"])
-    : never = never
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
       Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
@@ -536,68 +325,68 @@ export type Tables<
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] &
-      Database["public"]["Views"])
-  ? (Database["public"]["Tables"] &
-      Database["public"]["Views"])[PublicTableNameOrOptions] extends {
-      Row: infer R
-    }
-    ? R
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
+        PublicSchema["Views"])
+    ? (PublicSchema["Tables"] &
+        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+        Row: infer R
+      }
+      ? R
+      : never
     : never
-  : never
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
-    | keyof Database["public"]["Tables"]
+    | keyof PublicSchema["Tables"]
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
-    : never = never
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
-  ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
-      Insert: infer I
-    }
-    ? I
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+        Insert: infer I
+      }
+      ? I
+      : never
     : never
-  : never
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
-    | keyof Database["public"]["Tables"]
+    | keyof PublicSchema["Tables"]
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
-    : never = never
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
-  ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
-      Update: infer U
-    }
-    ? U
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+        Update: infer U
+      }
+      ? U
+      : never
     : never
-  : never
 
 export type Enums<
   PublicEnumNameOrOptions extends
-    | keyof Database["public"]["Enums"]
+    | keyof PublicSchema["Enums"]
     | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
-    : never = never
+    : never = never,
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
-  ? Database["public"]["Enums"][PublicEnumNameOrOptions]
-  : never
+  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
+    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never
 
