@@ -1,5 +1,5 @@
+import { LogsWithTasks } from '@flowmodor/types';
 import { create } from 'zustand';
-import { LogsWithTasks } from '@/utils/stats/calculateTaskTime';
 import supabase from '@/utils/supabase';
 
 export type Period = 'Day' | 'Week' | 'Month';

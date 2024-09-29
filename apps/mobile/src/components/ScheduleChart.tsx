@@ -1,6 +1,7 @@
+import { LogsWithTasks } from '@flowmodor/types';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { LogsWithTasks, useLogs } from '../stores/useStatsStore';
+import { useLogs } from '../stores/useStatsStore';
 
 const HOUR_HEIGHT = 120;
 

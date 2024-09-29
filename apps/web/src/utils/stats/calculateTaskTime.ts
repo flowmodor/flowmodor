@@ -1,11 +1,6 @@
-import { Tables } from '@flowmodor/types';
+import { LogsWithTasks } from '@flowmodor/types';
 
-export type LogsWithTasks = Tables<'logs'> & {
-  tasks: {
-    name: string;
-  } | null;
-};
-
+// eslint-disable-next-line import/prefer-default-export
 export function calculateTaskTime(logs: LogsWithTasks[]) {
   const taskTimeMap: { [task: string]: number } = {};
   for (let i = 0; i < logs.length; i += 1) {

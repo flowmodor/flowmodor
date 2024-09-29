@@ -145,6 +145,9 @@ importers:
       '@babel/core':
         specifier: ^7.20.0
         version: 7.25.2
+      '@flowmodor/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@types/react':
         specifier: ~18.2.45
         version: 18.2.79

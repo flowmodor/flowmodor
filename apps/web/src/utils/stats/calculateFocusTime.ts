@@ -1,4 +1,4 @@
-import { LogsWithTasks } from '@/utils/stats/calculateTaskTime';
+import { LogsWithTasks } from '@flowmodor/types';
 
 /* eslint-disable no-restricted-syntax */
 export default function calculateFocusTimes(sessions: LogsWithTasks[]): {

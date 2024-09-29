@@ -1,4 +1,4 @@
-import { LogsWithTasks } from '@/utils/stats/calculateTaskTime';
+import { LogsWithTasks } from '@flowmodor/types';
 
 const formatTime = (time: number) => {
   const t = Math.floor(time);

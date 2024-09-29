@@ -1,20 +1,8 @@
+import { LogsWithTasks } from '@flowmodor/types';
 import { create } from 'zustand';
 import { supabase } from '../utils/supabase';
 
 export type Period = 'Day' | 'Week' | 'Month';
-
-export type LogsWithTasks = {
-  end_time: string;
-  id: number;
-  start_time: string;
-  task_id: number | null;
-  task_name: string | null;
-  user_id: string | null;
-} & {
-  tasks: {
-    name: string;
-  } | null;
-};
 
 interface State {
   startDate: Date;

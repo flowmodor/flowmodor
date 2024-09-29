@@ -1,3 +1,4 @@
+import { LogsWithTasks } from '@flowmodor/types';
 import {
   BarElement,
   CategoryScale,
@@ -10,7 +11,6 @@ import {
 import { ForwardedRef, forwardRef, memo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { weeklyLogsToChartData } from '@/utils';
-import { LogsWithTasks } from '@/utils/stats/calculateTaskTime';
 
 ChartJS.register(
   CategoryScale,
