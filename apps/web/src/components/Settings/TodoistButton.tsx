@@ -1,10 +1,10 @@
 'use client';
 
+import { Enums } from '@flowmodor/types';
 import { Button } from '@nextui-org/button';
 import { useTransition } from 'react';
 import { toast } from 'sonner';
 import { connectTodoist, disconnectTodoist } from '@/actions/settings';
-import { Enums } from '@/types/supabase';
 import { Todoist } from '../Icons';
 
 export default function TodoistButton({

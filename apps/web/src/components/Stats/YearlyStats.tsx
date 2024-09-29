@@ -1,7 +1,7 @@
 'use client';
 
+import { Tables } from '@flowmodor/types';
 import { Card, CardBody } from '@nextui-org/card';
-import { Tables } from '@/types/supabase';
 import Heatmap from './Heatmap';
 
 const calculateFocusTime = (data: Tables<'logs'>[]) => {

@@ -1,4 +1,4 @@
-import { Tables } from '@/types/supabase';
+import { Tables } from '@flowmodor/types';
 
 export type LogsWithTasks = Tables<'logs'> & {
   tasks: {

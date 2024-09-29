@@ -1,0 +1,9 @@
+{
+  "name": "@flowmodor/types",
+  "version": "0.1.0",
+  "main": "supabase.ts",
+  "types": "supabase.ts",
+  "scripts": {
+    "codegen": "cd ../../apps/server && supabase gen types typescript --local > ../../packages/types/supabase.ts"
+  }
+}
