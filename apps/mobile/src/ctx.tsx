@@ -11,7 +11,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { Alert } from 'react-native';
+import { Alert, AppState } from 'react-native';
 import { useStatsActions } from './stores/useStatsStore';
 import { supabase } from './utils/supabase';
 
@@ -44,6 +44,14 @@ export function useSession() {
 
   return value;
 }
+
+AppState.addEventListener('change', (state) => {
+  if (state === 'active') {
+    supabase.auth.startAutoRefresh();
+  } else {
+    supabase.auth.stopAutoRefresh();
+  }
+});
 
 export function SessionProvider({ children }: PropsWithChildren) {
   const [session, setSession] = useState<Session | null>(null);
