@@ -32,7 +32,7 @@ export default function Profile() {
         height: '100%',
         backgroundColor: '#131221',
         alignItems: 'center',
-        paddingTop: insets.top,
+        paddingTop: insets.top + 10,
         paddingHorizontal: 20,
         gap: 20,
       }}
