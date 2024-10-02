@@ -1,3 +1,4 @@
+import { useFocusEffect } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Left, Right } from '@/src/components/Icons';
@@ -10,7 +11,11 @@ export default function Stats() {
   const insets = useSafeAreaInsets();
   const { session } = useSession();
   const displayTime = useDisplayTime();
-  const { goPreviousTime, goNextTime } = useStatsActions();
+  const { goPreviousTime, goNextTime, updateLogs } = useStatsActions();
+
+  useFocusEffect(() => {
+    updateLogs();
+  });
 
   return (
     <View

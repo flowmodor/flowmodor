@@ -1,7 +1,4 @@
-import {
-  GoogleSignin,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { AuthError, PostgrestError, Session } from '@supabase/supabase-js';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import {
@@ -11,7 +8,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { Alert, AppState } from 'react-native';
+import { Alert } from 'react-native';
 import { useStatsActions } from './stores/useStatsStore';
 import { supabase } from './utils/supabase';
 
@@ -45,14 +42,6 @@ export function useSession() {
   return value;
 }
 
-AppState.addEventListener('change', (state) => {
-  if (state === 'active') {
-    supabase.auth.startAutoRefresh();
-  } else {
-    supabase.auth.stopAutoRefresh();
-  }
-});
-
 export function SessionProvider({ children }: PropsWithChildren) {
   const [session, setSession] = useState<Session | null>(null);
   const { updateLogs } = useStatsActions();
@@ -64,7 +53,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
 
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-      updateLogs();
     });
 
     GoogleSignin.configure({
@@ -91,7 +79,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
             const { data: userInfo } = await GoogleSignin.signIn();
 
             if (userInfo?.idToken) {
-              const { data, error } = await supabase.auth.signInWithIdToken({
+              const { error } = await supabase.auth.signInWithIdToken({
                 provider: 'google',
                 token: userInfo.idToken,
               });
@@ -111,10 +99,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
             });
 
             if (credential.identityToken) {
-              const {
-                error,
-                data: { user },
-              } = await supabase.auth.signInWithIdToken({
+              const { error } = await supabase.auth.signInWithIdToken({
                 provider: 'apple',
                 token: credential.identityToken,
               });
