@@ -19,7 +19,8 @@ export default function Toolbar() {
 
   const { startTimer, stopTimer, pauseTimer, resumeTimer, toggleShowTime } =
     useTimerActions();
-  const [isLoading, startTransition] = useTransition();
+  const [isStopLoading, startStopTransition] = useTransition();
+  const [isPauseLoading, startPauseTransition] = useTransition();
   const focusingTask = useFocusingTask();
   const activeList = useActiveList();
 
@@ -28,11 +29,12 @@ export default function Toolbar() {
       {status !== 'idle' && (
         <Button
           type="button"
-          size="lg"
+          radius="lg"
           variant="flat"
           isIconOnly
+          disableRipple
           aria-label={showTime ? 'Hide time' : 'Show time'}
-          className="bg-secondary"
+          className="bg-secondary w-12 h-12"
           onPress={toggleShowTime}
         >
           {showTime ? <Hide /> : <Show />}
@@ -42,14 +44,16 @@ export default function Toolbar() {
         <Button
           id="start-stop-button"
           type="button"
-          size="lg"
+          radius="lg"
           variant="flat"
-          isLoading={isLoading}
+          isLoading={isStopLoading}
+          isDisabled={isPauseLoading}
           isIconOnly
+          disableRipple
           aria-label={status === 'idle' ? 'Start' : 'Stop'}
-          className="bg-secondary"
+          className="bg-secondary w-12 h-12"
           onPress={() => {
-            startTransition(async () => {
+            startStopTransition(async () => {
               if (status !== 'idle') {
                 await stopTimer(focusingTask, activeList);
               } else {
@@ -64,14 +68,16 @@ export default function Toolbar() {
       {mode === 'focus' && (status === 'running' || status === 'paused') ? (
         <Button
           type="button"
-          size="lg"
           variant="flat"
-          isLoading={isLoading}
+          radius="lg"
+          isLoading={isPauseLoading}
+          isDisabled={isStopLoading}
           isIconOnly
+          disableRipple
           aria-label={status === 'running' ? 'Pause' : 'Resume'}
-          className="bg-secondary"
+          className="bg-secondary w-12 h-12"
           onPress={() => {
-            startTransition(async () => {
+            startPauseTransition(async () => {
               if (status === 'running') {
                 await pauseTimer(focusingTask, activeList);
               } else {
