@@ -153,7 +153,7 @@ const useTimerStore = create<Store>((set) => ({
 
           // eslint-disable-next-line no-new
           new Notification('Flowmodor', {
-            body: 'Time to focus!',
+            body: 'Time to get back to work!',
             icon: '/images/icons/general_icon_x512.png',
           });
 
