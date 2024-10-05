@@ -300,7 +300,11 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
-  packages/types: {}
+  packages/types:
+    dependencies:
+      '@supabase/supabase-js':
+        specifier: ^2.39.3
+        version: 2.39.3
 
 packages:
 
