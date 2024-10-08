@@ -61,7 +61,7 @@ async function getBreakRatio() {
   return data?.break_ratio || 5;
 }
 
-const useTimerStore = create<Store>((set) => ({
+const useTimerStore = create<Store>((set, get) => ({
   startTime: null,
   endTime: null,
   totalTime: 0,
@@ -77,7 +77,7 @@ const useTimerStore = create<Store>((set) => ({
         status: 'running',
       }));
 
-      if (useTimerStore.getState().mode === 'break') {
+      if (get().mode === 'break') {
         await Notifications.scheduleNotificationAsync({
           content: {
             title: 'Flowmodor',
@@ -85,7 +85,7 @@ const useTimerStore = create<Store>((set) => ({
             sound: 'alarm.wav',
           },
           trigger: {
-            seconds: useTimerStore.getState().totalTime / 1000 + 1,
+            seconds: get().totalTime / 1000 + 1,
           },
         });
       }
@@ -93,8 +93,8 @@ const useTimerStore = create<Store>((set) => ({
     stopTimer: async (focusingTask, activeList) => {
       const breakRatio = await getBreakRatio();
 
-      if (useTimerStore.getState().status === 'paused') {
-        const totalTime = useTimerStore.getState().totalTime / breakRatio;
+      if (get().status === 'paused') {
+        const totalTime = get().totalTime / breakRatio;
         set((state) => ({
           totalTime,
           displayTime: Math.floor(totalTime / 1000),
@@ -104,11 +104,11 @@ const useTimerStore = create<Store>((set) => ({
         return;
       }
 
-      if (useTimerStore.getState().mode === 'break') {
+      if (get().mode === 'break') {
         await Notifications.cancelAllScheduledNotificationsAsync();
       }
 
-      await useTimerStore.getState().actions.log(focusingTask, activeList);
+      await get().actions.log(focusingTask, activeList);
       set((state) => {
         const totalTime =
           state.mode === 'focus'
@@ -124,7 +124,7 @@ const useTimerStore = create<Store>((set) => ({
       });
     },
     pauseTimer: async (focusingTask, activeList) => {
-      await useTimerStore.getState().actions.log(focusingTask, activeList);
+      await get().actions.log(focusingTask, activeList);
 
       set((state) => {
         const totalTime = state.totalTime + Date.now() - state.startTime!;
@@ -149,11 +149,9 @@ const useTimerStore = create<Store>((set) => ({
         return;
       }
 
-      const start_time = new Date(
-        useTimerStore.getState().startTime!,
-      ).toISOString();
+      const start_time = new Date(get().startTime!).toISOString();
       const end_time = new Date(Date.now()).toISOString();
-      const { mode } = useTimerStore.getState();
+      const { mode } = get();
 
       if (mode === 'break') {
         return;

@@ -25,7 +25,7 @@ interface Store extends State {
   actions: Action;
 }
 
-export const useStatsStore = create<Store>((set) => ({
+export const useStatsStore = create<Store>((set, get) => ({
   startDate: new Date(),
   endDate: new Date(),
   period: 'Day',
@@ -36,7 +36,7 @@ export const useStatsStore = create<Store>((set) => ({
   logs: null,
   actions: {
     updateLogs: async () => {
-      const { startDate: sd, endDate: ed, period } = useStatsStore.getState();
+      const { startDate: sd, endDate: ed, period } = get();
       const startDate = new Date(sd);
       startDate.setHours(0, 0, 0, 0);
       const endDate = new Date(ed);
@@ -98,7 +98,7 @@ export const useStatsStore = create<Store>((set) => ({
 
         return {};
       });
-      useStatsStore.getState().actions.updateLogs();
+      get().actions.updateLogs();
     },
     goPreviousTime: () => {
       set((state) => {
@@ -126,7 +126,7 @@ export const useStatsStore = create<Store>((set) => ({
 
         return {};
       });
-      useStatsStore.getState().actions.updateLogs();
+      get().actions.updateLogs();
     },
     onPeriodChange: (period: Period) => {
       set((state) => {
@@ -148,14 +148,14 @@ export const useStatsStore = create<Store>((set) => ({
           period,
         };
       });
-      useStatsStore.getState().actions.updateLogs();
+      get().actions.updateLogs();
     },
     setDate: (date: Date) => {
       set({
         startDate: date,
         endDate: date,
       });
-      useStatsStore.getState().actions.updateLogs();
+      get().actions.updateLogs();
     },
     setWeek: (date: Date) => {
       const startDate = new Date(date);
@@ -170,7 +170,7 @@ export const useStatsStore = create<Store>((set) => ({
         startDate,
         endDate,
       });
-      useStatsStore.getState().actions.updateLogs();
+      get().actions.updateLogs();
     },
   },
 }));

@@ -37,7 +37,7 @@ async function getBreakRatio() {
   return data?.break_ratio || 5;
 }
 
-const useTimerStore = create<Store>((set) => ({
+const useTimerStore = create<Store>((set, get) => ({
   startTime: null,
   endTime: null,
   totalTime: 0,
@@ -59,8 +59,8 @@ const useTimerStore = create<Store>((set) => ({
     stopTimer: async (focusingTask, activeList) => {
       const breakRatio = await getBreakRatio();
 
-      if (useTimerStore.getState().status === 'paused') {
-        const totalTime = useTimerStore.getState().totalTime / breakRatio;
+      if (get().status === 'paused') {
+        const totalTime = get().totalTime / breakRatio;
         set((state) => ({
           totalTime,
           displayTime: Math.floor(totalTime / 1000),
@@ -70,7 +70,7 @@ const useTimerStore = create<Store>((set) => ({
         return;
       }
 
-      await useTimerStore.getState().actions.log(focusingTask, activeList);
+      await get().actions.log(focusingTask, activeList);
       set((state) => {
         const totalTime =
           state.mode === 'focus'
@@ -86,7 +86,7 @@ const useTimerStore = create<Store>((set) => ({
       });
     },
     pauseTimer: async (focusingTask, activeList) => {
-      await useTimerStore.getState().actions.log(focusingTask, activeList);
+      await get().actions.log(focusingTask, activeList);
 
       set((state) => {
         const totalTime = state.totalTime + Date.now() - state.startTime!;
@@ -103,11 +103,9 @@ const useTimerStore = create<Store>((set) => ({
       }));
     },
     log: async (focusingTask, activeList) => {
-      const start_time = new Date(
-        useTimerStore.getState().startTime!,
-      ).toISOString();
+      const start_time = new Date(get().startTime!).toISOString();
       const end_time = new Date(Date.now()).toISOString();
-      const { mode } = useTimerStore.getState();
+      const { mode } = get();
 
       if (mode === 'break') {
         return;
