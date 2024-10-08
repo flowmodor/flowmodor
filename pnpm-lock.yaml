@@ -66,6 +66,9 @@ importers:
 
   apps/mobile:
     dependencies:
+      '@doist/todoist-api-typescript':
+        specifier: ^3.0.2
+        version: 3.0.2
       '@expo/vector-icons':
         specifier: ^14.0.2
         version: 14.0.2
@@ -123,6 +126,9 @@ importers:
       react-native:
         specifier: 0.74.5
         version: 0.74.5(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))(@types/react@18.2.79)(react@18.2.0)
+      react-native-bouncy-checkbox:
+        specifier: ^4.1.2
+        version: 4.1.2
       react-native-circular-progress:
         specifier: ^1.4.0
         version: 1.4.0(react-native-svg@15.2.0(react-native@0.74.5(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0))(react-native@0.74.5(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0)
@@ -1514,6 +1520,9 @@ packages:
 
   '@formatjs/intl-localematcher@0.5.2':
     resolution: {integrity: sha512-txaaE2fiBMagLrR4jYhxzFO6wEdEG4TPMqrzBAcbr4HFUYzH/YC+lg6OIzKCHm8WgDdyQevxbAAV1OgcXctuGw==}
+
+  '@freakycoder/react-native-bounceable@1.0.3':
+    resolution: {integrity: sha512-+iMq2tnqxCwFjitbPUz9nZ+VfJ8OU9waIlDJAAsoq1229QEwCmERCNy5zVtDsz75q3i4FLXX/n7fimdMzmP21A==}
 
   '@graphql-typed-document-node/core@3.2.0':
     resolution: {integrity: sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==}
@@ -6789,6 +6798,9 @@ packages:
       '@types/react': '>=18'
       react: '>=18'
 
+  react-native-bouncy-checkbox@4.1.2:
+    resolution: {integrity: sha512-hB7YwCGTNoMpTPOPiP+RWyQH35S6vxUbc7IGEW/Rqyp7GonEyhtqtthmxiphneRXnywMh8CZwND7OnvppJZscg==}
+
   react-native-circular-progress@1.4.0:
     resolution: {integrity: sha512-JnJE2pvyDVBdIJN49SziDMBmwn6cYTdrWVzpWFzVXzSzouZ9+0+N1nlGFM2zw3gqrJzjL+KktPTUf99IpU5yAg==}
     peerDependencies:
@@ -10141,6 +10153,8 @@ snapshots:
   '@formatjs/intl-localematcher@0.5.2':
     dependencies:
       tslib: 2.7.0
+
+  '@freakycoder/react-native-bounceable@1.0.3': {}
 
   '@graphql-typed-document-node/core@3.2.0(graphql@15.8.0)':
     dependencies:
@@ -17106,6 +17120,10 @@ snapshots:
       vfile: 6.0.1
     transitivePeerDependencies:
       - supports-color
+
+  react-native-bouncy-checkbox@4.1.2:
+    dependencies:
+      '@freakycoder/react-native-bounceable': 1.0.3
 
   react-native-circular-progress@1.4.0(react-native-svg@15.2.0(react-native@0.74.5(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0))(react-native@0.74.5(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0):
     dependencies:

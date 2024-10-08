@@ -1,6 +1,6 @@
 import * as Haptics from 'expo-haptics';
 import { Tabs } from 'expo-router';
-import { Profile, Stats, Timer } from '@/src/components/Icons';
+import { Profile, Stats, Tasks, Timer } from '@/src/components/Icons';
 import { SessionProvider } from '@/src/ctx';
 import useTick from '@/src/hooks/useTick';
 
@@ -32,6 +32,13 @@ export default function TabLayout() {
           options={{
             title: 'Timer',
             tabBarIcon: ({ color }) => <Timer fill={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="tasks"
+          options={{
+            title: 'Tasks',
+            tabBarIcon: ({ color }) => <Tasks fill={color} />,
           }}
         />
         <Tabs.Screen
