@@ -75,10 +75,15 @@ export default function TimerTab() {
                     gap: 4,
                   }}
                 >
-                  <Text style={styles.focusingTaskText}>
+                  <Text
+                    style={[
+                      styles.focusingTaskText,
+                      focusingTask && styles.focusingTaskTextActive,
+                    ]}
+                  >
                     {focusingTask ? focusingTask.name : 'Select a task'}
                   </Text>
-                  <AngleRight />
+                  <AngleRight fill={focusingTask ? '#FFFFFF' : '#FFFFFFA0'} />
                 </View>
               </NativePressable>
             </View>
@@ -168,6 +173,9 @@ const styles = StyleSheet.create({
   focusingTaskText: {
     color: '#FFFFFFA0',
     fontSize: 16,
-    fontWeight: 600,
+    fontWeight: '600',
+  },
+  focusingTaskTextActive: {
+    color: '#FFFFFF',
   },
 });
