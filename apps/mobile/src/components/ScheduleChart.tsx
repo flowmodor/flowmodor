@@ -37,18 +37,34 @@ export default function ScheduleChart() {
             <View style={styles.hourLine} />
           </View>
         ))}
-        {logs.map((log) => (
-          <View
-            key={log.id}
-            style={[
-              styles.logItem,
-              {
-                top: getLogPosition(log).start,
-                height: getLogPosition(log).height,
-              },
-            ]}
-          ></View>
-        ))}
+        {logs.map((log) => {
+          const duration =
+            (new Date(log.end_time).getTime() -
+              new Date(log.start_time).getTime()) /
+            60000;
+
+          return (
+            <View
+              key={log.id}
+              style={[
+                styles.logItem,
+                {
+                  top: getLogPosition(log).start,
+                  height: getLogPosition(log).height,
+                },
+              ]}
+            >
+              {duration >= 10 && (
+                <>
+                  <Text>{log.task_name ?? log.tasks?.name ?? 'Focus'}</Text>
+                  <Text>
+                    <Time time={duration} />
+                  </Text>
+                </>
+              )}
+            </View>
+          );
+        })}
       </View>
     </ScrollView>
   );
@@ -92,6 +108,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#3F3E55',
   },
   logItem: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
     position: 'absolute',
     left: 50,
     right: 0,
@@ -99,3 +120,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#DBBFFF',
   },
 });
+
+function Time({ time }: { time: number }) {
+  return (
+    <>
+      {Math.floor(time / 60) > 0 ? (
+        <Text>{Math.floor(time / 60)} hr </Text>
+      ) : null}
+      {time % 60 > 0 ? <Text>{Math.floor(time % 60)} min</Text> : null}
+    </>
+  );
+}
