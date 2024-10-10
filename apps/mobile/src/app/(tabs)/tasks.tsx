@@ -1,5 +1,4 @@
 import * as Haptics from 'expo-haptics';
-import { useFocusEffect } from 'expo-router';
 import React, { useState } from 'react';
 import {
   FlatList,
@@ -19,13 +18,9 @@ import { useTasks, useTasksActions } from '@/src/stores/useTasksStore';
 export default function Stats() {
   const insets = useSafeAreaInsets();
   const tasks = useTasks();
-  const { completeTask, addTask, fetchTasks } = useTasksActions();
+  const { completeTask, addTask } = useTasksActions();
   const [newTaskName, setNewTaskName] = useState('');
   const { session } = useSession();
-
-  useFocusEffect(() => {
-    fetchTasks();
-  });
 
   const renderTask = ({ item }: { item: any }) => (
     <View style={styles.taskContainer}>

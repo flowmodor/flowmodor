@@ -300,6 +300,8 @@ export const useTasksStore = create<Store>((set, get) => ({
     focusTask: (task) => set({ focusingTask: task }),
     unfocusTask: () => set({ focusingTask: null }),
     fetchTasks: async () => {
+      set({ focusingTask: null });
+
       const {
         data: { session },
       } = await supabase.auth.getSession();
@@ -308,7 +310,7 @@ export const useTasksStore = create<Store>((set, get) => ({
         return;
       }
 
-      set({ focusingTask: null, isLoadingTasks: true });
+      set({ isLoadingTasks: true });
 
       const { activeList } = get();
       const [provider, id] = activeList.split(' - ');

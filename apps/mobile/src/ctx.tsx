@@ -10,7 +10,7 @@ import {
 } from 'react';
 import { Alert } from 'react-native';
 import { useStatsActions } from './stores/useStatsStore';
-import { clearTasks } from './stores/useTasksStore';
+import { clearTasks, useTasksActions } from './stores/useTasksStore';
 import { supabase } from './utils/supabase';
 
 const AuthContext = createContext<{
@@ -46,6 +46,7 @@ export function useSession() {
 export function SessionProvider({ children }: PropsWithChildren) {
   const [session, setSession] = useState<Session | null>(null);
   const { updateLogs } = useStatsActions();
+  const { fetchTasks } = useTasksActions();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -54,6 +55,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
 
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
+      fetchTasks();
     });
 
     GoogleSignin.configure({
