@@ -1,18 +1,12 @@
-import BottomSheet from '@gorhom/bottom-sheet';
 import * as Notifications from 'expo-notifications';
-import React, { useEffect, useRef, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { Pressable as NativePressable } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AngleRight, Pause, Play, Stop } from '@/src/components/Icons';
 import { Pressable, Text } from '@/src/components/Themed';
-import {
-  useActiveList,
-  useFocusingTask,
-  useTasks,
-  useTasksActions,
-} from '@/src/stores/useTasksStore';
+import { useBottomSheet } from '@/src/context/BottomSheetContext';
+import { useActiveList, useFocusingTask } from '@/src/stores/useTasksStore';
 import {
   useDisplayTime,
   useMode,
@@ -30,11 +24,9 @@ export default function TimerTab() {
   const [isLoading, setIsLoading] = useState(false);
   const { startTimer, stopTimer, pauseTimer, resumeTimer } = useTimerActions();
 
-  const tasks = useTasks();
   const focusingTask = useFocusingTask();
   const activeList = useActiveList();
-  const { focusTask, unfocusTask } = useTasksActions();
-  const bottomSheetRef = useRef<BottomSheet>(null);
+  const { bottomSheetRef } = useBottomSheet();
 
   useEffect(() => {
     (async () => {
@@ -47,20 +39,8 @@ export default function TimerTab() {
     })();
   }, []);
 
-  const renderPickerItem = ({ item }) => (
-    <Pressable
-      style={styles.pickerItem}
-      onPress={() => {
-        focusTask(item);
-        bottomSheetRef.current?.close();
-      }}
-    >
-      <Text style={styles.pickerItemText}>{item.name}</Text>
-    </Pressable>
-  );
-
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <>
       <View style={styles.container}>
         <AnimatedCircularProgress
           size={336}
@@ -144,31 +124,7 @@ export default function TimerTab() {
           </Pressable>
         </View>
       </View>
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={-1}
-        snapPoints={['50%']}
-        backgroundStyle={styles.bottomSheetBackground}
-        enablePanDownToClose
-        handleIndicatorStyle={{ backgroundColor: '#3F3E55' }}
-      >
-        <Pressable
-          style={styles.removeTaskButton}
-          onPress={() => {
-            unfocusTask();
-            bottomSheetRef.current?.close();
-          }}
-        >
-          <Text style={styles.removeTaskButtonText}>Clear Focusing Task</Text>
-        </Pressable>
-        <FlatList
-          data={tasks}
-          renderItem={renderPickerItem}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={styles.pickerContainer}
-        />
-      </BottomSheet>
-    </GestureHandlerRootView>
+    </>
   );
 }
 
@@ -213,41 +169,5 @@ const styles = StyleSheet.create({
     color: '#FFFFFFA0',
     fontSize: 16,
     fontWeight: 600,
-  },
-  bottomSheetBackground: {
-    backgroundColor: '#1E1D2F',
-  },
-  bottomSheetHeader: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#3F3E55',
-  },
-  removeTaskButton: {
-    backgroundColor: '#3F3E55',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    marginHorizontal: 20,
-    marginVertical: 10,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  removeTaskButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  pickerContainer: {
-    paddingHorizontal: 20,
-  },
-  pickerItem: {
-    paddingVertical: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#3F3E55',
-    backgroundColor: 'transparent',
-  },
-  pickerItemText: {
-    color: '#FFFFFF',
-    fontSize: 16,
   },
 });
