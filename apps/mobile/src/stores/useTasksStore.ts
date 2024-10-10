@@ -69,6 +69,24 @@ export const useTasksStore = create<Store>((set, get) => ({
   labels: [],
   actions: {
     addTask: async (name) => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        set((state) => ({
+          tasks: [
+            ...state.tasks,
+            {
+              id: state.tasks.length + 1,
+              name,
+              completed: false,
+            },
+          ],
+        }));
+        return;
+      }
+
       const { tasks, activeList, activeLabel: label } = get();
       const [provider, projectId] = activeList.split(' - ', 2);
 
@@ -113,6 +131,17 @@ export const useTasksStore = create<Store>((set, get) => ({
       }
     },
     deleteTask: async (task) => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        set((state) => ({
+          tasks: state.tasks.filter((t) => t.id !== task.id),
+        }));
+        return;
+      }
+
       const { activeList } = get();
       const [provider] = activeList.split(' - ', 2);
 
@@ -149,6 +178,19 @@ export const useTasksStore = create<Store>((set, get) => ({
         actions.unfocusTask();
       }
 
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        await new Promise((resolve) => setTimeout(resolve, 600));
+
+        set((state) => ({
+          tasks: state.tasks.filter((t) => t.id !== task.id),
+        }));
+        return;
+      }
+
       const todoist = await getClient(supabase);
       if (provider === 'Todoist' && todoist) {
         const isSuccess = await todoist.closeTask(task.id.toString());
@@ -174,6 +216,24 @@ export const useTasksStore = create<Store>((set, get) => ({
       }));
     },
     undoCompleteTask: async (task) => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        set((state) => ({
+          tasks: [
+            {
+              id: task.id,
+              name: task.name,
+              completed: false,
+            },
+            ...state.tasks,
+          ],
+        }));
+        return;
+      }
+
       const { activeList } = get();
       const [provider] = activeList.split(' - ', 2);
       const todoist = await getClient(supabase);
@@ -240,6 +300,14 @@ export const useTasksStore = create<Store>((set, get) => ({
     focusTask: (task) => set({ focusingTask: task }),
     unfocusTask: () => set({ focusingTask: null }),
     fetchTasks: async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        return;
+      }
+
       set({ focusingTask: null, isLoadingTasks: true });
 
       const { activeList } = get();
@@ -300,6 +368,7 @@ export const useTasksStore = create<Store>((set, get) => ({
   },
 }));
 
+export const clearTasks = () => useTasksStore.setState({ tasks: [] });
 export const useLists = () => useTasksStore((s) => s.lists);
 export const useFocusingTask = () => useTasksStore((s) => s.focusingTask);
 export const useIsLoadingTasks = () => useTasksStore((s) => s.isLoadingTasks);

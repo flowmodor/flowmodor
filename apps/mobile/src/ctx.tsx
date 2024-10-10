@@ -10,6 +10,7 @@ import {
 } from 'react';
 import { Alert } from 'react-native';
 import { useStatsActions } from './stores/useStatsStore';
+import { clearTasks } from './stores/useTasksStore';
 import { supabase } from './utils/supabase';
 
 const AuthContext = createContext<{
@@ -112,6 +113,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
           } catch (error) {}
         },
         signOut: async () => {
+          clearTasks();
           const { error } = await supabase.auth.signOut();
           return error;
         },

@@ -1,4 +1,5 @@
 import * as Haptics from 'expo-haptics';
+import { useFocusEffect } from 'expo-router';
 import React, { useState } from 'react';
 import {
   FlatList,
@@ -12,13 +13,19 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Up } from '@/src/components/Icons';
 import { Pressable, Text } from '@/src/components/Themed';
+import { useSession } from '@/src/ctx';
 import { useTasks, useTasksActions } from '@/src/stores/useTasksStore';
 
 export default function Stats() {
   const insets = useSafeAreaInsets();
   const tasks = useTasks();
-  const { completeTask, addTask } = useTasksActions();
+  const { completeTask, addTask, fetchTasks } = useTasksActions();
   const [newTaskName, setNewTaskName] = useState('');
+  const { session } = useSession();
+
+  useFocusEffect(() => {
+    fetchTasks();
+  });
 
   const renderTask = ({ item }: { item: any }) => (
     <View style={styles.taskContainer}>
@@ -57,6 +64,18 @@ export default function Stats() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={[styles.container, { paddingTop: insets.top + 10 }]}
     >
+      {session === null && (
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: 600,
+            color: '#FFFFFF',
+            textAlign: 'center',
+          }}
+        >
+          Sign in to save tasks
+        </Text>
+      )}
       <FlatList
         data={tasks}
         renderItem={renderTask}
