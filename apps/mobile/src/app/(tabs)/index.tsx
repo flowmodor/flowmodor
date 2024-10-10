@@ -1,11 +1,10 @@
 import * as Notifications from 'expo-notifications';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Pressable as NativePressable } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import { AngleRight, Pause, Play, Stop } from '@/src/components/Icons';
+import { Pause, Play, Stop } from '@/src/components/Icons';
+import TaskSelector from '@/src/components/TaskSelector';
 import { Pressable, Text } from '@/src/components/Themed';
-import { useBottomSheet } from '@/src/context/BottomSheetContext';
 import { useActiveList, useFocusingTask } from '@/src/stores/useTasksStore';
 import {
   useDisplayTime,
@@ -26,7 +25,6 @@ export default function TimerTab() {
 
   const focusingTask = useFocusingTask();
   const activeList = useActiveList();
-  const { bottomSheetRef } = useBottomSheet();
 
   useEffect(() => {
     (async () => {
@@ -61,31 +59,7 @@ export default function TimerTab() {
                 {mode === 'focus' ? 'Focus' : 'Break'}
               </Text>
               <Text style={styles.time}>{formatTime(displayTime)}</Text>
-              <NativePressable
-                style={{
-                  marginTop: 6,
-                }}
-                onPress={() => bottomSheetRef.current?.expand()}
-              >
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    gap: 4,
-                  }}
-                >
-                  <Text
-                    style={[
-                      styles.focusingTaskText,
-                      focusingTask && styles.focusingTaskTextActive,
-                    ]}
-                  >
-                    {focusingTask ? focusingTask.name : 'Select a task'}
-                  </Text>
-                  <AngleRight fill={focusingTask ? '#FFFFFF' : '#FFFFFFA0'} />
-                </View>
-              </NativePressable>
+              {mode === 'focus' && <TaskSelector />}
             </View>
           )}
         </AnimatedCircularProgress>
@@ -169,13 +143,5 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  focusingTaskText: {
-    color: '#FFFFFFA0',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  focusingTaskTextActive: {
-    color: '#FFFFFF',
   },
 });
