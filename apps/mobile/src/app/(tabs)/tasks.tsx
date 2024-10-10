@@ -1,42 +1,47 @@
-import React, { useEffect, useState } from 'react';
+import * as Haptics from 'expo-haptics';
+import React, { useState } from 'react';
 import {
   FlatList,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Up } from '@/src/components/Icons';
+import { Pressable, Text } from '@/src/components/Themed';
 import { useTasks, useTasksActions } from '@/src/stores/useTasksStore';
 
 export default function Stats() {
   const insets = useSafeAreaInsets();
   const tasks = useTasks();
-  const { fetchTasks, completeTask, addTask } = useTasksActions();
+  const { completeTask, addTask } = useTasksActions();
   const [newTaskName, setNewTaskName] = useState('');
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
 
   const renderTask = ({ item }: { item: any }) => (
     <View style={styles.taskContainer}>
       <BouncyCheckbox
         size={25}
         fillColor="#DBBFFF"
-        text={item.name}
+        disableText
         iconStyle={{ borderColor: '#DBBFFF' }}
         innerIconStyle={{ borderWidth: 1 }}
         textStyle={{ color: '#FFFFFF' }}
         onPress={async () => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           await completeTask(item);
         }}
         isChecked={item.completed}
       />
+      <Text
+        style={{
+          fontSize: 16,
+        }}
+      >
+        {item.name}
+      </Text>
     </View>
   );
 
@@ -63,11 +68,13 @@ export default function Stats() {
           style={styles.input}
           value={newTaskName}
           onChangeText={setNewTaskName}
+          onSubmitEditing={handleAddTask}
+          blurOnSubmit={false}
           placeholder="Add a new task"
           autoCapitalize="none"
           placeholderTextColor="#888"
         />
-        <TouchableOpacity
+        <Pressable
           style={[
             styles.addButton,
             !newTaskName.trim() && styles.addButtonDisabled,
@@ -76,7 +83,7 @@ export default function Stats() {
           disabled={!newTaskName.trim()}
         >
           <Up />
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </KeyboardAvoidingView>
   );
@@ -90,11 +97,15 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 1,
+    borderTopWidth: 1,
   },
   taskContainer: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#3F3E55',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 16,
+    gap: 10,
   },
   inputContainer: {
     flexDirection: 'row',
@@ -110,7 +121,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   addButton: {
-    backgroundColor: '#3F3E55',
+    backgroundColor: '#DBBFFF',
     width: 40,
     height: 40,
     borderRadius: 20,
