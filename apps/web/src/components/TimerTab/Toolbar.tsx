@@ -10,7 +10,6 @@ import {
   useStatus,
   useTimerActions,
 } from '@/stores/useTimerStore';
-import TooltipWrapper from './TooltipWrapper';
 
 export default function Toolbar() {
   const showTime = useShowTime();
@@ -40,31 +39,29 @@ export default function Toolbar() {
           {showTime ? <Hide /> : <Show />}
         </Button>
       )}
-      <TooltipWrapper>
-        <Button
-          id="start-stop-button"
-          type="button"
-          radius="lg"
-          variant="flat"
-          isLoading={isStopLoading}
-          isDisabled={isPauseLoading}
-          isIconOnly
-          disableRipple
-          aria-label={status === 'idle' ? 'Start' : 'Stop'}
-          className="bg-secondary w-12 h-12"
-          onPress={() => {
-            startStopTransition(async () => {
-              if (status !== 'idle') {
-                await stopTimer(focusingTask, activeList);
-              } else {
-                await startTimer();
-              }
-            });
-          }}
-        >
-          {status === 'idle' ? <Play /> : <Stop />}
-        </Button>
-      </TooltipWrapper>
+      <Button
+        id="start-stop-button"
+        type="button"
+        radius="lg"
+        variant="flat"
+        isLoading={isStopLoading}
+        isDisabled={isPauseLoading}
+        isIconOnly
+        disableRipple
+        aria-label={status === 'idle' ? 'Start' : 'Stop'}
+        className="bg-secondary w-12 h-12"
+        onPress={() => {
+          startStopTransition(async () => {
+            if (status !== 'idle') {
+              await stopTimer(focusingTask, activeList);
+            } else {
+              await startTimer();
+            }
+          });
+        }}
+      >
+        {status === 'idle' ? <Play /> : <Stop />}
+      </Button>
       {mode === 'focus' && (status === 'running' || status === 'paused') ? (
         <Button
           type="button"
