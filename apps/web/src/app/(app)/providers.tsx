@@ -3,10 +3,12 @@
 import { ReactNode, useEffect, useRef } from 'react';
 import useTick from '@/hooks/useTick';
 import { useTasksActions } from '@/stores/Tasks';
+import { useStatus } from '@/stores/useTimerStore';
 
 // eslint-disable-next-line import/prefer-default-export
 export function HomeProvider({ children }: { children: ReactNode }) {
   const { fetchListsAndLabels } = useTasksActions();
+  const status = useStatus();
   const effectRunRef = useRef(false);
 
   useEffect(() => {
@@ -17,6 +19,23 @@ export function HomeProvider({ children }: { children: ReactNode }) {
     effectRunRef.current = true;
     fetchListsAndLabels();
   }, [fetchListsAndLabels]);
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (status === 'idle') {
+        return;
+      }
+
+      e.preventDefault();
+      e.returnValue = true;
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [status]);
 
   useTick();
 
