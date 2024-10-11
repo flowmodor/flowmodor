@@ -11,6 +11,25 @@ import {
 import { useLogs } from '@/stores/useStatsStore';
 import { calculateTaskTime } from '@/utils/stats/calculateTaskTime';
 
+const formatTime = (time: number) => {
+  const hours = Math.floor(time / 60);
+  const minutes = Math.floor(time % 60);
+  const seconds = Math.floor((time % 1) * 60);
+
+  if (time < 1) {
+    return `${seconds} sec`;
+  }
+
+  let result = '';
+  if (hours > 0) {
+    result += `${hours} hr `;
+  }
+  if (minutes > 0) {
+    result += `${minutes} min`;
+  }
+  return result.trim();
+};
+
 export default function TaskTime() {
   const logs = useLogs();
   const taskTime = calculateTaskTime(logs ?? []);
@@ -36,14 +55,7 @@ export default function TaskTime() {
         {taskTime.map((data) => (
           <TableRow key={data.name}>
             <TableCell>{data.name}</TableCell>
-            <TableCell>
-              {Math.floor(data.time / 60) > 0 ? (
-                <span>{Math.floor(data.time / 60)} hr </span>
-              ) : null}
-              {data.time % 60 > 0 ? (
-                <span>{Math.floor(data.time % 60)} min</span>
-              ) : null}
-            </TableCell>
+            <TableCell>{formatTime(data.time)}</TableCell>
           </TableRow>
         ))}
       </TableBody>

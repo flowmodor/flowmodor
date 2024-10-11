@@ -16,11 +16,11 @@ export default function Summary() {
     >
       <div className="flex flex-col items-center text-sm">
         Total Focus
-        <TimeFormatter minutes={Math.round(totalFocusTime)} />
+        <TimeFormatter minutes={totalFocusTime} />
       </div>
       <div className="flex flex-col items-center text-sm">
         Longest Focus
-        <TimeFormatter minutes={Math.round(longestFocusTime)} />
+        <TimeFormatter minutes={longestFocusTime} />
       </div>
     </Card>
   );
