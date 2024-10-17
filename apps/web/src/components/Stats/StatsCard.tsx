@@ -4,7 +4,8 @@ import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { Tooltip } from '@nextui-org/tooltip';
 import { useEffect, useRef, useTransition } from 'react';
-import { Download, Left, Right } from '@/components/Icons';
+import { toast } from 'sonner';
+import { Download, Left, Right, Share } from '@/components/Icons';
 import DailyBarChart from '@/components/Stats/DailyBarChart';
 import DateButton from '@/components/Stats/DateButton';
 import {
@@ -17,7 +18,7 @@ import {
   useStatsActions,
 } from '@/stores/useStatsStore';
 import calculateFocusTimes from '@/utils/stats/calculateFocusTime';
-import downloadImage from '@/utils/stats/downloadImage';
+import copyImageToClipboard from '@/utils/stats/copyImageToClipboard';
 import PeriodSelector from './PeriodSelector';
 import WeeklyBarChart from './WeeklyBarChart';
 
@@ -82,13 +83,22 @@ export default function StatsCard() {
               className="hidden sm:flex"
               onClick={() => {
                 startTransition(async () => {
-                  await downloadImage(chartRef, totalFocusTime, dateText);
+                  const success = await copyImageToClipboard(
+                    chartRef,
+                    totalFocusTime,
+                    dateText,
+                  );
+                  if (success) {
+                    toast.success(
+                      'Your stats is copied to clipboard. Share it to your friends!',
+                    );
+                  }
                 });
               }}
               isLoading={isLoading}
               isIconOnly
             >
-              <Download />
+              <Share />
             </Button>
           </Tooltip>
         </div>

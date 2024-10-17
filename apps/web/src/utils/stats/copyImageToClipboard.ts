@@ -1,11 +1,11 @@
 import { MutableRefObject } from 'react';
 import { base64ToBlob } from '..';
 
-export default async function downloadImage(
+export default async function copyImageToClipboard(
   chartRef: MutableRefObject<any>,
   totalFocusTime: number,
   dateText: string,
-) {
+): Promise<boolean> {
   if (!chartRef.current) {
     return false;
   }
@@ -21,17 +21,19 @@ export default async function downloadImage(
   });
 
   const { image } = await result.json();
-
   if (result.ok && image) {
-    const modifiedImageBlob = base64ToBlob(image, 'image/png');
-    const downloadUrl = URL.createObjectURL(modifiedImageBlob);
-    const link = document.createElement('a');
-    link.href = downloadUrl;
-    link.download = `Flowmodor Stats ${dateText}.png`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    return true;
+    try {
+      const modifiedImageBlob = base64ToBlob(image, 'image/png');
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          [modifiedImageBlob.type]: modifiedImageBlob,
+        }),
+      ]);
+      return true;
+    } catch (err) {
+      console.error('Failed to copy image to clipboard:', err);
+      return false;
+    }
   }
   return false;
 }

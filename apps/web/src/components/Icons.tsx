@@ -104,7 +104,7 @@ export function Right() {
 
 export function Share() {
   return (
-    <svg width="12">
+    <svg height="20" fill="white">
       <use href="/icons.svg#share" />
     </svg>
   );
