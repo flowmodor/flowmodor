@@ -37,6 +37,12 @@ interface Store extends State {
   actions: Action;
 }
 
+Notifications.setNotificationChannelAsync('timer', {
+  name: 'Timer notifications',
+  importance: Notifications.AndroidImportance.HIGH,
+  sound: 'alarm.wav',
+});
+
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -86,6 +92,7 @@ const useTimerStore = create<Store>((set, get) => ({
           },
           trigger: {
             seconds: get().totalTime / 1000 + 1,
+            channelId: 'timer',
           },
         });
       }
