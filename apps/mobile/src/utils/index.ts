@@ -1,3 +1,6 @@
+import * as Haptics from 'expo-haptics';
+import { Platform } from 'react-native';
+
 export const formatTime = (time: number) => {
   const t = Math.floor(time);
   const hours = Math.floor(t / 3600);
@@ -13,4 +16,10 @@ export const formatTime = (time: number) => {
   return `${minutes.toString().padStart(2, '0')}:${seconds
     .toString()
     .padStart(2, '0')}`;
+};
+
+export const hapticsImpact = () => {
+  if (Platform.OS === 'ios') {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+  }
 };

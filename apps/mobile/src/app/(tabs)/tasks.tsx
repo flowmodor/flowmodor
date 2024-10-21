@@ -1,4 +1,3 @@
-import * as Haptics from 'expo-haptics';
 import React, { useState } from 'react';
 import {
   FlatList,
@@ -14,6 +13,7 @@ import { Up } from '@/src/components/Icons';
 import { Pressable, Text } from '@/src/components/Themed';
 import { useSession } from '@/src/ctx';
 import { useTasks, useTasksActions } from '@/src/stores/useTasksStore';
+import { hapticsImpact } from '@/src/utils';
 
 export default function Stats() {
   const insets = useSafeAreaInsets();
@@ -32,7 +32,7 @@ export default function Stats() {
         innerIconStyle={{ borderWidth: 1 }}
         textStyle={{ color: '#FFFFFF' }}
         onPress={async () => {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          hapticsImpact();
           await completeTask(item);
         }}
         isChecked={item.completed}

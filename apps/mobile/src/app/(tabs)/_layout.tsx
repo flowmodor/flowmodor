@@ -1,10 +1,10 @@
-import * as Haptics from 'expo-haptics';
 import { Tabs } from 'expo-router';
 import { useEffect } from 'react';
 import { Profile, Stats, Tasks, Timer } from '@/src/components/Icons';
 import { SessionProvider } from '@/src/ctx';
 import useTick from '@/src/hooks/useTick';
 import { useTasksActions } from '@/src/stores/useTasksStore';
+import { hapticsImpact } from '@/src/utils';
 
 export default function TabLayout() {
   const { fetchTasks } = useTasksActions();
@@ -30,9 +30,7 @@ export default function TabLayout() {
           },
         }}
         screenListeners={{
-          tabPress: () => {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-          },
+          tabPress: hapticsImpact,
         }}
       >
         <Tabs.Screen

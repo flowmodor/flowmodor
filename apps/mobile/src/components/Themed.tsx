@@ -1,4 +1,3 @@
-import * as Haptics from 'expo-haptics';
 import { useRef } from 'react';
 import {
   ActivityIndicator,
@@ -10,6 +9,7 @@ import {
   TextInputProps,
   TextProps,
 } from 'react-native';
+import { hapticsImpact } from '../utils';
 
 export function Pressable({
   children,
@@ -30,7 +30,7 @@ export function Pressable({
       toValue: scaleValue,
       useNativeDriver: true,
     }).start();
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    hapticsImpact();
   };
 
   const onPressOut = () => {
