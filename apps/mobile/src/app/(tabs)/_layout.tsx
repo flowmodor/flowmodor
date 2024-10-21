@@ -25,8 +25,9 @@ export default function TabLayout() {
           tabBarStyle: {
             backgroundColor: '#131221',
             borderTopColor: '#3F3E55',
-            paddingTop: 10,
-            height: 90,
+            paddingTop: 20,
+            height: 80,
+            paddingBottom: 20,
           },
         }}
         screenListeners={{
