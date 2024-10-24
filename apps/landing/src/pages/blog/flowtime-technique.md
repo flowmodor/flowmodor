@@ -12,7 +12,7 @@ The good news is that there's an alternative that might work better for you -- t
 
 ## What's Pomodoro Technique?
 
-The Pomodoro Technique is a time management method that divides work into 25-minute focused sessions followed by 5-minute breaks. After completing four sessions, you take a longer break of 15-30 minutes.
+The Pomodoro Technique is a time management method that divides work into 25-minute focused sessions followed by 5-minute breaks. After completing 4 sessions, you take a longer break of 15-30 minutes.
 
 ![The Pomodoro Technique](/pomodoro.png)
 
@@ -22,11 +22,11 @@ The Pomodoro Technique is known for its simplicity. It helps you break down task
 
 While the Pomodoro Technique is popular, it might not be the best fit for everyone. Here’s why:
 
-1. **Interruption of Flow State**: Flow state is a mental state where you're fully immersed in a task, feeling focused and productive. However, the Pomodoro Technique's rigid rules can interrupt your flow state by forcing you to take breaks.
+1. **Interruption of Flow State**: Flow state is a mental state where you're fully immersed in a task, feeling focused and productive. In this state, you might even not aware of the passage of time. However, the Pomodoro Technique's rigid 25 minutes timer can interrupt your flow state by forcing you to take breaks.
 
 2. **Variable Task Length**: Tasks vary in complexity and often don't neatly fit into 25-minute intervals. Some tasks might require longer periods of focused work, while others might be completed in shorter bursts.
 
-3. **Context Switching**: Frequent breaks can lead to context switching and reduce your overall productivity. 
+3. **Context Switching**: Frequent breaks can lead to context switching. When switching from break mode to work mode, you might need some time to get back into the flow of your task, which can reduce your productivity.
 
 ## The alternative - Flowtime Technique
 
@@ -40,6 +40,8 @@ This method respects your flow state and adapts to different task lengths.
 
 ## How to implement the Flowtime Technique
 
+### Using a stopwatch and timer
+
 Implementing the Flowtime Technique is simple and can start with tools as basic as a stopwatch and timer app. Here's a basic guide:
 
 1. **Pick one task**: Begin by selecting a single task to focus on. This ensures that your attention isn't divided across multiple tasks.
@@ -52,45 +54,29 @@ Implementing the Flowtime Technique is simple and can start with tools as basic 
 
 You can repeat this cycle again and again.
 
-## Automate the process
+### Using productivity tools
 
-I have been using the Flowtime Technique and it really helps me improve my productivity when coding and studying.
-
-While I can use a stopwatch and timer to implement the Flowtime Technique, it can be cumbersome to do this manually every time. Also, I want to track my work time on different tasks and analyze my productivity patterns.
-
-To address this, I automate this workflow with [Flowmodor](/).
-
-Here's how it works:
-
-1. **Pick one task**
-
-You can create tasks in the Tasks tab or link your tasks from Todoist. When you're ready to start working, select the task you want to focus on.
-
-![task selector in Flowmodor app](/select-task.png)
-
-2. **Start the work**
-
-Click on the play button to start the timer.
-
-3. **Stop the work**
-
-When you're ready to take a break, click on the stop button. Flowmodor will automatically calculate your break time.
-
-![](/timer-tab-focus.png)
-
-4. **Take a break**
-
-Click on the play button to start the break timer. Flowmodor will notify you when it's time to get back to work.
-
-![](/timer-tab-break.png)
-
-This automation makes it easier to implement the Flowtime Technique and focus on your work without interruptions.
-
-Apart from the timer, Flowmodor also provides detailed stats and insights to help you understand your work patterns better.
+While using a stopwatch and timer works well, it is cumbersome to do this manually every time. To make things easier, you can use [Flowmodor](https://app.flowmodor.com) to automate the workflow. It also provides detailed stats and insights to help you understand your work patterns better:
 
 ![](/stats-page.png)
 
-[Click here to try Flowmodor now!](https://app.flowmodor.com)
+## Flowtime Technique tips
+
+While the workflow of the Flowtime Technique is simple, here are some tips to help you make the most of it:
+
+### Tweak the work-break ratio
+
+The Flowtime Technique is highly adaptable and can be customized to suit your needs. For example you don't have to always divide the focused work duration by 5 for your break. You can choose a different ratio that works best for you.
+
+When you are in the morning and feeling fresh, you might want to work for longer periods before taking a break. In this case, you can set work-break ratio to 6:1 or 7:1. On the other hand, when you are in the afternoon and feeling tired, you might want to have more time for breaks. In this case, you can set work-break ratio to 4:1 or 3:1.
+
+By adjusting the work-break ratio, you can optimize your productivity based on your energy levels through the day.
+
+### Avoid electronic devices during breaks
+
+During your breaks, try to avoid electronic devices like your phone or computer. Instead, use this time to relax, stretch, or take a short walk. This helps you recharge and prevents burnout.
+
+Here are more [things you can do during breaks without electronic devices](/blog/things-to-do-during-pomodoro-break-without-electronic-devices).
 
 ## Conclusion
 
