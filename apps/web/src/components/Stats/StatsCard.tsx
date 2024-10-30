@@ -5,7 +5,7 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { Tooltip } from '@nextui-org/tooltip';
 import { useEffect, useRef, useTransition } from 'react';
 import { toast } from 'sonner';
-import { Download, Left, Right, Share } from '@/components/Icons';
+import { Left, Right, Share } from '@/components/Icons';
 import DailyBarChart from '@/components/Stats/DailyBarChart';
 import DateButton from '@/components/Stats/DateButton';
 import {

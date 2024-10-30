@@ -1,0 +1,14 @@
+{
+  "name": "@flowmodor/stores",
+  "version": "0.1.0",
+  "exports": {
+    ".": "./src/stats.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.3",
+    "zustand": "^4.4.7"
+  },
+  "devDependencies": {
+    "@flowmodor/types": "workspace:*"
+  }
+}
