@@ -1,6 +1,7 @@
 import { Task } from '@flowmodor/types';
 import * as Notifications from 'expo-notifications';
 import { useEffect, useState } from 'react';
+import { Platform } from 'react-native';
 import { create } from 'zustand';
 import { supabase } from '../utils/supabase';
 import { useStatsStore } from './useStatsStore';
@@ -30,17 +31,20 @@ interface Store extends State {
   actions: Action;
 }
 
-Notifications.setNotificationChannelAsync('timer', {
-  name: 'Timer notifications',
-  importance: Notifications.AndroidImportance.HIGH,
-  sound: 'alarm.wav',
-});
+if (Platform.OS === 'android') {
+  Notifications.setNotificationChannelAsync('timer', {
+    name: 'Timer notifications',
+    importance: Notifications.AndroidImportance.HIGH,
+    lockscreenVisibility: Notifications.AndroidNotificationVisibility.PUBLIC,
+  });
+}
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: true,
     shouldSetBadge: true,
+    priority: Notifications.AndroidNotificationPriority.HIGH,
   }),
 });
 
@@ -81,7 +85,8 @@ const useTimerStore = create<Store>((set, get) => ({
           content: {
             title: 'Flowmodor',
             body: 'Time to get back to work!',
-            sound: 'alarm.wav',
+            sound: Platform.OS === 'ios' ? 'alarm.wav' : undefined,
+            priority: Notifications.AndroidNotificationPriority.HIGH,
           },
           trigger: {
             seconds: get().totalTime / 1000 + 1,

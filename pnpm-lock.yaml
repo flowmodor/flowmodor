@@ -106,8 +106,8 @@ importers:
         specifier: ~6.3.1
         version: 6.3.1(expo@51.0.31(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2)))
       expo-notifications:
-        specifier: ~0.28.16
-        version: 0.28.16(expo@51.0.31(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2)))
+        specifier: ~0.28.19
+        version: 0.28.19(expo@51.0.31(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2)))
       expo-router:
         specifier: ~3.5.23
         version: 3.5.23(4prcsd3vxpuyk2olml2iecjjl4)
@@ -4606,8 +4606,8 @@ packages:
   expo-modules-core@1.12.23:
     resolution: {integrity: sha512-NYp/rWhKW6zlqNdC8/r+FckzlAGWX0IJEjOxwYHuYeRUn/vnKksb43G4E3jcaQEZgmWlKxK4LpxL3gr7m0RJFA==}
 
-  expo-notifications@0.28.16:
-    resolution: {integrity: sha512-sj4oDip+uFNmxieGHkfS2Usrwbw2jfOTfQ22a7z5tdSo/vD6jWMlCHOnJifqYLjPxyqf9SLTsQWO3bmk7MY2Yg==}
+  expo-notifications@0.28.19:
+    resolution: {integrity: sha512-rKKTnVQQ9XNQyTNwKmI9OlchhVu0XOZfRpImMqPFCJg6IwECM1izdas2SLCbE/GApg2Tw3U5R2fd26OnCtUU/w==}
     peerDependencies:
       expo: '*'
 
@@ -14553,7 +14553,7 @@ snapshots:
     dependencies:
       invariant: 2.2.4
 
-  expo-notifications@0.28.16(expo@51.0.31(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))):
+  expo-notifications@0.28.19(expo@51.0.31(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))):
     dependencies:
       '@expo/image-utils': 0.5.1
       '@ide/backoff': 1.0.0
