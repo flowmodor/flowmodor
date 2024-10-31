@@ -1,17 +1,10 @@
 import { TodoistApi } from '@doist/todoist-api-typescript';
+import { Task } from '@flowmodor/types';
 import { ChangeEvent } from 'react';
 import { Alert } from 'react-native';
 import { create } from 'zustand';
 import { supabase } from '../utils/supabase';
 import getClient from '../utils/todoist';
-
-export interface Task {
-  id: number;
-  name: string;
-  completed: boolean;
-  labels?: string[];
-  due?: Date | null;
-}
 
 interface List {
   provider: string;

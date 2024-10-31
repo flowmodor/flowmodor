@@ -8,3 +8,11 @@ export type LogsWithTasks = Tables<'logs'> & {
 };
 
 export type Supabase = SupabaseClient<Database>;
+
+export interface Task {
+  id: number;
+  name: string;
+  completed: boolean;
+  labels?: string[];
+  due?: Date | null;
+}

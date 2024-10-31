@@ -1,7 +1,7 @@
 import { createStatsStore } from '@flowmodor/stores';
 import { supabase } from '../utils/supabase';
 
-const useStatsStore = createStatsStore(supabase);
+export const useStatsStore = createStatsStore(supabase);
 
 export type Period = 'Day' | 'Week' | 'Month';
 export const usePeriod = () => useStatsStore((state) => state.period);

@@ -1,6 +1,7 @@
 'use client';
 
 import { TodoistApi } from '@doist/todoist-api-typescript';
+import { Task } from '@flowmodor/types';
 import {
   ChangeEvent,
   PropsWithChildren,
@@ -13,14 +14,6 @@ import { createStore, useStore } from 'zustand';
 import revalidateTasks from '@/actions/task';
 import supabase from '@/utils/supabase';
 import getClient from '@/utils/todoist';
-
-export interface Task {
-  id: number;
-  name: string;
-  completed: boolean;
-  labels?: string[];
-  due?: Date | null;
-}
 
 interface List {
   provider: string;

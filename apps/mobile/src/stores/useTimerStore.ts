@@ -1,16 +1,9 @@
+import { Task } from '@flowmodor/types';
 import * as Notifications from 'expo-notifications';
 import { useEffect, useState } from 'react';
 import { create } from 'zustand';
 import { supabase } from '../utils/supabase';
 import { useStatsStore } from './useStatsStore';
-
-interface Task {
-  id: number;
-  name: string;
-  completed: boolean;
-  labels?: string[];
-  due?: Date | null;
-}
 
 interface State {
   startTime: number | null;

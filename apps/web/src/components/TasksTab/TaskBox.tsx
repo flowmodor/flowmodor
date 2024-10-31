@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+import { Task } from '@flowmodor/types';
 import { Checkbox } from '@nextui-org/checkbox';
 import { useTransition } from 'react';
 import Markdown from 'react-markdown';
 import { toast } from 'sonner';
-import { Task, useFocusingTask, useTasksActions } from '@/stores/Tasks';
+import { useFocusingTask, useTasksActions } from '@/stores/Tasks';
 import { useMode, useStatus } from '@/stores/useTimerStore';
 import { Calendar, Label, TrashCan } from '../Icons';
 

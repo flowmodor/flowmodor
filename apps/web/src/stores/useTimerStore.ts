@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import { Task } from '@flowmodor/types';
 import { useEffect, useState } from 'react';
 import { create } from 'zustand';
 import supabase from '@/utils/supabase';
-import { Task } from './Tasks';
 import { useStatsStore } from './useStatsStore';
 
 interface State {
