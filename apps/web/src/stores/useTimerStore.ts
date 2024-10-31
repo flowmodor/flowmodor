@@ -21,7 +21,7 @@ interface Action {
   pauseTimer: (focusingTask: Task | null, activeList: string) => Promise<void>;
   resumeTimer: () => Promise<void>;
   log: (focusingTask?: Task | null, activeList?: string) => Promise<void>;
-  tickTimer: () => void;
+  tickTimer: (callback: () => void) => void;
   toggleShowTime: () => void;
 }
 
@@ -133,7 +133,7 @@ const useTimerStore = create<Store>((set, get) => ({
 
       await useStatsStore.getState().actions.updateLogs();
     },
-    tickTimer: async () => {
+    tickTimer: async (callback) => {
       set((state) => {
         if (state.status !== 'running') {
           return {};
@@ -146,14 +146,7 @@ const useTimerStore = create<Store>((set, get) => ({
 
         if (state.mode === 'break' && time <= 0) {
           state.actions.stopTimer();
-          const audio = new Audio('/alarm.mp3');
-          audio.play();
-
-          // eslint-disable-next-line no-new
-          new Notification('Flowmodor', {
-            body: 'Time to get back to work!',
-            icon: '/images/icons/general_icon_x512.png',
-          });
+          callback();
 
           return {
             status: 'idle',
