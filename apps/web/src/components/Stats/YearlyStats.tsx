@@ -8,7 +8,7 @@ const calculateFocusTime = (data: Tables<'logs'>[]) => {
   const focusTimeMap: { [key: string]: number } = {};
 
   data.forEach((item) => {
-    const date = new Date(item.start_time).toISOString().split('T')[0];
+    const date = new Date(item.start_time).toDateString();
     const startTime = new Date(item.start_time).getTime();
     const endTime = new Date(item.end_time).getTime();
     const focusTimeInHours = (endTime - startTime) / (1000 * 60 * 60);

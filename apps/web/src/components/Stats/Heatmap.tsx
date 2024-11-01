@@ -30,7 +30,7 @@ function interpolateColor(value: number, min: number, max: number): string {
 
 function formatHoursAndMinutes(hours: number): string {
   const intHours = Math.floor(hours);
-  const minutes = Math.round((hours - intHours) * 60);
+  const minutes = Math.floor((hours - intHours) * 60);
   return `${intHours}hr ${minutes}min`;
 }
 
@@ -81,17 +81,14 @@ export default function Heatmap({ data }: { data: DataPoint[] }) {
             }`}
           >
             {week.map((day) => {
-              const dateStr = format(day, 'yyyy-MM-dd');
+              const dateStr = format(day, 'EEE MMM dd yyyy');
               const value = dataMap.get(dateStr) || 0;
-              const dayOfWeek = format(day, 'EEE');
               return (
                 <Tooltip
                   key={dateStr}
                   radius="sm"
                   offset={9}
-                  content={`${dayOfWeek}, ${dateStr}: ${formatHoursAndMinutes(
-                    value,
-                  )}`}
+                  content={`${dateStr}: ${formatHoursAndMinutes(value)}`}
                   className="bg-background"
                   classNames={{
                     base: 'before:bg-background',
