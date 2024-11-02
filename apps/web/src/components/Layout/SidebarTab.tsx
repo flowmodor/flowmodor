@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
+import useShouldOpenLinkInNewTab from '@/hooks/useShouldOpenLinkInNewTab';
 
 export default function SidebarTab({
   children,
@@ -21,6 +22,7 @@ export default function SidebarTab({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const shouldOpenLinkInNewTab = useShouldOpenLinkInNewTab();
 
   useHotkeys(hotkey, () => {
     router.push(tabPathname);
@@ -42,6 +44,7 @@ export default function SidebarTab({
       <Button
         as={Link}
         href={tabPathname}
+        target={shouldOpenLinkInNewTab ? '_blank' : undefined}
         disableRipple
         isIconOnly
         color="secondary"
