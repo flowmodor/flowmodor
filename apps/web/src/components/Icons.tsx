@@ -22,6 +22,14 @@ export function Pause() {
   );
 }
 
+export function Forward() {
+  return (
+    <svg fill="white" height="16" width="20">
+      <use href="/icons.svg#forward" />
+    </svg>
+  );
+}
+
 export function Show() {
   return (
     <svg fill="white" height="16" width="18">
