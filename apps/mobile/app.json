@@ -23,7 +23,12 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#131221"
       },
-      "package": "com.m4xshen.mobile"
+      "package": "com.m4xshen.mobile",
+      "permissions": [
+        "android.permission.SCHEDULE_EXACT_ALARM",
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.USE_EXACT_ALARM"
+      ]
     },
     "plugins": [
       "expo-router",
@@ -41,7 +46,8 @@
             "./assets/alarm.wav"
           ]
         }
-      ]
+      ],
+      "./plugins/notifee-mod.js"
     ],
     "experiments": {
       "typedRoutes": true

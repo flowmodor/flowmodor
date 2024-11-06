@@ -8,10 +8,11 @@
     "ios": "expo run:ios"
   },
   "dependencies": {
-    "@flowmodor/stores": "workspace:*",
     "@doist/todoist-api-typescript": "^3.0.2",
     "@expo/vector-icons": "^14.0.2",
+    "@flowmodor/stores": "workspace:*",
     "@gorhom/bottom-sheet": "^4.6.4",
+    "@notifee/react-native": "^9.1.2",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-google-signin/google-signin": "^13.0.3",
     "@react-navigation/native": "^6.0.2",

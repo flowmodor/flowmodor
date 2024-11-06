@@ -1,7 +1,12 @@
 import { Task } from '@flowmodor/types';
-import * as Notifications from 'expo-notifications';
+import notifee, {
+  AndroidImportance,
+  AndroidVisibility,
+  EventType,
+  TimestampTrigger,
+  TriggerType,
+} from '@notifee/react-native';
 import { useEffect, useState } from 'react';
-import { Platform } from 'react-native';
 import { create } from 'zustand';
 import { supabase } from '../utils/supabase';
 import { useStatsStore } from './useStatsStore';
@@ -31,21 +36,12 @@ interface Store extends State {
   actions: Action;
 }
 
-if (Platform.OS === 'android') {
-  Notifications.setNotificationChannelAsync('timer', {
-    name: 'Timer notifications',
-    importance: Notifications.AndroidImportance.HIGH,
-    lockscreenVisibility: Notifications.AndroidNotificationVisibility.PUBLIC,
-  });
-}
+notifee.onBackgroundEvent(async ({ type, detail }) => {
+  const { notification, pressAction } = detail;
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-    priority: Notifications.AndroidNotificationPriority.HIGH,
-  }),
+  if (type === EventType.ACTION_PRESS && pressAction.id === 'mark-as-read') {
+    await notifee.cancelNotification(notification.id);
+  }
 });
 
 async function getBreakRatio() {
@@ -81,18 +77,44 @@ const useTimerStore = create<Store>((set, get) => ({
       }));
 
       if (get().mode === 'break') {
-        await Notifications.scheduleNotificationAsync({
-          content: {
+        await notifee.requestPermission();
+
+        const channelId = await notifee.createChannel({
+          id: 'important',
+          name: 'Default Channel',
+          importance: AndroidImportance.HIGH,
+          visibility: AndroidVisibility.PUBLIC,
+          sound: 'alarm',
+        });
+
+        const trigger: TimestampTrigger = {
+          type: TriggerType.TIMESTAMP,
+          timestamp: Date.now() + get().totalTime + 1000,
+          alarmManager: {
+            allowWhileIdle: true,
+          },
+        };
+
+        await notifee.createTriggerNotification(
+          {
             title: 'Flowmodor',
             body: 'Time to get back to work!',
-            sound: Platform.OS === 'ios' ? 'alarm.wav' : undefined,
-            priority: Notifications.AndroidNotificationPriority.HIGH,
+            ios: {
+              sound: 'alarm.wav',
+            },
+            android: {
+              channelId,
+              pressAction: {
+                id: 'default',
+              },
+              sound: 'alarm',
+              importance: AndroidImportance.HIGH,
+              visibility: AndroidVisibility.PUBLIC,
+              lightUpScreen: true,
+            },
           },
-          trigger: {
-            seconds: get().totalTime / 1000 + 1,
-            channelId: 'timer',
-          },
-        });
+          trigger,
+        );
       }
     },
     stopTimer: async (focusingTask, activeList) => {
@@ -110,7 +132,7 @@ const useTimerStore = create<Store>((set, get) => ({
       }
 
       if (get().mode === 'break') {
-        await Notifications.cancelAllScheduledNotificationsAsync();
+        // await Notifications.cancelAllScheduledNotificationsAsync();
       }
 
       await get().actions.log(focusingTask, activeList);

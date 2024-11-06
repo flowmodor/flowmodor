@@ -1,4 +1,3 @@
-import * as Notifications from 'expo-notifications';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
@@ -25,17 +24,6 @@ export default function TimerTab() {
 
   const focusingTask = useFocusingTask();
   const activeList = useActiveList();
-
-  useEffect(() => {
-    (async () => {
-      const { status } = await Notifications.requestPermissionsAsync();
-      if (status !== 'granted') {
-        alert(
-          'You need to enable notifications for this app to work properly.',
-        );
-      }
-    })();
-  }, []);
 
   return (
     <>
