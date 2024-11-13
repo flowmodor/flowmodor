@@ -69,15 +69,14 @@ const useTimerStore = create<Store>((set, get) => ({
   status: 'idle',
   actions: {
     startTimer: async () => {
-      set((state) => ({
-        startTime: Date.now(),
-        endTime:
-          state.mode === 'break' ? Date.now() + state.totalTime : state.endTime,
-        status: 'running',
-      }));
-
       if (get().mode === 'break') {
         await notifee.requestPermission();
+
+        set((state) => ({
+          startTime: Date.now(),
+          endTime: Date.now() + state.totalTime,
+          status: 'running',
+        }));
 
         const channelId = await notifee.createChannel({
           id: 'important',
@@ -115,6 +114,12 @@ const useTimerStore = create<Store>((set, get) => ({
           },
           trigger,
         );
+      } else {
+        set((state) => ({
+          startTime: Date.now(),
+          endTime: state.endTime,
+          status: 'running',
+        }));
       }
     },
     stopTimer: async (focusingTask, activeList) => {
