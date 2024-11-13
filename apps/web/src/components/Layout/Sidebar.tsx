@@ -25,11 +25,11 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
       <div className="border-t border-t-secondary sm:border-t-0 sm:border-r sm:border-r-secondary py-3 flex flex-row justify-center sm:flex-col items-center ml-0 w-full sm:w-14 sm:h-full bg-midground z-10">
         <div className="flex flex-row sm:flex-col justify-center items-center gap-3">
           <Image
-            src="/images/logo.png"
+            src="/images/logo-no-bg.png"
             alt="logo"
             unoptimized
-            width={36}
-            height={36}
+            width={28}
+            height={28}
             priority
             className="hidden sm:block"
           />

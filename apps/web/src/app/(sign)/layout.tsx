@@ -10,11 +10,11 @@ export default function SignLayout({ children }: { children: ReactNode }) {
         className="absolute left-5 top-5 flex items-center gap-2 text-white sm:left-10 sm:top-10"
       >
         <Image
-          src="/images/logo.png"
+          src="/images/logo-no-bg.png"
           alt="logo"
           unoptimized
-          width={56}
-          height={56}
+          width={32}
+          height={32}
         />
         <h1 className="hidden sm:block text-2xl font-bold">Flowmodor</h1>
       </Link>
