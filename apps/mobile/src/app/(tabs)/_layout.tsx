@@ -1,5 +1,6 @@
 import { Tabs } from 'expo-router';
 import { useEffect } from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Profile, Stats, Tasks, Timer } from '@/src/components/Icons';
 import { SessionProvider } from '@/src/ctx';
 import useTick from '@/src/hooks/useTick';
@@ -8,6 +9,8 @@ import { hapticsImpact } from '@/src/utils';
 
 export default function TabLayout() {
   const { fetchTasks } = useTasksActions();
+  const insets = useSafeAreaInsets();
+  const paddingBottom = insets.bottom === 0 ? 20 : insets.bottom;
 
   useTick();
 
@@ -26,8 +29,8 @@ export default function TabLayout() {
             backgroundColor: '#131221',
             borderTopColor: '#3F3E55',
             paddingTop: 20,
-            height: 80,
-            paddingBottom: 20,
+            height: 60 + paddingBottom,
+            paddingBottom,
           },
         }}
         screenListeners={{
