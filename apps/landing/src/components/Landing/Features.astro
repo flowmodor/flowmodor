@@ -2,49 +2,14 @@
 import AppearScroll from '../AppearScroll';
 ---
 
-<script
-  defer
-  src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"
-></script>
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css"
-/>
-<style>
-  img-comparison-slider {
-    --divider-color: #131221;
-    --handle-position-start: 52%;
-  }
-</style>
-
 <div
   id="features"
-  class="flex w-full flex-col items-center px-3 text-center lg:text-start"
+  class="relative gap-40 mb-60 sm:my-60 flex w-full flex-col items-center px-3 text-center lg:text-start"
 >
   <div
-    class="mt-20 flex h-screen flex-col items-center justify-center gap-10 lg:flex-row"
+    class="mt-32 flex flex-col items-center justify-center gap-10 lg:flex-row"
   >
-    <AppearScroll client:load>
-      <img-comparison-slider class="cursor-grab outline-none">
-        <img
-          slot="first"
-          src="/timer-focus.png"
-          width="100%"
-          class="ml-2 max-w-[25rem]"
-          alt="Timer feature of Flowmodor app"
-        />
-        <img
-          slot="second"
-          src="/timer-break.png"
-          width="100%"
-          class="ml-2 max-w-[25rem]"
-          alt="Timer feature of Flowmodor app"
-        />
-        <div slot="handle" class="h-8 w-8 animate-pulse rounded-full bg-white">
-        </div>
-      </img-comparison-slider>
-    </AppearScroll>
-    <div class="order-first flex max-w-[24rem] flex-col gap-5 lg:order-last">
+    <div class="flex max-w-[24rem] flex-col gap-5">
       <h2 class="text-3xl font-bold">Flowmodoro Timer</h2>
       <div>
         Work x minutes, take x/5 minutes break. Flowmodor
@@ -53,11 +18,28 @@ import AppearScroll from '../AppearScroll';
         </span>.
       </div>
     </div>
+    <AppearScroll client:load>
+      <img
+        src="/timer-break.png"
+        width="100%"
+        class="rounded-xl shadow-xl max-w-[25rem]"
+        alt="Timer feature of Flowmodor app"
+      />
+    </AppearScroll>
   </div>
   <div
     class="flex h-[60vh] flex-col items-center justify-center gap-10 lg:flex-row"
   >
-    <div class="flex max-w-[24rem] flex-col gap-5">
+    <AppearScroll client:load>
+      <img
+        draggable="false"
+        src="/tasks.png"
+        alt="Taks list feature of Flowmodor app"
+        width="100%"
+        class="rounded-xl shadow-xl max-w-[25rem]"
+      />
+    </AppearScroll>
+    <div class="order-first flex max-w-[24rem] flex-col gap-5 lg:order-last">
       <h2 class="text-3xl font-bold">Task List</h2>
       <div>
         Select a task when focus to stay
@@ -66,19 +48,19 @@ import AppearScroll from '../AppearScroll';
         >. Todoist integration available.
       </div>
     </div>
-    <AppearScroll client:load>
-      <img
-        draggable="false"
-        src="/tasks.png"
-        alt="Taks list feature of Flowmodor app"
-        width="100%"
-        class="ml-2 max-w-[25rem]"
-      />
-    </AppearScroll>
   </div>
   <div
-    class="flex h-screen flex-col items-center justify-center gap-10 lg:flex-row"
+    class="flex flex-col items-center justify-center gap-10 lg:flex-row"
   >
+    <div class="flex max-w-[24rem] flex-col gap-5">
+      <h2 class="text-3xl font-bold">Stats</h2>
+      <div>
+        Provide daily / weekly / yearly stats for enhanced <span
+          class="underline decoration-primary decoration-wavy"
+          >productivity insights</span
+        >.
+      </div>
+    </div>
     <AppearScroll client:load>
       <img
         draggable="false"
@@ -88,14 +70,5 @@ import AppearScroll from '../AppearScroll';
         class="ml-2 max-w-xl"
       />
     </AppearScroll>
-    <div class="order-first flex max-w-[24rem] flex-col gap-5 lg:order-last">
-      <h2 class="text-3xl font-bold">Stats</h2>
-      <div>
-        Provide daily / weekly / yearly stats for enhanced <span
-          class="underline decoration-primary decoration-wavy"
-          >productivity insights</span
-        >.
-      </div>
-    </div>
   </div>
 </div>

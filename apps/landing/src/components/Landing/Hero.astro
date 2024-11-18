@@ -3,53 +3,37 @@ import { Down } from '../Icons';
 ---
 
 <div
-  class="flex h-screen w-full flex-col items-center justify-center gap-10 bg-primary lg:flex-row lg:gap-2"
+  class="relative h-screen flex px-5 sm:px-10 justify-between w-full flex-col items-center gap-10 bg-primary"
 >
-  <div class="flex flex-col items-center gap-10 text-secondary lg:items-start">
-    <h1 class="text-center text-6xl font-bold lg:text-start">
-      Enter Flow State<br /> & Stay Focused
+  <div class="flex my-auto sm:mt-auto sm:translate-y-1/2 flex-col items-center gap-10 text-background">
+    <h1 class="text-center text-6xl font-bold">
+      Enter Flow &<br />Stay Focused
     </h1>
-    <div class="w-4/5 max-w-xl text-center lg:text-start">
+    <div class="max-w-md text-center">
       A Flowmodoro timer helping you enter flow state and stay focused with the Flowtime technique
     </div>
-    <div class="flex gap-5">
-      <a
-        href="https://app.flowmodor.com"
-        class="flex cursor-pointer items-center rounded-full bg-secondary px-5 py-3 text-white transition-all duration-300 hover:brightness-125"
-      >
-        Get started
-      </a>
-      <a
-        href="https://github.com/flowmodor/flowmodor"
-        class="flex cursor-pointer items-center gap-x-2 rounded-full border-2 border-secondary px-5 py-3 text-secondary"
-      >
-        Star GitHub
-      </a>
-    </div>
+    <a
+      href="https://app.flowmodor.com"
+      class="flex cursor-pointer items-center shadow shadow-md hover:scale-[1.03] rounded-full bg-background px-5 py-3 text-lg text-white transition-all duration-300"
+    >
+      Start for free
+    </a>
   </div>
-  <div class="relative">
-    <img
-      src="/timer-hero.png"
-      alt="Timer of Flowmodor"
-      draggable="false"
-      width={320}
-      height={320}
-      class="z-10 hidden flex-shrink-0 rounded-xl bg-secondary shadow-custom transition-all duration-300 hover:-translate-y-2 lg:block xl:absolute xl:left-24 xl:top-24"
-    />
-    <img
-      src="/tasks-hero.png"
-      alt="Taks list of Flowmodor"
-      draggable="false"
-      width={320}
-      height={320}
-      class="z-0 hidden flex-shrink-0 rounded-xl bg-secondary shadow-custom transition-all duration-300 hover:-translate-y-2 xl:block"
-    />
+  <img
+    src="/hero.png"
+    draggable="false"
+    class="z-10 hidden bottom-0 translate-y-1/3 sm:block px-10 flex-shrink-0 max-w-5xl w-full"
+  />
+  <div class="hidden sm:block absolute -bottom-1 left-0 w-full overflow-hidden fill-background">
+    <svg viewBox="0 0 100 10" preserveAspectRatio="none">
+      <path d="M0,7
+        C8.33,3 8.33,11 16.67,7 
+        C25,3 25,11 33.33,7
+        C41.67,3 41.67,11 50,7
+        C58.33,3 58.33,11 66.67,7
+        C75,3 75,11 83.33,7
+        C91.67,3 91.67,11 100,7
+        L100,10 L0,10 Z" />
+    </svg>
   </div>
-  <a
-    href="#features"
-    class="absolute bottom-5 hidden animate-bounce cursor-pointer rounded-full fill-secondary sm:block"
-    aria-label="Scroll down to features section"
-  >
-    <Down />
-  </a>
 </div>
