@@ -76,7 +76,16 @@ export default function StatsCard() {
           >
             Today
           </Button>
-          <Tooltip showArrow color="primary" content="Share your stats!">
+          <Tooltip
+            isOpen={
+              period === 'Week'
+                ? totalFocusTime > 15 * 60
+                : totalFocusTime > 3 * 60
+            }
+            showArrow
+            color="primary"
+            content="Share your stats!"
+          >
             <Button
               radius="sm"
               color="secondary"
