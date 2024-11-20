@@ -4,7 +4,7 @@ import { Button } from '@nextui-org/button';
 import { Tooltip } from '@nextui-org/tooltip';
 import { useTransition } from 'react';
 import { Forward, Hide, Pause, Play, Show, Stop } from '@/components/Icons';
-import { useActiveList, useFocusingTask } from '@/stores/useTasksStore';
+import { useActiveSource, useFocusingTask } from '@/stores/useTasksStore';
 import {
   useMode,
   useShowTime,
@@ -23,7 +23,7 @@ export default function Toolbar() {
   const [isPauseLoading, startPauseTransition] = useTransition();
   const [isSkipLoading, startSkipTransition] = useTransition();
   const focusingTask = useFocusingTask();
-  const activeList = useActiveList();
+  const activeSource = useActiveSource();
 
   return (
     <div className="flex items-center justify-center gap-5">
@@ -70,7 +70,7 @@ export default function Toolbar() {
           onPress={() => {
             startStopTransition(async () => {
               if (status !== 'idle') {
-                await stopTimer(focusingTask, activeList);
+                await stopTimer(focusingTask, activeSource);
               } else {
                 await startTimer();
               }
@@ -100,7 +100,7 @@ export default function Toolbar() {
             onPress={() => {
               startPauseTransition(async () => {
                 if (status === 'running') {
-                  await pauseTimer(focusingTask, activeList);
+                  await pauseTimer(focusingTask, activeSource);
                 } else {
                   await resumeTimer();
                 }
@@ -130,7 +130,7 @@ export default function Toolbar() {
             className="bg-secondary w-12 h-12"
             onPress={() => {
               startSkipTransition(async () => {
-                await stopTimer(focusingTask, activeList);
+                await stopTimer(focusingTask, activeSource);
               });
             }}
           >

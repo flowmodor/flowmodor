@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { create } from 'zustand';
 import supabase from '@/utils/supabase';
 import { useStatsStore } from './useStatsStore';
+import { Source } from './useTasksStore';
 
 interface State {
   startTime: number | null;
@@ -17,10 +18,16 @@ interface State {
 
 interface Action {
   startTimer: () => Promise<void>;
-  stopTimer: (focusingTask?: Task | null, activeList?: string) => Promise<void>;
-  pauseTimer: (focusingTask: Task | null, activeList: string) => Promise<void>;
+  stopTimer: (
+    focusingTask?: Task | null,
+    activeSource?: Source,
+  ) => Promise<void>;
+  pauseTimer: (
+    focusingTask: Task | null,
+    activeSource: Source,
+  ) => Promise<void>;
   resumeTimer: () => Promise<void>;
-  log: (focusingTask?: Task | null, activeList?: string) => Promise<void>;
+  log: (focusingTask?: Task | null, activeSource?: Source) => Promise<void>;
   tickTimer: (callback: () => void) => void;
   toggleShowTime: () => void;
 }
@@ -56,7 +63,7 @@ const useTimerStore = create<Store>((set, get) => ({
         status: 'running',
       }));
     },
-    stopTimer: async (focusingTask, activeList) => {
+    stopTimer: async (focusingTask, activeSource) => {
       const breakRatio = await getBreakRatio();
 
       if (get().status === 'paused') {
@@ -70,7 +77,7 @@ const useTimerStore = create<Store>((set, get) => ({
         return;
       }
 
-      await get().actions.log(focusingTask, activeList);
+      await get().actions.log(focusingTask, activeSource);
       set((state) => {
         const totalTime =
           state.mode === 'focus'
@@ -85,8 +92,8 @@ const useTimerStore = create<Store>((set, get) => ({
         };
       });
     },
-    pauseTimer: async (focusingTask, activeList) => {
-      await get().actions.log(focusingTask, activeList);
+    pauseTimer: async (focusingTask, activeSource) => {
+      await get().actions.log(focusingTask, activeSource);
 
       set((state) => {
         const totalTime = state.totalTime + Date.now() - state.startTime!;
@@ -102,7 +109,7 @@ const useTimerStore = create<Store>((set, get) => ({
         startTime: Date.now(),
       }));
     },
-    log: async (focusingTask, activeList) => {
+    log: async (focusingTask, activeSource) => {
       const start_time = new Date(get().startTime!).toISOString();
       const end_time = new Date(Date.now()).toISOString();
       const { mode } = get();
@@ -121,7 +128,7 @@ const useTimerStore = create<Store>((set, get) => ({
         return;
       }
 
-      const hasId = activeList === 'Flowmodor - default';
+      const hasId = activeSource === Source.Flowmodor;
       await supabase.from('logs').insert([
         {
           start_time,

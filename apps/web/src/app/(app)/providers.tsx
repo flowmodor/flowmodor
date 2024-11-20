@@ -7,7 +7,7 @@ import { useStatus } from '@/stores/useTimerStore';
 
 // eslint-disable-next-line import/prefer-default-export
 export function HomeProvider({ children }: { children: ReactNode }) {
-  const { fetchListsAndLabels, fetchTasks } = useTasksActions();
+  const { fetchSources, fetchListsAndLabels, fetchTasks } = useTasksActions();
   const status = useStatus();
   const effectRunRef = useRef(false);
 
@@ -18,10 +18,9 @@ export function HomeProvider({ children }: { children: ReactNode }) {
 
     effectRunRef.current = true;
 
-    (async () => {
-      await fetchListsAndLabels();
-      await fetchTasks();
-    })();
+    fetchSources();
+    fetchListsAndLabels();
+    fetchTasks();
   }, [fetchListsAndLabels]);
 
   useEffect(() => {

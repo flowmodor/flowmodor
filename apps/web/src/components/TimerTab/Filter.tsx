@@ -2,9 +2,9 @@
 
 import { Select, SelectItem } from '@nextui-org/select';
 import {
-  defaultActiveList,
+  Source,
   useActiveLabel,
-  useActiveList,
+  useActiveSource,
   useIsLoadingLists,
   useLabels,
   useTasksActions,
@@ -17,10 +17,10 @@ export default function Filter() {
   const labels = useLabels();
   const activeLabel = useActiveLabel();
   const isLoadingLists = useIsLoadingLists();
-  const activeList = useActiveList();
+  const activeSource = useActiveSource();
   const { onLabelChange } = useTasksActions();
 
-  if (activeList === defaultActiveList) {
+  if (activeSource === Source.Flowmodor) {
     return null;
   }
 

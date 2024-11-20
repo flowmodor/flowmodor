@@ -7,10 +7,13 @@ import { create } from 'zustand';
 import supabase from '@/utils/supabase';
 import getClient from '@/utils/todoist';
 
-export const defaultActiveList = 'Flowmodor - default';
+export enum Source {
+  Flowmodor = 'Flowmodor',
+  Todoist = 'Todoist',
+  TickTick = 'TickTick',
+}
 
 interface List {
-  provider: string;
   name: string;
   id: string;
 }
@@ -19,7 +22,10 @@ interface State {
   tasks: Task[];
   focusingTask: Task | null;
   isLoadingTasks: boolean;
-  activeList: string;
+  sources: Source[];
+  activeSource: Source;
+  isLoadingSources: boolean;
+  activeList: string | null;
   lists: List[];
   isLoadingLists: boolean;
   activeLabel: string;
@@ -31,10 +37,12 @@ interface Action {
   deleteTask: (task: Task) => Promise<void>;
   completeTask: (task: Task) => Promise<void>;
   undoCompleteTask: (task: Task) => Promise<void>;
+  fetchSources: () => Promise<void>;
   fetchListsAndLabels: () => Promise<void>;
   focusTask: (task: Task) => void;
   unfocusTask: () => void;
   fetchTasks: () => Promise<void>;
+  onSourceChange: (newSource: Source) => Promise<void>;
   onListChange: (e: ChangeEvent<HTMLSelectElement>) => boolean;
   onLabelChange: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
@@ -47,30 +55,44 @@ const useTasksStore = create<Store>((set, get) => ({
   tasks: [],
   focusingTask: null,
   isLoadingTasks: true,
-  activeList: defaultActiveList,
+  sources: [Source.Flowmodor],
+  activeSource: Source.Flowmodor,
+  isLoadingSources: true,
+  activeList: null,
   isLoadingLists: true,
-  lists: [
-    {
-      provider: 'Flowmodor',
-      name: 'Default',
-      id: 'default',
-    },
-  ],
+  lists: [],
   activeLabel: '',
   labels: [],
   actions: {
     addTask: async (name) => {
-      const { tasks, activeList, activeLabel: label } = get();
-      const [provider, projectId] = activeList.split(' - ', 2);
+      const { tasks, activeSource, activeList, activeLabel: label } = get();
+      if (activeSource === Source.Flowmodor) {
+        const { data, error } = await supabase
+          .from('tasks')
+          .insert([{ name }])
+          .select();
 
-      const todoist = await getClient(supabase);
-      if (provider === 'Todoist' && todoist) {
+        if (error) {
+          toast.error(error.message);
+          return;
+        }
+
+        set((state) => ({
+          tasks: [...state.tasks, data[0]],
+        }));
+      } else if (activeSource === Source.Todoist) {
+        const todoist = await getClient(supabase);
+
+        if (todoist === null) {
+          return;
+        }
+
         try {
           const { id } = await todoist.addTask({
             content: name,
-            ...(projectId !== 'all' &&
-              projectId !== 'today' && { project_id: projectId }),
-            ...(projectId === 'today' && { due_string: 'today' }),
+            ...(activeList !== 'all' &&
+              activeList !== 'today' && { project_id: activeList }),
+            ...(activeList === 'today' && { due_string: 'today' }),
             ...(label && { labels: [label] }),
           });
           set({
@@ -87,36 +109,12 @@ const useTasksStore = create<Store>((set, get) => ({
         } catch (error) {
           console.error(error);
         }
-      } else {
-        const { data, error } = await supabase
-          .from('tasks')
-          .insert([{ name }])
-          .select();
-
-        if (error) {
-          toast.error(error.message);
-          return;
-        }
-
-        set((state) => ({
-          tasks: [...state.tasks, data[0]],
-        }));
       }
     },
     deleteTask: async (task) => {
-      const { activeList } = get();
-      const [provider] = activeList.split(' - ', 2);
+      const { activeSource } = get();
 
-      if (provider === 'Todoist') {
-        const todoist = await getClient(supabase);
-        if (todoist) {
-          const isSuccess = await todoist.deleteTask(task.id.toString());
-          if (!isSuccess) {
-            toast.error('Failed to delete task');
-            return;
-          }
-        }
-      } else {
+      if (activeSource === Source.Flowmodor) {
         const { error } = await supabase
           .from('tasks')
           .delete()
@@ -126,6 +124,18 @@ const useTasksStore = create<Store>((set, get) => ({
           toast.error(error.message);
           return;
         }
+      } else if (activeSource === Source.Todoist) {
+        const todoist = await getClient(supabase);
+
+        if (!todoist) {
+          return;
+        }
+
+        const isSuccess = await todoist.deleteTask(task.id.toString());
+        if (!isSuccess) {
+          toast.error('Failed to delete task');
+          return;
+        }
       }
 
       set((state) => ({
@@ -133,21 +143,13 @@ const useTasksStore = create<Store>((set, get) => ({
       }));
     },
     completeTask: async (task) => {
-      const { activeList, focusingTask, actions } = get();
-      const [provider] = activeList.split(' - ', 2);
+      const { activeSource, focusingTask, actions } = get();
 
       if (focusingTask?.id === task.id) {
         actions.unfocusTask();
       }
 
-      const todoist = await getClient(supabase);
-      if (provider === 'Todoist' && todoist) {
-        const isSuccess = await todoist.closeTask(task.id.toString());
-        if (!isSuccess) {
-          toast.error('Failed to complete task');
-          return;
-        }
-      } else {
+      if (activeSource === Source.Flowmodor) {
         const { error } = await supabase
           .from('tasks')
           .update({ completed: true })
@@ -158,6 +160,18 @@ const useTasksStore = create<Store>((set, get) => ({
           toast.error(error.message);
           return;
         }
+      } else if (activeSource === Source.Todoist) {
+        const todoist = await getClient(supabase);
+
+        if (!todoist) {
+          return;
+        }
+
+        const isSuccess = await todoist.closeTask(task.id.toString());
+        if (!isSuccess) {
+          toast.error('Failed to complete task');
+          return;
+        }
       }
 
       set((state) => ({
@@ -165,16 +179,9 @@ const useTasksStore = create<Store>((set, get) => ({
       }));
     },
     undoCompleteTask: async (task) => {
-      const { activeList } = get();
-      const [provider] = activeList.split(' - ', 2);
-      const todoist = await getClient(supabase);
-      if (provider === 'Todoist' && todoist) {
-        const isSuccess = await todoist.reopenTask(task.id.toString());
-        if (!isSuccess) {
-          toast.error('Failed to undo complete task');
-          return;
-        }
-      } else {
+      const { activeSource } = get();
+
+      if (activeSource === Source.Flowmodor) {
         const { error } = await supabase
           .from('tasks')
           .update({ completed: false })
@@ -183,6 +190,18 @@ const useTasksStore = create<Store>((set, get) => ({
 
         if (error) {
           toast.error(error.message);
+          return;
+        }
+      } else if (activeSource === Source.Todoist) {
+        const todoist = await getClient(supabase);
+
+        if (!todoist) {
+          return;
+        }
+
+        const isSuccess = await todoist.reopenTask(task.id.toString());
+        if (!isSuccess) {
+          toast.error('Failed to undo complete task');
           return;
         }
       }
@@ -200,51 +219,77 @@ const useTasksStore = create<Store>((set, get) => ({
         ],
       }));
     },
-    fetchListsAndLabels: async () => {
-      const todoist = await getClient(supabase);
-      if (!todoist) {
-        set({ isLoadingLists: false });
-        return;
-      }
-
-      const lists = await todoist.getProjects();
-      const todoistLists = lists.map((list) => ({
-        provider: 'Todoist',
-        name: list.name,
-        id: list.id,
-      }));
-
+    fetchSources: async () => {
+      const { data } = await supabase.from('integrations').select('*').single();
       set((state) => ({
-        lists: [
-          ...state.lists,
-          { provider: 'Todoist', name: 'All', id: 'all' },
-          { provider: 'Todoist', name: 'Today', id: 'today' },
-          ...todoistLists,
+        sources: [
+          ...state.sources,
+          ...(data?.todoist ? [Source.Todoist] : []),
+          ...(data?.ticktick ? [Source.TickTick] : []),
         ],
-        activeList: defaultActiveList,
-        isLoadingLists: false,
+        isLoadingSources: false,
       }));
+    },
+    fetchListsAndLabels: async () => {
+      const { activeSource } = get();
 
-      const labels = await todoist.getLabels();
-      set({ labels: labels.map((label) => label.name) });
+      if (activeSource === Source.Flowmodor) {
+        set({ isLoadingLists: false });
+      } else if (activeSource === Source.Todoist) {
+        const todoist = await getClient(supabase);
+        if (!todoist) {
+          set({ isLoadingLists: false });
+          return;
+        }
+
+        const lists = await todoist.getProjects();
+        const todoistLists = lists.map((list) => ({
+          name: list.name,
+          id: list.id,
+        }));
+
+        set(() => ({
+          lists: [
+            { name: 'Today', id: 'today' },
+            ...todoistLists,
+            { name: 'All', id: 'all' },
+          ],
+          activeList: 'today',
+          isLoadingLists: false,
+        }));
+
+        const labels = await todoist.getLabels();
+        set({ labels: labels.map((label) => label.name) });
+      }
     },
     focusTask: (task) => set({ focusingTask: task }),
     unfocusTask: () => set({ focusingTask: null }),
     fetchTasks: async () => {
       set({ focusingTask: null, isLoadingTasks: true });
 
-      const { activeList } = get();
-      const [provider, id] = activeList.split(' - ');
+      const { activeSource, activeList } = get();
 
-      const todoist = await getClient(supabase);
+      if (activeSource === Source.Flowmodor) {
+        const { data } = await supabase
+          .from('tasks')
+          .select('*')
+          .is('completed', false);
+        set({ tasks: data!, isLoadingTasks: false });
+      } else if (activeSource === Source.Todoist) {
+        const todoist = await getClient(supabase);
+        if (todoist === null) {
+          set({ isLoadingTasks: false });
+          return;
+        }
 
-      if (provider === 'Todoist' && todoist !== null) {
-        const listName = get().lists.find((list) => list.id === id)?.name;
+        const listName = get().lists.find(
+          (list) => list.id === activeList,
+        )?.name;
 
         let filter = '';
-        if (id === 'all') {
+        if (activeList === 'all') {
           filter = 'all';
-        } else if (id === 'today') {
+        } else if (activeList === 'today') {
           filter = 'today';
         } else if (listName) {
           filter = `#${listName}`;
@@ -260,13 +305,21 @@ const useTasksStore = create<Store>((set, get) => ({
           due: task.due?.date ? new Date(task.due.date) : null,
         }));
         set({ tasks: processedTasks, isLoadingTasks: false });
-      } else {
-        const { data } = await supabase
-          .from('tasks')
-          .select('*')
-          .is('completed', false);
-        set({ tasks: data!, isLoadingTasks: false });
       }
+    },
+    onSourceChange: async (newSource) => {
+      set({
+        isLoadingLists: true,
+        isLoadingTasks: true,
+        activeSource: newSource,
+      });
+
+      const {
+        actions: { fetchListsAndLabels, fetchTasks },
+      } = get();
+
+      await fetchListsAndLabels();
+      await fetchTasks();
     },
     onListChange: (e) => {
       if (e.target.value === '') {
@@ -282,6 +335,10 @@ const useTasksStore = create<Store>((set, get) => ({
   },
 }));
 
+export const useSources = () => useTasksStore((s) => s.sources);
+export const useActiveSource = () => useTasksStore((s) => s.activeSource);
+export const useIsLoadingSources = () =>
+  useTasksStore((s) => s.isLoadingSources);
 export const useLists = () => useTasksStore((s) => s.lists);
 export const useFocusingTask = () => useTasksStore((s) => s.focusingTask);
 export const useIsLoadingTasks = () => useTasksStore((s) => s.isLoadingTasks);
@@ -293,9 +350,9 @@ export const useTasksActions = () => useTasksStore((s) => s.actions);
 export const useTasks = () => {
   const tasks = useTasksStore((state) => state.tasks);
   const activeLabel = useTasksStore((state) => state.activeLabel);
-  const activeList = useTasksStore((state) => state.activeList);
+  const activeSource = useTasksStore((state) => state.activeSource);
 
-  if (activeLabel === '' || activeList === defaultActiveList) {
+  if (activeLabel === '' || activeSource === Source.Flowmodor) {
     return tasks;
   }
 
