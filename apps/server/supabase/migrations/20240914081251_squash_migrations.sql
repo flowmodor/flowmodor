@@ -90,8 +90,8 @@ begin
   insert into public.settings (user_id, break_ratio)
   values (new.id, 5);
 
-  insert into public.integrations (user_id, todoist)
-  values (new.id, NULL);
+  insert into public.integrations (user_id)
+  values (new.id);
 
   return new;
 end;
@@ -108,6 +108,7 @@ SET default_table_access_method = "heap";
 CREATE TABLE IF NOT EXISTS "public"."integrations" (
     "id" bigint NOT NULL,
     "todoist" "text",
+    "ticktick" "text",
     "user_id" "uuid"
 );
 

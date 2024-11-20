@@ -1,13 +1,11 @@
 import { cookies } from 'next/headers';
 import { getServerClient } from '@/utils/supabase';
+import TickTickButton from './TickTickButton';
 import TodoistButton from './TodoistButton';
 
 export default async function Integrations() {
   const supabase = getServerClient(cookies());
-  const { data } = await supabase
-    .from('integrations')
-    .select('todoist')
-    .single();
+  const { data } = await supabase.from('integrations').select('*').single();
 
   return (
     <div className="flex flex-col gap-3 items-start">
@@ -19,6 +17,9 @@ export default async function Integrations() {
       </div>
       <TodoistButton
         connected={data?.todoist !== null && data?.todoist !== undefined}
+      />
+      <TickTickButton
+        connected={data?.ticktick !== null && data?.ticktick !== undefined}
       />
     </div>
   );

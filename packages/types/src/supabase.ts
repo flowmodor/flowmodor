@@ -12,16 +12,19 @@ export type Database = {
       integrations: {
         Row: {
           id: number
+          ticktick: string | null
           todoist: string | null
           user_id: string | null
         }
         Insert: {
           id?: number
+          ticktick?: string | null
           todoist?: string | null
           user_id?: string | null
         }
         Update: {
           id?: number
+          ticktick?: string | null
           todoist?: string | null
           user_id?: string | null
         }
