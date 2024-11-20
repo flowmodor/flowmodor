@@ -1,10 +1,10 @@
 'use client';
 
 import { Button } from '@nextui-org/button';
+import Image from 'next/image';
 import { useTransition } from 'react';
 import { toast } from 'sonner';
 import { connectTodoist, disconnectTodoist } from '@/actions/settings';
-import { Todoist } from '../Icons';
 
 export default function TodoistButton({ connected }: { connected: Boolean }) {
   const [isPending, startTransition] = useTransition();
@@ -29,7 +29,9 @@ export default function TodoistButton({ connected }: { connected: Boolean }) {
         });
       }}
     >
-      {isPending ? null : <Todoist />}
+      {isPending ? null : (
+        <Image alt="Todoist" width="24" height="24" src="/images/todoist.png" />
+      )}
       {connected ? 'Disconnect Todoist' : 'Connect Todoist'}
     </Button>
   );

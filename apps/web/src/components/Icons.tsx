@@ -70,14 +70,6 @@ export function Apple() {
   );
 }
 
-export function Todoist() {
-  return (
-    <svg fill="white" width="20" height="20">
-      <use href="/icons.svg#todoist" />
-    </svg>
-  );
-}
-
 export function X() {
   return (
     <svg width="16">
