@@ -7,7 +7,7 @@ import {
   useIsLoadingLists,
   useLists,
   useTasksActions,
-} from '@/stores/Tasks';
+} from '@/stores/useTasksStore';
 import { useMode, useStatus } from '@/stores/useTimerStore';
 
 export default function ListSelector() {

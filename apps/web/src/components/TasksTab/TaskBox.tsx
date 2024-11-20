@@ -6,7 +6,7 @@ import { Checkbox } from '@nextui-org/checkbox';
 import { useTransition } from 'react';
 import Markdown from 'react-markdown';
 import { toast } from 'sonner';
-import { useFocusingTask, useTasksActions } from '@/stores/Tasks';
+import { useFocusingTask, useTasksActions } from '@/stores/useTasksStore';
 import { useMode, useStatus } from '@/stores/useTimerStore';
 import { Calendar, Label, TrashCan } from '../Icons';
 

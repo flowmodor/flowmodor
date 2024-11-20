@@ -4,7 +4,7 @@ import { Button } from '@nextui-org/button';
 import { Tooltip } from '@nextui-org/tooltip';
 import { useTransition } from 'react';
 import { Forward, Hide, Pause, Play, Show, Stop } from '@/components/Icons';
-import { useActiveList, useFocusingTask } from '@/stores/Tasks';
+import { useActiveList, useFocusingTask } from '@/stores/useTasksStore';
 import {
   useMode,
   useShowTime,

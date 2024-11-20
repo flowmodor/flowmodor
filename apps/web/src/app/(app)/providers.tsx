@@ -2,12 +2,12 @@
 
 import { ReactNode, useEffect, useRef } from 'react';
 import useTick from '@/hooks/useTick';
-import { useTasksActions } from '@/stores/Tasks';
+import { useTasksActions } from '@/stores/useTasksStore';
 import { useStatus } from '@/stores/useTimerStore';
 
 // eslint-disable-next-line import/prefer-default-export
 export function HomeProvider({ children }: { children: ReactNode }) {
-  const { fetchListsAndLabels } = useTasksActions();
+  const { fetchListsAndLabels, fetchTasks } = useTasksActions();
   const status = useStatus();
   const effectRunRef = useRef(false);
 
@@ -17,7 +17,11 @@ export function HomeProvider({ children }: { children: ReactNode }) {
     }
 
     effectRunRef.current = true;
-    fetchListsAndLabels();
+
+    (async () => {
+      await fetchListsAndLabels();
+      await fetchTasks();
+    })();
   }, [fetchListsAndLabels]);
 
   useEffect(() => {

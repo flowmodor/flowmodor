@@ -1,7 +1,7 @@
 'use client';
 
 import { Tooltip } from '@nextui-org/tooltip';
-import { useFocusingTask } from '@/stores/Tasks';
+import { useFocusingTask } from '@/stores/useTasksStore';
 import { useMode, useStatus } from '@/stores/useTimerStore';
 
 export default function FocusingTask() {
