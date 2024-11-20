@@ -59,8 +59,6 @@ export async function disconnectTodoist() {
 }
 
 export async function connectTickTick() {
-  console.log(process.env.TICKTICK_CLIENT_ID);
-
   const url = new URL('https://ticktick.com/oauth/authorize');
   url.searchParams.append('client_id', process.env.TICKTICK_CLIENT_ID);
   url.searchParams.append('scope', 'tasks:write tasks:read');
