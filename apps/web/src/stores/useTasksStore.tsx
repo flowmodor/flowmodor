@@ -77,9 +77,15 @@ const useTasksStore = create<Store>((set, get) => ({
           return;
         }
 
-        set((state) => ({
-          tasks: [...state.tasks, data[0]],
-        }));
+        const newTasks = [
+          ...tasks,
+          {
+            ...data[0],
+            id: data[0].id.toString(),
+          },
+        ];
+
+        set({ tasks: newTasks });
       } else if (activeSource === Source.Todoist) {
         const todoist = await getClient(supabase);
 
@@ -99,7 +105,7 @@ const useTasksStore = create<Store>((set, get) => ({
             tasks: [
               ...tasks,
               {
-                id: parseInt(id, 10),
+                id,
                 name,
                 completed: false,
                 ...(label && { labels: [label] }),
@@ -109,10 +115,44 @@ const useTasksStore = create<Store>((set, get) => ({
         } catch (error) {
           console.error(error);
         }
+      } else if (activeSource === Source.TickTick) {
+        const { data } = await supabase
+          .from('integrations')
+          .select('ticktick')
+          .single();
+
+        const accessToken = data?.ticktick;
+
+        if (!accessToken) {
+          set({ isLoadingLists: false });
+          return;
+        }
+
+        const response = await fetch('https://api.ticktick.com/open/v1/task', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({
+            title: name,
+            projectId: activeList,
+          }),
+        });
+        const { id } = await response.json();
+        set({
+          tasks: [
+            ...tasks,
+            {
+              id,
+              name,
+              completed: false,
+            },
+          ],
+        });
       }
     },
     deleteTask: async (task) => {
-      const { activeSource } = get();
+      const { activeSource, activeList } = get();
 
       if (activeSource === Source.Flowmodor) {
         const { error } = await supabase
@@ -136,6 +176,33 @@ const useTasksStore = create<Store>((set, get) => ({
           toast.error('Failed to delete task');
           return;
         }
+      } else if (activeSource === Source.TickTick) {
+        const { data } = await supabase
+          .from('integrations')
+          .select('ticktick')
+          .single();
+
+        const accessToken = data?.ticktick;
+
+        if (!accessToken) {
+          set({ isLoadingLists: false });
+          return;
+        }
+
+        const response = await fetch(
+          `https://api.ticktick.com/open/v1/project/${activeList}/task/${task.id}`,
+          {
+            method: 'DELETE',
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        );
+
+        if (!response.ok) {
+          toast.error('Failed to delete task');
+          return;
+        }
       }
 
       set((state) => ({
@@ -143,7 +210,7 @@ const useTasksStore = create<Store>((set, get) => ({
       }));
     },
     completeTask: async (task) => {
-      const { activeSource, focusingTask, actions } = get();
+      const { activeSource, focusingTask, actions, activeList } = get();
 
       if (focusingTask?.id === task.id) {
         actions.unfocusTask();
@@ -169,6 +236,33 @@ const useTasksStore = create<Store>((set, get) => ({
 
         const isSuccess = await todoist.closeTask(task.id.toString());
         if (!isSuccess) {
+          toast.error('Failed to complete task');
+          return;
+        }
+      } else if (activeSource === Source.TickTick) {
+        const { data } = await supabase
+          .from('integrations')
+          .select('ticktick')
+          .single();
+
+        const accessToken = data?.ticktick;
+
+        if (!accessToken) {
+          set({ isLoadingLists: false });
+          return;
+        }
+
+        const response = await fetch(
+          `https://api.ticktick.com/open/v1/project/${activeList}/task/${task.id}/complete`,
+          {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        );
+
+        if (!response.ok) {
           toast.error('Failed to complete task');
           return;
         }
@@ -221,14 +315,14 @@ const useTasksStore = create<Store>((set, get) => ({
     },
     fetchSources: async () => {
       const { data } = await supabase.from('integrations').select('*').single();
-      set((state) => ({
+      set({
         sources: [
-          ...state.sources,
+          Source.Flowmodor,
           ...(data?.todoist ? [Source.Todoist] : []),
           ...(data?.ticktick ? [Source.TickTick] : []),
         ],
         isLoadingSources: false,
-      }));
+      });
     },
     fetchListsAndLabels: async () => {
       const { activeSource } = get();
@@ -260,6 +354,37 @@ const useTasksStore = create<Store>((set, get) => ({
 
         const labels = await todoist.getLabels();
         set({ labels: labels.map((label) => label.name) });
+      } else if (activeSource === Source.TickTick) {
+        const { data } = await supabase
+          .from('integrations')
+          .select('ticktick')
+          .single();
+
+        const accessToken = data?.ticktick;
+
+        if (!accessToken) {
+          set({ isLoadingLists: false });
+          return;
+        }
+
+        const response = await fetch(
+          'https://api.ticktick.com/open/v1/project',
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        );
+        const lists = await response.json();
+
+        set(() => ({
+          lists: lists.map((list: List) => ({
+            name: list.name,
+            id: list.id,
+          })),
+          activeList: lists[0].id,
+          isLoadingLists: false,
+        }));
       }
     },
     focusTask: (task) => set({ focusingTask: task }),
@@ -274,7 +399,10 @@ const useTasksStore = create<Store>((set, get) => ({
           .from('tasks')
           .select('*')
           .is('completed', false);
-        set({ tasks: data!, isLoadingTasks: false });
+        set({
+          tasks: data!.map((task) => ({ ...task, id: task.id.toString() })),
+          isLoadingTasks: false,
+        });
       } else if (activeSource === Source.Todoist) {
         const todoist = await getClient(supabase);
         if (todoist === null) {
@@ -298,11 +426,41 @@ const useTasksStore = create<Store>((set, get) => ({
         const tasks = await todoist.getTasks({ filter });
 
         const processedTasks = tasks.map((task) => ({
-          id: parseInt(task.id, 10),
+          id: task.id,
           name: task.content,
           completed: task.isCompleted,
           labels: task.labels,
           due: task.due?.date ? new Date(task.due.date) : null,
+        }));
+        set({ tasks: processedTasks, isLoadingTasks: false });
+      } else if (activeSource === Source.TickTick) {
+        const { data } = await supabase
+          .from('integrations')
+          .select('ticktick')
+          .single();
+
+        const accessToken = data?.ticktick;
+
+        if (!accessToken) {
+          set({ isLoadingLists: false });
+          return;
+        }
+
+        const response = await fetch(
+          `https://api.ticktick.com/open/v1/project/${activeList}/data`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        );
+        const projectData = await response.json();
+        const processedTasks = projectData.tasks.map((task: any) => ({
+          id: task.id,
+          name: task.title,
+          completed: false,
+          labels: task.tags,
+          due: task.dueDate ? new Date(task.dueDate) : null,
         }));
         set({ tasks: processedTasks, isLoadingTasks: false });
       }

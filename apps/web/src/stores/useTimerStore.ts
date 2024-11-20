@@ -133,7 +133,7 @@ const useTimerStore = create<Store>((set, get) => ({
         {
           start_time,
           end_time,
-          task_id: hasId ? focusingTask.id : null,
+          task_id: hasId ? parseInt(focusingTask.id, 10) : null,
           task_name: hasId ? null : focusingTask.name,
         },
       ]);

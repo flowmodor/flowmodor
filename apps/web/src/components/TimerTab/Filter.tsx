@@ -20,7 +20,7 @@ export default function Filter() {
   const activeSource = useActiveSource();
   const { onLabelChange } = useTasksActions();
 
-  if (activeSource === Source.Flowmodor) {
+  if (activeSource !== Source.Todoist) {
     return null;
   }
 
