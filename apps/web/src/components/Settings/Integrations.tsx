@@ -6,10 +6,8 @@ export default async function Integrations() {
   const supabase = getServerClient(cookies());
   const { data } = await supabase
     .from('integrations')
-    .select('provider')
+    .select('todoist')
     .single();
-
-  const provider = data?.provider;
 
   return (
     <div className="flex flex-col gap-3 items-start">
@@ -19,7 +17,9 @@ export default async function Integrations() {
       <div className="text-xs text-foreground-400">
         Sync todo lists with third-party apps.
       </div>
-      <TodoistButton provider={provider} />
+      <TodoistButton
+        connected={data?.todoist !== null && data?.todoist !== undefined}
+      />
     </div>
   );
 }

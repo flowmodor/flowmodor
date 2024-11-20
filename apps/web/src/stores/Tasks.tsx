@@ -1,6 +1,5 @@
 'use client';
 
-import { TodoistApi } from '@doist/todoist-api-typescript';
 import { Task } from '@flowmodor/types';
 import {
   ChangeEvent,
@@ -254,18 +253,9 @@ const createTasksStore = (initProps: Props) =>
         const { activeList } = get();
         const [provider, id] = activeList.split(' - ');
 
-        const { data: integrationsData } = await supabase
-          .from('integrations')
-          .select('provider, access_token')
-          .single();
+        const todoist = await getClient(supabase);
 
-        if (
-          provider === 'Todoist' &&
-          integrationsData?.provider === 'todoist' &&
-          integrationsData.access_token
-        ) {
-          const api = new TodoistApi(integrationsData.access_token);
-
+        if (provider === 'Todoist' && todoist !== null) {
           const listName = get().lists.find((list) => list.id === id)?.name;
 
           let filter = '';
@@ -277,7 +267,7 @@ const createTasksStore = (initProps: Props) =>
             filter = `#${listName}`;
           }
 
-          const tasks = await api.getTasks({ filter });
+          const tasks = await todoist.getTasks({ filter });
 
           const processedTasks = tasks.map((task) => ({
             id: parseInt(task.id, 10),

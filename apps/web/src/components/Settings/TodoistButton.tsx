@@ -1,17 +1,12 @@
 'use client';
 
-import { Enums } from '@flowmodor/types';
 import { Button } from '@nextui-org/button';
 import { useTransition } from 'react';
 import { toast } from 'sonner';
 import { connectTodoist, disconnectTodoist } from '@/actions/settings';
 import { Todoist } from '../Icons';
 
-export default function TodoistButton({
-  provider,
-}: {
-  provider: Enums<'provider'> | null | undefined;
-}) {
+export default function TodoistButton({ connected }: { connected: Boolean }) {
   const [isPending, startTransition] = useTransition();
 
   return (
@@ -21,7 +16,7 @@ export default function TodoistButton({
       isLoading={isPending}
       onPress={() => {
         startTransition(async () => {
-          if (provider === 'todoist') {
+          if (connected) {
             const { error } = await disconnectTodoist();
             if (error) {
               toast.error('Failed to disconnect Todoist.');
@@ -35,7 +30,7 @@ export default function TodoistButton({
       }}
     >
       {isPending ? null : <Todoist />}
-      {provider === 'todoist' ? 'Disconnect Todoist' : 'Connect Todoist'}
+      {connected ? 'Disconnect Todoist' : 'Connect Todoist'}
     </Button>
   );
 }

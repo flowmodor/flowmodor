@@ -7,6 +7,8 @@ import {
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { NextRequest, NextResponse } from 'next/server';
 
+export type SupabaseClient = ReturnType<typeof createBrowserClient<Database>>;
+
 const supabase = createBrowserClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,

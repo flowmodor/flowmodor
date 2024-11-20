@@ -1,16 +1,16 @@
 import { TodoistApi } from '@doist/todoist-api-typescript';
+import { SupabaseClient } from './supabase';
 
-export default async function getClient(supabase: any) {
-  const { data: integrationsData } = await supabase
+export default async function getClient(supabase: SupabaseClient) {
+  const { data } = await supabase
     .from('integrations')
-    .select('provider, access_token')
+    .select('todoist')
     .single();
 
-  if (
-    integrationsData?.provider !== 'todoist' ||
-    !integrationsData?.access_token
-  ) {
-    return null;
+  const todoistToken = data?.todoist;
+
+  if (todoistToken) {
+    return new TodoistApi(todoistToken);
   }
-  return new TodoistApi(integrationsData.access_token);
+  return null;
 }

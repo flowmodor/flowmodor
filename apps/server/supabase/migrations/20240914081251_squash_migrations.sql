@@ -72,14 +72,6 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA "extensions";
 
 
 
-CREATE TYPE "public"."provider" AS ENUM (
-    'todoist'
-);
-
-
-ALTER TYPE "public"."provider" OWNER TO "postgres";
-
-
 CREATE OR REPLACE FUNCTION "public"."delete_account"() RETURNS "void"
     LANGUAGE "plpgsql" SECURITY DEFINER
     AS $$begin	
@@ -98,8 +90,8 @@ begin
   insert into public.settings (user_id, break_ratio)
   values (new.id, 5);
 
-  insert into public.integrations (user_id, provider, access_token)
-  values (new.id, NULL, NULL);
+  insert into public.integrations (user_id, todoist)
+  values (new.id, NULL);
 
   return new;
 end;
@@ -115,8 +107,7 @@ SET default_table_access_method = "heap";
 
 CREATE TABLE IF NOT EXISTS "public"."integrations" (
     "id" bigint NOT NULL,
-    "provider" "public"."provider",
-    "access_token" "text",
+    "todoist" "text",
     "user_id" "uuid"
 );
 

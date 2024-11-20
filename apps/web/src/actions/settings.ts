@@ -50,7 +50,7 @@ export async function disconnectTodoist() {
 
   const { error } = await supabase
     .from('integrations')
-    .update({ provider: null, access_token: null })
+    .update({ todoist: null })
     .eq('user_id', user!.id);
 
   revalidatePath('/settings');

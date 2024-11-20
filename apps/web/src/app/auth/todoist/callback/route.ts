@@ -35,7 +35,7 @@ export async function GET(request: Request) {
 
     const { error } = await supabase
       .from('integrations')
-      .update({ provider: 'todoist', access_token: accessToken })
+      .update({ todoist: accessToken })
       .eq('user_id', user.id);
 
     if (!error && response.ok) {

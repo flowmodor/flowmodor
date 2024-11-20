@@ -11,21 +11,18 @@ export type Database = {
     Tables: {
       integrations: {
         Row: {
-          access_token: string | null
           id: number
-          provider: Database["public"]["Enums"]["provider"] | null
+          todoist: string | null
           user_id: string | null
         }
         Insert: {
-          access_token?: string | null
           id?: number
-          provider?: Database["public"]["Enums"]["provider"] | null
+          todoist?: string | null
           user_id?: string | null
         }
         Update: {
-          access_token?: string | null
           id?: number
-          provider?: Database["public"]["Enums"]["provider"] | null
+          todoist?: string | null
           user_id?: string | null
         }
         Relationships: [
@@ -149,7 +146,7 @@ export type Database = {
       }
     }
     Enums: {
-      provider: "todoist"
+      [_ in never]: never
     }
     CompositeTypes: {
       [_ in never]: never
