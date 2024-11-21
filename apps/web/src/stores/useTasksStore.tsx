@@ -1,22 +1,20 @@
 'use client';
 
-import { Task } from '@flowmodor/types';
+import { List, Task } from '@flowmodor/types';
 import { ChangeEvent } from 'react';
 import { toast } from 'sonner';
 import { create } from 'zustand';
 import supabase from '@/utils/supabase/client';
-import getClient from '@/utils/todoist';
+import { Source, TaskSource } from './sources';
+import FlowmodorSource from './sources/flowmodor';
+import TickTickSource from './sources/ticktick';
+import TodoistSource from './sources/todoist';
 
-export enum Source {
-  Flowmodor = 'Flowmodor',
-  Todoist = 'Todoist',
-  TickTick = 'TickTick',
-}
-
-interface List {
-  name: string;
-  id: string;
-}
+const sourceMap = {
+  [Source.Flowmodor]: FlowmodorSource,
+  [Source.Todoist]: TodoistSource,
+  [Source.TickTick]: TickTickSource,
+};
 
 interface State {
   tasks: Task[];
@@ -30,6 +28,7 @@ interface State {
   isLoadingLists: boolean;
   activeLabel: string;
   labels: string[];
+  sourceInstance: TaskSource | null;
 }
 
 interface Action {
@@ -59,425 +58,153 @@ const useTasksStore = create<Store>((set, get) => ({
   activeSource: Source.Flowmodor,
   isLoadingSources: true,
   activeList: null,
-  isLoadingLists: true,
   lists: [],
+  isLoadingLists: true,
   activeLabel: '',
   labels: [],
+  sourceInstance: new FlowmodorSource(supabase),
   actions: {
     addTask: async (name) => {
-      const { tasks, activeSource, activeList, activeLabel: label } = get();
-      if (activeSource === Source.Flowmodor) {
-        const { data, error } = await supabase
-          .from('tasks')
-          .insert([{ name }])
-          .select();
+      try {
+        const { sourceInstance, tasks, activeList, activeLabel } = get();
+        if (!sourceInstance) return;
 
-        if (error) {
-          toast.error(error.message);
-          return;
-        }
-
-        const newTasks = [
-          ...tasks,
-          {
-            ...data[0],
-            id: data[0].id.toString(),
-          },
-        ];
-
-        set({ tasks: newTasks });
-      } else if (activeSource === Source.Todoist) {
-        const todoist = await getClient(supabase);
-
-        if (todoist === null) {
-          return;
-        }
-
-        try {
-          const { id } = await todoist.addTask({
-            content: name,
-            ...(activeList !== 'all' &&
-              activeList !== 'today' && { project_id: activeList }),
-            ...(activeList === 'today' && { due_string: 'today' }),
-            ...(label && { labels: [label] }),
-          });
-          set({
-            tasks: [
-              ...tasks,
-              {
-                id,
-                name,
-                completed: false,
-                ...(label && { labels: [label] }),
-              },
-            ],
-          });
-        } catch (error) {
-          console.error(error);
-        }
-      } else if (activeSource === Source.TickTick) {
-        const { data } = await supabase
-          .from('integrations')
-          .select('ticktick')
-          .single();
-
-        const accessToken = data?.ticktick;
-
-        if (!accessToken) {
-          set({ isLoadingLists: false });
-          return;
-        }
-
-        const response = await fetch('https://api.ticktick.com/open/v1/task', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({
-            title: name,
-            projectId: activeList,
-          }),
+        const task = await sourceInstance.addTask(name, {
+          listId: activeList ?? undefined,
+          label: activeLabel || undefined,
         });
-        const { id } = await response.json();
-        set({
-          tasks: [
-            ...tasks,
-            {
-              id,
-              name,
-              completed: false,
-            },
-          ],
-        });
+
+        set({ tasks: [...tasks, task] });
+      } catch (error) {
+        toast.error('Failed to add task');
       }
     },
     deleteTask: async (task) => {
-      const { activeSource, activeList } = get();
+      try {
+        const { sourceInstance, activeList } = get();
+        if (!sourceInstance) return;
 
-      if (activeSource === Source.Flowmodor) {
-        const { error } = await supabase
-          .from('tasks')
-          .delete()
-          .eq('id', task.id);
-
-        if (error) {
-          toast.error(error.message);
-          return;
-        }
-      } else if (activeSource === Source.Todoist) {
-        const todoist = await getClient(supabase);
-
-        if (!todoist) {
-          return;
-        }
-
-        const isSuccess = await todoist.deleteTask(task.id.toString());
-        if (!isSuccess) {
-          toast.error('Failed to delete task');
-          return;
-        }
-      } else if (activeSource === Source.TickTick) {
-        const { data } = await supabase
-          .from('integrations')
-          .select('ticktick')
-          .single();
-
-        const accessToken = data?.ticktick;
-
-        if (!accessToken) {
-          set({ isLoadingLists: false });
-          return;
-        }
-
-        const response = await fetch(
-          `https://api.ticktick.com/open/v1/project/${activeList}/task/${task.id}`,
-          {
-            method: 'DELETE',
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          },
-        );
-
-        if (!response.ok) {
-          toast.error('Failed to delete task');
-          return;
-        }
+        await sourceInstance.deleteTask(task.id, activeList ?? undefined);
+        set((state) => ({
+          tasks: state.tasks.filter((t) => t.id !== task.id),
+        }));
+      } catch (error) {
+        toast.error('Failed to delete task');
       }
-
-      set((state) => ({
-        tasks: state.tasks.filter((t) => t.id !== task.id),
-      }));
     },
     completeTask: async (task) => {
-      const { activeSource, focusingTask, actions, activeList } = get();
+      try {
+        const { sourceInstance, focusingTask, actions, activeList } = get();
+        if (!sourceInstance) return;
 
-      if (focusingTask?.id === task.id) {
-        actions.unfocusTask();
+        if (focusingTask?.id === task.id) {
+          actions.unfocusTask();
+        }
+
+        await sourceInstance.completeTask(task.id, activeList ?? undefined);
+        set((state) => ({
+          tasks: state.tasks.filter((t) => t.id !== task.id),
+        }));
+      } catch (error) {
+        toast.error('Failed to complete task');
       }
-
-      if (activeSource === Source.Flowmodor) {
-        const { error } = await supabase
-          .from('tasks')
-          .update({ completed: true })
-          .eq('id', task.id)
-          .select();
-
-        if (error) {
-          toast.error(error.message);
-          return;
-        }
-      } else if (activeSource === Source.Todoist) {
-        const todoist = await getClient(supabase);
-
-        if (!todoist) {
-          return;
-        }
-
-        const isSuccess = await todoist.closeTask(task.id.toString());
-        if (!isSuccess) {
-          toast.error('Failed to complete task');
-          return;
-        }
-      } else if (activeSource === Source.TickTick) {
-        const { data } = await supabase
-          .from('integrations')
-          .select('ticktick')
-          .single();
-
-        const accessToken = data?.ticktick;
-
-        if (!accessToken) {
-          set({ isLoadingLists: false });
-          return;
-        }
-
-        const response = await fetch(
-          `https://api.ticktick.com/open/v1/project/${activeList}/task/${task.id}/complete`,
-          {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          },
-        );
-
-        if (!response.ok) {
-          toast.error('Failed to complete task');
-          return;
-        }
-      }
-
-      set((state) => ({
-        tasks: state.tasks.filter((t) => t.id !== task.id),
-      }));
     },
     undoCompleteTask: async (task) => {
-      const { activeSource } = get();
+      try {
+        const { sourceInstance } = get();
+        if (!sourceInstance) return;
 
-      if (activeSource === Source.Flowmodor) {
-        const { error } = await supabase
-          .from('tasks')
-          .update({ completed: false })
-          .eq('id', task.id)
-          .select();
-
-        if (error) {
-          toast.error(error.message);
-          return;
-        }
-      } else if (activeSource === Source.Todoist) {
-        const todoist = await getClient(supabase);
-
-        if (!todoist) {
-          return;
-        }
-
-        const isSuccess = await todoist.reopenTask(task.id.toString());
-        if (!isSuccess) {
-          toast.error('Failed to undo complete task');
-          return;
-        }
+        await sourceInstance.undoCompleteTask(task.id);
+        set((state) => ({
+          tasks: [
+            {
+              id: task.id,
+              name: task.name,
+              completed: false,
+              labels: task.labels,
+              due: task.due,
+            },
+            ...state.tasks,
+          ],
+        }));
+      } catch (error) {
+        toast.error('Failed to undo complete task');
       }
-
-      set((state) => ({
-        tasks: [
-          {
-            id: task.id,
-            name: task.name,
-            completed: false,
-            labels: task.labels,
-            due: task.due,
-          },
-          ...state.tasks,
-        ],
-      }));
     },
     fetchSources: async () => {
-      const { data } = await supabase.from('integrations').select('*').single();
-      set({
-        sources: [
-          Source.Flowmodor,
-          ...(data?.todoist ? [Source.Todoist] : []),
-          ...(data?.ticktick ? [Source.TickTick] : []),
-        ],
-        isLoadingSources: false,
-      });
-    },
-    fetchListsAndLabels: async () => {
-      const { activeSource } = get();
-
-      if (activeSource === Source.Flowmodor) {
-        set({ isLoadingLists: false });
-      } else if (activeSource === Source.Todoist) {
-        const todoist = await getClient(supabase);
-        if (!todoist) {
-          set({ isLoadingLists: false });
-          return;
-        }
-
-        const lists = await todoist.getProjects();
-        const todoistLists = lists.map((list) => ({
-          name: list.name,
-          id: list.id,
-        }));
-
-        set(() => ({
-          lists: [
-            { name: 'Today', id: 'today' },
-            ...todoistLists,
-            { name: 'All', id: 'all' },
-          ],
-          activeList: 'today',
-          isLoadingLists: false,
-        }));
-
-        const labels = await todoist.getLabels();
-        set({ labels: labels.map((label) => label.name) });
-      } else if (activeSource === Source.TickTick) {
+      try {
         const { data } = await supabase
           .from('integrations')
-          .select('ticktick')
+          .select('*')
           .single();
+        set({
+          sources: [
+            Source.Flowmodor,
+            ...(data?.todoist ? [Source.Todoist] : []),
+            ...(data?.ticktick ? [Source.TickTick] : []),
+          ],
+          isLoadingSources: false,
+        });
+      } catch (error) {
+        toast.error('Failed to fetch sources');
+        set({ isLoadingSources: false });
+      }
+    },
+    fetchListsAndLabels: async () => {
+      try {
+        const { sourceInstance } = get();
+        if (!sourceInstance) return;
 
-        const accessToken = data?.ticktick;
+        const [lists, labels] = await Promise.all([
+          sourceInstance.fetchLists(),
+          sourceInstance.fetchLabels(),
+        ]);
 
-        if (!accessToken) {
-          set({ isLoadingLists: false });
-          return;
-        }
-
-        const response = await fetch(
-          'https://api.ticktick.com/open/v1/project',
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          },
-        );
-        const lists = await response.json();
-
-        set(() => ({
-          lists: lists.map((list: List) => ({
-            name: list.name,
-            id: list.id,
-          })),
-          activeList: lists[0].id,
+        set({
+          lists,
+          labels,
+          activeList: lists.length > 0 ? lists[0].id : null,
           isLoadingLists: false,
-        }));
+        });
+      } catch (error) {
+        toast.error('Failed to fetch lists and labels');
+        set({ isLoadingLists: false });
       }
     },
     focusTask: (task) => set({ focusingTask: task }),
     unfocusTask: () => set({ focusingTask: null }),
     fetchTasks: async () => {
-      set({ focusingTask: null, isLoadingTasks: true });
+      try {
+        const { sourceInstance, activeList } = get();
+        if (!sourceInstance) return;
 
-      const { activeSource, activeList } = get();
-
-      if (activeSource === Source.Flowmodor) {
-        const { data } = await supabase
-          .from('tasks')
-          .select('*')
-          .is('completed', false);
-        set({
-          tasks: data!.map((task) => ({ ...task, id: task.id.toString() })),
-          isLoadingTasks: false,
-        });
-      } else if (activeSource === Source.Todoist) {
-        const todoist = await getClient(supabase);
-        if (todoist === null) {
-          set({ isLoadingTasks: false });
-          return;
-        }
-
-        const listName = get().lists.find(
-          (list) => list.id === activeList,
-        )?.name;
-
-        let filter = '';
-        if (activeList === 'all') {
-          filter = 'all';
-        } else if (activeList === 'today') {
-          filter = 'today';
-        } else if (listName) {
-          filter = `#${listName}`;
-        }
-
-        const tasks = await todoist.getTasks({ filter });
-
-        const processedTasks = tasks.map((task) => ({
-          id: task.id,
-          name: task.content,
-          completed: task.isCompleted,
-          labels: task.labels,
-          due: task.due?.date ? new Date(task.due.date) : null,
-        }));
-        set({ tasks: processedTasks, isLoadingTasks: false });
-      } else if (activeSource === Source.TickTick) {
-        const { data } = await supabase
-          .from('integrations')
-          .select('ticktick')
-          .single();
-
-        const accessToken = data?.ticktick;
-
-        if (!accessToken) {
-          set({ isLoadingLists: false });
-          return;
-        }
-
-        const response = await fetch(
-          `https://api.ticktick.com/open/v1/project/${activeList}/data`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          },
-        );
-        const projectData = await response.json();
-        const processedTasks = projectData.tasks.map((task: any) => ({
-          id: task.id,
-          name: task.title,
-          completed: false,
-          labels: task.tags,
-          due: task.dueDate ? new Date(task.dueDate) : null,
-        }));
-        set({ tasks: processedTasks, isLoadingTasks: false });
+        set({ focusingTask: null, isLoadingTasks: true });
+        const tasks = await sourceInstance.fetchTasks(activeList ?? undefined);
+        set({ tasks, isLoadingTasks: false });
+      } catch (error) {
+        toast.error('Failed to fetch tasks');
+        set({ isLoadingTasks: false });
       }
     },
     onSourceChange: async (newSource) => {
-      set({
-        isLoadingLists: true,
-        isLoadingTasks: true,
-        activeSource: newSource,
-      });
+      try {
+        set({
+          isLoadingLists: true,
+          isLoadingTasks: true,
+          activeSource: newSource,
+          sourceInstance: new sourceMap[newSource](supabase),
+        });
 
-      const {
-        actions: { fetchListsAndLabels, fetchTasks },
-      } = get();
+        const {
+          actions: { fetchListsAndLabels, fetchTasks },
+        } = get();
 
-      await fetchListsAndLabels();
-      await fetchTasks();
+        await fetchListsAndLabels();
+        await fetchTasks();
+      } catch (error) {
+        toast.error('Failed to change source');
+        set({ isLoadingLists: false, isLoadingTasks: false });
+      }
     },
     onListChange: (e) => {
       if (e.target.value === '') {

@@ -16,3 +16,8 @@ export interface Task {
   labels?: string[];
   due?: Date | null;
 }
+
+export interface List {
+  name: string;
+  id: string;
+}

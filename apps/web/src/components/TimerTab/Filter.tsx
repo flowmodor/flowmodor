@@ -1,8 +1,8 @@
 'use client';
 
 import { Select, SelectItem } from '@nextui-org/select';
+import { Source } from '@/stores/sources';
 import {
-  Source,
   useActiveLabel,
   useActiveSource,
   useIsLoadingLists,

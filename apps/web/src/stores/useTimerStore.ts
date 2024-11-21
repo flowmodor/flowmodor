@@ -3,8 +3,8 @@ import { Task } from '@flowmodor/types';
 import { useEffect, useState } from 'react';
 import { create } from 'zustand';
 import supabase from '@/utils/supabase/client';
+import { Source } from './sources';
 import { useStatsStore } from './useStatsStore';
-import { Source } from './useTasksStore';
 
 interface State {
   startTime: number | null;

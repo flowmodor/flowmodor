@@ -6,8 +6,8 @@ import { Checkbox } from '@nextui-org/checkbox';
 import { useTransition } from 'react';
 import Markdown from 'react-markdown';
 import { toast } from 'sonner';
+import { Source } from '@/stores/sources';
 import {
-  Source,
   useActiveSource,
   useFocusingTask,
   useTasksActions,

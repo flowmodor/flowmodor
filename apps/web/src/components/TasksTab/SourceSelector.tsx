@@ -2,8 +2,8 @@
 
 import { Select, SelectItem } from '@nextui-org/select';
 import Link from 'next/link';
+import { Source } from '@/stores/sources';
 import {
-  Source,
   useActiveSource,
   useIsLoadingSources,
   useSources,
