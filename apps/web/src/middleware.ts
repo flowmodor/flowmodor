@@ -1,33 +1,9 @@
-import { type NextRequest, NextResponse } from 'next/server';
-import { getMiddlewareClient } from './utils/supabase';
+import { type NextRequest } from 'next/server';
+import { updateSession } from '@/utils/supabase/middleware';
 
 export async function middleware(request: NextRequest) {
-  const { supabase, response } = getMiddlewareClient(request);
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (
-    session === null &&
-    request.nextUrl.pathname !== '/signin' &&
-    request.nextUrl.pathname !== '/signup' &&
-    request.nextUrl.pathname !== '/forgot-password' &&
-    request.nextUrl.pathname !== '/feedback' &&
-    request.nextUrl.pathname !== '/mobile-verified'
-  ) {
-    return NextResponse.redirect(new URL('/signin', request.url));
-  }
-
-  if (
-    session !== null &&
-    (request.nextUrl.pathname === '/signin' ||
-      request.nextUrl.pathname === '/signup' ||
-      request.nextUrl.pathname === '/forgot-password')
-  ) {
-    return NextResponse.redirect(new URL('/', request.url));
-  }
-
-  return response;
+  // eslint-disable-next-line @typescript-eslint/return-await
+  return await updateSession(request);
 }
 
 export const config = {

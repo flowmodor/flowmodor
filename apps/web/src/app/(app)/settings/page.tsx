@@ -1,17 +1,15 @@
 import { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import Account from '@/components/Settings/Account';
 import Integrations from '@/components/Settings/Integrations';
 import Options from '@/components/Settings/Options';
-import { getServerClient } from '@/utils/supabase';
+import { createClient } from '@/utils/supabase/server';
 
 export const metadata: Metadata = {
   title: 'Settings | Flowmodor',
 };
 
 export default async function Settings() {
-  const cookieStore = cookies();
-  const supabase = getServerClient(cookieStore);
+  const supabase = await createClient();
   const { data: settingsData } = await supabase
     .from('settings')
     .select('break_ratio')

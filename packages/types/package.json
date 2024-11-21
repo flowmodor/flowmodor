@@ -7,6 +7,6 @@
     "codegen": "cd ../../apps/server && supabase gen types typescript --local > ../../packages/types/src/supabase.ts"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.39.3"
+    "@supabase/supabase-js": "^2.46.1"
   }
 }

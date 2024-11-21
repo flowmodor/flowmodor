@@ -1,10 +1,9 @@
-import { cookies } from 'next/headers';
-import { getServerClient } from '@/utils/supabase';
+import { createClient } from '@/utils/supabase/server';
 import TickTickButton from './TickTickButton';
 import TodoistButton from './TodoistButton';
 
 export default async function Integrations() {
-  const supabase = getServerClient(cookies());
+  const supabase = await createClient();
   const { data } = await supabase.from('integrations').select('*').single();
 
   return (

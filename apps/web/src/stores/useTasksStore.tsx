@@ -4,7 +4,7 @@ import { Task } from '@flowmodor/types';
 import { ChangeEvent } from 'react';
 import { toast } from 'sonner';
 import { create } from 'zustand';
-import supabase from '@/utils/supabase';
+import supabase from '@/utils/supabase/client';
 import getClient from '@/utils/todoist';
 
 export enum Source {

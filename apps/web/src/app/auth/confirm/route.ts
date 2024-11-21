@@ -1,8 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { type EmailOtpType } from '@supabase/supabase-js';
-import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { getRouteClient } from '@/utils/supabase';
+import { createClient } from '@/utils/supabase/server';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -13,9 +12,7 @@ export async function GET(request: NextRequest) {
   redirectTo.pathname = next;
 
   if (tokenHash && type) {
-    const cookieStore = cookies();
-    const supabase = getRouteClient(cookieStore);
-
+    const supabase = await createClient();
     const { error, data } = await supabase.auth.verifyOtp({
       type,
       token_hash: tokenHash,

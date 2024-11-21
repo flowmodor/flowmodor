@@ -1,15 +1,14 @@
 'use server';
 
 import { Provider } from '@supabase/supabase-js';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getActionClient } from '@/utils/supabase';
+import { createClient } from '@/utils/supabase/server';
 
 export async function signInWithPassword(formData: FormData) {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 
-  const supabase = getActionClient(cookies());
+  const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -22,7 +21,7 @@ export async function signInWithPassword(formData: FormData) {
 }
 
 export async function signInWithOAuth(origin: string, provider: Provider) {
-  const supabase = getActionClient(cookies());
+  const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
     options: {
@@ -41,7 +40,7 @@ export async function signInWithOAuth(origin: string, provider: Provider) {
 
 export async function sendPasswordReset(formData: FormData) {
   const email = formData.get('email') as string;
-  const supabase = getActionClient(cookies());
+  const supabase = await createClient();
   const { error } = await supabase.auth.resetPasswordForEmail(email);
   if (error) {
     redirect(`/forgot-password?error=${error.message}`);
@@ -52,7 +51,7 @@ export async function sendPasswordReset(formData: FormData) {
 export async function updatePassword(formData: FormData) {
   const password = formData.get('password') as string;
 
-  const supabase = getActionClient(cookies());
+  const supabase = await createClient();
   const { error } = await supabase.auth.updateUser({ password });
 
   if (error) {
@@ -65,7 +64,7 @@ export async function signUp(formData: FormData) {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 
-  const supabase = getActionClient(cookies());
+  const supabase = await createClient();
   const { error } = await supabase.auth.signUp({
     email,
     password,
@@ -80,7 +79,7 @@ export async function signUp(formData: FormData) {
 }
 
 export async function signOut() {
-  const supabase = getActionClient(cookies());
+  const supabase = await createClient();
   const { error } = await supabase.auth.signOut();
   if (error) {
     console.error('Error signing out:', error);

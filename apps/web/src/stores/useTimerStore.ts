@@ -2,7 +2,7 @@
 import { Task } from '@flowmodor/types';
 import { useEffect, useState } from 'react';
 import { create } from 'zustand';
-import supabase from '@/utils/supabase';
+import supabase from '@/utils/supabase/client';
 import { useStatsStore } from './useStatsStore';
 import { Source } from './useTasksStore';
 

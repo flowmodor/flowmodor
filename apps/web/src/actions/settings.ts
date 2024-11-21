@@ -4,10 +4,10 @@ import { nanoid } from 'nanoid';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getActionClient } from '@/utils/supabase';
+import { createClient } from '@/utils/supabase/server';
 
 export async function updateOptions(breakRatio: number) {
-  const supabase = getActionClient(cookies());
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -43,7 +43,7 @@ export async function connectTodoist() {
 }
 
 export async function disconnectTodoist() {
-  const supabase = getActionClient(cookies());
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -73,7 +73,7 @@ export async function connectTickTick() {
 }
 
 export async function disconnectTickTick() {
-  const supabase = getActionClient(cookies());
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

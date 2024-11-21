@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
-import { getRouteClient } from '@/utils/supabase';
+import { createClient } from '@/utils/supabase/server';
 
 /* eslint-disable import/prefer-default-export */
 export async function GET(request: Request) {
@@ -28,7 +28,7 @@ export async function GET(request: Request) {
     const response = await fetch(url, { method: 'POST' });
     const { access_token: accessToken } = await response.json();
 
-    const supabase = getRouteClient(cookieStore);
+    const supabase = await createClient();
     const {
       data: { user },
     } = await supabase.auth.getUser();

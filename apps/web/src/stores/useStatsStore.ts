@@ -1,5 +1,5 @@
 import { createStatsStore } from '@flowmodor/stores';
-import supabase from '@/utils/supabase';
+import supabase from '@/utils/supabase/client';
 
 export const useStatsStore = createStatsStore(supabase);
 

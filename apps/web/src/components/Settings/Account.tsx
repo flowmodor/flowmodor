@@ -11,7 +11,7 @@ import {
 import { useDisclosure } from '@nextui-org/use-disclosure';
 import { toast } from 'sonner';
 import { signOut } from '@/actions/auth';
-import supabase from '@/utils/supabase';
+import supabase from '@/utils/supabase/client';
 
 export default function Account() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();

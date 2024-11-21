@@ -5,7 +5,7 @@
     ".": "./src/stats.ts"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.39.3",
+    "@supabase/supabase-js": "^2.46.1",
     "zustand": "^4.4.7"
   },
   "devDependencies": {

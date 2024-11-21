@@ -1,13 +1,12 @@
-import { cookies } from 'next/headers';
 import Image from 'next/image';
 import { ReactNode } from 'react';
-import { getServerClient } from '@/utils/supabase';
+import { createClient } from '@/utils/supabase/server';
 import { Chart, Gear, House } from '../Icons';
 import SidebarTab from './SidebarTab';
 import UserDropdown from './UserDropdown';
 
 export default async function Sidebar({ children }: { children: ReactNode }) {
-  const supabase = getServerClient(cookies());
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

@@ -1,5 +1,5 @@
 import { TodoistApi } from '@doist/todoist-api-typescript';
-import { SupabaseClient } from './supabase';
+import { SupabaseClient } from './supabase/client';
 
 export default async function getClient(supabase: SupabaseClient) {
   const { data } = await supabase

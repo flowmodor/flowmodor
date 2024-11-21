@@ -1,17 +1,16 @@
 import { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import StatsCard from '@/components/Stats/StatsCard';
 import Summary from '@/components/Stats/Summary';
 import TaskTime from '@/components/Stats/TaskTime';
 import YearlyStats from '@/components/Stats/YearlyStats';
-import { getServerClient } from '@/utils/supabase';
+import { createClient } from '@/utils/supabase/server';
 
 export const metadata: Metadata = {
   title: 'Stats | Flowmodor',
 };
 
 export default async function Stats() {
-  const supabase = getServerClient(cookies());
+  const supabase = await createClient();
   const { data } = await supabase.from('logs').select('*');
 
   return (
