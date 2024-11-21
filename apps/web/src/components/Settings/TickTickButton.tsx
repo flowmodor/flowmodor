@@ -4,7 +4,7 @@ import { Button } from '@nextui-org/button';
 import Image from 'next/image';
 import { useTransition } from 'react';
 import { toast } from 'sonner';
-import { connectTickTick, disconnectTickTick } from '@/actions/settings';
+import { connect, disconnect } from '@/actions/ticktick';
 
 export default function TickTickButton({ connected }: { connected: Boolean }) {
   const [isPending, startTransition] = useTransition();
@@ -17,14 +17,14 @@ export default function TickTickButton({ connected }: { connected: Boolean }) {
       onPress={() => {
         startTransition(async () => {
           if (connected) {
-            const { error } = await disconnectTickTick();
+            const { error } = await disconnect();
             if (error) {
               toast.error('Failed to disconnect TickTick.');
             } else {
               toast.success('TickTick disconnected successfully!');
             }
           } else {
-            await connectTickTick();
+            await connect();
           }
         });
       }}
