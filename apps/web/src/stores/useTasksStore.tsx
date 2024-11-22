@@ -7,6 +7,7 @@ import { create } from 'zustand';
 import supabase from '@/utils/supabase/client';
 import { Source, TaskSource } from './sources';
 import FlowmodorSource from './sources/flowmodor';
+import GoogleTasksSource from './sources/googletasks';
 import TickTickSource from './sources/ticktick';
 import TodoistSource from './sources/todoist';
 
@@ -14,6 +15,7 @@ const sourceMap = {
   [Source.Flowmodor]: FlowmodorSource,
   [Source.Todoist]: TodoistSource,
   [Source.TickTick]: TickTickSource,
+  [Source.GoogleTasks]: GoogleTasksSource,
 };
 
 interface State {
@@ -35,7 +37,7 @@ interface Action {
   addTask: (name: string) => Promise<void>;
   deleteTask: (task: Task) => Promise<void>;
   completeTask: (task: Task) => Promise<void>;
-  undoCompleteTask: (task: Task) => Promise<void>;
+  undoCompleteTask: (task: Task, listId: string | null) => Promise<void>;
   fetchSources: () => Promise<void>;
   fetchListsAndLabels: () => Promise<void>;
   focusTask: (task: Task) => void;
@@ -109,12 +111,12 @@ const useTasksStore = create<Store>((set, get) => ({
         toast.error('Failed to complete task');
       }
     },
-    undoCompleteTask: async (task) => {
+    undoCompleteTask: async (task, listId) => {
       try {
         const { sourceInstance } = get();
         if (!sourceInstance) return;
 
-        await sourceInstance.undoCompleteTask(task.id);
+        await sourceInstance.undoCompleteTask(task.id, listId);
         set((state) => ({
           tasks: [
             {
@@ -142,6 +144,7 @@ const useTasksStore = create<Store>((set, get) => ({
             Source.Flowmodor,
             ...(data?.todoist ? [Source.Todoist] : []),
             ...(data?.ticktick ? [Source.TickTick] : []),
+            ...(data?.googletasks ? [Source.GoogleTasks] : []),
           ],
           isLoadingSources: false,
         });

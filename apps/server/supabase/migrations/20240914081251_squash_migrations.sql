@@ -109,6 +109,7 @@ CREATE TABLE IF NOT EXISTS "public"."integrations" (
     "id" bigint NOT NULL,
     "todoist" "text",
     "ticktick" "text",
+    "googletasks" "jsonb",
     "user_id" "uuid"
 );
 

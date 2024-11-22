@@ -8,6 +8,7 @@ import Markdown from 'react-markdown';
 import { toast } from 'sonner';
 import { Source } from '@/stores/sources';
 import {
+  useActiveList,
   useActiveSource,
   useFocusingTask,
   useTasksActions,
@@ -23,6 +24,7 @@ export default function TaskBox({ task }: { task: Task }) {
   const { deleteTask, completeTask, undoCompleteTask } = useTasksActions();
   const { focusTask, unfocusTask } = useTasksActions();
   const activeSource = useActiveSource();
+  const activeList = useActiveList();
   const isFocusing = task.id === focusingTask?.id;
 
   return (
@@ -64,7 +66,7 @@ export default function TaskBox({ task }: { task: Task }) {
             action: {
               label: 'Undo',
               onClick: async () => {
-                await undoCompleteTask(task);
+                await undoCompleteTask(task, activeList);
               },
             },
           });

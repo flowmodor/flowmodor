@@ -11,18 +11,21 @@ export type Database = {
     Tables: {
       integrations: {
         Row: {
+          googletasks: Json | null
           id: number
           ticktick: string | null
           todoist: string | null
           user_id: string | null
         }
         Insert: {
+          googletasks?: Json | null
           id?: number
           ticktick?: string | null
           todoist?: string | null
           user_id?: string | null
         }
         Update: {
+          googletasks?: Json | null
           id?: number
           ticktick?: string | null
           todoist?: string | null
