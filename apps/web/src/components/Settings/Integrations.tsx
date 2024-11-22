@@ -1,5 +1,6 @@
 import { createClient } from '@/utils/supabase/server';
 import GoogleTasksButton from './GoogleTasksButton';
+import MicrosoftToDoButton from './MicrosoftToDoButton';
 import TickTickButton from './TickTickButton';
 import TodoistButton from './TodoistButton';
 
@@ -24,6 +25,11 @@ export default async function Integrations() {
       <GoogleTasksButton
         connected={
           data?.googletasks !== null && data?.googletasks !== undefined
+        }
+      />
+      <MicrosoftToDoButton
+        connected={
+          data?.microsofttodo !== null && data?.microsofttodo !== undefined
         }
       />
     </div>

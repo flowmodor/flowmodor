@@ -13,6 +13,7 @@ export type Database = {
         Row: {
           googletasks: Json | null
           id: number
+          microsofttodo: Json | null
           ticktick: string | null
           todoist: string | null
           user_id: string | null
@@ -20,6 +21,7 @@ export type Database = {
         Insert: {
           googletasks?: Json | null
           id?: number
+          microsofttodo?: Json | null
           ticktick?: string | null
           todoist?: string | null
           user_id?: string | null
@@ -27,6 +29,7 @@ export type Database = {
         Update: {
           googletasks?: Json | null
           id?: number
+          microsofttodo?: Json | null
           ticktick?: string | null
           todoist?: string | null
           user_id?: string | null

@@ -1,10 +1,8 @@
 'use client';
 
 import { Select, SelectItem } from '@nextui-org/select';
-import { Source } from '@/stores/sources';
 import {
   useActiveLabel,
-  useActiveSource,
   useIsLoadingLists,
   useLabels,
   useTasksActions,
@@ -17,10 +15,9 @@ export default function Filter() {
   const labels = useLabels();
   const activeLabel = useActiveLabel();
   const isLoadingLists = useIsLoadingLists();
-  const activeSource = useActiveSource();
   const { onLabelChange } = useTasksActions();
 
-  if (activeSource !== Source.Todoist) {
+  if (labels.length === 0) {
     return null;
   }
 

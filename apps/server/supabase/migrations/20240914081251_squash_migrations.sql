@@ -110,6 +110,7 @@ CREATE TABLE IF NOT EXISTS "public"."integrations" (
     "todoist" "text",
     "ticktick" "text",
     "googletasks" "jsonb",
+    "microsofttodo" "jsonb",
     "user_id" "uuid"
 );
 

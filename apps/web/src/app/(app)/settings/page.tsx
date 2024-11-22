@@ -17,7 +17,7 @@ export default async function Settings() {
   const breakRatio = settingsData?.break_ratio ?? 5;
 
   return (
-    <div className="mt-20 flex flex-col gap-10 w-screen px-10 sm:w-[70vw] md:w-[50vw] lg:w-[40vw]">
+    <div className="my-20 flex flex-col gap-10 w-screen px-10 sm:w-[70vw] md:w-[50vw] lg:w-[40vw]">
       <h1 className="flex items-center gap-3 text-3xl font-semibold">
         Settings
       </h1>

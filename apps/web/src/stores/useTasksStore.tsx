@@ -8,6 +8,7 @@ import supabase from '@/utils/supabase/client';
 import { Source, TaskSource } from './sources';
 import FlowmodorSource from './sources/flowmodor';
 import GoogleTasksSource from './sources/googletasks';
+import MicrosoftTodoSource from './sources/microsofttodo';
 import TickTickSource from './sources/ticktick';
 import TodoistSource from './sources/todoist';
 
@@ -16,6 +17,7 @@ const sourceMap = {
   [Source.Todoist]: TodoistSource,
   [Source.TickTick]: TickTickSource,
   [Source.GoogleTasks]: GoogleTasksSource,
+  [Source.MicrosoftTodo]: MicrosoftTodoSource,
 };
 
 interface State {
@@ -145,6 +147,7 @@ const useTasksStore = create<Store>((set, get) => ({
             ...(data?.todoist ? [Source.Todoist] : []),
             ...(data?.ticktick ? [Source.TickTick] : []),
             ...(data?.googletasks ? [Source.GoogleTasks] : []),
+            ...(data?.microsofttodo ? [Source.MicrosoftTodo] : []),
           ],
           isLoadingSources: false,
         });
