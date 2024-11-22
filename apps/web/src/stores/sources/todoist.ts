@@ -1,6 +1,6 @@
+import { TodoistApi } from '@doist/todoist-api-typescript';
 import { Task } from '@flowmodor/types';
 import { SupabaseClient } from '@supabase/supabase-js';
-import getClient from '@/utils/todoist';
 import { TaskSource } from '.';
 
 export default class TodoistSource implements TaskSource {
@@ -11,9 +11,17 @@ export default class TodoistSource implements TaskSource {
   }
 
   private async getClient() {
-    const client = await getClient(this.supabase);
-    if (!client) throw new Error('Todoist client not initialized');
-    return client;
+    const { data } = await this.supabase
+      .from('integrations')
+      .select('todoist')
+      .single();
+
+    const todoistToken = data?.todoist;
+
+    if (todoistToken) {
+      return new TodoistApi(todoistToken);
+    }
+    throw new Error('Todoist client not initialized');
   }
 
   async addTask(
