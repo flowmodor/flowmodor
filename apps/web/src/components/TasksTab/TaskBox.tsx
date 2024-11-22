@@ -6,10 +6,8 @@ import { Checkbox } from '@nextui-org/checkbox';
 import { useTransition } from 'react';
 import Markdown from 'react-markdown';
 import { toast } from 'sonner';
-import { Source } from '@/stores/sources';
 import {
   useActiveList,
-  useActiveSource,
   useFocusingTask,
   useTasksActions,
 } from '@/stores/useTasksStore';
@@ -23,7 +21,6 @@ export default function TaskBox({ task }: { task: Task }) {
   const focusingTask = useFocusingTask();
   const { deleteTask, completeTask, undoCompleteTask } = useTasksActions();
   const { focusTask, unfocusTask } = useTasksActions();
-  const activeSource = useActiveSource();
   const activeList = useActiveList();
   const isFocusing = task.id === focusingTask?.id;
 
@@ -56,11 +53,6 @@ export default function TaskBox({ task }: { task: Task }) {
         }}
         onChange={async () => {
           await completeTask(task);
-
-          if (activeSource === Source.TickTick) {
-            toast(`${task.name} completed`);
-            return;
-          }
 
           toast(`${task.name} completed`, {
             action: {

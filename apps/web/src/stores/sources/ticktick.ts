@@ -23,9 +23,11 @@ export default class TickTickSource implements TaskSource {
     return data.ticktick;
   }
 
-  async addTask(name: string, options: { listId: string }): Promise<Task> {
+  async addTask(
+    name: string,
+    options: { listId: string; label: string },
+  ): Promise<Task> {
     const accessToken = await this.getAccessToken();
-
     const response = await fetch('https://api.ticktick.com/open/v1/task', {
       method: 'POST',
       headers: {
@@ -34,18 +36,18 @@ export default class TickTickSource implements TaskSource {
       body: JSON.stringify({
         title: name,
         projectId: options.listId,
+        tags: options.label ? [options.label] : [],
       }),
     });
-
     if (!response.ok) {
       throw new Error('Failed to add task');
     }
-
     const { id } = await response.json();
     return {
       id,
       name,
       completed: false,
+      labels: options.label ? [options.label] : [],
     };
   }
 
@@ -85,8 +87,28 @@ export default class TickTickSource implements TaskSource {
     }
   }
 
-  async undoCompleteTask(): Promise<void> {
-    throw new Error('TickTick does not support undoing task completion');
+  async undoCompleteTask(taskId: string, listId: string): Promise<void> {
+    const accessToken = await this.getAccessToken();
+
+    const response = await fetch(
+      `https://api.ticktick.com/open/v1/task/${taskId}`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: taskId,
+          projectId: listId,
+          status: 0,
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to undo task completion');
+    }
   }
 
   async fetchTasks(listId: string): Promise<Task[]> {
@@ -136,6 +158,36 @@ export default class TickTickSource implements TaskSource {
   }
 
   async fetchLabels(): Promise<string[]> {
-    return [];
+    const accessToken = await this.getAccessToken();
+    const lists = await this.fetchLists();
+
+    const allTags = new Set<string>();
+
+    // Fetch tasks from each list and collect unique tags
+    await Promise.all(
+      lists.map(async (list) => {
+        const response = await fetch(
+          `https://api.ticktick.com/open/v1/project/${list.id}/data`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        );
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch tasks for labels');
+        }
+
+        const projectData = await response.json();
+        projectData.tasks.forEach((task: any) => {
+          if (task.tags) {
+            task.tags.forEach((tag: string) => allTags.add(tag));
+          }
+        });
+      }),
+    );
+
+    return Array.from(allTags);
   }
 }
