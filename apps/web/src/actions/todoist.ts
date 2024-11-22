@@ -8,10 +8,7 @@ import { createClient } from '@/utils/supabase/server';
 
 export async function connect() {
   const url = new URL('https://todoist.com/oauth/authorize');
-  url.searchParams.append(
-    'client_id',
-    process.env.NEXT_PUBLIC_TODOIST_CLIENT_ID,
-  );
+  url.searchParams.append('client_id', process.env.TODOIST_CLIENT_ID);
   url.searchParams.append('scope', 'data:read_write');
 
   const state = nanoid();

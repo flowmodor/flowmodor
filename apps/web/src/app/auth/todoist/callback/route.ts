@@ -15,10 +15,7 @@ export async function GET(request: Request) {
     }
 
     const url = new URL('https://todoist.com/oauth/access_token');
-    url.searchParams.append(
-      'client_id',
-      process.env.NEXT_PUBLIC_TODOIST_CLIENT_ID,
-    );
+    url.searchParams.append('client_id', process.env.TODOIST_CLIENT_ID);
     url.searchParams.append('client_secret', process.env.TODOIST_CLIENT_SECRET);
     url.searchParams.append('code', code);
 
