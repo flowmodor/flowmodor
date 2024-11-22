@@ -14,6 +14,9 @@ export default {
       boxShadow: {
         custom: '-25px -25px 30px -15px rgba(0, 0, 0, 0.25)',
       },
+      screens: {
+        'lg-xl': '1440px',
+      },
     },
     fontFamily: {
       sans: ['Inter Variable', ...defaultTheme.fontFamily.sans],
