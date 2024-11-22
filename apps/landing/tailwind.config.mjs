@@ -15,7 +15,7 @@ export default {
         custom: '-25px -25px 30px -15px rgba(0, 0, 0, 0.25)',
       },
       screens: {
-        'xlg': '1440px',
+        'lg-xl': '1440px',
       },
     },
     fontFamily: {
