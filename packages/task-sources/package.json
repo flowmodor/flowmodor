@@ -8,6 +8,7 @@
     "./ticktick": "./src/ticktick.ts"
   },
   "dependencies": {
+    "nanoid": "^5.0.6",
     "@doist/todoist-api-typescript": "^3.0.2"
   },
   "devDependencies": {

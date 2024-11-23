@@ -339,6 +339,9 @@ importers:
       '@doist/todoist-api-typescript':
         specifier: ^3.0.2
         version: 3.0.2
+      nanoid:
+        specifier: ^5.0.6
+        version: 5.0.6
     devDependencies:
       '@flowmodor/types':
         specifier: workspace:*

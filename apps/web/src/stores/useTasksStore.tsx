@@ -136,6 +136,15 @@ const useTasksStore = create<Store>((set, get) => ({
       }
     },
     fetchSources: async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        set({ isLoadingSources: false });
+        return;
+      }
+
       try {
         const { data } = await supabase
           .from('integrations')

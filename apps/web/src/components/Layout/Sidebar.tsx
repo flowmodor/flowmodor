@@ -11,14 +11,6 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    return (
-      <div className="flex h-[100dvh] w-full flex-col items-center scrollbar-hide overflow-y-scroll">
-        {children}
-      </div>
-    );
-  }
-
   return (
     <div className="flex flex-col-reverse sm:flex-row h-[100dvh]">
       <div className="border-t border-t-secondary sm:border-t-0 sm:border-r sm:border-r-secondary py-3 flex flex-row justify-center sm:flex-col items-center ml-0 w-full sm:w-14 sm:h-full bg-midground z-10">
@@ -42,7 +34,7 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
             <Gear />
           </SidebarTab>
         </div>
-        <div className="absolute top-5 right-5 sm:static mt-auto">
+        <div className="absolute top-5 right-5 sm:static mt-auto flex flex-row sm:flex-col items-center gap-5">
           <UserDropdown user={user} />
         </div>
       </div>

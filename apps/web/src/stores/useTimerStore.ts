@@ -37,6 +37,14 @@ interface Store extends State {
 }
 
 async function getBreakRatio() {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    return 5;
+  }
+
   const { data } = await supabase
     .from('settings')
     .select('break_ratio')
@@ -110,6 +118,14 @@ const useTimerStore = create<Store>((set, get) => ({
       }));
     },
     log: async (focusingTask, activeSource) => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        return;
+      }
+
       const start_time = new Date(get().startTime!).toISOString();
       const end_time = new Date(Date.now()).toISOString();
       const { mode } = get();

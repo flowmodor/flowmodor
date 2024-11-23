@@ -1,4 +1,5 @@
 import { Supabase, Task } from '@flowmodor/types';
+import { nanoid } from 'nanoid';
 import { TaskSource } from '.';
 
 export default class FlowmodorSource implements TaskSource {
@@ -9,6 +10,18 @@ export default class FlowmodorSource implements TaskSource {
   }
 
   async addTask(name: string): Promise<Task> {
+    const {
+      data: { session },
+    } = await this.supabase.auth.getSession();
+
+    if (!session) {
+      return {
+        id: nanoid(),
+        name,
+        completed: false,
+      };
+    }
+
     const { data, error } = await this.supabase
       .from('tasks')
       .insert([{ name }])
@@ -24,6 +37,14 @@ export default class FlowmodorSource implements TaskSource {
   }
 
   async deleteTask(taskId: string): Promise<void> {
+    const {
+      data: { session },
+    } = await this.supabase.auth.getSession();
+
+    if (!session) {
+      return;
+    }
+
     const { error } = await this.supabase
       .from('tasks')
       .delete()
@@ -33,6 +54,14 @@ export default class FlowmodorSource implements TaskSource {
   }
 
   async completeTask(taskId: string): Promise<void> {
+    const {
+      data: { session },
+    } = await this.supabase.auth.getSession();
+
+    if (!session) {
+      return;
+    }
+
     const { error } = await this.supabase
       .from('tasks')
       .update({ completed: true })
@@ -42,6 +71,14 @@ export default class FlowmodorSource implements TaskSource {
   }
 
   async undoCompleteTask(taskId: string): Promise<void> {
+    const {
+      data: { session },
+    } = await this.supabase.auth.getSession();
+
+    if (!session) {
+      return;
+    }
+
     const { error } = await this.supabase
       .from('tasks')
       .update({ completed: false })
@@ -51,6 +88,14 @@ export default class FlowmodorSource implements TaskSource {
   }
 
   async fetchTasks(): Promise<Task[]> {
+    const {
+      data: { session },
+    } = await this.supabase.auth.getSession();
+
+    if (!session) {
+      return [];
+    }
+
     const { data, error } = await this.supabase
       .from('tasks')
       .select('*')
