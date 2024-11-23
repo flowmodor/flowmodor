@@ -1,12 +1,11 @@
 import { TodoistApi } from '@doist/todoist-api-typescript';
-import { Task } from '@flowmodor/types';
-import { SupabaseClient } from '@supabase/supabase-js';
+import { Supabase, Task } from '@flowmodor/types';
 import { TaskSource } from '.';
 
 export default class TodoistSource implements TaskSource {
-  private supabase: SupabaseClient;
+  private supabase: Supabase;
 
-  constructor(supabase: SupabaseClient) {
+  constructor(supabase: Supabase) {
     this.supabase = supabase;
   }
 

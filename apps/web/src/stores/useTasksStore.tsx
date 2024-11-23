@@ -1,16 +1,16 @@
 'use client';
 
+import { Source, TaskSource } from '@flowmodor/task-sources';
+import FlowmodorSource from '@flowmodor/task-sources/flowmodor';
+import TickTickSource from '@flowmodor/task-sources/ticktick';
+import TodoistSource from '@flowmodor/task-sources/todoist';
 import { List, Task } from '@flowmodor/types';
 import { ChangeEvent } from 'react';
 import { toast } from 'sonner';
 import { create } from 'zustand';
 import supabase from '@/utils/supabase/client';
-import { Source, TaskSource } from './sources';
-import FlowmodorSource from './sources/flowmodor';
 import GoogleTasksSource from './sources/googletasks';
 import MicrosoftTodoSource from './sources/microsofttodo';
-import TickTickSource from './sources/ticktick';
-import TodoistSource from './sources/todoist';
 
 const sourceMap = {
   [Source.Flowmodor]: FlowmodorSource,

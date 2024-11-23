@@ -1,7 +1,7 @@
 'use client';
 
+import { Source } from '@flowmodor/task-sources';
 import { Select, SelectItem } from '@nextui-org/select';
-import { Source } from '@/stores/sources';
 import {
   useActiveList,
   useActiveSource,

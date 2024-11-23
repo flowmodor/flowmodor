@@ -1,0 +1,16 @@
+{
+  "name": "@flowmodor/task-sources",
+  "version": "0.1.0",
+  "exports": {
+    ".": "./src/index.ts",
+    "./flowmodor": "./src/flowmodor.ts",
+    "./todoist": "./src/todoist.ts",
+    "./ticktick": "./src/ticktick.ts"
+  },
+  "dependencies": {
+    "@doist/todoist-api-typescript": "^3.0.2"
+  },
+  "devDependencies": {
+    "@flowmodor/types": "workspace:*"
+  }
+}

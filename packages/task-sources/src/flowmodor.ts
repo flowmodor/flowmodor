@@ -1,12 +1,10 @@
-/* eslint-disable class-methods-use-this */
-import { Task } from '@flowmodor/types';
-import { SupabaseClient } from '@supabase/supabase-js';
+import { Supabase, Task } from '@flowmodor/types';
 import { TaskSource } from '.';
 
 export default class FlowmodorSource implements TaskSource {
-  private supabase: SupabaseClient;
+  private supabase: Supabase;
 
-  constructor(supabase: SupabaseClient) {
+  constructor(supabase: Supabase) {
     this.supabase = supabase;
   }
 

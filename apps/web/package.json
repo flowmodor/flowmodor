@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@flowmodor/stores": "workspace:*",
-    "@doist/todoist-api-typescript": "^3.0.2",
+    "@flowmodor/task-sources": "workspace:*",
     "@nextui-org/react": "^2.2.9",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.46.1",

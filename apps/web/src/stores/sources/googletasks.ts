@@ -1,8 +1,8 @@
 /* eslint-disable class-methods-use-this */
+import { TaskSource } from '@flowmodor/task-sources';
 import { List, Task } from '@flowmodor/types';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { refreshToken } from '@/actions/googletasks';
-import { TaskSource } from '.';
 
 export default class GoogleTasksSource implements TaskSource {
   private supabase: SupabaseClient;
