@@ -10,7 +10,7 @@ import {
 } from 'react';
 import { Alert } from 'react-native';
 import { useStatsActions } from './stores/useStatsStore';
-import { clearTasks, useTasksActions } from './stores/useTasksStore';
+import { useTasksActions } from './stores/useTasksStore';
 import { supabase } from './utils/supabase';
 
 const AuthContext = createContext<{
@@ -53,9 +53,12 @@ export function SessionProvider({ children }: PropsWithChildren) {
       setSession(session);
     });
 
-    supabase.auth.onAuthStateChange((_event, session) => {
+    supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
-      fetchTasks();
+
+      if (event !== 'TOKEN_REFRESHED') {
+        fetchTasks();
+      }
     });
 
     GoogleSignin.configure({
@@ -115,7 +118,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
           } catch (error) {}
         },
         signOut: async () => {
-          clearTasks();
           const { error } = await supabase.auth.signOut();
           return error;
         },

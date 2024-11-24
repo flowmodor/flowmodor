@@ -66,15 +66,15 @@ importers:
 
   apps/mobile:
     dependencies:
-      '@doist/todoist-api-typescript':
-        specifier: ^3.0.2
-        version: 3.0.2
       '@expo/vector-icons':
         specifier: ^14.0.2
         version: 14.0.2
       '@flowmodor/stores':
         specifier: workspace:*
         version: link:../../packages/stores
+      '@flowmodor/task-sources':
+        specifier: workspace:*
+        version: link:../../packages/task-sources
       '@gorhom/bottom-sheet':
         specifier: ^4.6.4
         version: 4.6.4(@types/react@18.2.79)(react-native-gesture-handler@2.16.2(react-native@0.74.5(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0))(react-native-reanimated@3.10.1(@babel/core@7.25.2)(react-native@0.74.5(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0))(react-native@0.74.5(@babel/core@7.25.2)(@babel/preset-env@7.25.3(@babel/core@7.25.2))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0)
@@ -339,9 +339,6 @@ importers:
       '@doist/todoist-api-typescript':
         specifier: ^3.0.2
         version: 3.0.2
-      nanoid:
-        specifier: ^5.0.6
-        version: 5.0.6
     devDependencies:
       '@flowmodor/types':
         specifier: workspace:*

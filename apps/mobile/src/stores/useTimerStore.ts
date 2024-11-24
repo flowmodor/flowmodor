@@ -1,3 +1,4 @@
+import { Source } from '@flowmodor/task-sources';
 import { Task } from '@flowmodor/types';
 import notifee, {
   AndroidImportance,
@@ -22,13 +23,16 @@ interface State {
 
 interface Action {
   startTimer: () => Promise<void>;
-  stopTimer: (focusingTask?: Task | null, activeList?: string) => Promise<void>;
-  pauseTimer: (
+  stopTimer: (
     focusingTask?: Task | null,
-    activeList?: string,
+    activeSource?: Source,
+  ) => Promise<void>;
+  pauseTimer: (
+    focusingTask: Task | null,
+    activeSource: Source,
   ) => Promise<void>;
   resumeTimer: () => Promise<void>;
-  log: (focusingTask?: Task | null, activeList?: string) => Promise<void>;
+  log: (focusingTask?: Task | null, activeSource?: string) => Promise<void>;
   tickTimer: () => void;
 }
 
@@ -122,7 +126,7 @@ const useTimerStore = create<Store>((set, get) => ({
         }));
       }
     },
-    stopTimer: async (focusingTask, activeList) => {
+    stopTimer: async (focusingTask, activeSource) => {
       const breakRatio = await getBreakRatio();
 
       if (get().status === 'paused') {
@@ -136,11 +140,7 @@ const useTimerStore = create<Store>((set, get) => ({
         return;
       }
 
-      if (get().mode === 'break') {
-        // await Notifications.cancelAllScheduledNotificationsAsync();
-      }
-
-      await get().actions.log(focusingTask, activeList);
+      await get().actions.log(focusingTask, activeSource);
       set((state) => {
         const totalTime =
           state.mode === 'focus'
@@ -155,8 +155,8 @@ const useTimerStore = create<Store>((set, get) => ({
         };
       });
     },
-    pauseTimer: async (focusingTask, activeList) => {
-      await get().actions.log(focusingTask, activeList);
+    pauseTimer: async (focusingTask, activeSource) => {
+      await get().actions.log(focusingTask, activeSource);
 
       set((state) => {
         const totalTime = state.totalTime + Date.now() - state.startTime!;
@@ -172,7 +172,7 @@ const useTimerStore = create<Store>((set, get) => ({
         startTime: Date.now(),
       }));
     },
-    log: async (focusingTask, activeList) => {
+    log: async (focusingTask, activeSource) => {
       const {
         data: { session },
       } = await supabase.auth.getSession();
@@ -200,12 +200,12 @@ const useTimerStore = create<Store>((set, get) => ({
         return;
       }
 
-      const hasId = activeList === 'Flowmodor - default';
+      const hasId = activeSource === Source.Flowmodor;
       await supabase.from('logs').insert([
         {
           start_time,
           end_time,
-          task_id: hasId ? focusingTask.id : null,
+          task_id: hasId ? parseInt(focusingTask.id, 10) : null,
           task_name: hasId ? null : focusingTask.name,
         },
       ]);

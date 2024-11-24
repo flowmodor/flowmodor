@@ -1,5 +1,4 @@
 import { Supabase, Task } from '@flowmodor/types';
-import { nanoid } from 'nanoid';
 import { TaskSource } from '.';
 
 export default class FlowmodorSource implements TaskSource {
@@ -10,13 +9,17 @@ export default class FlowmodorSource implements TaskSource {
   }
 
   async addTask(name: string): Promise<Task> {
+    const generateId = () => {
+      return `${Date.now()}-${Math.random().toString(36)}`;
+    };
+
     const {
       data: { session },
     } = await this.supabase.auth.getSession();
 
     if (!session) {
       return {
-        id: nanoid(),
+        id: generateId(),
         name,
         completed: false,
       };
