@@ -43,6 +43,7 @@ export default function SidebarTab({
     >
       <Button
         as={Link}
+        prefetch
         href={tabPathname}
         target={shouldOpenLinkInNewTab ? '_blank' : undefined}
         disableRipple
