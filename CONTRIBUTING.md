@@ -20,7 +20,7 @@ pnpm i
 ```
 pnpm --filter server start
 ```
-5. Create `apps/web/.env.local` file with following content (replace `API URL` and `anon key` with the output string from step 5.):
+5. Create `apps/web/.env.local` file with following content (replace `API URL` and `anon key` with the output string from step 4.):
 ```text
 NEXT_PUBLIC_SUPABASE_URL="API URL"
 NEXT_PUBLIC_SUPABASE_ANON_KEY="anon key"
