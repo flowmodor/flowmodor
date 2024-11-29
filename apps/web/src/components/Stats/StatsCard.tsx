@@ -3,6 +3,7 @@
 import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { Tooltip } from '@nextui-org/tooltip';
+import Link from 'next/link';
 import { useEffect, useRef, useTransition } from 'react';
 import { toast } from 'sonner';
 import { Left, Right, Share } from '@/components/Icons';
@@ -99,7 +100,33 @@ export default function StatsCard() {
                   );
                   if (success) {
                     toast.success(
-                      'Your stats is copied to clipboard. Share it to your friends!',
+                      <div>
+                        Your stats image is copied to clipboard. Share it to{' '}
+                        <Link
+                          target="_blank"
+                          href="https://x.com/intent/tweet?text=Stay in flow with @flowmodor%0A(Ctrl%2BV/⌘%2BV to paste your stats image)"
+                          className="text-[#DBBFFF]"
+                        >
+                          X
+                        </Link>
+                        ,{' '}
+                        <Link
+                          target="_blank"
+                          href="https://www.linkedin.com/sharing/share-offsite/"
+                          className="text-[#DBBFFF]"
+                        >
+                          LinkedIn
+                        </Link>
+                        ,{' '}
+                        <Link
+                          target="_blank"
+                          href="https://reddit.com/submit?title=(Ctrl%2BV/⌘%2BV to paste your stats image)&type=image"
+                          className="text-[#DBBFFF]"
+                        >
+                          Reddit
+                        </Link>{' '}
+                        or anywhere you want!
+                      </div>,
                     );
                   }
                 });
