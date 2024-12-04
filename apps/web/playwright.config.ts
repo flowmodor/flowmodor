@@ -33,41 +33,51 @@ export default defineConfig({
   },
 
   /* Configure projects for major browsers */
+
   projects: [
+    {
+      name: 'setup',
+      testMatch: /auth\.setup\.ts/,
+    },
+
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'chromium-auth',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'tests/.auth/user.json',
+      },
+      dependencies: ['setup'],
     },
 
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
+    {
+      name: 'firefox-auth',
+      use: {
+        ...devices['Desktop Firefox'],
+        storageState: 'tests/.auth/user.json',
+      },
+      dependencies: ['setup'],
+    },
 
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+    {
+      name: 'webkit-auth',
+      use: {
+        ...devices['Desktop Safari'],
+        storageState: 'tests/.auth/user.json',
+      },
+      dependencies: ['setup'],
+    },
   ],
 
   /* Run your local dev server before starting the tests */
