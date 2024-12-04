@@ -37,10 +37,10 @@ export default function Progress() {
       aria-label="Timer progress"
       valueLabel={
         <div className="flex flex-col items-center gap-2">
-          <span className={showTime ? 'text-2xl' : 'text-3xl'}>
+          <span id="mode" className={showTime ? 'text-2xl' : 'text-3xl'}>
             {mode === 'focus' ? 'Focus' : 'Break'}
           </span>
-          {showTime && formatTime(displayTime)}
+          <span id="time">{showTime && formatTime(displayTime)}</span>
           <span className="text-sm font-normal">
             <FocusingTask />
           </span>
