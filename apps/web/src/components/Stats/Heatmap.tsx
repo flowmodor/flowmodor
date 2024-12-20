@@ -62,7 +62,11 @@ export default function Heatmap({ data }: { data: Activity[] }) {
         <Tooltip
           radius="sm"
           offset={9}
-          content={`${activity.date}: ${formatHoursAndMinutes(activity.count)}`}
+          content={`${
+            activity.count <= 1 / 60
+              ? 'no activity'
+              : `flow for ${formatHoursAndMinutes(activity.count)}`
+          } on ${new Date(activity.date).toDateString()}`}
           className="bg-secondary"
           classNames={{
             base: 'before:bg-secondary',
