@@ -1,11 +1,6 @@
 import { Tooltip } from '@nextui-org/tooltip';
-import { ActivityCalendar } from 'react-activity-calendar';
+import { Activity, ActivityCalendar } from 'react-activity-calendar';
 import { usePeriod, useStatsActions } from '@/stores/useStatsStore';
-
-type DataPoint = {
-  date: string;
-  value: number;
-};
 
 function formatHoursAndMinutes(hours: number): string {
   const intHours = Math.floor(hours);
@@ -13,11 +8,9 @@ function formatHoursAndMinutes(hours: number): string {
   return `${intHours}hr ${minutes}min`;
 }
 
-export default function Heatmap({ data }: { data: DataPoint[] }) {
+export default function Heatmap({ data }: { data: Activity[] }) {
   const { setDate, setWeek } = useStatsActions();
   const currentPeriod = usePeriod();
-
-  const maxValue = Math.max(...data.map((d) => d.value), 0);
 
   const handleCellClick = (date: Date) => {
     if (currentPeriod === 'Week') {
@@ -26,6 +19,8 @@ export default function Heatmap({ data }: { data: DataPoint[] }) {
       setDate(date);
     }
   };
+
+  const today = new Date().toLocaleDateString('en-CA');
 
   return (
     <ActivityCalendar
@@ -47,20 +42,12 @@ export default function Heatmap({ data }: { data: DataPoint[] }) {
           count: 0,
           level: 0,
         },
-        ...data.map((item) => ({
-          date: new Date(item.date).toLocaleDateString('en-CA'),
-          count: item.value,
-          level: Math.round(4 * (item.value / maxValue)),
-        })),
-        ...(data.some(
-          (item) =>
-            new Date(item.date).toLocaleDateString('en-CA') ===
-            new Date().toLocaleDateString('en-CA'),
-        )
+        ...data,
+        ...(data.some((item) => item.date === today)
           ? []
           : [
               {
-                date: new Date().toLocaleDateString('en-CA'),
+                date: today,
                 count: 0,
                 level: 0,
               },
@@ -81,6 +68,7 @@ export default function Heatmap({ data }: { data: DataPoint[] }) {
             base: 'before:bg-secondary',
           }}
           closeDelay={0}
+          disableAnimation
           showArrow
         >
           <g className="cursor-pointer">{block}</g>
