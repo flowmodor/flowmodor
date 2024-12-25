@@ -39,7 +39,7 @@ interface Action {
   unfocusTask: () => void;
   fetchTasks: () => Promise<void>;
   onSourceChange: (newSource: Source) => Promise<void>;
-  onListChange: (e: ChangeEvent<HTMLSelectElement>) => boolean;
+  onListChange: (id: string) => void;
   onLabelChange: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -212,13 +212,8 @@ const useTasksStore = create<Store>((set, get) => ({
         set({ isLoadingLists: false, isLoadingTasks: false });
       }
     },
-    onListChange: (e) => {
-      if (e.target.value === '') {
-        return false;
-      }
-
-      set({ activeList: e.target.value });
-      return true;
+    onListChange: (id) => {
+      set({ activeList: id });
     },
     onLabelChange: (e) => {
       set({ activeLabel: e.target.value });

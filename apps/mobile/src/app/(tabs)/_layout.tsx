@@ -8,13 +8,15 @@ import { useTasksActions } from '@/src/stores/useTasksStore';
 import { hapticsImpact } from '@/src/utils';
 
 export default function TabLayout() {
-  const { fetchTasks } = useTasksActions();
+  const { fetchSources, fetchListsAndLabels, fetchTasks } = useTasksActions();
   const insets = useSafeAreaInsets();
   const paddingBottom = insets.bottom === 0 ? 20 : insets.bottom;
 
   useTick();
 
   useEffect(() => {
+    fetchSources();
+    fetchListsAndLabels();
     fetchTasks();
   }, []);
 
