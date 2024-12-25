@@ -2,6 +2,7 @@
 
 import { Tables } from '@flowmodor/types';
 import { Card, CardBody } from '@nextui-org/card';
+import { calculateStreaks } from '@/utils/stats/calculateStreaks';
 import Heatmap from './Heatmap';
 
 const calculateFocusTime = (data: Tables<'logs'>[]) => {
@@ -30,10 +31,27 @@ const calculateFocusTime = (data: Tables<'logs'>[]) => {
 
 export default function YearlyStats({ data }: { data: Tables<'logs'>[] }) {
   const focusTimeData = calculateFocusTime(data);
+  const { currentStreak, longestStreak } = calculateStreaks(focusTimeData);
 
   return (
     <Card radius="sm" className="shrink-0 flex flex-col bg-midground w-full">
-      <CardBody>
+      <CardBody className="flex flex-col gap-4 lg:flex-row lg:gap-8">
+        <div className="flex flex-row lg:flex-col justify-center gap-10 lg:gap-6 shrink-0">
+          <div className="flex flex-col items-center">
+            <div className="text-sm">Longest Streak</div>
+            <div className="flex items-end gap-1">
+              <div className="text-2xl font-semibold">{longestStreak}</div>
+              days
+            </div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="text-sm">Current Streak</div>
+            <div className="flex items-end gap-1">
+              <div className="text-2xl font-semibold">{currentStreak}</div>
+              days
+            </div>
+          </div>
+        </div>
         <Heatmap data={focusTimeData} />
       </CardBody>
     </Card>
