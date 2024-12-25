@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import StatsCard from '@/components/Stats/StatsCard';
-import Summary from '@/components/Stats/Summary';
 import TaskTime from '@/components/Stats/TaskTime';
 import YearlyStats from '@/components/Stats/YearlyStats';
 import { createClient } from '@/utils/supabase/server';
@@ -19,8 +18,7 @@ export default async function Stats() {
         <div className="lg:w-2/3">
           <StatsCard />
         </div>
-        <div className="flex flex-col gap-5 lg:w-1/3">
-          <Summary />
+        <div className="lg:w-1/3">
           <TaskTime />
         </div>
       </div>

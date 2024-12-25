@@ -18,7 +18,7 @@ import {
   useStartDate,
   useStatsActions,
 } from '@/stores/useStatsStore';
-import calculateFocusTimes from '@/utils/stats/calculateFocusTime';
+import { calculateFocusTime } from '@/utils/stats/calculateFocusTime';
 import copyImageToClipboard from '@/utils/stats/copyImageToClipboard';
 import PeriodSelector from './PeriodSelector';
 import WeeklyBarChart from './WeeklyBarChart';
@@ -27,7 +27,7 @@ export default function StatsCard() {
   const logs = useLogs();
   const startDate = useStartDate();
   const endDate = useEndDate();
-  const { totalFocusTime } = calculateFocusTimes(logs ?? []);
+  const { totalFocusTime } = calculateFocusTime(logs ?? []);
   const { goPreviousTime, goNextTime, updateLogs, setDate } = useStatsActions();
   const displayTime = useDisplayTime();
   const chartRef = useRef<any>(null);
@@ -50,7 +50,7 @@ export default function StatsCard() {
   }, [updateLogs]);
 
   return (
-    <Card radius="sm" className="h-full bg-midground p-2 pb-0">
+    <Card className="h-full bg-midground p-2 pb-0">
       <CardHeader className="flex flex-col gap-1">
         <div className="flex justify-center w-full items-center gap-5 font-semibold">
           <PeriodSelector />

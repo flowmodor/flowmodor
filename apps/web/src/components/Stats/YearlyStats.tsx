@@ -34,20 +34,20 @@ export default function YearlyStats({ data }: { data: Tables<'logs'>[] }) {
   const { currentStreak, longestStreak } = calculateStreaks(focusTimeData);
 
   return (
-    <Card radius="sm" className="shrink-0 flex flex-col bg-midground w-full">
+    <Card className="shrink-0 flex flex-col bg-midground w-full">
       <CardBody className="flex flex-col gap-4 lg:flex-row lg:gap-8">
-        <div className="flex flex-row lg:flex-col justify-center gap-10 lg:gap-6 shrink-0">
+        <div className="flex flex-row mx-10 lg:flex-col justify-center gap-10 lg:gap-6 shrink-0">
           <div className="flex flex-col items-center">
             <div className="text-sm">Longest Streak</div>
             <div className="flex items-end gap-1">
-              <div className="text-2xl font-semibold">{longestStreak}</div>
+              <div className="text-3xl font-semibold">{longestStreak}</div>
               days
             </div>
           </div>
           <div className="flex flex-col items-center">
             <div className="text-sm">Current Streak</div>
             <div className="flex items-end gap-1">
-              <div className="text-2xl font-semibold">{currentStreak}</div>
+              <div className="text-3xl font-semibold">{currentStreak}</div>
               days
             </div>
           </div>
