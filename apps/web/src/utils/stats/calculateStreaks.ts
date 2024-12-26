@@ -11,13 +11,13 @@ interface StreakResult {
 
 // eslint-disable-next-line import/prefer-default-export
 export function calculateStreaks(data: FocusTimeData[]): StreakResult {
-  if (data.length === 0) {
-    return { currentStreak: 0, longestStreak: 0 };
-  }
-
   const sortedData = data
     .filter((item) => item.level >= 1)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+  if (sortedData.length === 0) {
+    return { currentStreak: 0, longestStreak: 0 };
+  }
 
   const streaks: number[] = [];
   let streakCount = 1;
