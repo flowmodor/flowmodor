@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import {
+  ActivityIndicator,
   FlatList,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
   StyleSheet,
   TextInput,
   View,
@@ -12,13 +14,27 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Up } from '@/src/components/Icons';
 import { Pressable, Text } from '@/src/components/Themed';
 import { useSession } from '@/src/ctx';
-import { useTasks, useTasksActions } from '@/src/stores/useTasksStore';
+import {
+  useActiveList,
+  useActiveSource,
+  useIsLoadingTasks,
+  useLists,
+  useSources,
+  useTasks,
+  useTasksActions,
+} from '@/src/stores/useTasksStore';
 import { hapticsImpact } from '@/src/utils';
 
 export default function Stats() {
   const insets = useSafeAreaInsets();
+  const sources = useSources();
+  const activeSource = useActiveSource();
   const tasks = useTasks();
-  const { completeTask, addTask } = useTasksActions();
+  const isLoadingTasks = useIsLoadingTasks();
+  const lists = useLists();
+  const activeList = useActiveList();
+  const { fetchTasks, completeTask, addTask, onSourceChange, onListChange } =
+    useTasksActions();
   const [newTaskName, setNewTaskName] = useState('');
   const { session } = useSession();
 
@@ -59,7 +75,7 @@ export default function Stats() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={[styles.container, { paddingTop: insets.top + 10 }]}
     >
-      {session === null && (
+      {session === null ? (
         <Text
           style={{
             fontSize: 18,
@@ -70,13 +86,93 @@ export default function Stats() {
         >
           Sign in to save tasks
         </Text>
+      ) : (
+        <View
+          style={{
+            flexDirection: 'column',
+            gap: 10,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: 'row',
+              gap: 10,
+            }}
+          >
+            {sources.length > 1 &&
+              sources.map((source) => (
+                <Pressable
+                  key={source}
+                  style={{
+                    backgroundColor:
+                      activeSource === source ? '#DBBFFF' : '#3F3E55',
+                  }}
+                  onPress={() => onSourceChange(source)}
+                >
+                  <Text
+                    style={{
+                      color: activeSource === source ? '#131221' : '#FFFFFF',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {source}
+                  </Text>
+                </Pressable>
+              ))}
+          </View>
+          <ScrollView horizontal>
+            <View
+              style={{
+                flexDirection: 'row',
+                gap: 10,
+              }}
+            >
+              {lists.map((list) => (
+                <Pressable
+                  key={list.id}
+                  style={{
+                    backgroundColor:
+                      activeList === list.id ? '#DBBFFF' : '#3F3E55',
+                  }}
+                  onPress={async () => {
+                    onListChange(list.id);
+                    await fetchTasks();
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: activeList === list.id ? '#131221' : '#FFFFFF',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {list.name}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          </ScrollView>
+        </View>
       )}
-      <FlatList
-        data={tasks}
-        renderItem={renderTask}
-        keyExtractor={(item) => item.id.toString()}
-        style={styles.list}
-      />
+      {isLoadingTasks ? (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <ActivityIndicator />
+        </View>
+      ) : (
+        <FlatList
+          data={tasks}
+          renderItem={renderTask}
+          keyExtractor={(item) => item.id.toString()}
+          style={{
+            flex: 1,
+          }}
+        />
+      )}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -108,10 +204,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#131221',
     paddingHorizontal: 20,
-  },
-  list: {
-    flex: 1,
-    borderTopWidth: 1,
   },
   taskContainer: {
     borderBottomWidth: 1,

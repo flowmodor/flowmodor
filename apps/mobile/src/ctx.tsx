@@ -46,7 +46,7 @@ export function useSession() {
 export function SessionProvider({ children }: PropsWithChildren) {
   const [session, setSession] = useState<Session | null>(null);
   const { updateLogs } = useStatsActions();
-  const { fetchTasks } = useTasksActions();
+  const { fetchSources, fetchListsAndLabels, fetchTasks } = useTasksActions();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -57,6 +57,8 @@ export function SessionProvider({ children }: PropsWithChildren) {
       setSession(session);
 
       if (event !== 'TOKEN_REFRESHED') {
+        fetchSources();
+        fetchListsAndLabels();
         fetchTasks();
       }
     });
