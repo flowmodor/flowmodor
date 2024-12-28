@@ -173,3 +173,11 @@ export function TrashCan() {
     </svg>
   );
 }
+
+export function RightArrow() {
+  return (
+    <svg width="14" height="14" fill="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" >
+      <use href="/icons.svg#rightArrow" />
+    </svg>
+  );
+}
