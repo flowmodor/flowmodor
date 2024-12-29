@@ -174,10 +174,18 @@ export function TrashCan() {
   );
 }
 
-export function RightArrow() {
+export function RightArrow({ fill }: { fill: string }) {
   return (
-    <svg width="14" height="14" fill="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" >
+    <svg
+      width="14"
+      height="14"
+      fill={fill}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <use href="/icons.svg#rightArrow" />
     </svg>
   );
 }
+

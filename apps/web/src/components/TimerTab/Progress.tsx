@@ -10,7 +10,7 @@ import {
   useTotalTime,
 } from '@/stores/useTimerStore';
 import { formatTime } from '@/utils';
-import FocusingTask from './FocusingTask';
+import TaskSelector from './TaskSelector';
 
 export default function Progress() {
   const totalTime = useTotalTime();
@@ -41,9 +41,7 @@ export default function Progress() {
             {mode === 'focus' ? 'Focus' : 'Break'}
           </span>
           <span id="time">{showTime && formatTime(displayTime)}</span>
-          <span className="text-sm font-normal">
-            <FocusingTask />
-          </span>
+          <TaskSelector />
         </div>
       }
       classNames={{

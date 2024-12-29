@@ -1,20 +1,25 @@
 'use client';
 
 import { Select, SelectItem } from '@nextui-org/select';
+import { Tooltip } from '@nextui-org/tooltip';
 import {
   useFocusingTask,
   useTasks,
   useTasksActions,
 } from '@/stores/useTasksStore';
+import { useMode, useStatus } from '@/stores/useTimerStore';
+import { RightArrow } from '../Icons';
 
-type ParentProps = {
-  open: boolean;
-};
-
-export default function TaskSelector({ open }: ParentProps) {
+export default function TaskSelector() {
   const tasks = useTasks();
   const focusingTask = useFocusingTask();
+  const mode = useMode();
+  const status = useStatus();
   const { focusTask, unfocusTask } = useTasksActions();
+
+  if (mode === 'break' || (!focusingTask && status === 'running')) {
+    return null;
+  }
 
   const selectItems = tasks.map((task) => (
     <SelectItem
@@ -51,13 +56,30 @@ export default function TaskSelector({ open }: ParentProps) {
       size="sm"
       selectionMode="single"
       aria-label="select a task"
-      renderValue={() => ""}
+      placeholder="Select a task"
+      disableSelectorIconRotation
+      isDisabled={status === 'running'}
+      selectorIcon={<RightArrow fill={focusingTask ? 'white' : '#FFFFFFA0'} />}
+      renderValue={(items) => (
+        <Tooltip
+          showArrow
+          color="secondary"
+          placement="bottom"
+          content={items[0].rendered}
+          aria-label="tooltip"
+          delay={500}
+        >
+          <div className="truncate max-w-[9rem]">{items[0].rendered}</div>
+        </Tooltip>
+      )}
       classNames={{
         trigger:
-          'bg-transparent text-transparent border-none outline-none data-[hover=true]:bg-transparent pointer-events-none',
+          'bg-transparent border-none outline-none data-[hover=true]:bg-transparent flex-row justify-center items-center gap-1 h-min min-h-0',
         popoverContent: 'bg-background',
+        innerWrapper: 'w-min h-min',
+        value: 'text-center w-min',
+        selectorIcon: 'static',
       }}
-      isOpen={open}
       selectedKeys={focusingTask ? [focusingTask.id] : []}
     >
       {selectItems}
