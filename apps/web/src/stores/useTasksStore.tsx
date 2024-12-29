@@ -85,8 +85,12 @@ const useTasksStore = create<Store>((set, get) => ({
     },
     deleteTask: async (task) => {
       try {
-        const { sourceInstance, activeList } = get();
+        const { sourceInstance, activeList, focusingTask, actions } = get();
         if (!sourceInstance) return;
+
+        if (focusingTask?.id === task.id) {
+          actions.unfocusTask();
+        }
 
         await sourceInstance.deleteTask(task.id, activeList ?? undefined);
         set((state) => ({
