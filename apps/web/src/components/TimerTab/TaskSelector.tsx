@@ -1,5 +1,3 @@
-'use client';
-
 import { Select, SelectItem } from '@nextui-org/select';
 import { Tooltip } from '@nextui-org/tooltip';
 import {
@@ -51,7 +49,6 @@ export default function TaskSelector() {
 
   return (
     <Select
-      tabIndex={-1}
       items={selectItems}
       size="sm"
       selectionMode="single"
@@ -59,6 +56,7 @@ export default function TaskSelector() {
       placeholder="Select a task"
       disableSelectorIconRotation
       isDisabled={status === 'running'}
+      selectedKeys={focusingTask ? [focusingTask.id] : []}
       selectorIcon={<RightArrow fill={focusingTask ? 'white' : '#FFFFFFA0'} />}
       renderValue={(items) => (
         <Tooltip
@@ -80,7 +78,6 @@ export default function TaskSelector() {
         value: 'text-center w-min',
         selectorIcon: 'static',
       }}
-      selectedKeys={focusingTask ? [focusingTask.id] : []}
     >
       {selectItems}
     </Select>
