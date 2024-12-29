@@ -1,0 +1,85 @@
+import { Select, SelectItem } from '@nextui-org/select';
+import { Tooltip } from '@nextui-org/tooltip';
+import {
+  useFocusingTask,
+  useTasks,
+  useTasksActions,
+} from '@/stores/useTasksStore';
+import { useMode, useStatus } from '@/stores/useTimerStore';
+import { RightArrow } from '../Icons';
+
+export default function TaskSelector() {
+  const tasks = useTasks();
+  const focusingTask = useFocusingTask();
+  const mode = useMode();
+  const status = useStatus();
+  const { focusTask, unfocusTask } = useTasksActions();
+
+  if (mode === 'break' || (!focusingTask && status === 'running')) {
+    return null;
+  }
+
+  const selectItems = tasks.map((task) => (
+    <SelectItem
+      aria-label={task.name}
+      key={task.id}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') {
+          if (focusingTask === task) {
+            unfocusTask();
+          } else {
+            focusTask(task);
+          }
+        }
+      }}
+      onClick={() => {
+        if (focusingTask === task) {
+          unfocusTask();
+        } else {
+          focusTask(task);
+        }
+      }}
+      classNames={{
+        base: 'data-[hover=true]:!bg-secondary data-[focus=true]:!bg-secondary',
+      }}
+    >
+      {task.name}
+    </SelectItem>
+  ));
+
+  return (
+    <Select
+      items={selectItems}
+      size="sm"
+      selectionMode="single"
+      aria-label="select a task"
+      placeholder="Select a task"
+      disableSelectorIconRotation
+      isDisabled={status === 'running'}
+      selectedKeys={focusingTask ? [focusingTask.id] : []}
+      selectorIcon={<RightArrow fill={focusingTask ? 'white' : '#FFFFFFA0'} />}
+      renderValue={(items) => (
+        <Tooltip
+          showArrow
+          color="secondary"
+          placement="bottom"
+          content={items[0].rendered}
+          aria-label="tooltip"
+          delay={500}
+        >
+          <div className="truncate max-w-[9rem]">{items[0].rendered}</div>
+        </Tooltip>
+      )}
+      classNames={{
+        trigger:
+          'bg-transparent border-none outline-none data-[hover=true]:bg-transparent flex-row justify-center items-center gap-1 h-min min-h-0',
+        popoverContent: 'bg-background',
+        innerWrapper: 'w-min h-min',
+        value: 'text-center w-min',
+        selectorIcon: 'static',
+      }}
+    >
+      {selectItems}
+    </Select>
+  );
+}
