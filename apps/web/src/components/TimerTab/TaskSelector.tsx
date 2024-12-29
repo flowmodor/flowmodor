@@ -20,7 +20,6 @@ export default function TaskSelector({ open }: ParentProps) {
     <SelectItem
       aria-label={task.name}
       key={task.id}
-      selectedIcon={null}
       onKeyDown={(event) => {
         if (event.key === 'Enter') {
           if (focusingTask === task) {
@@ -38,7 +37,7 @@ export default function TaskSelector({ open }: ParentProps) {
         }
       }}
       classNames={{
-        base: `data-[hover=true]:!bg-secondary data-[focus=true]:!bg-secondary`,
+        base: 'data-[hover=true]:!bg-secondary data-[focus=true]:!bg-secondary',
       }}
     >
       {task.name}
@@ -47,15 +46,12 @@ export default function TaskSelector({ open }: ParentProps) {
 
   return (
     <Select
-      isDisabled={true}
       tabIndex={-1}
       items={selectItems}
       size="sm"
       selectionMode="single"
       aria-label="select a task"
-      renderValue={() => {
-        return <span></span>;
-      }}
+      renderValue={() => ""}
       classNames={{
         trigger:
           'bg-transparent text-transparent border-none outline-none data-[hover=true]:bg-transparent pointer-events-none',
