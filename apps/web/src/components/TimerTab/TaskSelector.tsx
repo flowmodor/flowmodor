@@ -77,6 +77,7 @@ export default function TaskSelector() {
         innerWrapper: 'w-min h-min',
         value: 'text-center w-min',
         selectorIcon: 'static',
+        base: 'w-[22rem]',
       }}
     >
       {selectItems}
