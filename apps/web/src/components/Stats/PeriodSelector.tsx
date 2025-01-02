@@ -39,7 +39,7 @@ export default function PeriodSelector() {
           base: 'data-[focus=true]:!bg-secondary data-[hover=true]:!bg-secondary',
         }}
       >
-        <div className="flex gap-2 items-center">Week</div>
+        <div className="flex items-center gap-2">Week</div>
       </SelectItem>
     </Select>
   );

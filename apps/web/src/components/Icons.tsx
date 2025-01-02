@@ -188,4 +188,3 @@ export function RightArrow({ fill }: { fill: string }) {
     </svg>
   );
 }
-

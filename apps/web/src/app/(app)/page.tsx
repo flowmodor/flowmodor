@@ -13,7 +13,7 @@ export default async function App() {
 
   return (
     <HomeProvider>
-      <div className="flex flex-col gap-5 h-full items-center justify-center">
+      <div className="flex h-full flex-col items-center justify-center gap-5">
         {!session && (
           <div className="text-sm">
             <Link href="/signin" underline="always" className="text-sm">

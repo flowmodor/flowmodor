@@ -13,8 +13,8 @@ export default async function Stats() {
   const { data } = await supabase.from('logs').select('*');
 
   return (
-    <div className="w-full lg:justify-center lg:items-center p-5 flex flex-col sm:min-h-screen overflow-y-auto gap-5">
-      <div className="w-full flex flex-col lg:justify-center lg:flex-row gap-5 lg:h-[70vh]">
+    <div className="flex w-full flex-col gap-5 overflow-y-auto p-5 sm:min-h-screen lg:items-center lg:justify-center">
+      <div className="flex w-full flex-col gap-5 lg:h-[70vh] lg:flex-row lg:justify-center">
         <div className="lg:w-2/3">
           <StatsCard />
         </div>

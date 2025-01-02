@@ -11,7 +11,7 @@ export default function SignUpPage() {
   return (
     <form
       action={signUp}
-      className="flex flex-col gap-5 text-center w-3/4 max-w-sm"
+      className="flex w-3/4 max-w-sm flex-col gap-5 text-center"
     >
       <h1 className="text-3xl font-semibold">Get started</h1>
       <SignUpForm />

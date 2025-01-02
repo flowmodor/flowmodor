@@ -26,7 +26,7 @@ export default function TaskBox({ task }: { task: Task }) {
 
   return (
     <div
-      className={`relative group flex min-h-[4rem] items-center border-b border-b-secondary px-4 py-4 flex-shrink-0 cursor-pointer transition-background ${isLoading && 'opacity-50 pointer-events-none'} ${isFocusing && 'rounded-md bg-secondary'}`}
+      className={`border-b-secondary transition-background group relative flex min-h-[4rem] flex-shrink-0 cursor-pointer items-center border-b px-4 py-4 ${isLoading && 'pointer-events-none opacity-50'} ${isFocusing && 'bg-secondary rounded-md'}`}
       onClick={() => {
         if (mode === 'focus' && status === 'running') {
           return;
@@ -64,11 +64,11 @@ export default function TaskBox({ task }: { task: Task }) {
           });
         }}
       />
-      <div className="flex flex-col select-none ">
-        <Markdown className="pointer-events-none prose-a:font-normal prose-a:no-underline prose prose-invert prose-p:text-white prose-li:text-white">
+      <div className="flex select-none flex-col ">
+        <Markdown className="prose-a:font-normal prose-a:no-underline prose prose-invert prose-p:text-white prose-li:text-white pointer-events-none">
           {task.name}
         </Markdown>
-        <div className="gap-x-2 flex text-[#ffffffa0] fill-[#ffffffa0] text-sm flex-wrap">
+        <div className="flex flex-wrap gap-x-2 fill-[#ffffffa0] text-sm text-[#ffffffa0]">
           {task.labels?.map((label) => (
             <div key={label} className="flex gap-1">
               <Label />
@@ -76,7 +76,7 @@ export default function TaskBox({ task }: { task: Task }) {
             </div>
           ))}
           {task.due ? (
-            <div className="flex text-sm text-[#ffffffa0] fill-[#ffffffa0] gap-1">
+            <div className="flex gap-1 fill-[#ffffffa0] text-sm text-[#ffffffa0]">
               <Calendar />
               {task.due.toDateString()}
             </div>
@@ -86,7 +86,7 @@ export default function TaskBox({ task }: { task: Task }) {
       <button
         type="button"
         aria-label="Delete task"
-        className="absolute right-1 fill-primary group-hover:block hidden"
+        className="fill-primary absolute right-1 hidden group-hover:block"
         onClick={(e) => {
           startTransition(async () => {
             await deleteTask(task);

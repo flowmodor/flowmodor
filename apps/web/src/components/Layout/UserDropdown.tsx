@@ -35,7 +35,7 @@ export default function UserDropdown({ user }: { user: any }) {
           <DropdownItem
             key="info"
             textValue="info"
-            className="data-[focus=true]:outline-none data-[focus=true]:bg-transparent data-[hover=true]:bg-transparent pointer-events-none"
+            className="pointer-events-none data-[focus=true]:bg-transparent data-[hover=true]:bg-transparent data-[focus=true]:outline-none"
           >
             <div className="text-foreground-500 text-xs">Signed in as</div>
             <div>{user.email}</div>

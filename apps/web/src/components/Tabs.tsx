@@ -13,7 +13,7 @@ export default function TabsWrapper({ children }: { children: ReactNode[] }) {
   }, []);
 
   return (
-    <div className="flex h-full sm:h-auto p-3 flex-col w-full gap-3">
+    <div className="flex h-full w-full flex-col gap-3 p-3 sm:h-auto">
       <Tabs
         fullWidth
         classNames={{

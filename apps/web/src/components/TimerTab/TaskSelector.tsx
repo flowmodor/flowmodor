@@ -67,7 +67,7 @@ export default function TaskSelector() {
           aria-label="tooltip"
           delay={500}
         >
-          <div className="truncate max-w-[9rem]">{items[0].rendered}</div>
+          <div className="max-w-[9rem] truncate">{items[0].rendered}</div>
         </Tooltip>
       )}
       classNames={{

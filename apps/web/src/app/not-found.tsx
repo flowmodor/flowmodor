@@ -4,9 +4,9 @@ import Image from 'next/image';
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col h-full items-center justify-center gap-10">
+    <div className="flex h-full flex-col items-center justify-center gap-10">
       <div className="flex flex-col items-center gap-2">
-        <h1 className="text-9xl font-bold flex items-center gap-2 text-primary">
+        <h1 className="text-primary flex items-center gap-2 text-9xl font-bold">
           4
           <Image
             src="/images/logo-no-bg.png"
@@ -14,11 +14,11 @@ export default function NotFound() {
             unoptimized
             width={80}
             height={80}
-            className="flex-shrink-0 inline-block"
+            className="inline-block flex-shrink-0"
           />
           4
         </h1>
-        <h1 className="flex text-gray-300 gap-5 text-sm max-w-sm text-center items-center">
+        <h1 className="flex max-w-sm items-center gap-5 text-center text-sm text-gray-300">
           The page you are looking for doesn&apos;t exist. Please go back to the
           home page.
         </h1>

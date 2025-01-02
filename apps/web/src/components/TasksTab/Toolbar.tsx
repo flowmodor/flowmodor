@@ -18,7 +18,7 @@ export default function Toolbar() {
   };
 
   return (
-    <div className="flex mt-auto gap-3 items-center">
+    <div className="mt-auto flex items-center gap-3">
       <Input
         radius="sm"
         className="w-full bg-transparent text-[16px] outline-none"

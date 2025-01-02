@@ -50,11 +50,11 @@ export default function StatsCard() {
   }, [updateLogs]);
 
   return (
-    <Card className="h-full bg-midground p-2 pb-0">
+    <Card className="bg-midground h-full p-2 pb-0">
       <CardHeader className="flex flex-col gap-1">
-        <div className="flex justify-center w-full items-center gap-5 font-semibold">
+        <div className="flex w-full items-center justify-center gap-5 font-semibold">
           <PeriodSelector />
-          <div className="mx-auto flex gap-5 items-center">
+          <div className="mx-auto flex items-center gap-5">
             <DateButton onPress={goPreviousTime} ariaLabel="Previous day">
               <Left />
             </DateButton>

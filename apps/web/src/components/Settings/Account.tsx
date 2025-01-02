@@ -17,11 +17,11 @@ export default function Account() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
-    <div className="flex flex-col gap-3 items-start">
+    <div className="flex flex-col items-start gap-3">
       <div className="flex items-center gap-3">
         <h2 className="text-xl font-semibold">Delete account</h2>
       </div>
-      <div className="text-xs text-foreground-400">
+      <div className="text-foreground-400 text-xs">
         This will permanently delete your account and all of its data. You will
         not be able to reactivate this account.
       </div>

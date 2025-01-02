@@ -3,7 +3,7 @@ import Toolbar from './Toolbar';
 
 export default function TimerTab() {
   return (
-    <div className="gap-7 rounded-lg h-full py-2 flex flex-col items-center justify-center  w-[90vw] bg-midground sm:h-[30rem] sm:w-[30rem]">
+    <div className="bg-midground flex h-full w-[90vw] flex-col items-center justify-center gap-7  rounded-lg py-2 sm:h-[30rem] sm:w-[30rem]">
       <Progress />
       <Toolbar />
     </div>

@@ -14,7 +14,7 @@ export default function SignInPage() {
   return (
     <form
       action={signInWithPassword}
-      className="flex flex-col gap-5 text-center w-3/4 max-w-sm"
+      className="flex w-3/4 max-w-sm flex-col gap-5 text-center"
     >
       <h1 className="mb-5 text-3xl font-semibold">Sign In Now</h1>
       <OAuthButton />
