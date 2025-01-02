@@ -225,6 +225,23 @@ const useTasksStore = create<Store>((set, get) => ({
           actions: { fetchListsAndLabels, fetchTasks },
         } = get();
 
+        if (newSource === Source.Todoist) {
+          set({
+            activeList: 'today',
+            lists: [
+              {
+                id: 'today',
+                name: 'Today',
+              },
+            ],
+          });
+
+          fetchTasks();
+          fetchListsAndLabels();
+
+          return;
+        }
+
         await fetchListsAndLabels();
         await fetchTasks();
       } catch (error) {
