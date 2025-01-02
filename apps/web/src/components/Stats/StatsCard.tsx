@@ -30,7 +30,7 @@ export default function StatsCard() {
   const { totalFocusTime } = calculateFocusTime(logs ?? []);
   const { goPreviousTime, goNextTime, updateLogs, setDate } = useStatsActions();
   const displayTime = useDisplayTime();
-  const chartRef = useRef<any>(null);
+  const chartRef = useRef(null);
   const effectRunRef = useRef(false);
   const period = usePeriod();
   const isDisabled = useIsDisabled();

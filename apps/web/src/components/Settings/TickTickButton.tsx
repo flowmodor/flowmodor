@@ -6,7 +6,7 @@ import { useTransition } from 'react';
 import { toast } from 'sonner';
 import { connect, disconnect } from '@/actions/ticktick';
 
-export default function TickTickButton({ connected }: { connected: Boolean }) {
+export default function TickTickButton({ connected }: { connected: boolean }) {
   const [isPending, startTransition] = useTransition();
 
   return (

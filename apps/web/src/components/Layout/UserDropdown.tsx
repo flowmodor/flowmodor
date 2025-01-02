@@ -8,11 +8,12 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from '@nextui-org/dropdown';
+import { User } from '@supabase/supabase-js';
 import Link from 'next/link';
 import { signOut } from '@/actions/auth';
-import { User } from '../Icons';
+import { User as UserIcon } from '../Icons';
 
-export default function UserDropdown({ user }: { user: any }) {
+export default function UserDropdown({ user }: { user: User | null }) {
   return (
     <Dropdown
       classNames={{
@@ -27,7 +28,7 @@ export default function UserDropdown({ user }: { user: any }) {
           isBordered
           showFallback
           src={user?.user_metadata?.avatar_url}
-          fallback={<User />}
+          fallback={<UserIcon />}
         />
       </DropdownTrigger>
       <DropdownMenu aria-label="user info menu">

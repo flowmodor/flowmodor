@@ -6,7 +6,7 @@ import { useTransition } from 'react';
 import { toast } from 'sonner';
 import { connect, disconnect } from '@/actions/todoist';
 
-export default function TodoistButton({ connected }: { connected: Boolean }) {
+export default function TodoistButton({ connected }: { connected: boolean }) {
   const [isPending, startTransition] = useTransition();
 
   return (

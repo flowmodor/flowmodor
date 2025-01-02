@@ -9,7 +9,7 @@ import { connect, disconnect } from '@/actions/microsofttodo';
 export default function MicrosoftToDoButton({
   connected,
 }: {
-  connected: Boolean;
+  connected: boolean;
 }) {
   const [isPending, startTransition] = useTransition();
 

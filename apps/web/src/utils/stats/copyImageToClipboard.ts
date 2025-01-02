@@ -1,8 +1,9 @@
-import { MutableRefObject } from 'react';
+import { RefObject } from 'react';
 import { base64ToBlob } from '..';
 
 export default async function copyImageToClipboard(
-  chartRef: MutableRefObject<any>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  chartRef: RefObject<any>,
   totalFocusTime: number,
   dateText: string,
 ): Promise<boolean> {

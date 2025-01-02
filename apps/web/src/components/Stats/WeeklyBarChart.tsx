@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { LogsWithTasks } from '@flowmodor/types';
 import {
   BarElement,
@@ -50,7 +51,7 @@ const options = {
   plugins: {
     setBackground: {},
     tooltip: {
-      position: 'nearest' as 'nearest',
+      position: 'nearest' as const,
       boxPadding: 2,
       usePointStyle: true,
       backgroundColor: '#131221',

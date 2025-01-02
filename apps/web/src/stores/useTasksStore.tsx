@@ -81,6 +81,7 @@ const useTasksStore = create<Store>((set, get) => ({
         set({ tasks: [...tasks, task] });
       } catch (error) {
         toast.error('Failed to add task');
+        console.error(error);
       }
     },
     deleteTask: async (task) => {
@@ -98,6 +99,7 @@ const useTasksStore = create<Store>((set, get) => ({
         }));
       } catch (error) {
         toast.error('Failed to delete task');
+        console.error(error);
       }
     },
     completeTask: async (task) => {
@@ -115,6 +117,7 @@ const useTasksStore = create<Store>((set, get) => ({
         }));
       } catch (error) {
         toast.error('Failed to complete task');
+        console.error(error);
       }
     },
     undoCompleteTask: async (task, listId) => {
@@ -137,6 +140,7 @@ const useTasksStore = create<Store>((set, get) => ({
         }));
       } catch (error) {
         toast.error('Failed to undo complete task');
+        console.error(error);
       }
     },
     fetchSources: async () => {
@@ -166,6 +170,7 @@ const useTasksStore = create<Store>((set, get) => ({
         });
       } catch (error) {
         toast.error('Failed to fetch sources');
+        console.error(error);
         set({ isLoadingSources: false });
       }
     },
@@ -187,6 +192,7 @@ const useTasksStore = create<Store>((set, get) => ({
         });
       } catch (error) {
         toast.error('Failed to fetch lists and labels');
+        console.error(error);
         set({ isLoadingLists: false });
       }
     },
@@ -202,6 +208,7 @@ const useTasksStore = create<Store>((set, get) => ({
         set({ tasks, isLoadingTasks: false });
       } catch (error) {
         toast.error('Failed to fetch tasks');
+        console.error(error);
         set({ isLoadingTasks: false });
       }
     },
@@ -222,6 +229,7 @@ const useTasksStore = create<Store>((set, get) => ({
         await fetchTasks();
       } catch (error) {
         toast.error('Failed to change source');
+        console.error(error);
         set({ isLoadingLists: false, isLoadingTasks: false });
       }
     },

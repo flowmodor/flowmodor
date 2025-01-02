@@ -9,7 +9,7 @@ import { connect, disconnect } from '@/actions/googletasks';
 export default function GoogleTasksButton({
   connected,
 }: {
-  connected: Boolean;
+  connected: boolean;
 }) {
   const [isPending, startTransition] = useTransition();
 
