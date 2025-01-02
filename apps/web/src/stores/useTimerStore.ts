@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { Source } from '@flowmodor/task-sources';
 import { Task } from '@flowmodor/types';
 import { useEffect, useState } from 'react';
