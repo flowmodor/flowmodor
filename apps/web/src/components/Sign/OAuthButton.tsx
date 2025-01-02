@@ -19,7 +19,6 @@ export default function OAuthButton() {
         isDisabled={isGoogleLoading}
         onPress={() => {
           startAppleTransition(async () => {
-            // eslint-disable-next-line no-restricted-globals
             await signInWithOAuth(location.origin, 'apple');
           });
         }}
@@ -35,7 +34,6 @@ export default function OAuthButton() {
         isDisabled={isAppleLoading}
         onPress={() => {
           startGoogleTransition(async () => {
-            // eslint-disable-next-line no-restricted-globals
             await signInWithOAuth(location.origin, 'google');
           });
         }}

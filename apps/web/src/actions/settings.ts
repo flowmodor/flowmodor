@@ -3,7 +3,6 @@
 import { revalidatePath } from 'next/cache';
 import { createClient } from '@/utils/supabase/server';
 
-// eslint-disable-next-line import/prefer-default-export
 export async function updateOptions(breakRatio: number) {
   const supabase = await createClient();
   const {

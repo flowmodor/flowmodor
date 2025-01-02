@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import { TaskSource } from '@flowmodor/task-sources';
 import { List, Task } from '@flowmodor/types';
 import { SupabaseClient } from '@supabase/supabase-js';

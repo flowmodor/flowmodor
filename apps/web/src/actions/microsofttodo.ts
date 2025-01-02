@@ -21,7 +21,7 @@ export async function connect() {
   url.searchParams.append('response_mode', 'query');
 
   const state = nanoid();
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   cookieStore.set('microsofttodo_state', state, { maxAge: 60 * 60 });
   url.searchParams.append('state', state);
 

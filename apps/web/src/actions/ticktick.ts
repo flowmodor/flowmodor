@@ -13,7 +13,7 @@ export async function connect() {
   url.searchParams.append('response_type', 'code');
 
   const state = nanoid();
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   cookieStore.set('ticktick_state', state, { maxAge: 60 * 60 });
   url.searchParams.append('state', state);
 

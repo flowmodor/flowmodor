@@ -1,6 +1,5 @@
 import sharp from 'sharp';
 
-// eslint-disable-next-line import/prefer-default-export
 export async function POST(req: Request) {
   try {
     const { image, totalFocusTime, dateText } = await req.json();

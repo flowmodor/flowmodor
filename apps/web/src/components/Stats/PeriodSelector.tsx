@@ -7,7 +7,6 @@ export default function PeriodSelector() {
 
   return (
     <Select
-      size="sm"
       radius="sm"
       selectionMode="single"
       classNames={{

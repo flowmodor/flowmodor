@@ -19,7 +19,7 @@ export async function connect() {
   url.searchParams.append('prompt', 'consent');
 
   const state = nanoid();
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   cookieStore.set('googletasks_state', state, { maxAge: 60 * 60 });
   url.searchParams.append('state', state);
 

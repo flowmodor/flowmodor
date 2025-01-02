@@ -12,7 +12,7 @@ export async function connect() {
   url.searchParams.append('scope', 'data:read_write');
 
   const state = nanoid();
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   cookieStore.set('todoist_state', state, { maxAge: 60 * 60 });
   url.searchParams.append('state', state);
 

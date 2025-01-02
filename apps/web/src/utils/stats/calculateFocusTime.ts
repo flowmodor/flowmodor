@@ -1,6 +1,5 @@
 import { LogsWithTasks } from '@flowmodor/types';
 
-// eslint-disable-next-line import/prefer-default-export
 export function calculateFocusTime(sessions: LogsWithTasks[]): {
   totalFocusTime: number;
   longestFocusTime: number;
@@ -8,7 +7,6 @@ export function calculateFocusTime(sessions: LogsWithTasks[]): {
   let totalFocusTime = 0; // in minutes
   let longestFocusTime = 0; // in minutes
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const session of sessions) {
     const start = new Date(session.start_time);
     const end = new Date(session.end_time);

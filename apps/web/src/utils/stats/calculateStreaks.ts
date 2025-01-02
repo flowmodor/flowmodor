@@ -9,7 +9,6 @@ interface StreakResult {
   longestStreak: number;
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export function calculateStreaks(data: FocusTimeData[]): StreakResult {
   const sortedData = data
     .filter((item) => item.level >= 1)

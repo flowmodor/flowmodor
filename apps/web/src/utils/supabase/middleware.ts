@@ -1,7 +1,6 @@
 import { createServerClient } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
 
-// eslint-disable-next-line import/prefer-default-export
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,

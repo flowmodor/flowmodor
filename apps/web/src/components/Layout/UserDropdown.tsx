@@ -43,6 +43,7 @@ export default function UserDropdown({ user }: { user: any }) {
           </DropdownItem>
         )}
         <DropdownItem
+          key="x"
           as={Link}
           href="https://x.com/flowmodor"
           target="_blank"

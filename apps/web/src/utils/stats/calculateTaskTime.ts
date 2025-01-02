@@ -1,6 +1,5 @@
 import { LogsWithTasks } from '@flowmodor/types';
 
-// eslint-disable-next-line import/prefer-default-export
 export function calculateTaskTime(logs: LogsWithTasks[]) {
   const taskTimeMap: { [task: string]: number } = {};
   for (let i = 0; i < logs.length; i += 1) {

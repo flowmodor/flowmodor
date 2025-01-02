@@ -71,7 +71,7 @@ export default function StatsCard() {
             radius="sm"
             color="secondary"
             className="hidden sm:block"
-            onClick={() => {
+            onPress={() => {
               setDate(new Date());
             }}
           >
@@ -91,7 +91,7 @@ export default function StatsCard() {
               radius="sm"
               color="secondary"
               className="hidden sm:flex"
-              onClick={() => {
+              onPress={() => {
                 startTransition(async () => {
                   const success = await copyImageToClipboard(
                     chartRef,

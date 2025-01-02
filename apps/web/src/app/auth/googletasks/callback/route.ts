@@ -2,13 +2,12 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
 
-// eslint-disable-next-line import/prefer-default-export
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
 
   if (code) {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     if (
       cookieStore.get('googletasks_state')?.value !== searchParams.get('state')
     ) {
