@@ -1,13 +1,9 @@
-import {
-  createStatsStore,
-  createTimerHooks,
-  createTimerStore,
-} from '@flowmodor/stores';
+import { createTimerHooks, createTimerStore } from '@flowmodor/stores';
 import { useEffect, useState } from 'react';
 import supabase from '@/utils/supabase/client';
+import { statsStore } from './useStatsStore';
 
-const statsStore = createStatsStore(supabase);
-export const useTimerStore = createTimerStore(supabase, statsStore);
+const timerStore = createTimerStore(supabase, statsStore);
 
 export const useBreakRatio = () => {
   const [breakRatio, setBreakRatio] = useState<number>(5);
@@ -41,4 +37,4 @@ export const {
   useShowTime,
   useStatus,
   useTimerActions,
-} = createTimerHooks(useTimerStore);
+} = createTimerHooks(timerStore);

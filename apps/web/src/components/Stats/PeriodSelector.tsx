@@ -1,5 +1,6 @@
+import { Period } from '@flowmodor/stores';
 import { Select, SelectItem } from '@nextui-org/select';
-import { Period, usePeriod, useStatsActions } from '@/stores/useStatsStore';
+import { usePeriod, useStatsActions } from '@/stores/useStatsStore';
 
 export default function PeriodSelector() {
   const { onPeriodChange } = useStatsActions();

@@ -175,3 +175,31 @@ export const createStatsStore = (supabase: SupabaseClient) =>
       },
     },
   }));
+
+export const createStatsHooks = (
+  useStore: ReturnType<typeof createStatsStore>,
+) => ({
+  usePeriod: () => useStore((state) => state.period),
+  useStartDate: () => useStore((state) => state.startDate),
+  useEndDate: () => useStore((state) => state.endDate),
+  useDisplayTime: () => useStore((state) => state.displayTime),
+  useLogs: () => useStore((state) => state.logs),
+  useStatsActions: () => useStore((state) => state.actions),
+  useIsDisabled: () => {
+    const period = useStore((state) => state.period);
+    const startDate = useStore((state) => state.startDate);
+    const endDate = useStore((state) => state.endDate);
+
+    const today = new Date();
+
+    if (period === 'Day') {
+      return today.getDate() === endDate.getDate();
+    }
+
+    if (period === 'Week') {
+      return today >= startDate && today <= endDate;
+    }
+
+    return false;
+  },
+});

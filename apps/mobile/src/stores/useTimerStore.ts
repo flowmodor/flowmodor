@@ -1,8 +1,4 @@
-import {
-  createStatsStore,
-  createTimerHooks,
-  createTimerStore,
-} from '@flowmodor/stores';
+import { createTimerHooks, createTimerStore } from '@flowmodor/stores';
 import notifee, {
   AndroidImportance,
   AndroidVisibility,
@@ -12,6 +8,7 @@ import notifee, {
 } from '@notifee/react-native';
 import { useEffect, useState } from 'react';
 import { supabase } from '../utils/supabase';
+import { statsStore } from './useStatsStore';
 
 notifee.onBackgroundEvent(async ({ type, detail }) => {
   const { notification, pressAction } = detail;
@@ -62,9 +59,7 @@ async function setupBreakTimerNotification(totalTime: number) {
   );
 }
 
-const statsStore = createStatsStore(supabase);
-
-export const useTimerStore = createTimerStore(
+const timerStore = createTimerStore(
   supabase,
   statsStore,
   setupBreakTimerNotification,
@@ -101,4 +96,4 @@ export const {
   useMode,
   useStatus,
   useTimerActions,
-} = createTimerHooks(useTimerStore);
+} = createTimerHooks(timerStore);
