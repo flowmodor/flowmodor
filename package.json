@@ -4,8 +4,8 @@
   "private": true,
   "devDependencies": {
     "turbo": "^2.0.12",
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "prettier-plugin-tailwindcss": "^0.5.13"
+    "prettier": "^3.2.5",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0"
   },
   "packageManager": "pnpm@9.7.0",
   "pnpm": {
