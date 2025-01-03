@@ -2,7 +2,8 @@
   "name": "@flowmodor/stores",
   "version": "0.1.0",
   "exports": {
-    ".": "./src/index.ts"
+    "./timer": "./src/timer.ts",
+    "./stats": "./src/stats.ts"
   },
   "dependencies": {
     "@flowmodor/task-sources": "workspace:*",

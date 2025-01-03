@@ -1,4 +1,4 @@
-import { Period } from '@flowmodor/stores';
+import { Period } from '@flowmodor/stores/stats';
 import { Select, SelectItem } from '@nextui-org/select';
 import { usePeriod, useStatsActions } from '@/stores/useStatsStore';
 

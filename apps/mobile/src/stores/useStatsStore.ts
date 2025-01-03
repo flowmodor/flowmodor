@@ -1,8 +1,7 @@
-import { createStatsHooks, createStatsStore } from '@flowmodor/stores';
+import { createHooks, createStore } from '@flowmodor/stores/stats';
 import { supabase } from '../utils/supabase';
 
-export const statsStore = createStatsStore(supabase);
-
+export const store = createStore(supabase);
 export const {
   usePeriod,
   useStartDate,
@@ -11,4 +10,4 @@ export const {
   useLogs,
   useStatsActions,
   useIsDisabled,
-} = createStatsHooks(statsStore);
+} = createHooks(store);
