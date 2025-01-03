@@ -196,3 +196,17 @@ export const createTimerStore = (
       toggleShowTime: () => set((state) => ({ showTime: !state.showTime })),
     },
   }));
+
+export const createTimerHooks = (
+  useStore: ReturnType<typeof createTimerStore>,
+) => ({
+  useStartTime: () => useStore((state) => state.startTime),
+  useEndTime: () => useStore((state) => state.endTime),
+  useTotalTime: () => useStore((state) => state.totalTime),
+  useDisplayTime: () => useStore((state) => state.displayTime),
+  useMode: () => useStore((state) => state.mode),
+  useShowTime: () =>
+    useStore((state) => state.showTime || state.status === 'idle'),
+  useStatus: () => useStore((state) => state.status),
+  useTimerActions: () => useStore((state) => state.actions),
+});

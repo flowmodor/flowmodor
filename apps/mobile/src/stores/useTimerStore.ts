@@ -1,4 +1,8 @@
-import { createStatsStore, createTimerStore } from '@flowmodor/stores';
+import {
+  createStatsStore,
+  createTimerHooks,
+  createTimerStore,
+} from '@flowmodor/stores';
 import notifee, {
   AndroidImportance,
   AndroidVisibility,
@@ -89,10 +93,12 @@ export const useBreakRatio = () => {
   return breakRatio;
 };
 
-export const useStartTime = () => useTimerStore((state) => state.startTime);
-export const useEndTime = () => useTimerStore((state) => state.endTime);
-export const useTotalTime = () => useTimerStore((state) => state.totalTime);
-export const useDisplayTime = () => useTimerStore((state) => state.displayTime);
-export const useMode = () => useTimerStore((state) => state.mode);
-export const useStatus = () => useTimerStore((state) => state.status);
-export const useTimerActions = () => useTimerStore((state) => state.actions);
+export const {
+  useStartTime,
+  useEndTime,
+  useTotalTime,
+  useDisplayTime,
+  useMode,
+  useStatus,
+  useTimerActions,
+} = createTimerHooks(useTimerStore);
