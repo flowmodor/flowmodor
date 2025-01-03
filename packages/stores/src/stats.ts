@@ -25,7 +25,7 @@ interface Store extends State {
   actions: Action;
 }
 
-export const createStatsStore = (supabase: SupabaseClient) =>
+export const createStore = (supabase: SupabaseClient) =>
   create<Store>((set, get) => ({
     startDate: new Date(),
     endDate: new Date(),
@@ -176,9 +176,7 @@ export const createStatsStore = (supabase: SupabaseClient) =>
     },
   }));
 
-export const createStatsHooks = (
-  useStore: ReturnType<typeof createStatsStore>,
-) => ({
+export const createHooks = (useStore: ReturnType<typeof createStore>) => ({
   usePeriod: () => useStore((state) => state.period),
   useStartDate: () => useStore((state) => state.startDate),
   useEndDate: () => useStore((state) => state.endDate),

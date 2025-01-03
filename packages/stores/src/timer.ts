@@ -2,7 +2,7 @@ import { Source } from '@flowmodor/task-sources';
 import { Task } from '@flowmodor/types';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { create } from 'zustand';
-import { createStatsStore } from './stats';
+import { createStore as createStatsStore } from './stats';
 
 type OnBreakStart = (totalTime: number) => Promise<void>;
 
