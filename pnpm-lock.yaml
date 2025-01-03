@@ -303,6 +303,9 @@ importers:
 
   packages/stores:
     dependencies:
+      '@flowmodor/task-sources':
+        specifier: workspace:*
+        version: link:../task-sources
       '@supabase/supabase-js':
         specifier: ^2.46.1
         version: 2.46.1
