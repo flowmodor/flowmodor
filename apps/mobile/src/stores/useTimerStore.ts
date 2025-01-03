@@ -17,67 +17,54 @@ notifee.onBackgroundEvent(async ({ type, detail }) => {
   }
 });
 
-const statsStore = createStatsStore(supabase);
-export const useTimerStore = createTimerStore(supabase, statsStore);
+async function setupBreakTimerNotification(totalTime: number) {
+  await notifee.requestPermission();
 
-const originalStartTimer = useTimerStore.getState().actions.startTimer;
-useTimerStore.setState((state) => ({
-  actions: {
-    ...state.actions,
-    startTimer: async () => {
-      const mode = useTimerStore.getState().mode;
-      const totalTime = useTimerStore.getState().totalTime;
+  const channelId = await notifee.createChannel({
+    id: 'important',
+    name: 'Default Channel',
+    importance: AndroidImportance.HIGH,
+    visibility: AndroidVisibility.PUBLIC,
+    sound: 'alarm',
+  });
 
-      await originalStartTimer({
-        before: async () => {
-          if (mode === 'break') {
-            await notifee.requestPermission();
-          }
-        },
-        after: async () => {
-          if (mode === 'break') {
-            const channelId = await notifee.createChannel({
-              id: 'important',
-              name: 'Default Channel',
-              importance: AndroidImportance.HIGH,
-              visibility: AndroidVisibility.PUBLIC,
-              sound: 'alarm',
-            });
-
-            const trigger: TimestampTrigger = {
-              type: TriggerType.TIMESTAMP,
-              timestamp: Date.now() + totalTime + 1000,
-              alarmManager: {
-                allowWhileIdle: true,
-              },
-            };
-
-            await notifee.createTriggerNotification(
-              {
-                title: 'Flowmodor',
-                body: 'Time to get back to work!',
-                ios: {
-                  sound: 'alarm.wav',
-                },
-                android: {
-                  channelId,
-                  pressAction: {
-                    id: 'default',
-                  },
-                  sound: 'alarm',
-                  importance: AndroidImportance.HIGH,
-                  visibility: AndroidVisibility.PUBLIC,
-                  lightUpScreen: true,
-                },
-              },
-              trigger,
-            );
-          }
-        },
-      });
+  const trigger: TimestampTrigger = {
+    type: TriggerType.TIMESTAMP,
+    timestamp: Date.now() + totalTime + 1000,
+    alarmManager: {
+      allowWhileIdle: true,
     },
-  },
-}));
+  };
+
+  await notifee.createTriggerNotification(
+    {
+      title: 'Flowmodor',
+      body: 'Time to get back to work!',
+      ios: {
+        sound: 'alarm.wav',
+      },
+      android: {
+        channelId,
+        pressAction: {
+          id: 'default',
+        },
+        sound: 'alarm',
+        importance: AndroidImportance.HIGH,
+        visibility: AndroidVisibility.PUBLIC,
+        lightUpScreen: true,
+      },
+    },
+    trigger,
+  );
+}
+
+const statsStore = createStatsStore(supabase);
+
+export const useTimerStore = createTimerStore(
+  supabase,
+  statsStore,
+  setupBreakTimerNotification,
+);
 
 export const useBreakRatio = () => {
   const [breakRatio, setBreakRatio] = useState<number>(5);
