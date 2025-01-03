@@ -32,7 +32,7 @@ export default function TaskSelector() {
           }
         }
       }}
-      onClick={() => {
+      onPress={() => {
         if (focusingTask === task) {
           unfocusTask();
         } else {
