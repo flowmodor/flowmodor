@@ -4,6 +4,8 @@ import { SupabaseClient } from '@supabase/supabase-js';
 import { create } from 'zustand';
 import { createStatsStore } from './stats';
 
+type OnBreakStart = (totalTime: number) => Promise<void>;
+
 interface State {
   startTime: number | null;
   endTime: number | null;
@@ -15,10 +17,7 @@ interface State {
 }
 
 interface Action {
-  startTimer: (callbacks?: {
-    before?: () => Promise<void>;
-    after?: () => Promise<void>;
-  }) => Promise<void>;
+  startTimer: (callback?: () => Promise<void>) => Promise<void>;
   stopTimer: (
     focusingTask?: Task | null,
     activeSource?: Source,
@@ -56,6 +55,7 @@ async function getBreakRatio(supabase: SupabaseClient) {
 export const createTimerStore = (
   supabase: SupabaseClient,
   statsStore: ReturnType<typeof createStatsStore>,
+  onBreakStart?: OnBreakStart,
 ) =>
   create<Store>((set, get) => ({
     startTime: null,
@@ -66,9 +66,11 @@ export const createTimerStore = (
     showTime: true,
     status: 'idle',
     actions: {
-      startTimer: async (callbacks) => {
-        if (callbacks?.before) {
-          await callbacks.before();
+      startTimer: async () => {
+        const { mode, totalTime } = get();
+
+        if (mode === 'break' && onBreakStart) {
+          await onBreakStart(totalTime);
         }
 
         set((state) => ({
@@ -79,10 +81,6 @@ export const createTimerStore = (
               : state.endTime,
           status: 'running',
         }));
-
-        if (callbacks?.after) {
-          await callbacks.after();
-        }
       },
       stopTimer: async (focusingTask, activeSource) => {
         const breakRatio = await getBreakRatio(supabase);
