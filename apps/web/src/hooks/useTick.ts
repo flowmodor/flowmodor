@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { useStatus, useTimerActions } from '@/stores/useTimerStore';
+import { useActions, useStatus } from '@/stores/useTimerStore';
 
 export default function useTick() {
   const status = useStatus();
-  const { tickTimer } = useTimerActions();
+  const { tick } = useActions();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -11,7 +11,7 @@ export default function useTick() {
         return;
       }
 
-      tickTimer(() => {
+      tick(() => {
         const audio = new Audio('/alarm.mp3');
         audio.play();
 
@@ -27,5 +27,5 @@ export default function useTick() {
         clearInterval(interval);
       }
     };
-  }, [status, tickTimer]);
+  }, [status, tick]);
 }

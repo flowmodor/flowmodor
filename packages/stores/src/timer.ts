@@ -17,18 +17,12 @@ interface State {
 }
 
 interface Action {
-  startTimer: (callback?: () => Promise<void>) => Promise<void>;
-  stopTimer: (
-    focusingTask?: Task | null,
-    activeSource?: Source,
-  ) => Promise<void>;
-  pauseTimer: (
-    focusingTask: Task | null,
-    activeSource: Source,
-  ) => Promise<void>;
-  resumeTimer: () => Promise<void>;
+  start: (callback?: () => Promise<void>) => Promise<void>;
+  stop: (focusingTask?: Task | null, activeSource?: Source) => Promise<void>;
+  pause: (focusingTask: Task | null, activeSource: Source) => Promise<void>;
+  resume: () => Promise<void>;
   log: (focusingTask?: Task | null, activeSource?: Source) => Promise<void>;
-  tickTimer: (callback?: () => void) => void;
+  tick: (callback?: () => void) => void;
   toggleShowTime: () => void;
 }
 
@@ -52,7 +46,7 @@ async function getBreakRatio(supabase: SupabaseClient) {
   return data?.break_ratio || 5;
 }
 
-export const createTimerStore = (
+export const createStore = (
   supabase: SupabaseClient,
   statsStore: ReturnType<typeof createStatsStore>,
   onBreakStart?: OnBreakStart,
@@ -66,7 +60,7 @@ export const createTimerStore = (
     showTime: true,
     status: 'idle',
     actions: {
-      startTimer: async () => {
+      start: async () => {
         const { mode, totalTime } = get();
 
         if (mode === 'break' && onBreakStart) {
@@ -82,7 +76,7 @@ export const createTimerStore = (
           status: 'running',
         }));
       },
-      stopTimer: async (focusingTask, activeSource) => {
+      stop: async (focusingTask, activeSource) => {
         const breakRatio = await getBreakRatio(supabase);
 
         if (get().status === 'paused') {
@@ -111,7 +105,7 @@ export const createTimerStore = (
           };
         });
       },
-      pauseTimer: async (focusingTask, activeSource) => {
+      pause: async (focusingTask, activeSource) => {
         await get().actions.log(focusingTask, activeSource);
 
         set((state) => {
@@ -122,7 +116,7 @@ export const createTimerStore = (
           };
         });
       },
-      resumeTimer: async () => {
+      resume: async () => {
         set(() => ({
           status: 'running',
           startTime: Date.now(),
@@ -167,7 +161,7 @@ export const createTimerStore = (
         ]);
         await statsStore.getState().actions.updateLogs();
       },
-      tickTimer: (callback) => {
+      tick: (callback) => {
         set((state) => {
           if (state.status !== 'running') {
             return {};
@@ -179,7 +173,7 @@ export const createTimerStore = (
               : state.endTime! - Date.now();
 
           if (state.mode === 'break' && time <= 0) {
-            state.actions.stopTimer();
+            state.actions.stop();
             if (callback) callback();
 
             return {
@@ -197,9 +191,7 @@ export const createTimerStore = (
     },
   }));
 
-export const createTimerHooks = (
-  useStore: ReturnType<typeof createTimerStore>,
-) => ({
+export const createHooks = (useStore: ReturnType<typeof createStore>) => ({
   useStartTime: () => useStore((state) => state.startTime),
   useEndTime: () => useStore((state) => state.endTime),
   useTotalTime: () => useStore((state) => state.totalTime),
@@ -208,5 +200,5 @@ export const createTimerHooks = (
   useShowTime: () =>
     useStore((state) => state.showTime || state.status === 'idle'),
   useStatus: () => useStore((state) => state.status),
-  useTimerActions: () => useStore((state) => state.actions),
+  useActions: () => useStore((state) => state.actions),
 });

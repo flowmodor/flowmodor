@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react';
 import supabase from '@/utils/supabase/client';
 import { statsStore } from './useStatsStore';
 
-const timerStore = createTimerStore(supabase, statsStore);
-
 export const useBreakRatio = () => {
   const [breakRatio, setBreakRatio] = useState<number>(5);
   useEffect(() => {
@@ -28,6 +26,8 @@ export const useBreakRatio = () => {
   return breakRatio;
 };
 
+const timerStore = createTimerStore(supabase, statsStore);
+
 export const {
   useStartTime,
   useEndTime,
@@ -36,5 +36,5 @@ export const {
   useMode,
   useShowTime,
   useStatus,
-  useTimerActions,
+  useActions,
 } = createTimerHooks(timerStore);

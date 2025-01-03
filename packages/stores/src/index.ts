@@ -1,2 +1,5 @@
 export * from './stats';
-export * from './timer';
+export {
+  createStore as createTimerStore,
+  createHooks as createTimerHooks,
+} from './timer';

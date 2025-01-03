@@ -59,12 +59,6 @@ async function setupBreakTimerNotification(totalTime: number) {
   );
 }
 
-const timerStore = createTimerStore(
-  supabase,
-  statsStore,
-  setupBreakTimerNotification,
-);
-
 export const useBreakRatio = () => {
   const [breakRatio, setBreakRatio] = useState<number>(5);
   useEffect(() => {
@@ -88,6 +82,12 @@ export const useBreakRatio = () => {
   return breakRatio;
 };
 
+const timerStore = createTimerStore(
+  supabase,
+  statsStore,
+  setupBreakTimerNotification,
+);
+
 export const {
   useStartTime,
   useEndTime,
@@ -95,5 +95,5 @@ export const {
   useDisplayTime,
   useMode,
   useStatus,
-  useTimerActions,
+  useActions,
 } = createTimerHooks(timerStore);

@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { useStatus, useTimerActions } from '@/src/stores/useTimerStore';
+import { useActions, useStatus } from '@/src/stores/useTimerStore';
 
 export default function useTick() {
   const status = useStatus();
-  const { tickTimer } = useTimerActions();
+  const { tick } = useActions();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -11,7 +11,7 @@ export default function useTick() {
         return;
       }
 
-      tickTimer();
+      tick();
     }, 1000);
 
     return () => {
@@ -19,5 +19,5 @@ export default function useTick() {
         clearInterval(interval);
       }
     };
-  }, [status, tickTimer]);
+  }, [status, tick]);
 }
