@@ -8,7 +8,7 @@ const { frontmatter } = Astro.props;
   title={`${frontmatter.title} | Flowmodor`}
   description={frontmatter.description}
 >
-  <article class="prose prose-invert py-36 px-3">
+  <article class="prose prose-invert px-3 py-36">
     <h1 class="text-3xl font-extrabold">{frontmatter.title}</h1>
     <div>Last updated: {frontmatter.date}</div>
     <slot />

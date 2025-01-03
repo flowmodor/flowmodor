@@ -13,7 +13,7 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex h-[100dvh] flex-col-reverse sm:flex-row">
-      <div className="border-t-secondary sm:border-r-secondary bg-midground z-10 ml-0 flex w-full flex-row items-center justify-center border-t py-3 sm:h-full sm:w-14 sm:flex-col sm:border-r sm:border-t-0">
+      <div className="z-10 ml-0 flex w-full flex-row items-center justify-center border-t border-t-secondary bg-midground py-3 sm:h-full sm:w-14 sm:flex-col sm:border-r sm:border-t-0 sm:border-r-secondary">
         <div className="flex flex-row items-center justify-center gap-3 sm:flex-col">
           <Image
             src="/images/logo-no-bg.png"
@@ -38,7 +38,7 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
           <UserDropdown user={user} />
         </div>
       </div>
-      <div className="scrollbar-hide flex h-full flex-col items-center overflow-y-scroll sm:w-full">
+      <div className="flex h-full flex-col items-center overflow-y-scroll scrollbar-hide sm:w-full">
         {children}
       </div>
     </div>

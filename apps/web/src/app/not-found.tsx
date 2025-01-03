@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-10">
       <div className="flex flex-col items-center gap-2">
-        <h1 className="text-primary flex items-center gap-2 text-9xl font-bold">
+        <h1 className="flex items-center gap-2 text-9xl font-bold text-primary">
           4
           <Image
             src="/images/logo-no-bg.png"

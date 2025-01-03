@@ -23,7 +23,7 @@ export default function TaskBox({ task }: { task: Task }) {
 
   return (
     <div
-      className={`border-b-secondary transition-background group relative flex min-h-[4rem] flex-shrink-0 cursor-pointer items-center border-b px-4 py-4 ${isLoading && 'pointer-events-none opacity-50'} ${isFocusing && 'bg-secondary rounded-md'}`}
+      className={`group relative flex min-h-[4rem] flex-shrink-0 cursor-pointer items-center border-b border-b-secondary px-4 py-4 transition-background ${isLoading && 'pointer-events-none opacity-50'} ${isFocusing && 'rounded-md bg-secondary'}`}
       onClick={() => {
         if (mode === 'focus' && status === 'running') {
           return;
@@ -62,7 +62,7 @@ export default function TaskBox({ task }: { task: Task }) {
         }}
       />
       <div className="flex select-none flex-col ">
-        <Markdown className="prose-a:font-normal prose-a:no-underline prose prose-invert prose-p:text-white prose-li:text-white pointer-events-none">
+        <Markdown className="prose prose-invert pointer-events-none prose-p:text-white prose-a:font-normal prose-a:no-underline prose-li:text-white">
           {task.name}
         </Markdown>
         <div className="flex flex-wrap gap-x-2 fill-[#ffffffa0] text-sm text-[#ffffffa0]">
@@ -83,7 +83,7 @@ export default function TaskBox({ task }: { task: Task }) {
       <button
         type="button"
         aria-label="Delete task"
-        className="fill-primary absolute right-1 hidden group-hover:block"
+        className="absolute right-1 hidden fill-primary group-hover:block"
         onClick={(e) => {
           startTransition(async () => {
             await deleteTask(task);

@@ -39,7 +39,7 @@ export default function TaskTime() {
   const { totalFocusTime, longestFocusTime } = calculateFocusTime(logs ?? []);
 
   return (
-    <Card className="bg-midground h-full w-full shrink-0 gap-5 p-5">
+    <Card className="h-full w-full shrink-0 gap-5 bg-midground p-5">
       <div className="flex shrink-0 flex-row justify-center gap-10">
         <div className="flex flex-col items-center text-sm">
           Total Focus

@@ -1,7 +1,7 @@
 ---
 title: 5 things to do during Pomodoro break without electronic devices
 date: 2024/01/20
-description: "Learn 5 things to do during Pomodoro breaks without electronic devices, including: stretch your body, go for a walk, looking off in the distance, organize your work desk, and filling water bottle"
+description: 'Learn 5 things to do during Pomodoro breaks without electronic devices, including: stretch your body, go for a walk, looking off in the distance, organize your work desk, and filling water bottle'
 brief: Learn 5 activities you can engage in during your Flowmodoro breaks, all without the use of electronic devices.
 layout: ../../layouts/BlogLayout.astro
 ---
@@ -34,6 +34,6 @@ Hydration is key to maintaining high energy levels and focus. Use your break to 
 
 ## Wrapping up
 
-In short, taking breaks is key to doing well at work or study. Using breaks wisely, by doing things like stretching, walking, looking into the distance, tidying up your desk, or getting water, isn't just a rest from work. It's a way to make sure you come back to your tasks with more focus and energy. 
+In short, taking breaks is key to doing well at work or study. Using breaks wisely, by doing things like stretching, walking, looking into the distance, tidying up your desk, or getting water, isn't just a rest from work. It's a way to make sure you come back to your tasks with more focus and energy.
 
 These simple actions during breaks can help you feel better and work better. So, remember to step back, take a good break, and see the difference it makes in your day!

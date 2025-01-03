@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body
-        className={`${inter.className} bg-background scrollbar-hide dark flex min-h-screen justify-center text-white`}
+        className={`${inter.className} flex min-h-screen justify-center bg-background text-white scrollbar-hide dark`}
       >
         <Providers>{children}</Providers>
         <Suspense>

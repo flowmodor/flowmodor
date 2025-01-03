@@ -9,6 +9,7 @@ layout: ../../layouts/BlogLayout.astro
 It's been around a half year since I started building [my dream productivity app](/blog/my-dream-productivity-app), Flowmodor. I think it's a good time to reflect on the journey and share some insights.
 
 Start with some interesting stats:
+
 - MRR: $52 (from 11 paying users)
 - Total registered users: 3700
 - Average monthly active users: 300

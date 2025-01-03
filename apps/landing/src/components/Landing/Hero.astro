@@ -3,18 +3,21 @@ import { Down } from '../Icons';
 ---
 
 <div
-  class="relative h-screen flex px-5 sm:px-10 justify-between w-full flex-col items-center gap-10 bg-primary"
+  class="relative flex h-screen w-full flex-col items-center justify-between gap-10 bg-primary px-5 sm:px-10"
 >
-  <div class="flex my-auto sm:mt-auto sm:translate-y-1/2 flex-col items-center gap-10 text-background">
+  <div
+    class="my-auto flex flex-col items-center gap-10 text-background sm:mt-auto sm:translate-y-1/2"
+  >
     <h1 class="text-center text-6xl font-bold">
       Enter Flow &<br />Stay Focused
     </h1>
     <div class="max-w-md text-center">
-      A Flowmodoro timer helping you enter flow state and stay focused with the Flowtime technique
+      A Flowmodoro timer helping you enter flow state and stay focused with the
+      Flowtime technique
     </div>
     <a
       href="https://app.flowmodor.com"
-      class="flex cursor-pointer items-center shadow shadow-md hover:scale-[1.03] rounded-full bg-background px-5 py-3 text-lg text-white transition-all duration-300"
+      class="flex cursor-pointer items-center rounded-full bg-background px-5 py-3 text-lg text-white shadow shadow-md transition-all duration-300 hover:scale-[1.03]"
     >
       Start for free
     </a>
@@ -22,18 +25,22 @@ import { Down } from '../Icons';
   <img
     src="/hero.png"
     draggable="false"
-    class="z-10 hidden bottom-0 translate-y-1/3 sm:block px-10 flex-shrink-0 max-w-5xl w-full"
+    class="bottom-0 z-10 hidden w-full max-w-5xl flex-shrink-0 translate-y-1/3 px-10 sm:block"
   />
-  <div class="hidden sm:block absolute -bottom-1 left-0 w-full overflow-hidden fill-background">
+  <div
+    class="absolute -bottom-1 left-0 hidden w-full overflow-hidden fill-background sm:block"
+  >
     <svg viewBox="0 0 100 10" preserveAspectRatio="none">
-      <path d="M0,7
+      <path
+        d="M0,7
         C8.33,3 8.33,11 16.67,7 
         C25,3 25,11 33.33,7
         C41.67,3 41.67,11 50,7
         C58.33,3 58.33,11 66.67,7
         C75,3 75,11 83.33,7
         C91.67,3 91.67,11 100,7
-        L100,10 L0,10 Z" />
+        L100,10 L0,10 Z"
+      ></path>
     </svg>
   </div>
 </div>

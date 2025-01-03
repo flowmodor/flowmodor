@@ -25,7 +25,7 @@ export default function Tasks() {
   }
 
   return (
-    <div className="scrollbar-hide overflow-y-scroll">
+    <div className="overflow-y-scroll scrollbar-hide">
       {tasks.map((task) => (
         <TaskBox task={task} key={task.id} />
       ))}

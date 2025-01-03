@@ -21,7 +21,7 @@ export default function Account() {
       <div className="flex items-center gap-3">
         <h2 className="text-xl font-semibold">Delete account</h2>
       </div>
-      <div className="text-foreground-400 text-xs">
+      <div className="text-xs text-foreground-400">
         This will permanently delete your account and all of its data. You will
         not be able to reactivate this account.
       </div>

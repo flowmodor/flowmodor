@@ -41,7 +41,7 @@ export default function Toolbar() {
             isIconOnly
             disableRipple
             aria-label={showTime ? 'Hide time' : 'Show time'}
-            className="bg-secondary h-12 w-12"
+            className="h-12 w-12 bg-secondary"
             onPress={toggleShowTime}
           >
             {showTime ? <Hide /> : <Show />}
@@ -66,7 +66,7 @@ export default function Toolbar() {
           isIconOnly
           disableRipple
           aria-label={status === 'idle' ? 'Start' : 'Stop'}
-          className="bg-secondary h-12 w-12"
+          className="h-12 w-12 bg-secondary"
           onPress={() => {
             startStopTransition(async () => {
               if (status !== 'idle') {
@@ -96,7 +96,7 @@ export default function Toolbar() {
             isIconOnly
             disableRipple
             aria-label={status === 'running' ? 'Pause' : 'Resume'}
-            className="bg-secondary h-12 w-12"
+            className="h-12 w-12 bg-secondary"
             onPress={() => {
               startPauseTransition(async () => {
                 if (status === 'running') {
@@ -127,7 +127,7 @@ export default function Toolbar() {
             isIconOnly
             disableRipple
             aria-label="Skip break"
-            className="bg-secondary h-12 w-12"
+            className="h-12 w-12 bg-secondary"
             onPress={() => {
               startSkipTransition(async () => {
                 await stopTimer(focusingTask, activeSource);
