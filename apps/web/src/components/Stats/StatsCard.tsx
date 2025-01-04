@@ -17,7 +17,7 @@ import {
   usePeriod,
   useStartDate,
   useStatsActions,
-} from '@/stores/useStatsStore';
+} from '@/hooks/useStats';
 import { calculateFocusTime } from '@/utils/stats/calculateFocusTime';
 import copyImageToClipboard from '@/utils/stats/copyImageToClipboard';
 import PeriodSelector from './PeriodSelector';

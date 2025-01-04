@@ -1,9 +1,9 @@
 'use client';
 
 import { ReactNode, useEffect, useRef } from 'react';
+import { useTasksActions } from '@/hooks/useTasks';
 import useTick from '@/hooks/useTick';
-import { useTasksActions } from '@/stores/useTasksStore';
-import { useStatus } from '@/stores/useTimerStore';
+import { useStatus } from '@/hooks/useTimer';
 
 export function HomeProvider({ children }: { children: ReactNode }) {
   const { fetchSources, fetchListsAndLabels, fetchTasks } = useTasksActions();

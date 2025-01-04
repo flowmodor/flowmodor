@@ -1,5 +1,5 @@
 import { usePathname } from 'next/navigation';
-import { useStatus } from '@/stores/useTimerStore';
+import { useStatus } from '@/hooks/useTimer';
 
 export default function useShouldOpenLinkInNewTab() {
   const status = useStatus();

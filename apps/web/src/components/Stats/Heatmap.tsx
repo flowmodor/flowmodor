@@ -1,6 +1,6 @@
 import { Tooltip } from '@nextui-org/tooltip';
 import { Activity, ActivityCalendar } from 'react-activity-calendar';
-import { usePeriod, useStatsActions } from '@/stores/useStatsStore';
+import { usePeriod, useStatsActions } from '@/hooks/useStats';
 
 function formatHoursAndMinutes(hours: number): string {
   const intHours = Math.floor(hours);

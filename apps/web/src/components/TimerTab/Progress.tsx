@@ -8,7 +8,7 @@ import {
   useShowTime,
   useStatus,
   useTotalTime,
-} from '@/stores/useTimerStore';
+} from '@/hooks/useTimer';
 import { formatTime } from '@/utils';
 import TaskSelector from './TaskSelector';
 

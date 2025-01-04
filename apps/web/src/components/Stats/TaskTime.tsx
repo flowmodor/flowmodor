@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from '@nextui-org/table';
-import { useLogs } from '@/stores/useStatsStore';
+import { useLogs } from '@/hooks/useStats';
 import { calculateFocusTime } from '@/utils/stats/calculateFocusTime';
 import { calculateTaskTime } from '@/utils/stats/calculateTaskTime';
 import TimeFormatter from './TimeFormatter';

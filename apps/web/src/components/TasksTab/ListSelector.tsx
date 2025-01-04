@@ -8,8 +8,8 @@ import {
   useIsLoadingLists,
   useLists,
   useTasksActions,
-} from '@/stores/useTasksStore';
-import { useMode, useStatus } from '@/stores/useTimerStore';
+} from '@/hooks/useTasks';
+import { useMode, useStatus } from '@/hooks/useTimer';
 
 export default function ListSelector() {
   const status = useStatus();
