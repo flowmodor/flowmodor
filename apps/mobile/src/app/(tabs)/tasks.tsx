@@ -93,33 +93,35 @@ export default function Stats() {
             gap: 10,
           }}
         >
-          <View
-            style={{
-              flexDirection: 'row',
-              gap: 10,
-            }}
-          >
-            {sources.length > 1 &&
-              sources.map((source) => (
-                <Pressable
-                  key={source}
-                  style={{
-                    backgroundColor:
-                      activeSource === source ? '#DBBFFF' : '#3F3E55',
-                  }}
-                  onPress={() => onSourceChange(source)}
-                >
-                  <Text
+          <ScrollView horizontal>
+            <View
+              style={{
+                flexDirection: 'row',
+                gap: 10,
+              }}
+            >
+              {sources.length > 1 &&
+                sources.map((source) => (
+                  <Pressable
+                    key={source}
                     style={{
-                      color: activeSource === source ? '#131221' : '#FFFFFF',
-                      fontWeight: 600,
+                      backgroundColor:
+                        activeSource === source ? '#DBBFFF' : '#3F3E55',
                     }}
+                    onPress={() => onSourceChange(source)}
                   >
-                    {source}
-                  </Text>
-                </Pressable>
-              ))}
-          </View>
+                    <Text
+                      style={{
+                        color: activeSource === source ? '#131221' : '#FFFFFF',
+                        fontWeight: 600,
+                      }}
+                    >
+                      {source}
+                    </Text>
+                  </Pressable>
+                ))}
+            </View>
+          </ScrollView>
           <ScrollView horizontal>
             <View
               style={{

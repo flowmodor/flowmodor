@@ -1,5 +1,5 @@
 import { List, Supabase, Task } from '@flowmodor/types';
-import { Integration, TaskSource } from '.';
+import { Integration, SUPABASE_URL, TaskSource } from '.';
 
 interface IntegrationData {
   googletasks: Integration;
@@ -37,7 +37,7 @@ export default class GoogleTasksSource implements TaskSource {
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/refresh-googletasks-token`,
+      `${SUPABASE_URL}/functions/v1/refresh-googletasks-token`,
       {
         method: 'POST',
         headers: {

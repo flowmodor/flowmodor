@@ -1,5 +1,5 @@
 import { List, Supabase, Task } from '@flowmodor/types';
-import { Integration, TaskSource } from '.';
+import { Integration, SUPABASE_URL, TaskSource } from '.';
 
 interface IntegrationData {
   microsofttodo: Integration;
@@ -37,7 +37,7 @@ export default class MicrosoftTodoSource implements TaskSource {
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/refresh-microsofttodo-token`,
+      `${SUPABASE_URL}/functions/v1/refresh-microsofttodo-token`,
       {
         method: 'POST',
         headers: {

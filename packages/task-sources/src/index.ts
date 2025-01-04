@@ -1,5 +1,8 @@
 import { List, Task } from '@flowmodor/types';
 
+export const SUPABASE_URL =
+  process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.EXPO_PUBLIC_SUPABASE_URL;
+
 export interface Integration {
   access_token: string;
   refresh_token: string;

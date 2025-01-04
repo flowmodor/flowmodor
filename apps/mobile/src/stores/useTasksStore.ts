@@ -1,5 +1,7 @@
 import { Source, TaskSource } from '@flowmodor/task-sources';
 import FlowmodorSource from '@flowmodor/task-sources/flowmodor';
+import GoogleTasksSource from '@flowmodor/task-sources/googletasks';
+import MicrosoftTodoSource from '@flowmodor/task-sources/microsofttodo';
 import TickTickSource from '@flowmodor/task-sources/ticktick';
 import TodoistSource from '@flowmodor/task-sources/todoist';
 import { List, Task } from '@flowmodor/types';
@@ -11,6 +13,8 @@ const sourceMap = {
   [Source.Flowmodor]: FlowmodorSource,
   [Source.Todoist]: TodoistSource,
   [Source.TickTick]: TickTickSource,
+  [Source.GoogleTasks]: GoogleTasksSource,
+  [Source.MicrosoftTodo]: MicrosoftTodoSource,
 };
 
 interface State {
@@ -148,6 +152,8 @@ const useTasksStore = create<Store>((set, get) => ({
             Source.Flowmodor,
             ...(data?.todoist ? [Source.Todoist] : []),
             ...(data?.ticktick ? [Source.TickTick] : []),
+            ...(data?.googletasks ? [Source.GoogleTasks] : []),
+            ...(data?.microsofttodo ? [Source.MicrosoftTodo] : []),
           ],
           isLoadingSources: false,
         });
