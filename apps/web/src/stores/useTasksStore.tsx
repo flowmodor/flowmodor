@@ -7,7 +7,6 @@ import MicrosoftTodoSource from '@flowmodor/task-sources/microsofttodo';
 import TickTickSource from '@flowmodor/task-sources/ticktick';
 import TodoistSource from '@flowmodor/task-sources/todoist';
 import { List, Task } from '@flowmodor/types';
-import { ChangeEvent } from 'react';
 import { toast } from 'sonner';
 import { create } from 'zustand';
 import supabase from '@/utils/supabase/client';
@@ -46,8 +45,8 @@ interface Action {
   unfocusTask: () => void;
   fetchTasks: () => Promise<void>;
   onSourceChange: (newSource: Source) => Promise<void>;
-  onListChange: (e: ChangeEvent<HTMLSelectElement>) => boolean;
-  onLabelChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+  onListChange: (id: string) => void;
+  onLabelChange: (label: string) => void;
 }
 
 interface Store extends State {
@@ -250,16 +249,11 @@ const useTasksStore = create<Store>((set, get) => ({
         set({ isLoadingLists: false, isLoadingTasks: false });
       }
     },
-    onListChange: (e) => {
-      if (e.target.value === '') {
-        return false;
-      }
-
-      set({ activeList: e.target.value });
-      return true;
+    onListChange: (id) => {
+      set({ activeList: id });
     },
-    onLabelChange: (e) => {
-      set({ activeLabel: e.target.value });
+    onLabelChange: (label) => {
+      set({ activeLabel: label });
     },
   },
 }));

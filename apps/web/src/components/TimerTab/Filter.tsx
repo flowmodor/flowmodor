@@ -34,7 +34,9 @@ export default function Filter() {
         popoverContent: 'bg-background',
       }}
       selectedKeys={activeLabel !== '' ? [activeLabel] : []}
-      onChange={onLabelChange}
+      onChange={(e) => {
+        onLabelChange(e.target.value);
+      }}
     >
       {labels.map((label) => (
         <SelectItem

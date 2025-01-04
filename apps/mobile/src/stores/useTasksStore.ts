@@ -5,7 +5,6 @@ import MicrosoftTodoSource from '@flowmodor/task-sources/microsofttodo';
 import TickTickSource from '@flowmodor/task-sources/ticktick';
 import TodoistSource from '@flowmodor/task-sources/todoist';
 import { List, Task } from '@flowmodor/types';
-import { ChangeEvent } from 'react';
 import { create } from 'zustand';
 import { supabase } from '../utils/supabase';
 
@@ -44,7 +43,7 @@ interface Action {
   fetchTasks: () => Promise<void>;
   onSourceChange: (newSource: Source) => Promise<void>;
   onListChange: (id: string) => void;
-  onLabelChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+  onLabelChange: (label: string) => void;
 }
 
 interface Store extends State {
@@ -82,8 +81,12 @@ const useTasksStore = create<Store>((set, get) => ({
     },
     deleteTask: async (task) => {
       try {
-        const { sourceInstance, activeList } = get();
+        const { sourceInstance, activeList, focusingTask, actions } = get();
         if (!sourceInstance) return;
+
+        if (focusingTask?.id === task.id) {
+          actions.unfocusTask();
+        }
 
         await sourceInstance.deleteTask(task.id, activeList ?? undefined);
         set((state) => ({
@@ -211,6 +214,23 @@ const useTasksStore = create<Store>((set, get) => ({
           actions: { fetchListsAndLabels, fetchTasks },
         } = get();
 
+        if (newSource === Source.Todoist) {
+          set({
+            activeList: 'today',
+            lists: [
+              {
+                id: 'today',
+                name: 'Today',
+              },
+            ],
+          });
+
+          fetchTasks();
+          fetchListsAndLabels();
+
+          return;
+        }
+
         await fetchListsAndLabels();
         await fetchTasks();
       } catch (error) {
@@ -221,8 +241,8 @@ const useTasksStore = create<Store>((set, get) => ({
     onListChange: (id) => {
       set({ activeList: id });
     },
-    onLabelChange: (e) => {
-      set({ activeLabel: e.target.value });
+    onLabelChange: (label) => {
+      set({ activeLabel: label });
     },
   },
 }));

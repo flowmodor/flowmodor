@@ -49,10 +49,11 @@ export default function ListSelector() {
       }}
       selectedKeys={activeList ? [activeList] : []}
       onChange={async (e) => {
-        const isSuccess = onListChange(e);
-        if (!isSuccess) {
+        if (e.target.value === '') {
           return;
         }
+
+        onListChange(e.target.value);
         await fetchTasks();
       }}
     >
