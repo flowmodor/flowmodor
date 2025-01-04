@@ -2,7 +2,6 @@
 import { TaskSource } from '@flowmodor/task-sources';
 import { List, Task } from '@flowmodor/types';
 import { SupabaseClient } from '@supabase/supabase-js';
-import { refreshToken } from '@/actions/googletasks';
 
 export default class GoogleTasksSource implements TaskSource {
   private supabase: SupabaseClient;
@@ -26,6 +25,37 @@ export default class GoogleTasksSource implements TaskSource {
     return data.googletasks.access_token;
   }
 
+  private async refreshToken(refreshToken: string): Promise<string> {
+    const {
+      data: { session },
+    } = await this.supabase.auth.getSession();
+
+    if (!session) {
+      throw new Error('No active session');
+    }
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/refresh-googletasks-token`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          refresh_token: refreshToken,
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to refresh access token');
+    }
+
+    const data = await response.json();
+    return data.access_token;
+  }
+
   private async makeRequest(
     url: string,
     options: RequestInit,
@@ -43,7 +73,9 @@ export default class GoogleTasksSource implements TaskSource {
         throw new Error('Refresh token not found');
       }
 
-      const newAccessToken = await refreshToken(data.googletasks.refresh_token);
+      const newAccessToken = await this.refreshToken(
+        data.googletasks.refresh_token,
+      );
 
       const newOptions = {
         ...options,

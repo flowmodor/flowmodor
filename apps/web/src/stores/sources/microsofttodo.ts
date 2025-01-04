@@ -2,7 +2,6 @@
 import { TaskSource } from '@flowmodor/task-sources';
 import { List, Task } from '@flowmodor/types';
 import { SupabaseClient } from '@supabase/supabase-js';
-import { refreshToken } from '@/actions/microsofttodo';
 
 export default class MicrosoftTodoSource implements TaskSource {
   private supabase: SupabaseClient;
@@ -26,6 +25,37 @@ export default class MicrosoftTodoSource implements TaskSource {
     return data.microsofttodo.access_token;
   }
 
+  private async refreshToken(refreshToken: string): Promise<string> {
+    const {
+      data: { session },
+    } = await this.supabase.auth.getSession();
+
+    if (!session) {
+      throw new Error('No active session');
+    }
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/refresh-microsofttodo-token`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          refresh_token: refreshToken,
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to refresh access token');
+    }
+
+    const data = await response.json();
+    return data.access_token;
+  }
+
   private async makeRequest(
     url: string,
     options: RequestInit,
@@ -43,7 +73,7 @@ export default class MicrosoftTodoSource implements TaskSource {
         throw new Error('Refresh token not found');
       }
 
-      const newAccessToken = await refreshToken(
+      const newAccessToken = await this.refreshToken(
         data.microsofttodo.refresh_token,
       );
 
