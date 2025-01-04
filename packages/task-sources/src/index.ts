@@ -1,5 +1,10 @@
 import { List, Task } from '@flowmodor/types';
 
+export interface Integration {
+  access_token: string;
+  refresh_token: string;
+}
+
 export enum Source {
   Flowmodor = 'Flowmodor',
   Todoist = 'Todoist',

@@ -2,6 +2,8 @@
 
 import { Source, TaskSource } from '@flowmodor/task-sources';
 import FlowmodorSource from '@flowmodor/task-sources/flowmodor';
+import GoogleTasksSource from '@flowmodor/task-sources/googletasks';
+import MicrosoftTodoSource from '@flowmodor/task-sources/microsofttodo';
 import TickTickSource from '@flowmodor/task-sources/ticktick';
 import TodoistSource from '@flowmodor/task-sources/todoist';
 import { List, Task } from '@flowmodor/types';
@@ -9,8 +11,6 @@ import { ChangeEvent } from 'react';
 import { toast } from 'sonner';
 import { create } from 'zustand';
 import supabase from '@/utils/supabase/client';
-import GoogleTasksSource from './sources/googletasks';
-import MicrosoftTodoSource from './sources/microsofttodo';
 
 const sourceMap = {
   [Source.Flowmodor]: FlowmodorSource,

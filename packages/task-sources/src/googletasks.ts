@@ -1,14 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { TaskSource } from '@flowmodor/task-sources';
-import { List, Task } from '@flowmodor/types';
-import { SupabaseClient } from '@supabase/supabase-js';
+import { List, Supabase, Task } from '@flowmodor/types';
+import { Integration, TaskSource } from '.';
+
+interface IntegrationData {
+  googletasks: Integration;
+}
 
 export default class GoogleTasksSource implements TaskSource {
-  private supabase: SupabaseClient;
+  private supabase: Supabase;
 
   private baseUrl = 'https://tasks.googleapis.com/tasks/v1';
 
-  constructor(supabase: SupabaseClient) {
+  constructor(supabase: Supabase) {
     this.supabase = supabase;
   }
 
@@ -16,9 +18,9 @@ export default class GoogleTasksSource implements TaskSource {
     const { data, error } = await this.supabase
       .from('integrations')
       .select('googletasks')
-      .single();
+      .single<IntegrationData>();
 
-    if (error || !data?.googletasks) {
+    if (error || !data.googletasks) {
       throw new Error('Google Tasks access token not found');
     }
 
@@ -67,9 +69,9 @@ export default class GoogleTasksSource implements TaskSource {
       const { data } = await this.supabase
         .from('integrations')
         .select('googletasks')
-        .single();
+        .single<IntegrationData>();
 
-      if (!data?.googletasks?.refresh_token) {
+      if (!data?.googletasks.refresh_token) {
         throw new Error('Refresh token not found');
       }
 

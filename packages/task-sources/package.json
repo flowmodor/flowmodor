@@ -5,7 +5,9 @@
     ".": "./src/index.ts",
     "./flowmodor": "./src/flowmodor.ts",
     "./todoist": "./src/todoist.ts",
-    "./ticktick": "./src/ticktick.ts"
+    "./ticktick": "./src/ticktick.ts",
+    "./googletasks": "./src/googletasks.ts",
+    "./microsofttodo": "./src/microsofttodo.ts"
   },
   "dependencies": {
     "@doist/todoist-api-typescript": "^3.0.2"

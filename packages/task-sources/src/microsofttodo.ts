@@ -1,14 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { TaskSource } from '@flowmodor/task-sources';
-import { List, Task } from '@flowmodor/types';
-import { SupabaseClient } from '@supabase/supabase-js';
+import { List, Supabase, Task } from '@flowmodor/types';
+import { Integration, TaskSource } from '.';
+
+interface IntegrationData {
+  microsofttodo: Integration;
+}
 
 export default class MicrosoftTodoSource implements TaskSource {
-  private supabase: SupabaseClient;
+  private supabase: Supabase;
 
   private baseUrl = 'https://graph.microsoft.com/v1.0/me/todo';
 
-  constructor(supabase: SupabaseClient) {
+  constructor(supabase: Supabase) {
     this.supabase = supabase;
   }
 
@@ -16,9 +18,9 @@ export default class MicrosoftTodoSource implements TaskSource {
     const { data, error } = await this.supabase
       .from('integrations')
       .select('microsofttodo')
-      .single();
+      .single<IntegrationData>();
 
-    if (error || !data?.microsofttodo) {
+    if (error || !data.microsofttodo) {
       throw new Error('Microsoft Todo access token not found');
     }
 
@@ -67,9 +69,9 @@ export default class MicrosoftTodoSource implements TaskSource {
       const { data } = await this.supabase
         .from('integrations')
         .select('microsofttodo')
-        .single();
+        .single<IntegrationData>();
 
-      if (!data?.microsofttodo?.refresh_token) {
+      if (!data?.microsofttodo.refresh_token) {
         throw new Error('Refresh token not found');
       }
 
