@@ -5,7 +5,7 @@ interface IntegrationData {
   microsofttodo: Integration;
 }
 
-export default class MicrosoftTodoSource implements TaskSource {
+export default class MicrosoftToDoSource implements TaskSource {
   private supabase: Supabase;
 
   private baseUrl = 'https://graph.microsoft.com/v1.0/me/todo';

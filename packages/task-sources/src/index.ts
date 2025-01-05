@@ -13,7 +13,7 @@ export enum Source {
   Todoist = 'Todoist',
   TickTick = 'TickTick',
   GoogleTasks = 'Google Tasks',
-  MicrosoftTodo = 'Microsoft To Do',
+  MicrosoftToDo = 'Microsoft To Do',
 }
 
 export interface TaskSource {
