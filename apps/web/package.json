@@ -15,7 +15,7 @@
     "@flowmodor/task-sources": "workspace:*",
     "@nextui-org/react": "^2.6.10",
     "@supabase/ssr": "^0.5.2",
-    "@supabase/supabase-js": "^2.46.1",
+    "@supabase/supabase-js": "^2.47.10",
     "chart.js": "^4.4.1",
     "framer-motion": "^11.15.0",
     "nanoid": "^5.0.9",
