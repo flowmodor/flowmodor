@@ -2,8 +2,8 @@ import { Pressable as NativePressable, StyleSheet, View } from 'react-native';
 import { AngleRight } from '@/src/components/Icons';
 import { Text } from '@/src/components/Themed';
 import { useBottomSheet } from '@/src/context/BottomSheetContext';
-import { useFocusingTask } from '../stores/useTasksStore';
-import { useStatus } from '../stores/useTimerStore';
+import { useFocusingTask } from '../hooks/useTasks';
+import { useStatus } from '../hooks/useTimer';
 
 export default function TaskSelector() {
   const { bottomSheetRef } = useBottomSheet();

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useActions, useStatus } from '@/src/stores/useTimerStore';
+import { useActions, useStatus } from '@/src/hooks/useTimer';
 
 export default function useTick() {
   const status = useStatus();

@@ -22,7 +22,7 @@ import {
   useSources,
   useTasks,
   useTasksActions,
-} from '@/src/stores/useTasksStore';
+} from '@/src/hooks/useTasks';
 import { hapticsImpact } from '@/src/utils';
 
 export default function Stats() {

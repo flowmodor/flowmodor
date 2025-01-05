@@ -1,4 +1,4 @@
-import { createHooks, createStore } from '@flowmodor/stores/timer';
+import { createStore } from '@flowmodor/stores/timer';
 import notifee, {
   AndroidImportance,
   AndroidVisibility,
@@ -6,9 +6,8 @@ import notifee, {
   TimestampTrigger,
   TriggerType,
 } from '@notifee/react-native';
-import { useEffect, useState } from 'react';
-import { supabase } from '../utils/supabase';
-import { store as statsStore } from './useStatsStore';
+import { store as statsStore } from '@/src/stores/stats';
+import { supabase } from '@/src/utils/supabase';
 
 notifee.onBackgroundEvent(async ({ type, detail }) => {
   const { notification, pressAction } = detail;
@@ -59,36 +58,8 @@ async function setupBreakTimerNotification(totalTime: number) {
   );
 }
 
-export const useBreakRatio = () => {
-  const [breakRatio, setBreakRatio] = useState<number>(5);
-  useEffect(() => {
-    (async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-
-      if (!session) {
-        setBreakRatio(5);
-        return;
-      }
-
-      const { data } = await supabase
-        .from('settings')
-        .select('break_ratio')
-        .single();
-      setBreakRatio(data?.break_ratio || 5);
-    })();
-  }, []);
-  return breakRatio;
-};
-
-const store = createStore(supabase, statsStore, setupBreakTimerNotification);
-export const {
-  useStartTime,
-  useEndTime,
-  useTotalTime,
-  useDisplayTime,
-  useMode,
-  useStatus,
-  useActions,
-} = createHooks(store);
+export const store = createStore(
+  supabase,
+  statsStore,
+  setupBreakTimerNotification,
+);

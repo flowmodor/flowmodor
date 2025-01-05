@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Profile, Stats, Tasks, Timer } from '@/src/components/Icons';
 import { SessionProvider } from '@/src/ctx';
+import { useTasksActions } from '@/src/hooks/useTasks';
 import useTick from '@/src/hooks/useTick';
-import { useTasksActions } from '@/src/stores/useTasksStore';
 import { hapticsImpact } from '@/src/utils';
 
 export default function TabLayout() {

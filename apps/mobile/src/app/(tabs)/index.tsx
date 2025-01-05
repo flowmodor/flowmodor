@@ -4,14 +4,14 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Pause, Play, Stop } from '@/src/components/Icons';
 import TaskSelector from '@/src/components/TaskSelector';
 import { Pressable, Text } from '@/src/components/Themed';
-import { useActiveList, useFocusingTask } from '@/src/stores/useTasksStore';
+import { useActiveList, useFocusingTask } from '@/src/hooks/useTasks';
 import {
   useActions,
   useDisplayTime,
   useMode,
   useStatus,
   useTotalTime,
-} from '@/src/stores/useTimerStore';
+} from '@/src/hooks/useTimer';
 import { formatTime } from '@/src/utils';
 
 export default function TimerTab() {

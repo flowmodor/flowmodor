@@ -9,8 +9,8 @@ import {
   useState,
 } from 'react';
 import { Alert } from 'react-native';
-import { useStatsActions } from './stores/useStatsStore';
-import { useTasksActions } from './stores/useTasksStore';
+import { useStatsActions } from './hooks/useStats';
+import { useTasksActions } from './hooks/useTasks';
 import { supabase } from './utils/supabase';
 
 const AuthContext = createContext<{

@@ -1,8 +1,6 @@
-import { createHooks, createStore } from '@flowmodor/stores/tasks';
-import 'react-native-get-random-values';
-import { supabase } from '../utils/supabase';
+import { createHooks } from '@flowmodor/stores/tasks';
+import { store } from '@/src/stores/tasks';
 
-export const store = createStore(supabase, console.error);
 export const {
   useSources,
   useActiveSource,

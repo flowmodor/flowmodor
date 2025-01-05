@@ -3,11 +3,7 @@ import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { Pressable, Text } from '@/src/components/Themed';
 import { useBottomSheet } from '../context/BottomSheetContext';
-import {
-  useFocusingTask,
-  useTasks,
-  useTasksActions,
-} from '../stores/useTasksStore';
+import { useFocusingTask, useTasks, useTasksActions } from '../hooks/useTasks';
 
 const BottomSheetComponent = () => {
   const { bottomSheetRef } = useBottomSheet();

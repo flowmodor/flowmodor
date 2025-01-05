@@ -5,7 +5,7 @@ import { Left, Right } from '@/src/components/Icons';
 import ScheduleChart from '@/src/components/ScheduleChart';
 import { Pressable, Text } from '@/src/components/Themed';
 import { useSession } from '@/src/ctx';
-import { useDisplayTime, useStatsActions } from '@/src/stores/useStatsStore';
+import { useDisplayTime, useStatsActions } from '@/src/hooks/useStats';
 
 export default function Stats() {
   const insets = useSafeAreaInsets();
