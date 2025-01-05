@@ -24,9 +24,15 @@ export default function SidebarTab({
   const router = useRouter();
   const shouldOpenLinkInNewTab = useShouldOpenLinkInNewTab();
 
-  useHotkeys(hotkey, () => {
-    router.push(tabPathname);
-  });
+  const handleNavigation = () => {
+    if (shouldOpenLinkInNewTab) {
+      window.open(tabPathname, '_blank');
+    } else {
+      router.push(tabPathname);
+    }
+  };
+
+  useHotkeys(hotkey, handleNavigation);
 
   return (
     <Tooltip
