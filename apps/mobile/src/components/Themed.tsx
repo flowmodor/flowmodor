@@ -17,11 +17,13 @@ export function Pressable({
   scaleValue = 1,
   isLoading = false,
   color = '#000000',
+  haptics = false,
   ...props
 }: PressableProps & {
   scaleValue?: number;
   isLoading?: boolean;
   color?: string;
+  haptics?: boolean;
 }) {
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
@@ -30,7 +32,10 @@ export function Pressable({
       toValue: scaleValue,
       useNativeDriver: true,
     }).start();
-    hapticsImpact();
+
+    if (haptics) {
+      hapticsImpact();
+    }
   };
 
   const onPressOut = () => {

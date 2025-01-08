@@ -58,6 +58,7 @@ export default function TimerTab() {
                 scaleValue={0.9}
                 isLoading={isLoading}
                 color="#FFFFFF"
+                haptics
                 style={styles.button}
                 onPress={async () => {
                   setIsLoading(true);
@@ -76,6 +77,7 @@ export default function TimerTab() {
             scaleValue={0.9}
             isLoading={isLoading}
             color="#FFFFFF"
+            haptics
             style={styles.button}
             onPress={async () => {
               setIsLoading(true);
