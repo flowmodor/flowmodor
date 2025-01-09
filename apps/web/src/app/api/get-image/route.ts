@@ -1,10 +1,11 @@
 import { createCanvas, loadImage, registerFont } from 'canvas';
+import path from 'path';
 
-registerFont('./public/fonts/Inter-Regular.ttf', {
+registerFont(path.join(process.cwd(), 'public', 'fonts', 'Inter-Regular.ttf'), {
   family: 'Inter',
 });
 
-registerFont('./public/fonts/Inter-Bold.ttf', {
+registerFont(path.join(process.cwd(), 'public', 'fonts', 'Inter-Bold.ttf'), {
   family: 'Inter',
   weight: 'bold',
 });
