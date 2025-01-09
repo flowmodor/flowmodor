@@ -93,39 +93,47 @@ export default function StatsCard() {
               className="hidden sm:flex"
               onPress={() => {
                 startTransition(async () => {
-                  const success = await copyImageToClipboard(
+                  const imageUrl = await copyImageToClipboard(
                     chartRef,
                     totalFocusTime,
                     dateText,
                   );
-                  if (success) {
-                    toast.success(
-                      <div>
-                        Your stats image is copied to clipboard. Share it to{' '}
-                        <Link
-                          target="_blank"
-                          href="https://x.com/intent/tweet?text=Stay in flow with @flowmodor%0A(Ctrl%2BV/⌘%2BV to paste your stats image)"
-                          className="text-[#DBBFFF]"
-                        >
-                          X
-                        </Link>
-                        ,{' '}
-                        <Link
-                          target="_blank"
-                          href="https://www.linkedin.com/sharing/share-offsite/"
-                          className="text-[#DBBFFF]"
-                        >
-                          LinkedIn
-                        </Link>
-                        ,{' '}
-                        <Link
-                          target="_blank"
-                          href="https://reddit.com/submit?title=(Ctrl%2BV/⌘%2BV to paste your stats image)&type=image"
-                          className="text-[#DBBFFF]"
-                        >
-                          Reddit
-                        </Link>{' '}
-                        or anywhere you want!
+
+                  if (imageUrl) {
+                    toast(
+                      <div className="flex flex-col gap-2">
+                        <img
+                          src={imageUrl}
+                          draggable={false}
+                          alt="Stats preview"
+                        />
+                        <div>
+                          Copied to clipboard! Share it to{' '}
+                          <Link
+                            target="_blank"
+                            href="https://x.com/intent/tweet?text=Stay in flow with @flowmodor%0A(Ctrl%2BV/⌘%2BV to paste your stats image)"
+                            className="text-[#DBBFFF]"
+                          >
+                            X
+                          </Link>
+                          ,{' '}
+                          <Link
+                            target="_blank"
+                            href="https://www.linkedin.com/sharing/share-offsite/"
+                            className="text-[#DBBFFF]"
+                          >
+                            LinkedIn
+                          </Link>
+                          ,{' '}
+                          <Link
+                            target="_blank"
+                            href="https://reddit.com/submit?title=(Ctrl%2BV/⌘%2BV to paste your stats image)&type=image"
+                            className="text-[#DBBFFF]"
+                          >
+                            Reddit
+                          </Link>{' '}
+                          or anywhere you want!
+                        </div>
                       </div>,
                     );
                   }
