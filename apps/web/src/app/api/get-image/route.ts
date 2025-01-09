@@ -1,4 +1,13 @@
-import { createCanvas, loadImage } from 'canvas';
+import { createCanvas, loadImage, registerFont } from 'canvas';
+
+registerFont('./public/fonts/Inter-Regular.ttf', {
+  family: 'Inter',
+});
+
+registerFont('./public/fonts/Inter-Bold.ttf', {
+  family: 'Inter',
+  weight: 'bold',
+});
 
 export async function POST(req: Request) {
   try {
