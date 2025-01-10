@@ -14,16 +14,52 @@ interface State {
 
 interface Action {
   updateLogs: () => Promise<void>;
-  goNextTime: () => void;
-  goPreviousTime: () => void;
-  onPeriodChange: (period: Period) => void;
-  setDate: (date: Date) => void;
-  setWeek: (date: Date) => void;
+  goNextTime: () => Promise<void>;
+  goPreviousTime: () => Promise<void>;
+  onPeriodChange: (period: Period) => Promise<void>;
+  setDate: (date: Date) => Promise<void>;
+  setWeek: (date: Date) => Promise<void>;
 }
 
 interface Store extends State {
   actions: Action;
 }
+
+const updateLogsWithDates = async (
+  supabase: SupabaseClient,
+  startDate: Date,
+  endDate: Date,
+  period: Period,
+) => {
+  const start = new Date(startDate);
+  start.setHours(0, 0, 0, 0);
+  const end = new Date(endDate);
+  end.setHours(23, 59, 59, 999);
+
+  const { data, error } = await supabase
+    .from('logs')
+    .select('*, tasks(name)')
+    .gte('end_time', start.toISOString())
+    .lte('start_time', end.toISOString());
+
+  if (error) throw error;
+
+  const displayTime =
+    period === 'Week'
+      ? `${start.toLocaleDateString(undefined, {
+          month: 'short',
+          day: 'numeric',
+        })} - ${end.toLocaleDateString(undefined, {
+          month: 'short',
+          day: 'numeric',
+        })}`
+      : start.toLocaleDateString(undefined, {
+          month: 'short',
+          day: 'numeric',
+        });
+
+  return { start, end, data, displayTime };
+};
 
 export const createStore = (supabase: SupabaseClient) =>
   create<Store>((set, get) => ({
@@ -37,128 +73,132 @@ export const createStore = (supabase: SupabaseClient) =>
     logs: null,
     actions: {
       updateLogs: async () => {
-        const { startDate: sd, endDate: ed, period } = get();
-        const startDate = new Date(sd);
-        startDate.setHours(0, 0, 0, 0);
-        const endDate = new Date(ed);
-        endDate.setHours(23, 59, 59, 999);
+        const { startDate, endDate, period } = get();
+        const { start, end, data, displayTime } = await updateLogsWithDates(
+          supabase,
+          startDate,
+          endDate,
+          period,
+        );
 
-        const { data, error } = await supabase
-          .from('logs')
-          .select('*, tasks(name)')
-          .gte('end_time', startDate.toISOString())
-          .lte('start_time', endDate.toISOString());
+        set({
+          startDate: start,
+          endDate: end,
+          logs: data,
+          displayTime,
+        });
+      },
+      goNextTime: async () => {
+        const { startDate, period } = get();
+        let newStart: Date;
+        let newEnd: Date;
 
-        if (error) {
+        if (period === 'Day') {
+          newStart = new Date(startDate);
+          newStart.setDate(startDate.getDate() + 1);
+          newEnd = new Date(newStart);
+        } else if (period === 'Week') {
+          newStart = new Date(startDate);
+          newStart.setDate(startDate.getDate() + 7);
+          newEnd = new Date(newStart);
+          newEnd.setDate(newStart.getDate() + 6);
+        } else {
           return;
         }
 
-        if (period === 'Day') {
-          set({
-            logs: data,
-            displayTime: startDate.toLocaleDateString(undefined, {
-              month: 'short',
-              day: 'numeric',
-            }),
-          });
-        } else if (period === 'Week') {
-          set({
-            logs: data,
-            displayTime: `${startDate.toLocaleDateString(undefined, {
-              month: 'short',
-              day: 'numeric',
-            })} - ${endDate.toLocaleDateString(undefined, {
-              month: 'short',
-              day: 'numeric',
-            })}`,
-          });
-        }
-      },
-      goNextTime: () => {
-        set((state) => {
-          if (state.period === 'Day') {
-            const tomorrow = new Date(state.startDate);
-            tomorrow.setDate(state.startDate.getDate() + 1);
-            return {
-              startDate: tomorrow,
-              endDate: tomorrow,
-            };
-          }
+        const { start, end, data, displayTime } = await updateLogsWithDates(
+          supabase,
+          newStart,
+          newEnd,
+          period,
+        );
 
-          if (state.period === 'Week') {
-            const startDate = new Date(state.startDate);
-            startDate.setDate(startDate.getDate() + 7);
-            const endDate = new Date(startDate);
-            endDate.setDate(startDate.getDate() + 6);
-
-            return {
-              startDate,
-              endDate,
-            };
-          }
-
-          return {};
-        });
-        get().actions.updateLogs();
-      },
-      goPreviousTime: () => {
-        set((state) => {
-          if (state.period === 'Day') {
-            const yesterday = new Date(state.startDate);
-            yesterday.setDate(state.startDate.getDate() - 1);
-
-            return {
-              startDate: yesterday,
-              endDate: yesterday,
-            };
-          }
-
-          if (state.period === 'Week') {
-            const startDate = new Date(state.startDate);
-            startDate.setDate(startDate.getDate() - 7);
-            const endDate = new Date(startDate);
-            endDate.setDate(startDate.getDate() + 6);
-
-            return {
-              startDate,
-              endDate,
-            };
-          }
-
-          return {};
-        });
-        get().actions.updateLogs();
-      },
-      onPeriodChange: (period: Period) => {
-        set((state) => {
-          const startDate =
-            period === 'Week' ? new Date(state.startDate) : new Date();
-          const endDate =
-            period === 'Week' ? new Date(state.endDate) : new Date();
-
-          if (period === 'Week') {
-            const day = state.startDate.getDay();
-            startDate.setDate(state.startDate.getDate() - day);
-            endDate.setDate(state.startDate.getDate() + 6);
-          }
-
-          return {
-            logs: null,
-            startDate,
-            endDate,
-            period,
-          };
-        });
-        get().actions.updateLogs();
-      },
-      setDate: (date: Date) => {
         set({
-          startDate: date,
-          endDate: date,
+          startDate: start,
+          endDate: end,
+          logs: data,
+          displayTime,
         });
-        get().actions.updateLogs();
       },
-      setWeek: (date: Date) => {
+      goPreviousTime: async () => {
+        const { startDate, period } = get();
+        let newStart: Date;
+        let newEnd: Date;
+
+        if (period === 'Day') {
+          newStart = new Date(startDate);
+          newStart.setDate(startDate.getDate() - 1);
+          newEnd = new Date(newStart);
+        } else if (period === 'Week') {
+          newStart = new Date(startDate);
+          newStart.setDate(startDate.getDate() - 7);
+          newEnd = new Date(newStart);
+          newEnd.setDate(newStart.getDate() + 6);
+        } else {
+          return;
+        }
+
+        const { start, end, data, displayTime } = await updateLogsWithDates(
+          supabase,
+          newStart,
+          newEnd,
+          period,
+        );
+
+        set({
+          startDate: start,
+          endDate: end,
+          logs: data,
+          displayTime,
+        });
+      },
+      onPeriodChange: async (period: Period) => {
+        const { startDate } = get();
+        let newStart: Date = new Date(startDate);
+        let newEnd: Date;
+
+        if (period === 'Week') {
+          const day = startDate.getDay();
+          newStart.setDate(startDate.getDate() - day);
+          newEnd = new Date(newStart);
+          newEnd.setDate(newStart.getDate() + 6);
+        } else {
+          newEnd = new Date(newStart);
+        }
+
+        const { start, end, data, displayTime } = await updateLogsWithDates(
+          supabase,
+          newStart,
+          newEnd,
+          period,
+        );
+
+        set({
+          period,
+          startDate: start,
+          endDate: end,
+          logs: data,
+          displayTime,
+        });
+      },
+      setDate: async (date: Date) => {
+        const { period } = get();
+        const { start, end, data, displayTime } = await updateLogsWithDates(
+          supabase,
+          date,
+          date,
+          period,
+        );
+
+        set({
+          startDate: start,
+          endDate: end,
+          logs: data,
+          displayTime,
+        });
+      },
+      setWeek: async (date: Date) => {
+        const { period } = get();
         const startDate = new Date(date);
         startDate.setDate(date.getDate() - date.getDay());
         startDate.setHours(0, 0, 0, 0);
@@ -167,11 +207,19 @@ export const createStore = (supabase: SupabaseClient) =>
         endDate.setDate(startDate.getDate() + 6);
         endDate.setHours(23, 59, 59, 999);
 
-        set({
+        const { start, end, data, displayTime } = await updateLogsWithDates(
+          supabase,
           startDate,
           endDate,
+          period,
+        );
+
+        set({
+          startDate: start,
+          endDate: end,
+          logs: data,
+          displayTime,
         });
-        get().actions.updateLogs();
       },
     },
   }));
