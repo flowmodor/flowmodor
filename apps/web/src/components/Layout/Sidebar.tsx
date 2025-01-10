@@ -18,7 +18,6 @@ export default async function Sidebar({ children }: { children: ReactNode }) {
           <Image
             src="/images/logo-no-bg.png"
             alt="logo"
-            unoptimized
             width={28}
             height={28}
             priority
