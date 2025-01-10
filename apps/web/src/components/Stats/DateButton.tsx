@@ -17,6 +17,7 @@ export default function DateButton({
       isIconOnly
       size="sm"
       radius="full"
+      disableRipple
       className="bg-secondary fill-white"
       onPress={onPress}
       isDisabled={isDisabled}

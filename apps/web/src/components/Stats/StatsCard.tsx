@@ -71,6 +71,7 @@ export default function StatsCard() {
             radius="sm"
             color="secondary"
             className="hidden sm:block"
+            disableRipple
             onPress={() => {
               setDate(new Date());
             }}
@@ -91,6 +92,7 @@ export default function StatsCard() {
               radius="sm"
               color="secondary"
               className="hidden sm:flex"
+              disableRipple
               onPress={() => {
                 startTransition(async () => {
                   const imageUrl = await copyImageToClipboard(
