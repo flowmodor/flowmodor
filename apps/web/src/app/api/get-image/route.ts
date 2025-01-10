@@ -88,7 +88,7 @@ export async function POST(req: Request) {
     ctx.fillText('min', currentX, centerY);
 
     ctx.fillStyle = '#FFFFFFA0';
-    ctx.font = '16px Inter';
+    ctx.font = '14px Inter';
     ctx.textAlign = 'center';
     ctx.fillText(dateText, newWidth / 2, topPadding - 6);
 
