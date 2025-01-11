@@ -2,6 +2,7 @@
 
 import { Source } from '@flowmodor/task-sources';
 import { Select, SelectItem } from '@nextui-org/select';
+import Image from 'next/image';
 import Link from 'next/link';
 import {
   useActiveSource,
@@ -42,6 +43,25 @@ export default function SourceSelector() {
         }}
       >
         Connect your favorite todo list app
+        <Image alt="Todoist" width="18" height="18" src="/images/todoist.png" />
+        <Image
+          alt="TickTick"
+          width="18"
+          height="18"
+          src="/images/ticktick.png"
+        />
+        <Image
+          alt="Google Tasks"
+          width="18"
+          height="18"
+          src="/images/googletasks.png"
+        />
+        <Image
+          alt="Microsoft To Do"
+          width="18"
+          height="18"
+          src="/images/microsofttodo.png"
+        />
       </SelectItem>,
     );
   }
