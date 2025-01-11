@@ -1,3 +1,8 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../../images/logo.png';
+---
+
 <nav
   id="navbar"
   class="sticky top-0 z-20 -mb-16 flex h-16 items-center justify-center border-b border-[#FFFFFF20] text-background backdrop-blur transition-all"
@@ -6,9 +11,10 @@
     href="/"
     class="absolute left-5 flex cursor-pointer items-center gap-2 text-2xl font-bold"
   >
-    <img
-      src="/logo.png"
+    <Image
+      src={logo}
       alt="Logo of Flowmodor"
+      quality={100}
       width={32}
       height={32}
       class="rounded-md bg-background"
