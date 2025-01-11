@@ -42,3 +42,4 @@ dist/
 
 # generated types
 .astro/
+.aider*
