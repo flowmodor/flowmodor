@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { Down } from '../Icons';
+import heroImage from '../../images/hero.png';
 ---
 
 <div
@@ -22,8 +24,9 @@ import { Down } from '../Icons';
       Start for free
     </a>
   </div>
-  <img
-    src="/hero.png"
+  <Image
+    src={heroImage}
+    alt="Hero image"
     draggable="false"
     class="bottom-0 z-10 hidden w-full max-w-5xl flex-shrink-0 translate-y-1/3 px-10 sm:block"
   />
