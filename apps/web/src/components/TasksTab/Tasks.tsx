@@ -1,7 +1,7 @@
 'use client';
 
-import { Spinner } from '@nextui-org/spinner';
 import { useIsLoadingTasks, useTasks } from '@/hooks/useTasks';
+import SkeletonTaskBox from './SkeletonTaskBox';
 import TaskBox from './TaskBox';
 
 export default function Tasks() {
@@ -10,8 +10,12 @@ export default function Tasks() {
 
   if (isLoadingTasks) {
     return (
-      <div className="flex h-full items-center justify-center">
-        <Spinner color="primary" />
+      <div className="overflow-y-scroll scrollbar-hide">
+        <SkeletonTaskBox />
+        <SkeletonTaskBox />
+        <SkeletonTaskBox />
+        <SkeletonTaskBox />
+        <SkeletonTaskBox />
       </div>
     );
   }
