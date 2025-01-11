@@ -1,7 +1,6 @@
 import { Task } from '@flowmodor/types';
 import { Checkbox } from '@nextui-org/checkbox';
 import { useTransition } from 'react';
-import Markdown from 'react-markdown';
 import { toast } from 'sonner';
 import {
   useActiveList,
@@ -10,6 +9,7 @@ import {
 } from '@/hooks/useTasks';
 import { useMode, useStatus } from '@/hooks/useTimer';
 import { Calendar, Label, TrashCan } from '../Icons';
+import Markdown from '../Markdown';
 
 export default function TaskBox({ task }: { task: Task }) {
   const [isLoading, startTransition] = useTransition();
@@ -62,9 +62,7 @@ export default function TaskBox({ task }: { task: Task }) {
         }}
       />
       <div className="flex select-none flex-col ">
-        <Markdown className="prose prose-invert pointer-events-none prose-p:text-white prose-a:font-normal prose-a:no-underline prose-li:text-white">
-          {task.name}
-        </Markdown>
+        <Markdown>{task.name}</Markdown>
         <div className="flex flex-wrap gap-x-2 fill-[#ffffffa0] text-sm text-[#ffffffa0]">
           {task.labels?.map((label) => (
             <div key={label} className="flex gap-1">

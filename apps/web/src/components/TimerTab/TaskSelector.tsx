@@ -3,6 +3,7 @@ import { Tooltip } from '@nextui-org/tooltip';
 import { useFocusingTask, useTasks, useTasksActions } from '@/hooks/useTasks';
 import { useMode, useStatus } from '@/hooks/useTimer';
 import { RightArrow } from '../Icons';
+import Markdown from '../Markdown';
 
 export default function TaskSelector() {
   const tasks = useTasks();
@@ -39,7 +40,7 @@ export default function TaskSelector() {
         base: 'data-[hover=true]:!bg-secondary data-[focus=true]:!bg-secondary',
       }}
     >
-      {task.name}
+      <Markdown>{task.name}</Markdown>
     </SelectItem>
   ));
 
