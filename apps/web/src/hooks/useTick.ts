@@ -15,10 +15,12 @@ export default function useTick() {
         const audio = new Audio('/alarm.mp3');
         audio.play();
 
-        new Notification('Flowmodor', {
-          body: 'Time to get back to work!',
-          icon: '/images/icons/general_icon_x512.png',
-        });
+        if ('Notification' in window && Notification.permission === 'granted') {
+          new Notification('Flowmodor', {
+            body: 'Time to get back to work!',
+            icon: '/images/icons/general_icon_x512.png',
+          });
+        }
       });
     }, 1000);
 
