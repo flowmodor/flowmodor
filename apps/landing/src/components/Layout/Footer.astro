@@ -1,5 +1,5 @@
 ---
-import { X, GitHub, Mail } from '../Icons';
+import { X, Bluesky, GitHub, Mail } from '../Icons';
 import { Image } from 'astro:assets';
 import logoNoBg from '../../images/logo-no-bg.png';
 ---
@@ -23,11 +23,18 @@ import logoNoBg from '../../images/logo-no-bg.png';
     </span>
     <div class="flex items-center justify-center gap-3">
       <a
-        href="https://twitter.com/flowmodor"
+        href="https://x.com/flowmodor"
         class="cursor-pointer fill-[#ffffff70] transition-all hover:fill-[#ffffff]"
         aria-label="X"
       >
         <X />
+      </a>
+      <a
+        href="https://bsky.app/profile/flowmodor.com"
+        class="cursor-pointer fill-[#ffffff70] transition-all hover:fill-[#ffffff]"
+        aria-label="Bluesky"
+      >
+        <Bluesky />
       </a>
       <a
         href="https://github.com/flowmodor/flowmodor"
