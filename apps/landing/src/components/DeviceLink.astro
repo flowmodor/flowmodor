@@ -1,0 +1,15 @@
+<a href="https://app.flowmodor.com" {...Astro.props}>
+  <slot />
+</a>
+
+<script is:inline>
+  (function (link) {
+    const ua = navigator.userAgent.toLowerCase();
+    if (/ipad|iphone/.test(ua)) {
+      link.href =
+        'https://apps.apple.com/app/flowmodor-flowmodoro-timer/id6670529689';
+    } else if (/android/.test(ua)) {
+      link.href = '/downloads/android';
+    }
+  })(document.currentScript.previousElementSibling);
+</script>

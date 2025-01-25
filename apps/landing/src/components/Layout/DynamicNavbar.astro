@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../../images/logo.png';
+import DeviceLink from '../DeviceLink.astro';
 ---
 
 <nav
@@ -27,13 +28,12 @@ import logo from '../../images/logo.png';
     <a href="/pricing">Pricing</a>
     <a href="/blog">Blog</a>
   </div>
-  <a
+  <DeviceLink
     id="get-started"
-    href="https://app.flowmodor.com"
     class="invisible absolute right-5 cursor-pointer rounded-full bg-primary px-3 py-2 text-sm font-medium text-[#131221] opacity-0 transition-all"
   >
     Get started
-  </a>
+  </DeviceLink>
 </nav>
 <script>
   const navbar = document.getElementById('navbar');

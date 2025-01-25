@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { Down } from '../Icons';
 import heroImage from '../../images/hero.png';
+import DeviceLink from '../DeviceLink.astro';
 ---
 
 <div
@@ -17,12 +18,11 @@ import heroImage from '../../images/hero.png';
       A Flowmodoro timer helping you enter flow state and stay focused with the
       Flowtime technique
     </div>
-    <a
-      href="https://app.flowmodor.com"
+    <DeviceLink
       class="flex cursor-pointer items-center rounded-full bg-background px-5 py-3 text-lg text-white shadow shadow-md transition-all duration-300 hover:scale-[1.03]"
     >
       Start for free
-    </a>
+    </DeviceLink>
   </div>
   <Image
     src={heroImage}
