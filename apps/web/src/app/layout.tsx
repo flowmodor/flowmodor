@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     description: 'Flowmodor Web App',
     images: [{ url: 'https://flowmodor.com/og.png' }],
   },
+  other: {
+    'apple-itunes-app': 'app-id=6670529689',
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
