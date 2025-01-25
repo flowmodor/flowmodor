@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+import heroImage from '../../images/hero.png';
+
+import NavbarLayout from '../../layouts/NavbarLayout.astro';
+import { IOS, Android } from '../../components/Icons.tsx';
+---
+
+<NavbarLayout
+  title="Downloads | Flowmodor"
+  description="Download Flowmodor mobile app"
+>
+  <div class="my-32 flex w-full flex-col items-center justify-center gap-10">
+    <h1 class="text-3xl font-bold">Flowmodor for mobile</h1>
+    <div class="flex items-center gap-5">
+      <a
+        href="/downloads/ios"
+        class="flex items-end gap-2 rounded-lg bg-secondary p-4 transition-colors hover:bg-primary hover:text-background"
+      >
+        <IOS />
+        iOS
+      </a>
+      <a
+        href="/downloads/android"
+        class="flex items-center gap-2 rounded-lg bg-secondary p-4 transition-colors hover:bg-primary hover:text-background"
+      >
+        <Android />
+        Android
+      </a>
+    </div>
+    <Image
+      src={heroImage}
+      alt="Hero image"
+      draggable="false"
+      class="bottom-0 w-full max-w-5xl flex-shrink-0 px-10"
+    />
+  </div>
+</NavbarLayout>

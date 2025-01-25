@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets';
+import heroImage from '../../../images/hero.png';
+import iOSQRCode from './ios-qrcode.png';
+import download from './download-on-the-app-store.svg';
+import NavbarLayout from '../../../layouts/NavbarLayout.astro';
+---
+
+<NavbarLayout title="iOS | Flowmodor" description="Download Flowmodor iOS app">
+  <div class="my-32 flex w-full flex-col items-center justify-center gap-10">
+    <h1 class="text-3xl font-bold">Flowmodor for iPhone & iPad</h1>
+    <div class="flex items-center gap-10">
+      <a
+        target="_blank"
+        href="https://apps.apple.com/app/flowmodor-flowmodoro-timer/id6670529689"
+      >
+        <Image
+          src={download}
+          quality="max"
+          alt="iOS download qr code"
+          width="128"
+        />
+      </a>
+      <Image
+        src={iOSQRCode}
+        quality="100"
+        alt="iOS download qr code"
+        width="128"
+        class="rounded-lg"
+      />
+    </div>
+    <Image
+      src={heroImage}
+      alt="Hero image"
+      draggable="false"
+      class="bottom-0 w-full max-w-5xl flex-shrink-0 px-10"
+    />
+  </div>
+</NavbarLayout>
