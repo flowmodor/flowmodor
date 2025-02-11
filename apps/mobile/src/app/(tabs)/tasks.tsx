@@ -13,7 +13,6 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Up } from '@/src/components/Icons';
 import { Pressable, Text } from '@/src/components/Themed';
-import { useSession } from '@/src/ctx';
 import {
   useActiveList,
   useActiveSource,
@@ -36,7 +35,6 @@ export default function Stats() {
   const { fetchTasks, completeTask, addTask, onSourceChange, onListChange } =
     useTasksActions();
   const [newTaskName, setNewTaskName] = useState('');
-  const { session } = useSession();
 
   const renderTask = ({ item }: { item: any }) => (
     <View style={styles.taskContainer}>
@@ -75,86 +73,73 @@ export default function Stats() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={[styles.container, { paddingTop: insets.top + 10 }]}
     >
-      {session === null ? (
-        <Text
-          style={{
-            fontSize: 18,
-            fontWeight: 600,
-            color: '#FFFFFF',
-            textAlign: 'center',
-          }}
-        >
-          Sign in to save tasks
-        </Text>
-      ) : (
-        <View
-          style={{
-            flexDirection: 'column',
-            gap: 10,
-          }}
-        >
-          <ScrollView horizontal>
-            <View
-              style={{
-                flexDirection: 'row',
-                gap: 10,
-              }}
-            >
-              {sources.length > 1 &&
-                sources.map((source) => (
-                  <Pressable
-                    key={source}
-                    style={{
-                      backgroundColor:
-                        activeSource === source ? '#DBBFFF' : '#3F3E55',
-                    }}
-                    onPress={() => onSourceChange(source)}
-                  >
-                    <Text
-                      style={{
-                        color: activeSource === source ? '#131221' : '#FFFFFF',
-                        fontWeight: 600,
-                      }}
-                    >
-                      {source}
-                    </Text>
-                  </Pressable>
-                ))}
-            </View>
-          </ScrollView>
-          <ScrollView horizontal>
-            <View
-              style={{
-                flexDirection: 'row',
-                gap: 10,
-              }}
-            >
-              {lists.map((list) => (
+      <View
+        style={{
+          flexDirection: 'column',
+          gap: 10,
+        }}
+      >
+        <ScrollView horizontal>
+          <View
+            style={{
+              flexDirection: 'row',
+              gap: 10,
+            }}
+          >
+            {sources.length > 1 &&
+              sources.map((source) => (
                 <Pressable
-                  key={list.id}
+                  key={source}
                   style={{
                     backgroundColor:
-                      activeList === list.id ? '#DBBFFF' : '#3F3E55',
+                      activeSource === source ? '#DBBFFF' : '#3F3E55',
                   }}
-                  onPress={async () => {
-                    onListChange(list.id);
-                    await fetchTasks();
-                  }}
+                  onPress={() => onSourceChange(source)}
                 >
                   <Text
                     style={{
-                      color: activeList === list.id ? '#131221' : '#FFFFFF',
+                      color: activeSource === source ? '#131221' : '#FFFFFF',
                       fontWeight: 600,
                     }}
                   >
-                    {list.name}
+                    {source}
                   </Text>
                 </Pressable>
               ))}
-            </View>
-          </ScrollView>
-        </View>
-      )}
+          </View>
+        </ScrollView>
+        <ScrollView horizontal>
+          <View
+            style={{
+              flexDirection: 'row',
+              gap: 10,
+            }}
+          >
+            {lists.map((list) => (
+              <Pressable
+                key={list.id}
+                style={{
+                  backgroundColor:
+                    activeList === list.id ? '#DBBFFF' : '#3F3E55',
+                }}
+                onPress={async () => {
+                  onListChange(list.id);
+                  await fetchTasks();
+                }}
+              >
+                <Text
+                  style={{
+                    color: activeList === list.id ? '#131221' : '#FFFFFF',
+                    fontWeight: 600,
+                  }}
+                >
+                  {list.name}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        </ScrollView>
+      </View>
       {isLoadingTasks ? (
         <View
           style={{

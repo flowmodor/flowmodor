@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Alert, Modal, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Auth from '@/src/components/Auth';
 import { Pressable, Text } from '@/src/components/Themed';
 import { useSession } from '@/src/ctx';
 
@@ -11,10 +10,6 @@ export default function Profile() {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
   const insets = useSafeAreaInsets();
-
-  if (!session) {
-    return <Auth />;
-  }
 
   const handleDeleteAccount = async () => {
     const error = await deleteAccount();
@@ -48,7 +43,7 @@ export default function Profile() {
         <Text style={styles.sectionTitle}>Account</Text>
         <View style={styles.sectionItem}>
           <Text style={styles.text}>Email</Text>
-          <Text style={styles.text}>{session.user.email}</Text>
+          <Text style={styles.text}>{session?.user.email}</Text>
         </View>
         <Pressable
           isLoading={isLoading}

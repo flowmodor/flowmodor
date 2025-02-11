@@ -4,12 +4,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Left, Right } from '@/src/components/Icons';
 import ScheduleChart from '@/src/components/ScheduleChart';
 import { Pressable, Text } from '@/src/components/Themed';
-import { useSession } from '@/src/ctx';
 import { useDisplayTime, useStatsActions } from '@/src/hooks/useStats';
 
 export default function Stats() {
   const insets = useSafeAreaInsets();
-  const { session } = useSession();
   const displayTime = useDisplayTime();
   const { goPreviousTime, goNextTime, updateLogs } = useStatsActions();
 
@@ -28,39 +26,33 @@ export default function Stats() {
       }}
     >
       <View style={styles.header}>
-        {session && (
-          <Pressable
-            scaleValue={0.9}
-            style={{
-              backgroundColor: '#3F3E55',
-              width: 32,
-              height: 32,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            onPress={goPreviousTime}
-          >
-            <Left />
-          </Pressable>
-        )}
-        <Text style={styles.displayTime}>
-          {session ? displayTime : 'Sign in to save focus history'}
-        </Text>
-        {session && (
-          <Pressable
-            scaleValue={0.9}
-            style={{
-              backgroundColor: '#3F3E55',
-              width: 32,
-              height: 32,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            onPress={goNextTime}
-          >
-            <Right />
-          </Pressable>
-        )}
+        <Pressable
+          scaleValue={0.9}
+          style={{
+            backgroundColor: '#3F3E55',
+            width: 32,
+            height: 32,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={goPreviousTime}
+        >
+          <Left />
+        </Pressable>
+        <Text style={styles.displayTime}>{displayTime}</Text>
+        <Pressable
+          scaleValue={0.9}
+          style={{
+            backgroundColor: '#3F3E55',
+            width: 32,
+            height: 32,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={goNextTime}
+        >
+          <Right />
+        </Pressable>
       </View>
       <ScheduleChart />
     </View>
