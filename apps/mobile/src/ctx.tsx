@@ -20,7 +20,7 @@ const AuthContext = createContext<{
   signOut: () => Promise<AuthError | null>;
   signUp: (email: string, password: string) => Promise<AuthError | null>;
   deleteAccount: () => Promise<PostgrestError | null>;
-  session: Session | null;
+  session: Session | string | null;
 }>({
   signIn: () => new Promise(() => null),
   signInWithGoogle: () => new Promise(() => null),
@@ -28,7 +28,7 @@ const AuthContext = createContext<{
   signOut: () => new Promise(() => null),
   signUp: () => new Promise(() => null),
   deleteAccount: () => new Promise(() => null),
-  session: null,
+  session: 'loading',
 });
 
 // This hook can be used to access the user info.
@@ -44,7 +44,7 @@ export function useSession() {
 }
 
 export function SessionProvider({ children }: PropsWithChildren) {
-  const [session, setSession] = useState<Session | null>(null);
+  const [session, setSession] = useState<Session | string | null>('loading');
   const { updateLogs } = useStatsActions();
   const { fetchSources, fetchListsAndLabels, fetchTasks } = useTasksActions();
 

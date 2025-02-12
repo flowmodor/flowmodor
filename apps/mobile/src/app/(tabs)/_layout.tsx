@@ -1,5 +1,6 @@
 import { Tabs } from 'expo-router';
 import { useEffect } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Auth from '@/src/components/Auth';
 import { Profile, Stats, Tasks, Timer } from '@/src/components/Icons';
@@ -21,6 +22,20 @@ export default function TabLayout() {
     fetchListsAndLabels();
     fetchTasks();
   }, []);
+
+  if (session === 'loading') {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          backgroundColor: '#131221',
+        }}
+      >
+        <ActivityIndicator />
+      </View>
+    );
+  }
 
   if (!session) {
     return <Auth />;
