@@ -15,7 +15,7 @@ export default async function App() {
     <HomeProvider>
       <div className="flex h-full flex-col items-center justify-center gap-2 sm:gap-5">
         {!session && (
-          <div className="text-sm mt-4">
+          <div className="mt-4 text-sm">
             <Link href="/signin" underline="always" className="text-sm">
               Sign in
             </Link>{' '}
