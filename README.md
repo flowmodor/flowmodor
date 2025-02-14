@@ -4,7 +4,7 @@
 
 A flexible focus timer helping you stay in flow state
 
-[Web App](https://app.flowmodor.com) · [iOS App](https://apps.apple.com/us/app/flowmodor-flowmodoro-timer/id6670529689) · [Feedback](https://app.flowmodor.com/feedback) · [Contributing](https://github.com/flowmodor/flowmodor/blob/main/CONTRIBUTING.md)
+[Web App](https://app.flowmodor.com) · [iOS App](https://apps.apple.com/us/app/flowmodor-flowmodoro-timer/id6670529689) · [Android App](https://play.google.com/store/apps/details?id=com.m4xshen.mobile) · [Feedback](https://app.flowmodor.com/feedback)
 
 </div>
 
