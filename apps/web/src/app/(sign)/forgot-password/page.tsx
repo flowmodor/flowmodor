@@ -1,5 +1,5 @@
-import { Input } from '@nextui-org/input';
-import { Link } from '@nextui-org/link';
+import { Input } from '@heroui/input';
+import { Link } from '@heroui/link';
 import { Metadata } from 'next';
 import { sendPasswordReset } from '@/actions/auth';
 import Submit from '@/components/Submit';

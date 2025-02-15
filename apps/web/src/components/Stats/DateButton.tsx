@@ -1,4 +1,4 @@
-import { Button } from '@nextui-org/button';
+import { Button } from '@heroui/button';
 import { ReactNode } from 'react';
 
 export default function DateButton({

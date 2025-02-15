@@ -1,6 +1,6 @@
 'use client';
 
-import { Input } from '@nextui-org/input';
+import { Input } from '@heroui/input';
 import { useState } from 'react';
 import { Hide, Show } from '@/components/Icons';
 import { validateEmail, validatePassword } from '@/utils';

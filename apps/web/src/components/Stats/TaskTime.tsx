@@ -1,6 +1,6 @@
 'use client';
 
-import { Card } from '@nextui-org/card';
+import { Card } from '@heroui/card';
 import {
   Table,
   TableBody,
@@ -8,7 +8,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from '@nextui-org/table';
+} from '@heroui/table';
 import { useLogs } from '@/hooks/useStats';
 import { calculateFocusTime } from '@/utils/stats/calculateFocusTime';
 import { calculateTaskTime } from '@/utils/stats/calculateTaskTime';

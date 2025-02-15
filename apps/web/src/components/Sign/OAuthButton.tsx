@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@nextui-org/button';
+import { Button } from '@heroui/button';
 import { useTransition } from 'react';
 import { signInWithOAuth } from '@/actions/auth';
 import { Apple, Google } from '@/components/Icons';

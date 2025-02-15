@@ -1,5 +1,5 @@
-import { Checkbox } from '@nextui-org/checkbox';
-import { Skeleton } from '@nextui-org/react';
+import { Checkbox } from '@heroui/checkbox';
+import { Skeleton } from '@heroui/react';
 
 export default function SkeletonTaskBox() {
   return (

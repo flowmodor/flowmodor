@@ -1,8 +1,8 @@
 'use client';
 
-import { Button } from '@nextui-org/button';
-import { Kbd } from '@nextui-org/kbd';
-import { Tooltip } from '@nextui-org/tooltip';
+import { Button } from '@heroui/button';
+import { Kbd } from '@heroui/kbd';
+import { Tooltip } from '@heroui/tooltip';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { ReactNode } from 'react';

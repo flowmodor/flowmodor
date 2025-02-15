@@ -6,7 +6,7 @@ import Toolbar from './Toolbar';
 
 export default function TasksTab() {
   return (
-    <div className="flex h-full overflow-hidden w-[90vw] flex-col gap-2 rounded-lg bg-midground p-2 sm:h-[30rem] sm:w-[30rem]">
+    <div className="flex h-full w-[90vw] flex-col gap-2 overflow-hidden rounded-lg bg-midground p-2 sm:h-[30rem] sm:w-[30rem]">
       <div className="flex gap-3">
         <SourceSelector />
         <ListSelector />

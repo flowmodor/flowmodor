@@ -1,4 +1,4 @@
-import { Tooltip } from '@nextui-org/tooltip';
+import { Tooltip } from '@heroui/tooltip';
 import { Activity, ActivityCalendar } from 'react-activity-calendar';
 import { usePeriod, useStatsActions } from '@/hooks/useStats';
 

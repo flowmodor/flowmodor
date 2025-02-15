@@ -1,5 +1,5 @@
 import { Period } from '@flowmodor/stores/stats';
-import { Select, SelectItem } from '@nextui-org/select';
+import { Select, SelectItem } from '@heroui/select';
 import { usePeriod, useStatsActions } from '@/hooks/useStats';
 
 export default function PeriodSelector() {

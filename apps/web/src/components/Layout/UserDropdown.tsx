@@ -1,13 +1,13 @@
 'use client';
 
-import { Avatar } from '@nextui-org/avatar';
-import { Divider } from '@nextui-org/divider';
+import { Avatar } from '@heroui/avatar';
+import { Divider } from '@heroui/divider';
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from '@nextui-org/dropdown';
+} from '@heroui/dropdown';
 import { User } from '@supabase/supabase-js';
 import Link from 'next/link';
 import { signOut } from '@/actions/auth';

@@ -1,6 +1,6 @@
 'use client';
 
-import { CircularProgress } from '@nextui-org/progress';
+import { CircularProgress } from '@heroui/progress';
 import { useEffect } from 'react';
 import {
   useDisplayTime,

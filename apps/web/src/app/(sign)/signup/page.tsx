@@ -1,4 +1,4 @@
-import { Link } from '@nextui-org/link';
+import { Link } from '@heroui/link';
 import { Metadata } from 'next';
 import { signUp } from '@/actions/auth';
 import SignUpForm from '@/components/Sign/SignUpForm';

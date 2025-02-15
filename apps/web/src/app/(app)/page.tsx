@@ -1,4 +1,4 @@
-import { Link } from '@nextui-org/link';
+import { Link } from '@heroui/link';
 import TabsWrapper from '@/components/Tabs';
 import TasksTab from '@/components/TasksTab';
 import TimerTab from '@/components/TimerTab/index';

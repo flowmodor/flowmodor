@@ -1,5 +1,5 @@
 import { Task } from '@flowmodor/types';
-import { Checkbox } from '@nextui-org/checkbox';
+import { Checkbox } from '@heroui/checkbox';
 import { useTransition } from 'react';
 import { toast } from 'sonner';
 import {

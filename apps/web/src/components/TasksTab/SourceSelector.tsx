@@ -1,7 +1,7 @@
 'use client';
 
 import { Source } from '@flowmodor/task-sources';
-import { Select, SelectItem } from '@nextui-org/select';
+import { Select, SelectItem } from '@heroui/select';
 import Image from 'next/image';
 import Link from 'next/link';
 import {

@@ -1,7 +1,7 @@
 'use client';
 
 import { Tables } from '@flowmodor/types';
-import { Card, CardBody } from '@nextui-org/card';
+import { Card, CardBody } from '@heroui/card';
 import { calculateStreaks } from '@/utils/stats/calculateStreaks';
 import Heatmap from './Heatmap';
 

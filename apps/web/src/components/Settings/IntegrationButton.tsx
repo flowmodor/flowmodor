@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@nextui-org/button';
+import { Button } from '@heroui/button';
 import Image from 'next/image';
 import { useTransition } from 'react';
 import { toast } from 'sonner';

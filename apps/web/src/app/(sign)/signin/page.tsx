@@ -1,5 +1,5 @@
-import { Input } from '@nextui-org/input';
-import { Link } from '@nextui-org/link';
+import { Input } from '@heroui/input';
+import { Link } from '@heroui/link';
 import { Metadata } from 'next';
 import { signInWithPassword } from '@/actions/auth';
 import Or from '@/components/Or';

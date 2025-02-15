@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from '@nextui-org/button';
-import { Tooltip } from '@nextui-org/tooltip';
+import { Button } from '@heroui/button';
+import { Tooltip } from '@heroui/tooltip';
 import { useTransition } from 'react';
 import { Forward, Hide, Pause, Play, Show, Stop } from '@/components/Icons';
 import { useActiveSource, useFocusingTask } from '@/hooks/useTasks';

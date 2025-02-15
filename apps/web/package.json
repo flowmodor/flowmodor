@@ -13,7 +13,7 @@
   "dependencies": {
     "@flowmodor/stores": "workspace:*",
     "@flowmodor/task-sources": "workspace:*",
-    "@nextui-org/react": "^2.6.10",
+    "@heroui/react": "2.6.14",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.10",
     "canvas": "^3.0.1",

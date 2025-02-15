@@ -1,5 +1,5 @@
-import { Select, SelectItem } from '@nextui-org/select';
-import { Tooltip } from '@nextui-org/tooltip';
+import { Select, SelectItem } from '@heroui/select';
+import { Tooltip } from '@heroui/tooltip';
 import { useFocusingTask, useTasks, useTasksActions } from '@/hooks/useTasks';
 import { useMode, useStatus } from '@/hooks/useTimer';
 import { RightArrow } from '../Icons';

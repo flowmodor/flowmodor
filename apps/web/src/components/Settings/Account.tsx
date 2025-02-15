@@ -1,14 +1,14 @@
 'use client';
 
-import { Button } from '@nextui-org/button';
+import { Button } from '@heroui/button';
 import {
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from '@nextui-org/modal';
-import { useDisclosure } from '@nextui-org/use-disclosure';
+} from '@heroui/modal';
+import { useDisclosure } from '@heroui/use-disclosure';
 import { toast } from 'sonner';
 import { signOut } from '@/actions/auth';
 import supabase from '@/utils/supabase/client';

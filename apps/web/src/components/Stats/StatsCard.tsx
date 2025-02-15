@@ -1,8 +1,8 @@
 'use client';
 
-import { Button } from '@nextui-org/button';
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
-import { Tooltip } from '@nextui-org/tooltip';
+import { Button } from '@heroui/button';
+import { Card, CardBody, CardHeader } from '@heroui/card';
+import { Tooltip } from '@heroui/tooltip';
 import Link from 'next/link';
 import { useEffect, useRef, useTransition } from 'react';
 import { toast } from 'sonner';
