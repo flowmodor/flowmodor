@@ -1,17 +1,13 @@
 import { Tabs } from 'expo-router';
 import { useEffect } from 'react';
-import { ActivityIndicator, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Auth from '@/src/components/Auth';
 import { Profile, Stats, Tasks, Timer } from '@/src/components/Icons';
-import { useSession } from '@/src/ctx';
 import { useTasksActions } from '@/src/hooks/useTasks';
 import useTick from '@/src/hooks/useTick';
 import { hapticsImpact } from '@/src/utils';
 
 export default function TabLayout() {
   const { fetchSources, fetchListsAndLabels, fetchTasks } = useTasksActions();
-  const { session } = useSession();
   const insets = useSafeAreaInsets();
   const paddingBottom = insets.bottom === 0 ? 20 : insets.bottom;
 
@@ -22,24 +18,6 @@ export default function TabLayout() {
     fetchListsAndLabels();
     fetchTasks();
   }, []);
-
-  if (session === 'loading') {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          backgroundColor: '#131221',
-        }}
-      >
-        <ActivityIndicator />
-      </View>
-    );
-  }
-
-  if (!session) {
-    return <Auth />;
-  }
 
   return (
     <Tabs

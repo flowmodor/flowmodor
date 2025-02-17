@@ -2,10 +2,9 @@ import * as AppleAuthentication from 'expo-apple-authentication';
 import { useState } from 'react';
 import { Platform } from 'react-native';
 import { Alert, ScrollView, View } from 'react-native';
+import { Google } from '@/src/components/Icons';
 import { Pressable, Text, TextInput } from '@/src/components/Themed';
 import { useSession } from '@/src/ctx';
-import { supabase } from '../utils/supabase';
-import { Google } from './Icons';
 
 export default function Auth() {
   const [email, setEmail] = useState('');
