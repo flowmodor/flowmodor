@@ -1,6 +1,6 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useState } from 'react';
-import { Alert, View } from 'react-native';
+import { useRef, useState } from 'react';
+import { Alert, TextInput as RNTextInput, View } from 'react-native';
 import { Pressable, Text, TextInput } from '@/src/components/Themed';
 import { useSession } from '@/src/ctx';
 
@@ -11,6 +11,8 @@ export default function EmailAuthModal() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { signIn, signUp } = useSession();
+
+  const passwordInputRef = useRef<RNTextInput>(null);
 
   const handleAuth = async () => {
     setIsLoading(true);
@@ -36,13 +38,7 @@ export default function EmailAuthModal() {
 
   return (
     <View style={{ paddingHorizontal: 15, gap: 10 }}>
-      <Text
-        style={{
-          fontSize: 26,
-          fontWeight: 'bold',
-          marginVertical: 20,
-        }}
-      >
+      <Text style={{ fontSize: 26, fontWeight: 'bold', marginVertical: 20 }}>
         {mode === 'signin' ? 'Sign In' : 'Sign Up'}
       </Text>
       <View style={{ gap: 5 }}>
@@ -53,15 +49,20 @@ export default function EmailAuthModal() {
           value={email}
           onChangeText={setEmail}
           inputMode="email"
+          returnKeyType="next"
+          onSubmitEditing={() => passwordInputRef.current?.focus()}
         />
       </View>
       <View style={{ gap: 5 }}>
         <Text>Password</Text>
         <TextInput
+          ref={passwordInputRef}
           placeholder="••••••••"
           secureTextEntry
           value={password}
           onChangeText={setPassword}
+          returnKeyType="go"
+          onSubmitEditing={handleAuth}
         />
       </View>
       <Pressable
@@ -75,13 +76,7 @@ export default function EmailAuthModal() {
         }}
         onPress={handleAuth}
       >
-        <Text
-          style={{
-            color: '#000000',
-            fontWeight: '500',
-            fontSize: 16,
-          }}
-        >
+        <Text style={{ color: '#000000', fontWeight: '500', fontSize: 16 }}>
           {mode === 'signin' ? 'Sign In' : 'Sign Up'}
         </Text>
       </Pressable>

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { forwardRef, useRef } from 'react';
 import {
   ActivityIndicator,
   Animated,
@@ -71,20 +71,24 @@ export function Text({ style, ...props }: TextProps) {
   return <DefaultText {...props} style={[{ color: '#ffffff' }, style]} />;
 }
 
-export function TextInput({ ...props }: TextInputProps) {
-  return (
-    <DefaultTextInput
-      {...props}
-      placeholderTextColor="#ffffff70"
-      autoCapitalize="none"
-      style={{
-        padding: 10,
-        borderRadius: 8,
-        fontSize: 16,
-        borderColor: '#3F3E55',
-        color: '#ffffff',
-        borderWidth: 2,
-      }}
-    />
-  );
-}
+export const TextInput = forwardRef<DefaultTextInput, TextInputProps>(
+  (props, ref) => {
+    return (
+      <DefaultTextInput
+        ref={ref}
+        {...props}
+        placeholderTextColor="#ffffff70"
+        autoCapitalize="none"
+        style={{
+          padding: 10,
+          borderRadius: 8,
+          fontSize: 16,
+          borderColor: '#3F3E55',
+          color: '#ffffff',
+          borderWidth: 2,
+          ...props.style,
+        }}
+      />
+    );
+  },
+);
