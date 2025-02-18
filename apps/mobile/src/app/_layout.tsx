@@ -1,10 +1,11 @@
 import { usePathname, useRouter } from 'expo-router';
 import { Stack } from 'expo-router/stack';
 import React, { useEffect } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, Button, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SessionProvider, useSession } from '@/src/ctx';
 import BottomSheetComponent from '../components/BottomSheetComponent';
+import { Pressable, Text } from '../components/Themed';
 import { BottomSheetProvider } from '../context/BottomSheetContext';
 
 function RootStack() {
@@ -14,6 +15,9 @@ function RootStack() {
 
   useEffect(() => {
     if (session === 'loading') return;
+
+    if (pathname.startsWith('/modal')) return;
+
     if (session && pathname === '/auth') {
       router.replace('/(tabs)');
     } else if (!session && pathname !== '/auth') {
@@ -41,13 +45,27 @@ function RootStack() {
       screenOptions={{
         headerShown: false,
         animation: 'fade',
-        contentStyle: {
-          backgroundColor: '#131221',
-        },
+        contentStyle: { backgroundColor: '#131221' },
       }}
     >
       <Stack.Screen name="auth" />
       <Stack.Screen name="(tabs)" />
+      <Stack.Screen
+        name="modal"
+        options={{
+          headerShown: true,
+          headerStyle: { backgroundColor: '#131221' },
+          headerLeft: () => (
+            <Button
+              onPress={() => router.back()}
+              title="Close"
+              color="#DBBFFF"
+            />
+          ),
+          presentation: 'modal',
+          animation: 'slide_from_bottom',
+        }}
+      />
     </Stack>
   );
 }
