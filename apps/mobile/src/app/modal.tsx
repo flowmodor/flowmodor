@@ -35,17 +35,17 @@ export default function EmailAuthModal() {
   };
 
   return (
-    <View style={{ paddingHorizontal: 20 }}>
+    <View style={{ paddingHorizontal: 15, gap: 10 }}>
       <Text
         style={{
           fontSize: 26,
           fontWeight: 'bold',
-          marginBottom: 20,
+          marginVertical: 20,
         }}
       >
         {mode === 'signin' ? 'Sign In' : 'Sign Up'}
       </Text>
-      <View style={{ marginBottom: 10 }}>
+      <View style={{ gap: 5 }}>
         <Text>Email</Text>
         <TextInput
           autoFocus
@@ -55,7 +55,7 @@ export default function EmailAuthModal() {
           inputMode="email"
         />
       </View>
-      <View style={{ marginBottom: 20 }}>
+      <View style={{ gap: 5 }}>
         <Text>Password</Text>
         <TextInput
           placeholder="••••••••"
@@ -71,7 +71,7 @@ export default function EmailAuthModal() {
           alignItems: 'center',
           justifyContent: 'center',
           height: 40,
-          marginBottom: 10,
+          marginTop: 30,
         }}
         onPress={handleAuth}
       >

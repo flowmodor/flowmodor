@@ -1,11 +1,11 @@
 import { usePathname, useRouter } from 'expo-router';
 import { Stack } from 'expo-router/stack';
 import React, { useEffect } from 'react';
-import { ActivityIndicator, Button, View } from 'react-native';
+import { ActivityIndicator, Pressable, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SessionProvider, useSession } from '@/src/ctx';
 import BottomSheetComponent from '../components/BottomSheetComponent';
-import { Pressable, Text } from '../components/Themed';
+import { Text } from '../components/Themed';
 import { BottomSheetProvider } from '../context/BottomSheetContext';
 
 function RootStack() {
@@ -55,12 +55,18 @@ function RootStack() {
         options={{
           headerShown: true,
           headerStyle: { backgroundColor: '#131221' },
+          headerTitle: '',
           headerLeft: () => (
-            <Button
-              onPress={() => router.back()}
-              title="Close"
-              color="#DBBFFF"
-            />
+            <Pressable onPress={() => router.back()}>
+              <Text
+                style={{
+                  color: '#DBBFFF',
+                  fontSize: 16,
+                }}
+              >
+                Close
+              </Text>
+            </Pressable>
           ),
           presentation: 'modal',
           animation: 'slide_from_bottom',

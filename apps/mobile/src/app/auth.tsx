@@ -1,30 +1,43 @@
 import * as AppleAuthentication from 'expo-apple-authentication';
+import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
-import { Platform } from 'react-native';
-import { ScrollView, View } from 'react-native';
-import { Google } from '@/src/components/Icons';
+import React, { useState } from 'react';
+import { Platform, View } from 'react-native';
+import * as DropdownMenu from 'zeego/dropdown-menu';
+import { Email, Google } from '@/src/components/Icons';
 import { Pressable, Text } from '@/src/components/Themed';
 import { useSession } from '@/src/ctx';
 
 export default function Auth() {
   const { signInWithApple, signInWithGoogle } = useSession();
   const router = useRouter();
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   return (
-    <ScrollView
-      style={{ backgroundColor: '#131221' }}
-      contentContainerStyle={{
+    <View
+      style={{
+        backgroundColor: '#131221',
         justifyContent: 'center',
         height: '100%',
         paddingHorizontal: 50,
-        gap: 30,
-        width: '100%',
-        maxWidth: 500,
-        alignSelf: 'center',
+        gap: 36,
       }}
     >
-      <Text style={{ fontSize: 26, fontWeight: 'bold', textAlign: 'center' }}>
-        Sign In Now
+      <Image
+        source={require('../../assets/images/icon.png')}
+        style={{ width: 100, height: 100, alignSelf: 'center' }}
+        contentFit="contain"
+      />
+      <Text
+        style={{
+          fontSize: 24,
+          fontWeight: 'bold',
+          textAlign: 'center',
+          alignSelf: 'center',
+          width: 200,
+        }}
+      >
+        Enter flow state and stay focused.
       </Text>
       <View style={{ flexDirection: 'column', gap: 10 }}>
         {Platform.OS === 'ios' && (
@@ -41,6 +54,7 @@ export default function Auth() {
           />
         )}
         <Pressable
+          isLoading={googleLoading}
           scaleValue={0.98}
           style={{
             backgroundColor: '#ffffff',
@@ -51,57 +65,68 @@ export default function Auth() {
             gap: 6,
           }}
           onPress={async () => {
-            await signInWithGoogle();
+            setGoogleLoading(true);
+            try {
+              await signInWithGoogle();
+            } finally {
+              setGoogleLoading(false);
+            }
           }}
         >
           <Google />
-          <Text style={{ fontSize: 15, fontWeight: '600', color: '#000000' }}>
+          <Text style={{ fontSize: 15.5, fontWeight: '500', color: '#000000' }}>
             Continue with Google
           </Text>
         </Pressable>
-      </View>
-      <View style={{ flexDirection: 'column', gap: 10 }}>
-        <Pressable
-          scaleValue={0.98}
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: 40,
-            backgroundColor: '#ffffff',
-          }}
-          onPress={() => router.push('/modal?mode=signin')}
-        >
-          <Text
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger
+            asChild
             style={{
-              color: '#000000',
-              fontSize: 15,
-              fontWeight: '600',
+              backgroundColor: '#ffffff',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: 40,
+              gap: 6,
             }}
           >
-            Sign in with Email
-          </Text>
-        </Pressable>
-        <Pressable
-          scaleValue={0.98}
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: 40,
-            backgroundColor: '#ffffff',
-          }}
-          onPress={() => router.push('/modal?mode=signup')}
-        >
-          <Text
+            <Pressable scaleValue={0.98}>
+              <Email />
+              <Text
+                style={{ fontSize: 15.5, fontWeight: '500', color: '#000000' }}
+              >
+                Continue with Email
+              </Text>
+            </Pressable>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content
             style={{
-              color: '#000000',
-              fontSize: 15,
-              fontWeight: '600',
+              backgroundColor: '#ffffff',
+              borderRadius: 8,
+              padding: 8,
             }}
           >
-            Sign up with Email
-          </Text>
-        </Pressable>
+            <DropdownMenu.Item
+              key="signin-email"
+              textValue="Sign in with Email"
+              onSelect={() => router.push('/modal?mode=signin')}
+            >
+              <Text style={{ color: '#000000', fontSize: 15 }}>
+                Sign in with Email
+              </Text>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item
+              key="signup-email"
+              textValue="Sign up with Email"
+              onSelect={() => router.push('/modal?mode=signup')}
+            >
+              <Text style={{ color: '#000000', fontSize: 15 }}>
+                Sign up with Email
+              </Text>
+            </DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
       </View>
-    </ScrollView>
+    </View>
   );
 }
