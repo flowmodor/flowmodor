@@ -226,8 +226,8 @@ export const createStore = (supabase: SupabaseClient) =>
 
 export const createHooks = (useStore: ReturnType<typeof createStore>) => ({
   usePeriod: () => useStore((state) => state.period),
-  useStartDate: () => useStore((state) => state.startDate),
-  useEndDate: () => useStore((state) => state.endDate),
+  useStartDate: () => useStore((state) => state.startDate.toDateString()),
+  useEndDate: () => useStore((state) => state.endDate.toDateString()),
   useDisplayTime: () => useStore((state) => state.displayTime),
   useLogs: () => useStore((state) => state.logs),
   useStatsActions: () => useStore((state) => state.actions),

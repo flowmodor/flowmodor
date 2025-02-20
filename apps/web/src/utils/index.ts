@@ -22,7 +22,7 @@ const validatePassword = (password: string) => /^$|^.{8,}$/.test(password);
 const validateEmail = (email: string) =>
   /^$|^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
 
-function dailyLogToChartData(log: LogsWithTasks, date: Date) {
+function dailyLogToChartData(log: LogsWithTasks, date: string) {
   const chartData = Array.from({ length: 24 }, () => [0, 0]);
   const startTime = new Date(log.start_time);
   const endTime = new Date(log.end_time);

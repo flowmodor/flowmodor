@@ -37,9 +37,7 @@ export default function StatsCard() {
   const [isLoading, startTransition] = useTransition();
 
   const dateText =
-    startDate.toDateString() === endDate.toDateString()
-      ? startDate.toDateString()
-      : `${startDate.toDateString()} - ${endDate.toDateString()}`;
+    startDate === endDate ? startDate : `${startDate} - ${endDate}`;
 
   useEffect(() => {
     if (effectRunRef.current) {
