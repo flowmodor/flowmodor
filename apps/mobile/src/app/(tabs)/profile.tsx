@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, Modal, StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Pressable, Text } from '@/src/components/Themed';
 import { useSession } from '@/src/ctx';
@@ -7,7 +7,6 @@ import { useSession } from '@/src/ctx';
 export default function Profile() {
   const { session, signOut, deleteAccount } = useSession();
   const [isLoading, setIsLoading] = useState(false);
-  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
   const insets = useSafeAreaInsets();
 
@@ -17,7 +16,6 @@ export default function Profile() {
       Alert.alert('Error', error.message);
       return;
     }
-    setIsDeleteModalVisible(false);
   };
 
   return (
@@ -82,7 +80,20 @@ export default function Profile() {
             borderColor: '#23223C',
             borderWidth: 2,
           }}
-          onPress={() => setIsDeleteModalVisible(true)}
+          onPress={() => {
+            Alert.alert(
+              'Delete Account',
+              'Are you sure you want to delete your account? All your data will be permanently deleted.',
+              [
+                { text: 'Cancel', style: 'cancel' },
+                {
+                  text: 'Delete',
+                  onPress: handleDeleteAccount,
+                  style: 'destructive',
+                },
+              ],
+            );
+          }}
         >
           <Text
             style={[
@@ -97,39 +108,6 @@ export default function Profile() {
           </Text>
         </Pressable>
       </View>
-      <Modal
-        animationType="fade"
-        transparent
-        visible={isDeleteModalVisible}
-        onRequestClose={() => setIsDeleteModalVisible(false)}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>
-              Are you sure you want to delete your account?
-            </Text>
-            <Text style={styles.modalSubText}>
-              All your data will be permanently deleted.
-            </Text>
-            <View style={styles.modalButtonsContainer}>
-              <Pressable
-                style={[styles.modalButton, styles.cancelButton]}
-                onPress={() => setIsDeleteModalVisible(false)}
-              >
-                <Text style={styles.modalButtonText}>Cancel</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.modalButton, styles.deleteButton]}
-                onPress={handleDeleteAccount}
-              >
-                <Text style={[styles.modalButtonText, { color: '#FF4F4F' }]}>
-                  Delete
-                </Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 }
