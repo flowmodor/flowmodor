@@ -63,7 +63,7 @@ export default function Toolbar() {
           onPress={() => {
             startStopTransition(async () => {
               if (status !== 'idle') {
-                await stop(focusingTask, activeSource);
+                await stop('web', focusingTask, activeSource);
               } else {
                 await start();
               }
@@ -93,7 +93,7 @@ export default function Toolbar() {
             onPress={() => {
               startPauseTransition(async () => {
                 if (status === 'running') {
-                  await pause(focusingTask, activeSource);
+                  await pause('web', focusingTask, activeSource);
                 } else {
                   await resume();
                 }
@@ -123,7 +123,7 @@ export default function Toolbar() {
             className="h-12 w-12 bg-secondary"
             onPress={() => {
               startSkipTransition(async () => {
-                await stop(focusingTask, activeSource);
+                await stop('web', focusingTask, activeSource);
               });
             }}
           >

@@ -18,10 +18,22 @@ interface State {
 
 interface Action {
   start: (callback?: () => Promise<void>) => Promise<void>;
-  stop: (focusingTask?: Task | null, activeSource?: Source) => Promise<void>;
-  pause: (focusingTask: Task | null, activeSource: Source) => Promise<void>;
+  stop: (
+    platform?: string,
+    focusingTask?: Task | null,
+    activeSource?: Source,
+  ) => Promise<void>;
+  pause: (
+    platform?: string,
+    focusingTask?: Task | null,
+    activeSource?: Source,
+  ) => Promise<void>;
   resume: () => Promise<void>;
-  log: (focusingTask?: Task | null, activeSource?: Source) => Promise<void>;
+  log: (
+    platform: string,
+    focusingTask?: Task | null,
+    activeSource?: Source,
+  ) => Promise<void>;
   tick: (callback?: () => void) => void;
   toggleShowTime: () => void;
 }
@@ -76,7 +88,7 @@ export const createStore = (
           status: 'running',
         }));
       },
-      stop: async (focusingTask, activeSource) => {
+      stop: async (platform, focusingTask, activeSource) => {
         const breakRatio = await getBreakRatio(supabase);
 
         if (get().status === 'paused') {
@@ -90,7 +102,9 @@ export const createStore = (
           return;
         }
 
-        await get().actions.log(focusingTask, activeSource);
+        if (get().mode !== 'break' && platform) {
+          await get().actions.log(platform, focusingTask, activeSource);
+        }
         set((state) => {
           const totalTime =
             state.mode === 'focus'
@@ -105,8 +119,10 @@ export const createStore = (
           };
         });
       },
-      pause: async (focusingTask, activeSource) => {
-        await get().actions.log(focusingTask, activeSource);
+      pause: async (platform, focusingTask, activeSource) => {
+        if (get().mode !== 'break' && platform) {
+          await get().actions.log(platform, focusingTask, activeSource);
+        }
 
         set((state) => {
           const totalTime = state.totalTime + Date.now() - state.startTime!;
@@ -122,7 +138,7 @@ export const createStore = (
           startTime: Date.now(),
         }));
       },
-      log: async (focusingTask, activeSource) => {
+      log: async (platform, focusingTask, activeSource) => {
         const {
           data: { session },
         } = await supabase.auth.getSession();
@@ -133,17 +149,13 @@ export const createStore = (
 
         const start_time = new Date(get().startTime!).toISOString();
         const end_time = new Date(Date.now()).toISOString();
-        const { mode } = get();
-
-        if (mode === 'break') {
-          return;
-        }
 
         if (!focusingTask) {
           await supabase.from('logs').insert([
             {
               start_time,
               end_time,
+              platform,
             },
           ]);
           await statsStore.getState().actions.updateLogs();
@@ -157,6 +169,7 @@ export const createStore = (
             end_time,
             task_id: hasId ? parseInt(focusingTask.id, 10) : null,
             task_name: hasId ? null : focusingTask.name,
+            platform,
           },
         ]);
         await statsStore.getState().actions.updateLogs();

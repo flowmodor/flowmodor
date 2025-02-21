@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Pause, Play, Stop } from '@/src/components/Icons';
 import TaskSelector from '@/src/components/TaskSelector';
 import { Pressable, Text } from '@/src/components/Themed';
-import { useActiveList, useFocusingTask } from '@/src/hooks/useTasks';
+import { useActiveSource, useFocusingTask } from '@/src/hooks/useTasks';
 import {
   useActions,
   useDisplayTime,
@@ -23,7 +23,7 @@ export default function TimerTab() {
   const { start, stop, pause, resume } = useActions();
 
   const focusingTask = useFocusingTask();
-  const activeList = useActiveList();
+  const activeSource = useActiveSource();
 
   return (
     <>
@@ -63,7 +63,7 @@ export default function TimerTab() {
                 onPress={async () => {
                   setIsLoading(true);
                   if (status === 'running') {
-                    await pause(focusingTask, activeList);
+                    await pause(Platform.OS, focusingTask, activeSource);
                   } else {
                     await resume();
                   }
@@ -82,7 +82,7 @@ export default function TimerTab() {
             onPress={async () => {
               setIsLoading(true);
               if (status !== 'idle') {
-                await stop(focusingTask, activeList);
+                await stop(Platform.OS, focusingTask, activeSource);
               } else {
                 await start();
               }
