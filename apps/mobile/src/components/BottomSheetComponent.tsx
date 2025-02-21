@@ -1,5 +1,5 @@
-import BottomSheet from '@gorhom/bottom-sheet';
-import React from 'react';
+import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
+import { useCallback } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { Pressable, Text } from '@/src/components/Themed';
 import { useBottomSheet } from '../context/BottomSheetContext';
@@ -12,7 +12,19 @@ const BottomSheetComponent = () => {
 
   const tasks = useTasks();
 
-  const renderPickerItem = ({ item }) => (
+  const renderBackdrop = useCallback(
+    (props: any) => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
+        onPress={() => bottomSheetRef.current?.close()}
+      />
+    ),
+    [],
+  );
+
+  const renderPickerItem = ({ item }: { item: any }) => (
     <Pressable
       style={styles.pickerItem}
       onPress={() => {
@@ -23,6 +35,7 @@ const BottomSheetComponent = () => {
       <Text style={styles.pickerItemText}>{item.name}</Text>
     </Pressable>
   );
+
   return (
     <BottomSheet
       ref={bottomSheetRef}
@@ -31,6 +44,7 @@ const BottomSheetComponent = () => {
       backgroundStyle={styles.bottomSheetBackground}
       enablePanDownToClose
       handleIndicatorStyle={{ backgroundColor: '#3F3E55' }}
+      backdropComponent={renderBackdrop}
     >
       {focusingTask !== null && (
         <Pressable
