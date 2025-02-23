@@ -31,9 +31,9 @@ import DeviceLink from '../DeviceLink.astro';
     class="bottom-0 z-10 hidden w-full max-w-5xl flex-shrink-0 translate-y-1/3 px-10 sm:block"
   />
   <div
-    class="absolute -bottom-1 left-0 hidden w-full overflow-hidden fill-background sm:block"
+    class="absolute -bottom-1 left-0 hidden w-[200vw] overflow-hidden fill-background sm:block"
   >
-    <svg viewBox="0 0 100 10" preserveAspectRatio="none">
+    <svg viewBox="0 0 200 10" preserveAspectRatio="none" id="wave">
       <path
         d="M0,7
         C8.33,3 8.33,11 16.67,7 
@@ -42,8 +42,22 @@ import DeviceLink from '../DeviceLink.astro';
         C58.33,3 58.33,11 66.67,7
         C75,3 75,11 83.33,7
         C91.67,3 91.67,11 100,7
-        L100,10 L0,10 Z"
+        C108.33,3 108.33,11 116.67,7
+        C125,3 125,11 133.33,7
+        C141.67,3 141.67,11 150,7
+        C158.33,3 158.33,11 166.67,7
+        C175,3 175,11 183.33,7
+        C191.67,3 191.67,11 200,7
+        L200,10 L0,10 Z"
       ></path>
     </svg>
   </div>
 </div>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const wave = document.getElementById('wave');
+    const scrollY = window.scrollY;
+    wave.style.transform = `translateX(-${scrollY * 0.5}px)`;
+  });
+</script>
