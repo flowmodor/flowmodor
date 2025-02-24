@@ -9,9 +9,6 @@
     "./googletasks": "./src/googletasks.ts",
     "./microsofttodo": "./src/microsofttodo.ts"
   },
-  "dependencies": {
-    "@doist/todoist-api-typescript": "^3.0.2"
-  },
   "devDependencies": {
     "@flowmodor/types": "workspace:*"
   }
