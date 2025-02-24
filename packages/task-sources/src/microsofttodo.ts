@@ -7,6 +7,7 @@ interface IntegrationData {
 
 export default class MicrosoftToDoSource implements TaskSource {
   private supabase: Supabase;
+  private accessToken: string | null = null;
 
   private baseUrl = 'https://graph.microsoft.com/v1.0/me/todo';
 
@@ -15,6 +16,7 @@ export default class MicrosoftToDoSource implements TaskSource {
   }
 
   private async getAccessToken(): Promise<string> {
+    if (this.accessToken) return this.accessToken;
     const { data, error } = await this.supabase
       .from('integrations')
       .select('microsofttodo')
@@ -23,8 +25,8 @@ export default class MicrosoftToDoSource implements TaskSource {
     if (error || !data.microsofttodo) {
       throw new Error('Microsoft Todo access token not found');
     }
-
-    return data.microsofttodo.access_token;
+    this.accessToken = data.microsofttodo.access_token;
+    return this.accessToken;
   }
 
   private async refreshToken(refreshToken: string): Promise<string> {
@@ -78,7 +80,7 @@ export default class MicrosoftToDoSource implements TaskSource {
       const newAccessToken = await this.refreshToken(
         data.microsofttodo.refresh_token,
       );
-
+      this.accessToken = newAccessToken;
       const newOptions = {
         ...options,
         headers: {

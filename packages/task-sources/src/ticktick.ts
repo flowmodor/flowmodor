@@ -3,12 +3,14 @@ import { TaskSource } from '.';
 
 export default class TickTickSource implements TaskSource {
   private supabase: Supabase;
+  private accessToken: string | null = null;
 
   constructor(supabase: Supabase) {
     this.supabase = supabase;
   }
 
   private async getAccessToken(): Promise<string> {
+    if (this.accessToken) return this.accessToken;
     const { data, error } = await this.supabase
       .from('integrations')
       .select('ticktick')
@@ -17,8 +19,8 @@ export default class TickTickSource implements TaskSource {
     if (error || !data?.ticktick) {
       throw new Error('TickTick access token not found');
     }
-
-    return data.ticktick;
+    this.accessToken = data.ticktick;
+    return this.accessToken;
   }
 
   async addTask(

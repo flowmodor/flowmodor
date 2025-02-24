@@ -7,6 +7,7 @@ interface IntegrationData {
 
 export default class GoogleTasksSource implements TaskSource {
   private supabase: Supabase;
+  private accessToken: string | null = null;
 
   private baseUrl = 'https://tasks.googleapis.com/tasks/v1';
 
@@ -15,6 +16,7 @@ export default class GoogleTasksSource implements TaskSource {
   }
 
   private async getAccessToken(): Promise<string> {
+    if (this.accessToken) return this.accessToken;
     const { data, error } = await this.supabase
       .from('integrations')
       .select('googletasks')
@@ -23,8 +25,8 @@ export default class GoogleTasksSource implements TaskSource {
     if (error || !data.googletasks) {
       throw new Error('Google Tasks access token not found');
     }
-
-    return data.googletasks.access_token;
+    this.accessToken = data.googletasks.access_token;
+    return this.accessToken;
   }
 
   private async refreshToken(refreshToken: string): Promise<string> {
@@ -78,7 +80,7 @@ export default class GoogleTasksSource implements TaskSource {
       const newAccessToken = await this.refreshToken(
         data.googletasks.refresh_token,
       );
-
+      this.accessToken = newAccessToken;
       const newOptions = {
         ...options,
         headers: {

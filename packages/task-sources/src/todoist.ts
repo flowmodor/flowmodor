@@ -3,12 +3,14 @@ import { TaskSource } from '.';
 
 export default class TodoistSource implements TaskSource {
   private supabase: Supabase;
+  private accessToken: string | null = null;
 
   constructor(supabase: Supabase) {
     this.supabase = supabase;
   }
 
   private async getAccessToken(): Promise<string> {
+    if (this.accessToken) return this.accessToken;
     const { data, error } = await this.supabase
       .from('integrations')
       .select('todoist')
@@ -17,8 +19,8 @@ export default class TodoistSource implements TaskSource {
     if (error || !data?.todoist) {
       throw new Error('Todoist access token not found');
     }
-
-    return data.todoist;
+    this.accessToken = data.todoist;
+    return this.accessToken;
   }
 
   async addTask(
