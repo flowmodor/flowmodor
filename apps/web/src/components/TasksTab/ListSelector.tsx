@@ -18,7 +18,7 @@ export default function ListSelector() {
   const lists = useLists();
   const activeList = useActiveList();
   const isLoadingLists = useIsLoadingLists();
-  const { onListChange, fetchTasks } = useTasksActions();
+  const { onListChange } = useTasksActions();
 
   if (activeSource === Source.Flowmodor) {
     return null;
