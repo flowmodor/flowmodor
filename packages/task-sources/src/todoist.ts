@@ -4,6 +4,7 @@ import { TaskSource } from '.';
 export default class TodoistSource implements TaskSource {
   private supabase: Supabase;
   private accessToken: string | null = null;
+  private cachedLists: { name: string; id: string }[] | null = null;
 
   constructor(supabase: Supabase) {
     this.supabase = supabase;
@@ -149,6 +150,10 @@ export default class TodoistSource implements TaskSource {
   }
 
   async fetchLists(): Promise<{ name: string; id: string }[]> {
+    if (this.cachedLists) {
+      return this.cachedLists;
+    }
+
     const token = await this.getAccessToken();
     const response = await fetch('https://api.todoist.com/rest/v2/projects', {
       headers: {
@@ -162,7 +167,7 @@ export default class TodoistSource implements TaskSource {
 
     const projects = await response.json();
 
-    return [
+    const lists = [
       { name: 'Today', id: 'today' },
       ...projects.map((project: any) => ({
         name: project.name,
@@ -170,6 +175,9 @@ export default class TodoistSource implements TaskSource {
       })),
       { name: 'All', id: 'all' },
     ];
+    this.cachedLists = lists;
+
+    return lists;
   }
 
   async fetchLabels(): Promise<string[]> {
