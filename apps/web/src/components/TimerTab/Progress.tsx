@@ -20,10 +20,9 @@ export default function Progress() {
   const status = useStatus();
   const showTime = useShowTime();
 
-  const t = Math.floor(displayTime);
-  const hours = Math.floor(t / 3600);
-  const minutes = Math.floor((t % 3600) / 60);
-  const seconds = t % 60;
+  const hours = Math.floor(displayTime / 3600);
+  const minutes = Math.floor((displayTime % 3600) / 60);
+  const seconds = displayTime % 60;
 
   useEffect(() => {
     document.title =

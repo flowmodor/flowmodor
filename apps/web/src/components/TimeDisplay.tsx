@@ -1,42 +1,45 @@
-import NumberFlow from '@number-flow/react';
+import NumberFlow, { NumberFlowGroup } from '@number-flow/react';
+import { useMode } from '@/hooks/useTimer';
 
-interface TimeDisplayProps {
+type Props = {
   hours?: number;
   minutes: number;
   seconds: number;
-}
+};
 
-export default function TimeDisplay({
-  hours,
-  minutes,
-  seconds,
-}: TimeDisplayProps) {
+export default function TimeDisplay({ hours, minutes, seconds }: Props) {
+  const mode = useMode();
+  const trend = mode === 'focus' ? 1 : -1;
+  const showHours = typeof hours !== 'undefined' && hours > 0;
+
   return (
-    <div
-      id="time"
-      className={`flex items-center gap-1 ${typeof hours === 'number' ? 'text-[2.5rem]' : ''}`}
-    >
-      {typeof hours === 'number' && (
-        <>
+    <NumberFlowGroup>
+      <div
+        className={`${showHours ? 'text-4xl' : 'text-5xl'} flex items-baseline font-semibold tabular-nums`}
+      >
+        {typeof hours !== 'undefined' && (
           <NumberFlow
+            trend={trend}
             value={hours}
-            className="inline-block w-[2ch] text-right"
-            format={{ minimumIntegerDigits: 2, useGrouping: false }}
+            format={{ minimumIntegerDigits: 2 }}
           />
-          <span className="inline-block w-[1rem] text-center">:</span>
-        </>
-      )}
-      <NumberFlow
-        value={minutes}
-        className={`inline-block w-[2ch] ${typeof hours === 'number' ? 'text-center' : 'text-right'}`}
-        format={{ minimumIntegerDigits: 2, useGrouping: false }}
-      />
-      <span className="inline-block w-[1rem] text-center">:</span>
-      <NumberFlow
-        value={seconds}
-        className="inline-block w-[2ch] text-left"
-        format={{ minimumIntegerDigits: 2, useGrouping: false }}
-      />
-    </div>
+        )}
+
+        <NumberFlow
+          {...(showHours ? { prefix: ':' } : {})}
+          trend={trend}
+          value={minutes}
+          digits={{ 1: { max: 5 } }}
+          format={{ minimumIntegerDigits: 2 }}
+        />
+        <NumberFlow
+          prefix=":"
+          trend={trend}
+          value={seconds}
+          digits={{ 1: { max: 5 } }}
+          format={{ minimumIntegerDigits: 2 }}
+        />
+      </div>
+    </NumberFlowGroup>
   );
 }
