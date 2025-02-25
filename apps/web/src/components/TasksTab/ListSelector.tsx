@@ -53,8 +53,7 @@ export default function ListSelector() {
           return;
         }
 
-        onListChange(e.target.value);
-        await fetchTasks();
+        await onListChange(e.target.value);
       }}
     >
       {selectItems}

@@ -123,8 +123,7 @@ export default function Stats() {
                     activeList === list.id ? '#DBBFFF' : '#3F3E55',
                 }}
                 onPress={async () => {
-                  onListChange(list.id);
-                  await fetchTasks();
+                  await onListChange(list.id);
                 }}
               >
                 <Text

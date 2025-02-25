@@ -42,7 +42,7 @@ interface Action {
   unfocusTask: () => void;
   fetchTasks: () => Promise<void>;
   onSourceChange: (newSource: Source) => Promise<void>;
-  onListChange: (id: string) => void;
+  onListChange: (id: string) => Promise<void>;
   onLabelChange: (label: string) => void;
 }
 
@@ -244,8 +244,9 @@ export const createStore = (
           set({ isLoadingLists: false, isLoadingTasks: false });
         }
       },
-      onListChange: (id) => {
+      onListChange: async (id) => {
         set({ activeList: id });
+        await get().actions.fetchTasks();
       },
       onLabelChange: (label) => {
         set({ activeLabel: label });
