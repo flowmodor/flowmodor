@@ -213,6 +213,7 @@ export const createStore = (
             isLoadingLists: true,
             isLoadingTasks: true,
             activeSource: newSource,
+            activeLabel: '',
             sourceInstance: new sourceMap[newSource](supabase),
           });
 
