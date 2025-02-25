@@ -2,6 +2,7 @@
 
 import { CircularProgress } from '@heroui/progress';
 import { useEffect } from 'react';
+import TimeDisplay from '@/components/TimeDisplay';
 import {
   useDisplayTime,
   useMode,
@@ -18,6 +19,11 @@ export default function Progress() {
   const mode = useMode();
   const status = useStatus();
   const showTime = useShowTime();
+
+  const t = Math.floor(displayTime);
+  const hours = Math.floor(t / 3600);
+  const minutes = Math.floor((t % 3600) / 60);
+  const seconds = t % 60;
 
   useEffect(() => {
     document.title =
@@ -36,11 +42,17 @@ export default function Progress() {
       showValueLabel
       aria-label="Timer progress"
       valueLabel={
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center">
           <span id="mode" className={showTime ? 'text-2xl' : 'text-3xl'}>
             {mode === 'focus' ? 'Focus' : 'Break'}
           </span>
-          <span id="time">{showTime && formatTime(displayTime)}</span>
+          {showTime && (
+            <TimeDisplay
+              {...(hours > 0 ? { hours } : {})}
+              minutes={minutes}
+              seconds={seconds}
+            />
+          )}
           <TaskSelector />
         </div>
       }

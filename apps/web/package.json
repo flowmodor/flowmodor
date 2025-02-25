@@ -14,6 +14,7 @@
     "@flowmodor/stores": "workspace:*",
     "@flowmodor/task-sources": "workspace:*",
     "@heroui/react": "2.6.14",
+    "@number-flow/react": "^0.5.5",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.10",
     "canvas": "^3.0.1",
