@@ -51,14 +51,19 @@ export default function TaskBox({ task }: { task: Task }) {
         onChange={async () => {
           await completeTask(task);
 
-          toast(`${task.name} completed`, {
-            action: {
-              label: 'Undo',
-              onClick: async () => {
-                await undoCompleteTask(task, activeList);
+          toast(
+            <span>
+              <Markdown>{task.name}</Markdown> completed
+            </span>,
+            {
+              action: {
+                label: 'Undo',
+                onClick: async () => {
+                  await undoCompleteTask(task, activeList);
+                },
               },
             },
-          });
+          );
         }}
       />
       <div className="flex select-none flex-col ">

@@ -28,7 +28,7 @@
     "react-dom": "19.0.0",
     "react-hotkeys-hook": "^4.5.0",
     "react-markdown": "^9.0.1",
-    "sonner": "^1.7.1",
+    "sonner": "^2.0.1",
     "tailwind-scrollbar-hide": "^1.1.7",
     "zustand": "^5.0.2"
   },
