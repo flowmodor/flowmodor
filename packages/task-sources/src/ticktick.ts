@@ -4,6 +4,7 @@ import { TaskSource } from '.';
 export default class TickTickSource implements TaskSource {
   private supabase: Supabase;
   private accessToken: string | null = null;
+  public supportsLabels = true;
 
   constructor(supabase: Supabase) {
     this.supabase = supabase;

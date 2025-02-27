@@ -30,4 +30,5 @@ export interface TaskSource {
   fetchTasks(listId?: string): Promise<Task[]>;
   fetchLists(): Promise<List[]>;
   fetchLabels(): Promise<string[]>;
+  supportsLabels: boolean;
 }

@@ -5,6 +5,7 @@ import {
   useActiveLabel,
   useIsLoadingLists,
   useLabels,
+  useSupportsLabels,
   useTasksActions,
 } from '@/hooks/useTasks';
 import { useMode, useStatus } from '@/hooks/useTimer';
@@ -16,8 +17,9 @@ export default function Filter() {
   const activeLabel = useActiveLabel();
   const isLoadingLists = useIsLoadingLists();
   const { onLabelChange } = useTasksActions();
+  const supportsLabels = useSupportsLabels();
 
-  if (labels.length === 0) {
+  if (!supportsLabels) {
     return null;
   }
 

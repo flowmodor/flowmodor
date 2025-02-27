@@ -8,6 +8,7 @@ interface IntegrationData {
 export default class GoogleTasksSource implements TaskSource {
   private supabase: Supabase;
   private accessToken: string | null = null;
+  public supportsLabels = false;
 
   private baseUrl = 'https://tasks.googleapis.com/tasks/v1';
 

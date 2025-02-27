@@ -8,6 +8,7 @@ interface IntegrationData {
 export default class MicrosoftToDoSource implements TaskSource {
   private supabase: Supabase;
   private accessToken: string | null = null;
+  public supportsLabels = true;
 
   private baseUrl = 'https://graph.microsoft.com/v1.0/me/todo';
 

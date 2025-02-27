@@ -3,6 +3,7 @@ import { TaskSource } from '.';
 
 export default class FlowmodorSource implements TaskSource {
   private supabase: Supabase;
+  public supportsLabels = false;
 
   constructor(supabase: Supabase) {
     this.supabase = supabase;

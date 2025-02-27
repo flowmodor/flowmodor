@@ -28,7 +28,7 @@ interface State {
   isLoadingLists: boolean;
   activeLabel: string;
   labels: string[];
-  sourceInstance: TaskSource | null;
+  sourceInstance: TaskSource;
 }
 
 interface Action {
@@ -277,5 +277,9 @@ export const createHooks = (useStore: ReturnType<typeof createStore>) => ({
     }
 
     return tasks.filter((task) => task.labels?.includes(activeLabel));
+  },
+  useSupportsLabels: () => {
+    const instance = useStore((s) => s.sourceInstance);
+    return instance.supportsLabels;
   },
 });

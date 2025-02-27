@@ -5,6 +5,7 @@ export default class TodoistSource implements TaskSource {
   private supabase: Supabase;
   private accessToken: string | null = null;
   private cachedLists: { name: string; id: string }[] | null = null;
+  public supportsLabels = true;
 
   constructor(supabase: Supabase) {
     this.supabase = supabase;
