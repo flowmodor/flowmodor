@@ -29,6 +29,7 @@ interface State {
   isLoadingLabels: boolean;
   activeLabel: string;
   labels: string[];
+  tasksAbortController: AbortController | null;
   sourceInstance: TaskSource;
 }
 
@@ -69,6 +70,7 @@ export const createStore = (
     isLoadingLabels: false,
     activeLabel: '',
     labels: [],
+    tasksAbortController: null,
     sourceInstance: new FlowmodorSource(supabase),
     actions: {
       addTask: async (name) => {
@@ -199,16 +201,30 @@ export const createStore = (
       unfocusTask: () => set({ focusingTask: null }),
       fetchTasks: async () => {
         try {
-          const { sourceInstance, activeList } = get();
+          const { sourceInstance, activeList, tasksAbortController } = get();
+          if (tasksAbortController) {
+            tasksAbortController.abort();
+          }
+          const abortController = new AbortController();
 
-          set({ focusingTask: null, isLoadingTasks: true });
+          set({
+            tasksAbortController: abortController,
+            focusingTask: null,
+            isLoadingTasks: true,
+          });
+
           const tasks = await sourceInstance.fetchTasks(
             activeList ?? undefined,
+            abortController.signal,
           );
-          set({ tasks, isLoadingTasks: false });
-        } catch (error) {
+
+          set({ tasks, isLoadingTasks: false, tasksAbortController: null });
+        } catch (error: any) {
+          if (error?.name === 'AbortError') {
+            return;
+          }
           onError('Failed to fetch tasks');
-          set({ isLoadingTasks: false });
+          set({ isLoadingTasks: false, tasksAbortController: null });
         }
       },
       onSourceChange: async (newSource) => {
@@ -248,7 +264,7 @@ export const createStore = (
       },
       onListChange: async (id) => {
         set({ activeList: id });
-        await get().actions.fetchTasks();
+        get().actions.fetchTasks();
       },
       onLabelChange: (label) => {
         set({ activeLabel: label });

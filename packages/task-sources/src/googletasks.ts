@@ -189,7 +189,7 @@ export default class GoogleTasksSource implements TaskSource {
     }
   }
 
-  async fetchTasks(listId: string): Promise<Task[]> {
+  async fetchTasks(listId: string, signal?: AbortSignal): Promise<Task[]> {
     const accessToken = await this.getAccessToken();
 
     const response = await this.makeRequest(
@@ -198,6 +198,7 @@ export default class GoogleTasksSource implements TaskSource {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
+        signal,
       },
     );
 

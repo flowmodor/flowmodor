@@ -108,7 +108,7 @@ export default class TodoistSource implements TaskSource {
     }
   }
 
-  async fetchTasks(listId: string): Promise<Task[]> {
+  async fetchTasks(listId: string, signal?: AbortSignal): Promise<Task[]> {
     const token = await this.getAccessToken();
     const lists = await this.fetchLists();
     const listName = lists.find((list) => list.id === listId)?.name;
@@ -133,6 +133,7 @@ export default class TodoistSource implements TaskSource {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        signal,
       },
     );
 

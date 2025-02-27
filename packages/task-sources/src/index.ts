@@ -27,7 +27,7 @@ export interface TaskSource {
   deleteTask(taskId: string, listId?: string): Promise<void>;
   completeTask(taskId: string, listId?: string): Promise<void>;
   undoCompleteTask(taskId: string, listId: string | null): Promise<void>;
-  fetchTasks(listId?: string): Promise<Task[]>;
+  fetchTasks(listId?: string, signal?: AbortSignal): Promise<Task[]>;
   fetchLists(): Promise<List[]>;
   fetchLabels(): Promise<string[]>;
   supportsLabels: boolean;

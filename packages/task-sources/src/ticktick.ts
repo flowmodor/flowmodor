@@ -112,7 +112,7 @@ export default class TickTickSource implements TaskSource {
     }
   }
 
-  async fetchTasks(listId: string): Promise<Task[]> {
+  async fetchTasks(listId: string, signal?: AbortSignal): Promise<Task[]> {
     const accessToken = await this.getAccessToken();
 
     const response = await fetch(
@@ -121,6 +121,7 @@ export default class TickTickSource implements TaskSource {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
+        signal,
       },
     );
 
