@@ -10,6 +10,7 @@ export const {
   useIsLoadingTasks,
   useActiveList,
   useIsLoadingLists,
+  useIsLoadingLabels,
   useLabels,
   useActiveLabel,
   useTasksActions,

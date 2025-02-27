@@ -26,6 +26,7 @@ interface State {
   activeList: string | null;
   lists: List[];
   isLoadingLists: boolean;
+  isLoadingLabels: boolean;
   activeLabel: string;
   labels: string[];
   sourceInstance: TaskSource;
@@ -37,7 +38,8 @@ interface Action {
   completeTask: (task: Task) => Promise<void>;
   undoCompleteTask: (task: Task, listId: string | null) => Promise<void>;
   fetchSources: () => Promise<void>;
-  fetchListsAndLabels: () => Promise<void>;
+  fetchLists: () => Promise<void>;
+  fetchLabels: () => Promise<void>;
   focusTask: (task: Task) => void;
   unfocusTask: () => void;
   fetchTasks: () => Promise<void>;
@@ -64,6 +66,7 @@ export const createStore = (
     activeList: null,
     lists: [],
     isLoadingLists: true,
+    isLoadingLabels: false,
     activeLabel: '',
     labels: [],
     sourceInstance: new FlowmodorSource(supabase),
@@ -71,7 +74,6 @@ export const createStore = (
       addTask: async (name) => {
         try {
           const { sourceInstance, tasks, activeList, activeLabel } = get();
-          if (!sourceInstance) return;
 
           const task = await sourceInstance.addTask(name, {
             listId: activeList ?? undefined,
@@ -86,7 +88,6 @@ export const createStore = (
       deleteTask: async (task) => {
         try {
           const { sourceInstance, activeList, focusingTask, actions } = get();
-          if (!sourceInstance) return;
 
           if (focusingTask?.id === task.id) {
             actions.unfocusTask();
@@ -103,7 +104,6 @@ export const createStore = (
       completeTask: async (task) => {
         try {
           const { sourceInstance, focusingTask, actions, activeList } = get();
-          if (!sourceInstance) return;
 
           if (focusingTask?.id === task.id) {
             actions.unfocusTask();
@@ -120,9 +120,8 @@ export const createStore = (
       undoCompleteTask: async (task, listId) => {
         try {
           const { sourceInstance } = get();
-          if (!sourceInstance) return;
-
           await sourceInstance.undoCompleteTask(task.id, listId);
+
           set((state) => ({
             tasks: [
               {
@@ -169,25 +168,31 @@ export const createStore = (
           set({ isLoadingSources: false });
         }
       },
-      fetchListsAndLabels: async () => {
+      fetchLists: async () => {
         try {
           const { sourceInstance } = get();
-          if (!sourceInstance) return;
-
-          const [lists, labels] = await Promise.all([
-            sourceInstance.fetchLists(),
-            sourceInstance.fetchLabels(),
-          ]);
-
+          const lists = await sourceInstance.fetchLists();
           set({
             lists,
-            labels,
             activeList: lists.length > 0 ? lists[0].id : null,
             isLoadingLists: false,
           });
         } catch (error) {
-          onError('Failed to fetch lists and labels');
+          onError('Failed to fetch lists');
           set({ isLoadingLists: false });
+        }
+      },
+      fetchLabels: async () => {
+        try {
+          set({ isLoadingLabels: true });
+
+          const { sourceInstance } = get();
+          const labels = await sourceInstance.fetchLabels();
+
+          set({ labels, isLoadingLabels: false });
+        } catch (error) {
+          onError('Failed to fetch labels');
+          set({ isLoadingLabels: false });
         }
       },
       focusTask: (task) => set({ focusingTask: task }),
@@ -195,7 +200,6 @@ export const createStore = (
       fetchTasks: async () => {
         try {
           const { sourceInstance, activeList } = get();
-          if (!sourceInstance) return;
 
           set({ focusingTask: null, isLoadingTasks: true });
           const tasks = await sourceInstance.fetchTasks(
@@ -212,13 +216,14 @@ export const createStore = (
           set({
             isLoadingLists: true,
             isLoadingTasks: true,
+            isLoadingLabels: true,
             activeSource: newSource,
             activeLabel: '',
             sourceInstance: new sourceMap[newSource](supabase),
           });
 
           const {
-            actions: { fetchListsAndLabels, fetchTasks },
+            actions: { fetchLists, fetchLabels, fetchTasks },
           } = get();
 
           if (newSource === Source.Todoist) {
@@ -231,15 +236,11 @@ export const createStore = (
                 },
               ],
             });
-
-            fetchTasks();
-            fetchListsAndLabels();
-
-            return;
           }
 
-          await fetchListsAndLabels();
+          await fetchLists();
           await fetchTasks();
+          fetchLabels();
         } catch (error) {
           onError('Failed to change source');
           set({ isLoadingLists: false, isLoadingTasks: false });
@@ -264,6 +265,7 @@ export const createHooks = (useStore: ReturnType<typeof createStore>) => ({
   useIsLoadingTasks: () => useStore((s) => s.isLoadingTasks),
   useActiveList: () => useStore((s) => s.activeList),
   useIsLoadingLists: () => useStore((s) => s.isLoadingLists),
+  useIsLoadingLabels: () => useStore((s) => s.isLoadingLabels),
   useLabels: () => useStore((s) => s.labels),
   useActiveLabel: () => useStore((s) => s.activeLabel),
   useTasksActions: () => useStore((s) => s.actions),

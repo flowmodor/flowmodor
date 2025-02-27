@@ -3,7 +3,7 @@
 import { Select, SelectItem } from '@heroui/select';
 import {
   useActiveLabel,
-  useIsLoadingLists,
+  useIsLoadingLabels,
   useLabels,
   useSupportsLabels,
   useTasksActions,
@@ -15,7 +15,7 @@ export default function Filter() {
   const mode = useMode();
   const labels = useLabels();
   const activeLabel = useActiveLabel();
-  const isLoadingLists = useIsLoadingLists();
+  const isLoadingLabels = useIsLoadingLabels();
   const { onLabelChange } = useTasksActions();
   const supportsLabels = useSupportsLabels();
 
@@ -29,7 +29,7 @@ export default function Filter() {
       radius="sm"
       selectionMode="single"
       label="Filter by label"
-      isLoading={isLoadingLists}
+      isLoading={isLoadingLabels}
       isDisabled={status === 'running' && mode === 'focus'}
       classNames={{
         trigger: 'bg-secondary data-[hover=true]:bg-secondary',

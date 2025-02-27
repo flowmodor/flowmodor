@@ -6,7 +6,8 @@ import useTick from '@/hooks/useTick';
 import { useStatus } from '@/hooks/useTimer';
 
 export function HomeProvider({ children }: { children: ReactNode }) {
-  const { fetchSources, fetchListsAndLabels, fetchTasks } = useTasksActions();
+  const { fetchSources, fetchLists, fetchLabels, fetchTasks } =
+    useTasksActions();
   const status = useStatus();
   const effectRunRef = useRef(false);
 
@@ -18,9 +19,9 @@ export function HomeProvider({ children }: { children: ReactNode }) {
     effectRunRef.current = true;
 
     fetchSources();
-    fetchListsAndLabels();
+    fetchLists();
     fetchTasks();
-  }, [fetchListsAndLabels]);
+  }, [fetchLists, fetchLabels]);
 
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
