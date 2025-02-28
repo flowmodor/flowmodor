@@ -2,6 +2,7 @@ import { Pressable as NativePressable, StyleSheet, View } from 'react-native';
 import { AngleRight } from '@/src/components/Icons';
 import { Text } from '@/src/components/Themed';
 import { useBottomSheet } from '@/src/context/BottomSheetContext';
+import { convertMarkdownToText } from '@/src/utils';
 import { useFocusingTask } from '../hooks/useTasks';
 import { useStatus } from '../hooks/useTimer';
 
@@ -40,7 +41,9 @@ export default function TaskSelector() {
               styles.focusingTaskTextActive,
           ]}
         >
-          {focusingTask ? focusingTask.name : 'Select a task'}
+          {focusingTask
+            ? convertMarkdownToText(focusingTask.name)
+            : 'Select a task'}
         </Text>
         <AngleRight
           fill={focusingTask && status !== 'running' ? '#FFFFFF' : '#FFFFFFA0'}

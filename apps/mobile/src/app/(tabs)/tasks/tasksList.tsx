@@ -17,7 +17,7 @@ import {
   useTasks,
   useTasksActions,
 } from '@/src/hooks/useTasks';
-import { hapticsImpact } from '@/src/utils';
+import { convertMarkdownToText, hapticsImpact } from '@/src/utils';
 
 export default function TasksScreen() {
   const tasks = useTasks();
@@ -80,7 +80,9 @@ export default function TasksScreen() {
                 }}
                 isChecked={item.completed}
               />
-              <Text style={{ fontSize: 16 }}>{item.name}</Text>
+              <Text style={{ fontSize: 16 }}>
+                {convertMarkdownToText(item.name)}
+              </Text>
             </View>
           )}
           keyExtractor={(item) => item.id.toString()}

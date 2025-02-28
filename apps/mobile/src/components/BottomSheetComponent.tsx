@@ -2,6 +2,7 @@ import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { useCallback } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { Pressable, Text } from '@/src/components/Themed';
+import { convertMarkdownToText } from '@/src/utils';
 import { useBottomSheet } from '../context/BottomSheetContext';
 import { useFocusingTask, useTasks, useTasksActions } from '../hooks/useTasks';
 
@@ -32,7 +33,9 @@ const BottomSheetComponent = () => {
         bottomSheetRef.current?.close();
       }}
     >
-      <Text style={styles.pickerItemText}>{item.name}</Text>
+      <Text style={styles.pickerItemText}>
+        {convertMarkdownToText(item.name)}
+      </Text>
     </Pressable>
   );
 

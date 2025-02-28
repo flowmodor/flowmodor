@@ -1,6 +1,7 @@
 import { LogsWithTasks } from '@flowmodor/types';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { convertMarkdownToText } from '@/src/utils';
 import { useLogs } from '../hooks/useStats';
 
 const HOUR_HEIGHT = 120;
@@ -56,7 +57,11 @@ export default function ScheduleChart() {
             >
               {duration >= 10 && (
                 <>
-                  <Text>{log.task_name ?? log.tasks?.name ?? 'Focus'}</Text>
+                  <Text>
+                    {convertMarkdownToText(
+                      log.task_name ?? log.tasks?.name ?? 'Focus',
+                    )}
+                  </Text>
                   <Text>
                     <Time time={duration} />
                   </Text>
