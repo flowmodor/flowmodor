@@ -46,11 +46,9 @@ export default function SourcesScreen() {
           onPress={() => {
             onSourceChange(source);
             if (source === Source.Flowmodor) {
-              router.push(
-                '/(tabs)/tasks/tasksList?listId=flowmodor&listName=Flowmodor',
-              );
+              router.push('/(tabs)/tasks/tasksScreen?listName=Flowmodor');
             } else {
-              router.push('/(tabs)/tasks/lists');
+              router.push('/(tabs)/tasks/listSelector');
             }
           }}
         >

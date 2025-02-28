@@ -43,10 +43,8 @@ export default function ListsScreen() {
           <RNPressable
             key={list.id}
             onPress={async () => {
-              await onListChange(list.id);
-              router.push(
-                `/(tabs)/tasks/tasksList?listId=${list.id}&listName=${list.name}`,
-              );
+              onListChange(list.id);
+              router.push(`/(tabs)/tasks/tasksScreen?listName=${list.name}`);
             }}
           >
             <View
