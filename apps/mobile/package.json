@@ -8,7 +8,7 @@
     "ios": "expo run:ios"
   },
   "dependencies": {
-    "@expo/vector-icons": "^14.0.2",
+    "@expo/vector-icons": "^14.0.4",
     "@flowmodor/stores": "workspace:*",
     "@flowmodor/task-sources": "workspace:*",
     "@gorhom/bottom-sheet": "^4.6.4",
@@ -18,15 +18,15 @@
     "@react-native-menu/menu": "^1.2.2",
     "@react-navigation/native": "^6.0.2",
     "@supabase/supabase-js": "^2.47.10",
-    "expo": "~51.0.31",
+    "expo": "~51.0.39",
     "expo-apple-authentication": "~6.4.2",
-    "expo-font": "~12.0.9",
+    "expo-font": "~12.0.10",
     "expo-haptics": "~13.0.1",
     "expo-image": "~1.13.0",
     "expo-linking": "~6.3.1",
     "expo-notifications": "~0.28.19",
-    "expo-router": "~3.5.23",
-    "expo-splash-screen": "~0.27.5",
+    "expo-router": "~3.5.24",
+    "expo-splash-screen": "~0.27.7",
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.7",
     "expo-web-browser": "~13.0.3",
@@ -50,7 +50,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@flowmodor/types": "workspace:*",
-    "@types/react": "~18.2.45",
+    "@types/react": "18.2.79",
     "react-test-renderer": "18.2.0",
     "typescript": "~5.3.3"
   },

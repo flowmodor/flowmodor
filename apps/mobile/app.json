@@ -47,7 +47,8 @@
           ]
         }
       ],
-      "./plugins/notifee-mod.js"
+      "./plugins/notifee-mod.js",
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true
