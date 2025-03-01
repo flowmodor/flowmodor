@@ -46,6 +46,7 @@ const BottomSheetComponent = () => {
       snapPoints={['50%']}
       backgroundStyle={styles.bottomSheetBackground}
       enablePanDownToClose
+      enableDynamicSizing={false}
       handleIndicatorStyle={{ backgroundColor: '#3F3E55' }}
       backdropComponent={renderBackdrop}
     >
