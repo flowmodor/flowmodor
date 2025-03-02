@@ -1,7 +1,7 @@
 import { LogsWithTasks } from '@flowmodor/types';
+import { convertMarkdownToText } from '@flowmodor/utils/markdown';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { convertMarkdownToText } from '@/src/utils';
 import { useLogs } from '../hooks/useStats';
 
 const HOUR_HEIGHT = 120;

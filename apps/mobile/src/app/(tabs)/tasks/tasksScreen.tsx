@@ -1,3 +1,4 @@
+import { convertMarkdownToText } from '@flowmodor/utils/markdown';
 import { useNavigation } from '@react-navigation/native';
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
@@ -17,7 +18,7 @@ import {
   useTasks,
   useTasksActions,
 } from '@/src/hooks/useTasks';
-import { convertMarkdownToText, hapticsImpact } from '@/src/utils';
+import { hapticsImpact } from '@/src/utils';
 
 export default function TasksScreen() {
   const tasks = useTasks();

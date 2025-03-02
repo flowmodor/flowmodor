@@ -1,8 +1,8 @@
+import { convertMarkdownToText } from '@flowmodor/utils/markdown';
 import { Pressable as NativePressable, StyleSheet, View } from 'react-native';
 import { AngleRight } from '@/src/components/Icons';
 import { Text } from '@/src/components/Themed';
 import { useBottomSheet } from '@/src/context/BottomSheetContext';
-import { convertMarkdownToText } from '@/src/utils';
 import { useFocusingTask } from '../hooks/useTasks';
 import { useStatus } from '../hooks/useTimer';
 

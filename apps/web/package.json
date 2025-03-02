@@ -13,6 +13,7 @@
   "dependencies": {
     "@flowmodor/stores": "workspace:*",
     "@flowmodor/task-sources": "workspace:*",
+    "@flowmodor/utils": "workspace:*",
     "@heroui/react": "2.6.14",
     "@number-flow/react": "^0.5.5",
     "@supabase/ssr": "^0.5.2",
@@ -27,7 +28,6 @@
     "react-chartjs-2": "^5.3.0",
     "react-dom": "19.0.0",
     "react-hotkeys-hook": "^4.5.0",
-    "react-markdown": "^9.0.1",
     "sonner": "^2.0.1",
     "tailwind-scrollbar-hide": "^1.1.7",
     "zustand": "^5.0.2"

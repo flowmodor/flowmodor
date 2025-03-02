@@ -1,8 +1,8 @@
+import { convertMarkdownToText } from '@flowmodor/utils/markdown';
 import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { useCallback } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { Pressable, Text } from '@/src/components/Themed';
-import { convertMarkdownToText } from '@/src/utils';
 import { useBottomSheet } from '../context/BottomSheetContext';
 import { useFocusingTask, useTasks, useTasksActions } from '../hooks/useTasks';
 

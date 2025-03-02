@@ -11,6 +11,7 @@
     "@expo/vector-icons": "^14.0.4",
     "@flowmodor/stores": "workspace:*",
     "@flowmodor/task-sources": "workspace:*",
+    "@flowmodor/utils": "workspace:*",
     "@gorhom/bottom-sheet": "^5.1.1",
     "@notifee/react-native": "^9.1.2",
     "@react-native-async-storage/async-storage": "1.23.1",

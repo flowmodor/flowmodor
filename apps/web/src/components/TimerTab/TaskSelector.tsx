@@ -1,9 +1,9 @@
+import { convertMarkdownToText } from '@flowmodor/utils/markdown';
 import { Select, SelectItem } from '@heroui/select';
 import { Tooltip } from '@heroui/tooltip';
 import { useFocusingTask, useTasks, useTasksActions } from '@/hooks/useTasks';
 import { useMode, useStatus } from '@/hooks/useTimer';
 import { RightArrow } from '../Icons';
-import Markdown from '../Markdown';
 
 export default function TaskSelector() {
   const tasks = useTasks();
@@ -40,7 +40,7 @@ export default function TaskSelector() {
         base: 'data-[hover=true]:!bg-secondary data-[focus=true]:!bg-secondary',
       }}
     >
-      <Markdown>{task.name}</Markdown>
+      {convertMarkdownToText(task.name)}
     </SelectItem>
   ));
 

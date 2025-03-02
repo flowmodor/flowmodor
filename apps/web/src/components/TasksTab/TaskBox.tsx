@@ -1,4 +1,5 @@
 import { Task } from '@flowmodor/types';
+import { convertMarkdownToText } from '@flowmodor/utils/markdown';
 import { Checkbox } from '@heroui/checkbox';
 import { useTransition } from 'react';
 import { toast } from 'sonner';
@@ -9,7 +10,6 @@ import {
 } from '@/hooks/useTasks';
 import { useMode, useStatus } from '@/hooks/useTimer';
 import { Calendar, Label, TrashCan } from '../Icons';
-import Markdown from '../Markdown';
 
 export default function TaskBox({ task }: { task: Task }) {
   const [isLoading, startTransition] = useTransition();
@@ -51,23 +51,18 @@ export default function TaskBox({ task }: { task: Task }) {
         onChange={async () => {
           await completeTask(task);
 
-          toast(
-            <span>
-              <Markdown>{task.name}</Markdown> completed
-            </span>,
-            {
-              action: {
-                label: 'Undo',
-                onClick: async () => {
-                  await undoCompleteTask(task, activeList);
-                },
+          toast(`${convertMarkdownToText(task.name)} completed`, {
+            action: {
+              label: 'Undo',
+              onClick: async () => {
+                await undoCompleteTask(task, activeList);
               },
             },
-          );
+          });
         }}
       />
       <div className="flex select-none flex-col ">
-        <Markdown>{task.name}</Markdown>
+        {convertMarkdownToText(task.name)}
         <div className="flex flex-wrap gap-x-2 fill-[#ffffffa0] text-sm text-[#ffffffa0]">
           {task.labels?.map((label) => (
             <div key={label} className="flex gap-1">
