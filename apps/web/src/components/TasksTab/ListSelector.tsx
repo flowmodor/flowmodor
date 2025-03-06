@@ -1,6 +1,6 @@
 'use client';
 
-import { Source } from '@flowmodor/task-sources';
+import { Source } from '@flowmo/task-sources';
 import { Select, SelectItem } from '@heroui/select';
 import {
   useActiveList,
@@ -20,7 +20,7 @@ export default function ListSelector() {
   const isLoadingLists = useIsLoadingLists();
   const { onListChange } = useTasksActions();
 
-  if (activeSource === Source.Flowmodor) {
+  if (activeSource === Source.Flowmo) {
     return null;
   }
 

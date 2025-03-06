@@ -1,4 +1,4 @@
-import { createHooks } from '@flowmodor/stores/timer';
+import { createHooks } from '@flowmo/stores/timer';
 import { store } from '@/stores/timer';
 
 export const {

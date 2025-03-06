@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.4",
-    "@flowmodor/stores": "workspace:*",
-    "@flowmodor/task-sources": "workspace:*",
-    "@flowmodor/utils": "workspace:*",
+    "@flowmo/stores": "workspace:*",
+    "@flowmo/task-sources": "workspace:*",
+    "@flowmo/utils": "workspace:*",
     "@gorhom/bottom-sheet": "^5.1.1",
     "@notifee/react-native": "^9.1.2",
     "@react-native-async-storage/async-storage": "1.23.1",
@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@flowmodor/types": "workspace:*",
+    "@flowmo/types": "workspace:*",
     "@types/react": "18.3.18",
     "react-test-renderer": "18.2.0",
     "typescript": "~5.3.3"

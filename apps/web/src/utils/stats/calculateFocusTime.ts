@@ -1,4 +1,4 @@
-import { LogsWithTasks } from '@flowmodor/types';
+import { LogsWithTasks } from '@flowmo/types';
 
 export function calculateFocusTime(sessions: LogsWithTasks[]): {
   totalFocusTime: number;

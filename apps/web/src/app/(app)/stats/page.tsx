@@ -5,7 +5,7 @@ import YearlyStats from '@/components/Stats/YearlyStats';
 import { createClient } from '@/utils/supabase/server';
 
 export const metadata: Metadata = {
-  title: 'Stats | Flowmodor',
+  title: 'Stats | Flowmo',
 };
 
 export default async function Stats() {

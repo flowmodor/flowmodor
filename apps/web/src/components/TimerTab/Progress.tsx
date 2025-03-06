@@ -26,7 +26,7 @@ export default function Progress() {
 
   useEffect(() => {
     document.title =
-      showTime && status !== 'idle' ? formatTime(displayTime) : 'Flowmodor';
+      showTime && status !== 'idle' ? formatTime(displayTime) : 'Flowmo';
   }, [displayTime, showTime, status]);
 
   return (

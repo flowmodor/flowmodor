@@ -16,7 +16,7 @@ export default function useTick() {
         audio.play();
 
         if ('Notification' in window && Notification.permission === 'granted') {
-          new Notification('Flowmodor', {
+          new Notification('Flowmo', {
             body: 'Time to get back to work!',
             icon: '/images/icons/general_icon_x512.png',
           });

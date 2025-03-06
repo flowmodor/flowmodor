@@ -1,4 +1,4 @@
-import { Period } from '@flowmodor/stores/stats';
+import { Period } from '@flowmo/stores/stats';
 import { Select, SelectItem } from '@heroui/select';
 import { usePeriod, useStatsActions } from '@/hooks/useStats';
 

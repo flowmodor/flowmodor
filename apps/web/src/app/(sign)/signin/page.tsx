@@ -7,7 +7,7 @@ import OAuthButton from '@/components/Sign/OAuthButton';
 import Submit from '@/components/Submit';
 
 export const metadata: Metadata = {
-  title: 'Sign In | Flowmodor',
+  title: 'Sign In | Flowmo',
 };
 
 export default function SignInPage() {

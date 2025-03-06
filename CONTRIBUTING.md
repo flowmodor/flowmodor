@@ -1,16 +1,16 @@
 # Contributing
 
-We welcome everyone to contribute to Flowmodor. This document is to help you understand the process of contributing and ensure a smooth experience. Whether you're fixing a bug, adding a new feature, or improving the documentation, your help is appreciated.
+We welcome everyone to contribute to Flowmo. This document is to help you understand the process of contributing and ensure a smooth experience. Whether you're fixing a bug, adding a new feature, or improving the documentation, your help is appreciated.
 
 ## Web App Development
 
 1. Clone the repository
 ```
-git clone https://github.com/flowmodor/flowmodor
+git clone https://github.com/flowmoio/flowmo
 ```
 2. Navigate to the project directory
 ```
-cd flowmodor
+cd flowmo
 ```
 3. Install dependencies
 ```
@@ -32,7 +32,7 @@ pnpm --filter web dev
 
 ## Finding a task
 
-You can work on features that is on our [feedback board](https://app.flowmodor.com/feedback).
+You can work on features that is on our [feedback board](https://app.flowmo.io/feedback).
 
 Please make sure to create an issue for the task you are working on. This will help us to track the progress and avoid duplication of work.
 

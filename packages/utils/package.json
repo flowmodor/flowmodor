@@ -1,5 +1,5 @@
 {
-  "name": "@flowmodor/utils",
+  "name": "@flowmo/utils",
   "version": "0.1.0",
   "exports": {
     "./markdown": "./src/markdown.ts"

@@ -85,13 +85,13 @@ importers:
       '@expo/vector-icons':
         specifier: ^14.0.4
         version: 14.0.4
-      '@flowmodor/stores':
+      '@flowmo/stores':
         specifier: workspace:*
         version: link:../../packages/stores
-      '@flowmodor/task-sources':
+      '@flowmo/task-sources':
         specifier: workspace:*
         version: link:../../packages/task-sources
-      '@flowmodor/utils':
+      '@flowmo/utils':
         specifier: workspace:*
         version: link:../../packages/utils
       '@gorhom/bottom-sheet':
@@ -203,7 +203,7 @@ importers:
       '@babel/core':
         specifier: ^7.20.0
         version: 7.25.2
-      '@flowmodor/types':
+      '@flowmo/types':
         specifier: workspace:*
         version: link:../../packages/types
       '@types/react':
@@ -224,13 +224,13 @@ importers:
 
   apps/web:
     dependencies:
-      '@flowmodor/stores':
+      '@flowmo/stores':
         specifier: workspace:*
         version: link:../../packages/stores
-      '@flowmodor/task-sources':
+      '@flowmo/task-sources':
         specifier: workspace:*
         version: link:../../packages/task-sources
-      '@flowmodor/utils':
+      '@flowmo/utils':
         specifier: workspace:*
         version: link:../../packages/utils
       '@heroui/react':
@@ -285,7 +285,7 @@ importers:
         specifier: ^5.0.2
         version: 5.0.2(@types/react@19.0.2)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
     devDependencies:
-      '@flowmodor/types':
+      '@flowmo/types':
         specifier: workspace:*
         version: link:../../packages/types
       '@playwright/test':
@@ -336,7 +336,7 @@ importers:
 
   packages/stores:
     dependencies:
-      '@flowmodor/task-sources':
+      '@flowmo/task-sources':
         specifier: workspace:*
         version: link:../task-sources
       '@supabase/supabase-js':
@@ -346,13 +346,13 @@ importers:
         specifier: ^4.4.7
         version: 4.4.7(@types/react@19.0.2)(react@19.0.0)
     devDependencies:
-      '@flowmodor/types':
+      '@flowmo/types':
         specifier: workspace:*
         version: link:../types
 
   packages/task-sources:
     devDependencies:
-      '@flowmodor/types':
+      '@flowmo/types':
         specifier: workspace:*
         version: link:../types
 

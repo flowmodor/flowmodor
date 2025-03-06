@@ -1,4 +1,4 @@
-import { Database } from '@flowmodor/types';
+import { Database } from '@flowmo/types';
 import { createBrowserClient } from '@supabase/ssr';
 
 export type SupabaseClient = ReturnType<typeof createBrowserClient<Database>>;

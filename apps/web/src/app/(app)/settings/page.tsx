@@ -5,7 +5,7 @@ import Options from '@/components/Settings/Options';
 import { createClient } from '@/utils/supabase/server';
 
 export const metadata: Metadata = {
-  title: 'Settings | Flowmodor',
+  title: 'Settings | Flowmo',
 };
 
 export default async function Settings() {

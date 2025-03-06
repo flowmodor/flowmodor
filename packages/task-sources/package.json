@@ -1,15 +1,15 @@
 {
-  "name": "@flowmodor/task-sources",
+  "name": "@flowmo/task-sources",
   "version": "0.1.0",
   "exports": {
     ".": "./src/index.ts",
-    "./flowmodor": "./src/flowmodor.ts",
+    "./flowmo": "./src/flowmo.ts",
     "./todoist": "./src/todoist.ts",
     "./ticktick": "./src/ticktick.ts",
     "./googletasks": "./src/googletasks.ts",
     "./microsofttodo": "./src/microsofttodo.ts"
   },
   "devDependencies": {
-    "@flowmodor/types": "workspace:*"
+    "@flowmo/types": "workspace:*"
   }
 }

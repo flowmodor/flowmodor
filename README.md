@@ -4,7 +4,7 @@
 
 A flexible focus timer helping you stay in flow state
 
-[Web App](https://app.flowmodor.com) · [iOS App](https://apps.apple.com/us/app/flowmodor-flowmodoro-timer/id6670529689) · [Android App](https://play.google.com/store/apps/details?id=com.m4xshen.mobile) · [Feedback](https://app.flowmodor.com/feedback)
+[Web App](https://app.flowmo.io) · [iOS App](https://apps.apple.com/us/app/flowmodor-flowmodoro-timer/id6670529689) · [Android App](https://play.google.com/store/apps/details?id=com.m4xshen.mobile) · [Feedback](https://app.flowmo.io/feedback)
 
 </div>
 
@@ -12,7 +12,7 @@ A flexible focus timer helping you stay in flow state
 
 The problem with classical Pomodoro is that we often finish our work early or the task takes longer than 25 minutes, resulting in interruptions by the alarm.
 
-Flowmodor addresses this by offering flexibility: **work x minutes, take x/5 minutes break**. Flowmodor automatically calculate and set break timer for you based on your work duration. In this way you can stay in the flow state while maintaining the 5:1 work-break ratio.
+Flowmo addresses this by offering flexibility: **work x minutes, take x/5 minutes break**. Flowmo automatically calculate and set break timer for you based on your work duration. In this way you can stay in the flow state while maintaining the 5:1 work-break ratio.
 
 ## Features
 
@@ -22,8 +22,8 @@ Flowmodor addresses this by offering flexibility: **work x minutes, take x/5 min
 - **⚙️ Customizable Options**: Tweak the work and break ratio to fit your needs.
 
 > [!NOTE]
-> To stay up to date with all the latest news and updates, make sure to follow us on X [@Flowmodor](https://twitter.com/flowmodor).
+> To stay up to date with all the latest news and updates, make sure to follow us on X [@Flowmoio](https://x.com/flowmoio).
 
 ## Development and Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/flowmodor/flowmodor/blob/main/CONTRIBUTING.md).
+Please read [CONTRIBUTING.md](https://github.com/flowmoio/flowmo/blob/main/CONTRIBUTING.md).

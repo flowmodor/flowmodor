@@ -1,5 +1,5 @@
 {
-  "name": "@flowmodor/stores",
+  "name": "@flowmo/stores",
   "version": "0.1.0",
   "exports": {
     "./timer": "./src/timer.ts",
@@ -7,11 +7,11 @@
     "./tasks": "./src/tasks.ts"
   },
   "dependencies": {
-    "@flowmodor/task-sources": "workspace:*",
+    "@flowmo/task-sources": "workspace:*",
     "@supabase/supabase-js": "^2.47.10",
     "zustand": "^4.4.7"
   },
   "devDependencies": {
-    "@flowmodor/types": "workspace:*"
+    "@flowmo/types": "workspace:*"
   }
 }

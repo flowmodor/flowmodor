@@ -1,4 +1,4 @@
-import { createStore } from '@flowmodor/stores/timer';
+import { createStore } from '@flowmo/stores/timer';
 import supabase from '@/utils/supabase/client';
 import { store as statsStore } from './stats';
 

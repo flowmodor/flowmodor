@@ -1,5 +1,5 @@
-import { Source } from '@flowmodor/task-sources';
-import { Task } from '@flowmodor/types';
+import { Source } from '@flowmo/task-sources';
+import { Task } from '@flowmo/types';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { create } from 'zustand';
 import { createStore as createStatsStore } from './stats';
@@ -162,7 +162,7 @@ export const createStore = (
           return;
         }
 
-        const hasId = activeSource === Source.Flowmodor;
+        const hasId = activeSource === Source.Flowmo;
         await supabase.from('logs').insert([
           {
             start_time,

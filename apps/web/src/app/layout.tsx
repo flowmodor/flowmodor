@@ -8,16 +8,16 @@ import { Providers } from './providers';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://app.flowmodor.com'),
-  applicationName: 'Flowmodor',
-  title: 'Flowmodor',
-  description: 'Flowmodor Web App',
+  metadataBase: new URL('https://app.flowmo.io'),
+  applicationName: 'Flowmo',
+  title: 'Flowmo',
+  description: 'Flowmo Web App',
   openGraph: {
     type: 'website',
-    url: 'https://app.flowmodor.com',
-    title: 'Flowmodor',
-    description: 'Flowmodor Web App',
-    images: [{ url: 'https://flowmodor.com/og.png' }],
+    url: 'https://app.flowmo.io',
+    title: 'Flowmo',
+    description: 'Flowmo Web App',
+    images: [{ url: 'https://flowmo.io/og.png' }],
   },
   other: {
     'apple-itunes-app': 'app-id=6670529689',

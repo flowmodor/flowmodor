@@ -1,5 +1,5 @@
-import { Task } from '@flowmodor/types';
-import { convertMarkdownToText } from '@flowmodor/utils/markdown';
+import { Task } from '@flowmo/types';
+import { convertMarkdownToText } from '@flowmo/utils/markdown';
 import { Checkbox } from '@heroui/checkbox';
 import { useTransition } from 'react';
 import { toast } from 'sonner';

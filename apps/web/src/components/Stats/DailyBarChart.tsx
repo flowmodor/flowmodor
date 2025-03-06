@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { LogsWithTasks } from '@flowmodor/types';
+import { LogsWithTasks } from '@flowmo/types';
 import {
   BarElement,
   CategoryScale,

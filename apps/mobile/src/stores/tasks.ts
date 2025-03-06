@@ -1,4 +1,4 @@
-import { createStore } from '@flowmodor/stores/tasks';
+import { createStore } from '@flowmo/stores/tasks';
 import 'react-native-get-random-values';
 import { supabase } from '@/src/utils/supabase';
 

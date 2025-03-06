@@ -1,4 +1,4 @@
-import { LogsWithTasks } from '@flowmodor/types';
+import { LogsWithTasks } from '@flowmo/types';
 
 const formatTime = (time: number) => {
   const t = Math.floor(time);

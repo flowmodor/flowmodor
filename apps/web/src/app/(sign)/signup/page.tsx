@@ -4,7 +4,7 @@ import { signUp } from '@/actions/auth';
 import SignUpForm from '@/components/Sign/SignUpForm';
 
 export const metadata: Metadata = {
-  title: 'Sign Up | Flowmodor',
+  title: 'Sign Up | Flowmo',
 };
 
 export default function SignUpPage() {

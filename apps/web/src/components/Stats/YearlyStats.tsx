@@ -1,6 +1,6 @@
 'use client';
 
-import { Tables } from '@flowmodor/types';
+import { Tables } from '@flowmo/types';
 import { Card, CardBody } from '@heroui/card';
 import { calculateStreaks } from '@/utils/stats/calculateStreaks';
 import Heatmap from './Heatmap';

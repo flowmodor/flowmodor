@@ -1,4 +1,4 @@
-import { createStore } from '@flowmodor/stores/timer';
+import { createStore } from '@flowmo/stores/timer';
 import notifee, {
   AndroidImportance,
   AndroidVisibility,
@@ -38,7 +38,7 @@ async function setupBreakTimerNotification(totalTime: number) {
 
   await notifee.createTriggerNotification(
     {
-      title: 'Flowmodor',
+      title: 'Flowmo',
       body: 'Time to get back to work!',
       ios: {
         sound: 'alarm.wav',

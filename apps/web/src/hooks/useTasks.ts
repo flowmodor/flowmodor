@@ -1,4 +1,4 @@
-import { createHooks } from '@flowmodor/stores/tasks';
+import { createHooks } from '@flowmo/stores/tasks';
 import { store } from '@/stores/tasks';
 
 export const {

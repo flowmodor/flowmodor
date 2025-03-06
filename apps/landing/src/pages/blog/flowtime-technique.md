@@ -56,7 +56,7 @@ You can repeat this cycle again and again.
 
 ### Using productivity tools
 
-While using a stopwatch and timer works well, it is cumbersome to do this manually every time. To make things easier, you can use [Flowmodor](https://app.flowmodor.com) to automate the workflow. It also provides detailed stats and insights to help you understand your work patterns better:
+While using a stopwatch and timer works well, it is cumbersome to do this manually every time. To make things easier, you can use [Flowmo](https://app.flowmo.io) to automate the workflow. It also provides detailed stats and insights to help you understand your work patterns better:
 
 ![](/stats-page.png)
 

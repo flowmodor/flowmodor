@@ -1,4 +1,4 @@
-import { List, Task } from '@flowmodor/types';
+import { List, Task } from '@flowmo/types';
 
 export const SUPABASE_URL =
   process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.EXPO_PUBLIC_SUPABASE_URL;
@@ -9,7 +9,7 @@ export interface Integration {
 }
 
 export enum Source {
-  Flowmodor = 'Flowmodor',
+  Flowmo = 'Flowmo',
   Todoist = 'Todoist',
   TickTick = 'TickTick',
   GoogleTasks = 'Google Tasks',

@@ -11,9 +11,9 @@
     "test": "playwright test"
   },
   "dependencies": {
-    "@flowmodor/stores": "workspace:*",
-    "@flowmodor/task-sources": "workspace:*",
-    "@flowmodor/utils": "workspace:*",
+    "@flowmo/stores": "workspace:*",
+    "@flowmo/task-sources": "workspace:*",
+    "@flowmo/utils": "workspace:*",
     "@heroui/react": "2.6.14",
     "@number-flow/react": "^0.5.5",
     "@supabase/ssr": "^0.5.2",
@@ -33,7 +33,7 @@
     "zustand": "^5.0.2"
   },
   "devDependencies": {
-    "@flowmodor/types": "workspace:*",
+    "@flowmo/types": "workspace:*",
     "@playwright/test": "^1.49.0",
     "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^20",

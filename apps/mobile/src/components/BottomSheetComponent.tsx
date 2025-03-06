@@ -1,4 +1,4 @@
-import { convertMarkdownToText } from '@flowmodor/utils/markdown';
+import { convertMarkdownToText } from '@flowmo/utils/markdown';
 import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { useCallback } from 'react';
 import { FlatList, StyleSheet } from 'react-native';

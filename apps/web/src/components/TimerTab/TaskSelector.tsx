@@ -1,4 +1,4 @@
-import { convertMarkdownToText } from '@flowmodor/utils/markdown';
+import { convertMarkdownToText } from '@flowmo/utils/markdown';
 import { Select, SelectItem } from '@heroui/select';
 import { Tooltip } from '@heroui/tooltip';
 import { useFocusingTask, useTasks, useTasksActions } from '@/hooks/useTasks';

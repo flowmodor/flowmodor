@@ -5,7 +5,7 @@ import { sendPasswordReset } from '@/actions/auth';
 import Submit from '@/components/Submit';
 
 export const metadata: Metadata = {
-  title: 'Forgot Password | Flowmodor',
+  title: 'Forgot Password | Flowmo',
 };
 
 export default function ForgotPasswordPage() {
@@ -16,7 +16,7 @@ export default function ForgotPasswordPage() {
     >
       <h1 className="text-3xl font-semibold">Forgot your password?</h1>
       <div className="mx-auto w-[70vw] text-sm sm:w-auto">
-        To reset your password, please enter the email address of your Flowmodor
+        To reset your password, please enter the email address of your Flowmo
         account.
       </div>
       <Input

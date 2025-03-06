@@ -1,7 +1,7 @@
-import { Supabase, Task } from '@flowmodor/types';
+import { Supabase, Task } from '@flowmo/types';
 import { TaskSource } from '.';
 
-export default class FlowmodorSource implements TaskSource {
+export default class FlowmoSource implements TaskSource {
   private supabase: Supabase;
   public supportsLabels = false;
 

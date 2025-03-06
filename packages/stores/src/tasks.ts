@@ -1,15 +1,15 @@
-import { Source, TaskSource } from '@flowmodor/task-sources';
-import FlowmodorSource from '@flowmodor/task-sources/flowmodor';
-import GoogleTasksSource from '@flowmodor/task-sources/googletasks';
-import MicrosoftToDoSource from '@flowmodor/task-sources/microsofttodo';
-import TickTickSource from '@flowmodor/task-sources/ticktick';
-import TodoistSource from '@flowmodor/task-sources/todoist';
-import { List, Task } from '@flowmodor/types';
+import { Source, TaskSource } from '@flowmo/task-sources';
+import FlowmoSource from '@flowmo/task-sources/flowmo';
+import GoogleTasksSource from '@flowmo/task-sources/googletasks';
+import MicrosoftToDoSource from '@flowmo/task-sources/microsofttodo';
+import TickTickSource from '@flowmo/task-sources/ticktick';
+import TodoistSource from '@flowmo/task-sources/todoist';
+import { List, Task } from '@flowmo/types';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { create } from 'zustand';
 
 const sourceMap = {
-  [Source.Flowmodor]: FlowmodorSource,
+  [Source.Flowmo]: FlowmoSource,
   [Source.Todoist]: TodoistSource,
   [Source.TickTick]: TickTickSource,
   [Source.GoogleTasks]: GoogleTasksSource,
@@ -61,8 +61,8 @@ export const createStore = (
     tasks: [],
     focusingTask: null,
     isLoadingTasks: true,
-    sources: [Source.Flowmodor],
-    activeSource: Source.Flowmodor,
+    sources: [Source.Flowmo],
+    activeSource: Source.Flowmo,
     isLoadingSources: true,
     activeList: null,
     lists: [],
@@ -71,7 +71,7 @@ export const createStore = (
     activeLabel: '',
     labels: [],
     tasksAbortController: null,
-    sourceInstance: new FlowmodorSource(supabase),
+    sourceInstance: new FlowmoSource(supabase),
     actions: {
       addTask: async (name) => {
         try {
@@ -157,7 +157,7 @@ export const createStore = (
             .single();
           set({
             sources: [
-              Source.Flowmodor,
+              Source.Flowmo,
               ...(data?.todoist ? [Source.Todoist] : []),
               ...(data?.ticktick ? [Source.TickTick] : []),
               ...(data?.googletasks ? [Source.GoogleTasks] : []),
@@ -290,7 +290,7 @@ export const createHooks = (useStore: ReturnType<typeof createStore>) => ({
     const activeLabel = useStore((state) => state.activeLabel);
     const activeSource = useStore((state) => state.activeSource);
 
-    if (activeLabel === '' || activeSource === Source.Flowmodor) {
+    if (activeLabel === '' || activeSource === Source.Flowmo) {
       return tasks;
     }
 

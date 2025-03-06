@@ -1,4 +1,4 @@
-import { Source } from '@flowmodor/task-sources';
+import { Source } from '@flowmo/task-sources';
 import { useNavigation, useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { View } from 'react-native';
@@ -45,8 +45,8 @@ export default function SourcesScreen() {
           key={source}
           onPress={() => {
             onSourceChange(source);
-            if (source === Source.Flowmodor) {
-              router.push('/(tabs)/tasks/tasksScreen?listName=Flowmodor');
+            if (source === Source.Flowmo) {
+              router.push('/(tabs)/tasks/tasksScreen?listName=Flowmo');
             } else {
               router.push('/(tabs)/tasks/listSelector');
             }

@@ -1,4 +1,4 @@
-import { Supabase, Task } from '@flowmodor/types';
+import { Supabase, Task } from '@flowmo/types';
 import { TaskSource } from '.';
 
 export default class TickTickSource implements TaskSource {

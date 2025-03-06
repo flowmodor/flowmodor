@@ -1,4 +1,4 @@
-import { List, Supabase, Task } from '@flowmodor/types';
+import { List, Supabase, Task } from '@flowmo/types';
 import { Integration, SUPABASE_URL, TaskSource } from '.';
 
 interface IntegrationData {

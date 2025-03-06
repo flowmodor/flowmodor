@@ -1,4 +1,4 @@
-import { convertMarkdownToText } from '@flowmodor/utils/markdown';
+import { convertMarkdownToText } from '@flowmo/utils/markdown';
 import { useNavigation } from '@react-navigation/native';
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';

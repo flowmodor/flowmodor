@@ -46,7 +46,7 @@ export default function UserDropdown({ user }: { user: User | null }) {
         <DropdownItem
           key="x"
           as={Link}
-          href="https://x.com/flowmodor"
+          href="https://x.com/flowmoio"
           target="_blank"
           className="data-[focus=true]:bg-secondary data-[hover=true]:bg-secondary"
         >

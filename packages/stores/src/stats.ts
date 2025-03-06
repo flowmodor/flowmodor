@@ -1,4 +1,4 @@
-import { LogsWithTasks } from '@flowmodor/types';
+import { LogsWithTasks } from '@flowmo/types';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { create } from 'zustand';
 

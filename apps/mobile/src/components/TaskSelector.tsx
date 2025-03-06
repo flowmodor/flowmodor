@@ -1,4 +1,4 @@
-import { convertMarkdownToText } from '@flowmodor/utils/markdown';
+import { convertMarkdownToText } from '@flowmo/utils/markdown';
 import { Pressable as NativePressable, StyleSheet, View } from 'react-native';
 import { AngleRight } from '@/src/components/Icons';
 import { Text } from '@/src/components/Themed';
