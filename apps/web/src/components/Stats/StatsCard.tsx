@@ -111,7 +111,7 @@ export default function StatsCard() {
                           Copied to clipboard! Share it to{' '}
                           <Link
                             target="_blank"
-                            href="https://x.com/intent/tweet?text=Stay in flow with @flowmo%0A(Ctrl%2BV/⌘%2BV to paste your stats image)"
+                            href="https://x.com/intent/tweet?text=Stay in flow with @flowmoio%0A(Ctrl%2BV/⌘%2BV to paste your stats image)"
                             className="text-[#DBBFFF]"
                           >
                             X
